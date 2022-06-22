@@ -1,0 +1,18 @@
+{
+  "template": "https://github.com/kjappelbaum/cookiecutter-snekpack",
+  "commit": "e0fe55062845f481677103047b385a44a72ab7c1",
+  "checkout": null,
+  "context": {
+    "cookiecutter": {
+      "package_name": "gpt3forchem",
+      "package_name_stylized": "gpt3forchem",
+      "short_description": "Fine tune gpt3 for applications in chemistry and materials science ",
+      "author_name": "Kevin M. Jablonka",
+      "author_email": "mail@kjablonka.com",
+      "github_organization_name": "kjappelbaum",
+      "github_repository_name": "gpt3forchem",
+      "_template": "https://github.com/kjappelbaum/cookiecutter-snekpack"
+    }
+  },
+  "directory": null
+}
