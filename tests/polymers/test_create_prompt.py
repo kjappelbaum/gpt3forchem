@@ -7,4 +7,4 @@ def test_create_prompt():
     data = get_data()
     prompts = create_single_property_forward_prompts(data, "deltaGmin")
     assert isinstance(prompts, pd.DataFrame)
-    assert "adsorption energy" in prompts["prompts"][0]
+    assert "adsorption energy" in prompts["prompt"][0]
