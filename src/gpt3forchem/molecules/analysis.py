@@ -7,13 +7,14 @@ import numpy as np
 from bidict import bidict
 
 _BINS = {
-    0: (-51.79097260999911, -19.45557799999913),
-    1: (-19.45557799999913, 12.718944000000853),
-    2: (12.718944000000853, 44.893466000000835),
-    3: (44.893466000000835, 77.06798800000081),
-    4: (77.06798800000081, 109.24251000000078),
+    0: (-4.989399999999997, 0.098),
+    1: (0.098, 1.7063),
+    2: (1.7063, 2.8406000000000025),
+    3: (2.8406000000000025, 4.168000000000004),
+    4: (4.168000000000004, 14.856799999999968),
 }
 
+_ELEMENTS = ["C", "H", "O", "N", "P", "S"]
 atomic_symbols = bidict(
     {
         "H": 1,
@@ -162,7 +163,7 @@ def composition(molecule):
         return dict(comp)
 
 
-def extract_mol_test_from_completion(completion):
+def extract_mol_text_from_completion(completion):
     return completion.split("@")[0].strip()
 
 
@@ -191,7 +192,7 @@ def get_composition_from_string(string, composition):
     return comp
 
 
-def get_distance(prediction, bin, bins):
+def get_distance(prediction, bin, bins=_BINS):
     in_bin = (prediction >= bins[bin][0]) & (prediction < bins[bin][1])
     if in_bin:
         loss = 0
@@ -251,3 +252,32 @@ def composition_mismatch(composition: dict, found: dict):
             "expected_len": np.nan,
             "found_len": np.nan,
         }
+
+
+def get_log_p_from_string(string):
+    logP = re.findall(r"logP of (\d+)", string)
+    return int(logP[0])
+
+
+def analyze_completion(prompt, completion):
+    completion = completion["choices"][0]["text"]
+    smiles = extract_mol_text_from_completion(completion)
+    requested_composition = get_composition_from_string(prompt, _ELEMENTS)
+    requested_logp = get_log_p_from_string(prompt)
+
+    predicted_log_p = get_log_p_from_smiles(smiles)
+    distance = get_distance(predicted_log_p, requested_logp)
+    composition_mismatch = get_composition_mistmatch(smiles, requested_composition)
+
+    res = {
+        "prompt": prompt,
+        "completion": completion,
+        "smiles": smiles,
+        "predicted_log_p": predicted_log_p,
+        "requested_log_p": requested_logp,
+        "requested_composition": requested_composition,
+        "distance": distance,
+    }
+
+    res.update(composition_mismatch)
+    return res

@@ -40,12 +40,17 @@ def create_inverse_prompt_row(row, composition=["C", "H", "O", "N", "P", "S"]):
 
 
 def create_inverse_prompts(
-    df, composition=["C", "H", "O", "N", "P", "S"], completion_len_cutoff=300
+    df,
+    composition=["C", "H", "O", "N", "P", "S"],
+    completion_len_cutoff=300,
+    min_logP=-5,
+    max_logP=15,
 ):
     prompts = []
     for _, row in df.iterrows():
         prompt = create_inverse_prompt_row(row, composition)
         completion = " {}@@@".format(row["smiles"])
         if len(completion) < completion_len_cutoff:
-            prompts.append({"prompt": prompt, "completion": completion})
+            if row["logP"] >= min_logP and row["logP"] <= max_logP:
+                prompts.append({"prompt": prompt, "completion": completion})
     return pd.DataFrame(prompts)
