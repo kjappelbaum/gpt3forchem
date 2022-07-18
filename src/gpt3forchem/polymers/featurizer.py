@@ -89,7 +89,10 @@ class LinearPolymerSmilesFeaturizer:
         if normalized:
             for key, value in cluster_stats.items():
                 if "num" in key:
-                    cluster_stats[key] = value / cluster_stats["total_clusters"]
+                    try:
+                        cluster_stats[key] = value / cluster_stats["total_clusters"]
+                    except ZeroDivisionError:
+                        cluster_stats[key] = 0
 
         return cluster_stats
 

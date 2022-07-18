@@ -1,23 +1,20 @@
+from typing import Iterable, Callable, Dict, List
 from collections import defaultdict
 from strsimpy.levenshtein import Levenshtein
 from strsimpy.normalized_levenshtein import NormalizedLevenshtein
 from strsimpy.longest_common_subsequence import LongestCommonSubsequence
 import numpy as np
+import concurrent.futures
 
 
-def string_distances(training_set, query_string):
+def string_distances(training_set: Iterable[str], query_string: str):
 
     distances = defaultdict(list)
 
     metrics = [
-        (
-            "Levenshtein",
-            Levenshtein(),
-            "NormalizedLevenshtein",
-            NormalizedLevenshtein(),
-            "LongestCommonSubsequence",
-            LongestCommonSubsequence(),
-        )
+        ("Levenshtein", Levenshtein()),
+        ("NormalizedLevenshtein", NormalizedLevenshtein()),
+        ("LongestCommonSubsequence", LongestCommonSubsequence()),
     ]
 
     aggregations = [
@@ -35,6 +32,6 @@ def string_distances(training_set, query_string):
 
     for k, v in distances.items():
         for agg_name, agg_func in aggregations:
-            aggregtated_distances[f"k_{agg_name}"] = agg_func(v)
+            aggregtated_distances[f"{k}_{agg_name}"] = agg_func(v)
 
     return aggregtated_distances
