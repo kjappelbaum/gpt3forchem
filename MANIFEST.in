@@ -1,13 +1,5 @@
-graft src
-graft tests
-prune scripts
-prune notebooks
-
-recursive-include docs/source *.py
-recursive-include docs/source *.rst
-recursive-include docs/source *.png
-
-global-exclude *.py[cod] __pycache__ *.so *.dylib .DS_Store *.gpickle
-
-include README.md LICENSE docs/Makefile
-exclude tox.ini .flake8 .bumpversion.cfg .readthedocs.yml CONTRIBUTING.rst
+include settings.ini
+include LICENSE
+include CONTRIBUTING.md
+include README.md
+recursive-exclude * __pycache__

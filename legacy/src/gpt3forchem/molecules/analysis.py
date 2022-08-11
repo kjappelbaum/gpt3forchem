@@ -1,9 +1,12 @@
 import re
+import this
 from rdkit import Chem
 from rdkit.Chem.Crippen import MolLogP
 from collections import defaultdict
 import numpy as np
-
+from rdkit.Chem import AllChem
+from rdkit import Chem
+from rdkit import DataStructs
 from bidict import bidict
 
 _BINS = {
@@ -164,7 +167,7 @@ def composition(molecule):
 
 
 def extract_mol_text_from_completion(completion):
-    return completion.split("@")[0].strip()
+    return completion.split("@@@")[0].strip()
 
 
 def get_log_p_from_smiles(smiles):
@@ -192,15 +195,29 @@ def get_composition_from_string(string, composition):
     return comp
 
 
-def get_distance(prediction, bin, bins=_BINS):
-    in_bin = (prediction >= bins[bin][0]) & (prediction < bins[bin][1])
+def get_bin(num, bins=_BINS):
+    for i, (lower, upper) in enumerate(bins.values()):
+        if lower <= num < upper:
+            return i
+    return i
+
+
+def get_distance_cont(prediction, bin, bins=_BINS):
+    # first get the bin in which the prediction is
+    this_bin = get_bin(prediction, bins)
+    if bin == this_bin:
+        loss = 0
+    else:
+        loss = np.linalg.norm(bin - this_bin)
+    return loss
+
+
+def get_distance_bin(prediction, bin):
+    in_bin = prediction == bin
     if in_bin:
         loss = 0
     else:
-        # compute the minimum distance to bin
-        left_edge_distance = abs(prediction - bins[bin][0])
-        right_edge_distance = abs(prediction - bins[bin][1])
-        loss = min(left_edge_distance, right_edge_distance)
+        loss = np.abs(prediction - bin)
     return loss
 
 
@@ -259,14 +276,17 @@ def get_log_p_from_string(string):
     return int(logP[0])
 
 
-def analyze_completion(prompt, completion):
+def analyze_completion(prompt, completion, train_fps=None):
     completion = completion["choices"][0]["text"]
     smiles = extract_mol_text_from_completion(completion)
     requested_composition = get_composition_from_string(prompt, _ELEMENTS)
     requested_logp = get_log_p_from_string(prompt)
 
     predicted_log_p = get_log_p_from_smiles(smiles)
-    distance = get_distance(predicted_log_p, requested_logp)
+    try:
+        distance = get_distance(predicted_log_p, requested_logp)
+    except Exception:
+        distance = np.nan
     composition_mismatch = get_composition_mistmatch(smiles, requested_composition)
 
     res = {
@@ -280,4 +300,36 @@ def analyze_completion(prompt, completion):
     }
 
     res.update(composition_mismatch)
+    res.update(get_trainingset_distance(smiles, train_fps))
     return res
+
+
+def get_trainingset_distance(smiles, train_fps):
+    try:
+        scores = DataStructs.BulkDiceSimilarity(
+            AllChem.GetMorganFingerprint(
+                Chem.MolFromSmiles(smiles), 4, useFeatures=True, useCounts=True
+            ),
+            train_fps,
+        )
+    except Exception:
+        scores = [np.nan]
+
+    return {
+        "min_trainingset_distance": np.min(scores),
+        "max_trainingset_distance": np.max(scores),
+        "mean_trainingset_distance": np.mean(scores),
+        "median_trainingset_distance": np.median(scores),
+    }
+
+
+def get_distance(prediction, bin, bins=_BINS):
+    in_bin = (prediction >= bins[bin][0]) & (prediction < bins[bin][1])
+    if in_bin:
+        loss = 0
+    else:
+        # compute the minimum distance to bin
+        left_edge_distance = abs(prediction - bins[bin][0])
+        right_edge_distance = abs(prediction - bins[bin][1])
+        loss = min(left_edge_distance, right_edge_distance)
+    return loss
