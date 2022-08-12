@@ -1,0 +1,549 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - 00_data.ipynb
+      - 01_api_wrappers.ipynb
+      - 03_analysis.ipynb
+      - 04_baselines.ipynb
+              - section: extrapolation
+                contents:
+                  - legacy/experiments/extrapolation/20220718_extrapolation.ipynb
+              - section: mofs
+                contents:
+                  - legacy/experiments/mofs/20220625_fine_tune_forwards_mofs.ipynb
+                  - legacy/experiments/mofs/20220626_plot_results-jvsc-828512e9-967e-4a14-9427-ed84969acc26.ipynb
+                  - legacy/experiments/mofs/20220626_plot_results.ipynb
+                  - legacy/experiments/mofs/20220627_fine_tune_mofs_new.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220625_190632-1rh6jhko/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220625_190632-1rh6jhko/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220625_192212-vuzta71z/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220625_192212-vuzta71z/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220625_233432-18zwkdm2/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220625_233432-18zwkdm2/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_090207-gh22vvgz/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_090207-gh22vvgz/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_114109-3q732a9a/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_114109-3q732a9a/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_122107-1w5y4ck7/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_122107-1w5y4ck7/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_124112-55dhdw2k/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_124112-55dhdw2k/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_124209-1vvmu11o/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_124209-1vvmu11o/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_150119-vyn22vwp/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_150119-vyn22vwp/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_155844-dg6bydmj/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_155844-dg6bydmj/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_163130-yiluncep/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_163130-yiluncep/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_171831-2xrfvp78/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_171831-2xrfvp78/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_203837-1q7kmf97/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_203837-1q7kmf97/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_210852-173olm3a/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_210852-173olm3a/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_215404-3ns3zj4h/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_215404-3ns3zj4h/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_220504-29rc4vos/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_220504-29rc4vos/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_220525-2apcxyx4/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_220525-2apcxyx4/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_223033-3upbhwq4/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220626_223033-3upbhwq4/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_104426-tjt89ipr/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_104426-tjt89ipr/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_112840-2tdw4sjb/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_112840-2tdw4sjb/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_133227-52arrbp4/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_133227-52arrbp4/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_133728-3bpt5vfd/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_133728-3bpt5vfd/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_144326-1ie6z4mt/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_144326-1ie6z4mt/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_154427-34c5sav7/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_154427-34c5sav7/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_161513-3fow7f08/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_161513-3fow7f08/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_171634-3pe4zmpm/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_171634-3pe4zmpm/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_175847-243vdlsy/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220627_175847-243vdlsy/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220628_104504-120i1ibv/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220628_104504-120i1ibv/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220628_113745-14x97ftt/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/mofs/wandb/run-20220628_113745-14x97ftt/tmp/code/_session_history.ipynb
+              - section: molecules
+                contents:
+                  - legacy/experiments/molecules/20220701_molecule_logp_finetune_forward.ipynb
+                  - legacy/experiments/molecules/20220701_plot_smiles_results.ipynb
+                  - legacy/experiments/molecules/20220704_logP_inverse.ipynb
+                  - legacy/experiments/molecules/20220718_analysis_inverse.ipynb
+                  - legacy/experiments/molecules/20220718_inverse_logP.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_140749-21f1pr77/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_140749-21f1pr77/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_140916-1629izag/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_140916-1629izag/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_141021-3cm9lskm/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_141021-3cm9lskm/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_143500-1t5nlqgl/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_143500-1t5nlqgl/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_151854-z4fza2q5/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_151854-z4fza2q5/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_155816-2uvidg2e/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_155816-2uvidg2e/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_161829-fan7r48e/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_161829-fan7r48e/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_164351-3bru5zsk/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_164351-3bru5zsk/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_171121-272ujmiq/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_171121-272ujmiq/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_172924-36gntqwd/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_172924-36gntqwd/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_175611-1kxc6p52/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_175611-1kxc6p52/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_175928-2dypo6js/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_175928-2dypo6js/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_234422-bg8esvwu/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220701_234422-bg8esvwu/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_114051-16ajw9an/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_114051-16ajw9an/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_124734-1ax55w15/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_124734-1ax55w15/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_143137-1npe6jcy/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_143137-1npe6jcy/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_145132-2ltbl0t7/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_145132-2ltbl0t7/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_145533-170jogm0/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_145533-170jogm0/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_150614-2i1tkth6/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_150614-2i1tkth6/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_153015-21bp18vu/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_153015-21bp18vu/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_153441-3m8htstc/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_153441-3m8htstc/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_155715-3ks808b6/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_155715-3ks808b6/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_172642-16gw85jd/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_172642-16gw85jd/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_182137-1r2p1cdc/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_182137-1r2p1cdc/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_182733-359x74e8/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_182733-359x74e8/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_202524-2zlpkn57/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_202524-2zlpkn57/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_222922-2kgzpisf/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220703_222922-2kgzpisf/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220704_065121-3vtqlunq/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/molecules/wandb/run-20220704_065121-3vtqlunq/tmp/code/_session_history.ipynb
+              - section: opv
+                contents:
+                  - legacy/experiments/opv/20220703_opv_finetune_forward.ipynb
+                  - legacy/experiments/opv/20220703_plot_opv_results.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_131726-3ucwkp4s/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_131726-3ucwkp4s/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_144100-3jka7h3r/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_144100-3jka7h3r/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_145553-26d7zs9e/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_145553-26d7zs9e/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_153411-lnkmiiqp/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_153411-lnkmiiqp/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_173322-36o8kti9/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_173322-36o8kti9/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_181916-32e1bv1a/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_181916-32e1bv1a/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_195404-2ehhrzay/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_195404-2ehhrzay/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_222123-1szf4ca5/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220703_222123-1szf4ca5/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_053934-33tzxkbo/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_053934-33tzxkbo/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_085040-1125qe1o/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_085040-1125qe1o/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_101145-2oexyba8/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_101145-2oexyba8/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_103833-23ag6y4p/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_103833-23ag6y4p/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_104544-2qv4vbvo/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_104544-2qv4vbvo/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_114534-2stk5clt/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_114534-2stk5clt/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_121619-1ttgbsha/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_121619-1ttgbsha/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_135746-3gtr113s/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/opv/wandb/run-20220704_135746-3gtr113s/tmp/code/_session_history.ipynb
+              - section: polymers
+                contents:
+                  - legacy/experiments/polymers/20220622_fine_tune_forward_regression.ipynb
+                  - legacy/experiments/polymers/20220623_fine_tune_forward_plots.ipynb
+                  - legacy/experiments/polymers/20220624_inverse_polymer.ipynb
+                  - legacy/experiments/polymers/20220627_delta_g_model.ipynb
+                  - legacy/experiments/polymers/20220627_inverse_polymer_analysis.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_102348-1lbg428w/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_102348-1lbg428w/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_103609-3mpk03m0/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_103609-3mpk03m0/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_113516-1u3oblwg/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_113516-1u3oblwg/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_120602-1fv8zwrm/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_120602-1fv8zwrm/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_182920-1ahu2ptx/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_182920-1ahu2ptx/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_194433-100kmhyk/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_194433-100kmhyk/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_201958-2zmf6u6m/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_201958-2zmf6u6m/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_233338-1vidr3qr/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_233338-1vidr3qr/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_234350-3auqm6gu/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220623_234350-3auqm6gu/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220627_110628-369m44ae/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220627_110628-369m44ae/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220701_131720-146hunta/tmp/code/20220627_delta_g_model.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220701_131813-1q8vxig8/files/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220701_131813-1q8vxig8/tmp/code/20220627_delta_g_model.ipynb
+                                  - legacy/experiments/polymers/wandb/run-20220701_131813-1q8vxig8/tmp/code/_session_history.ipynb
+                              - section: code
+                                contents:
+                                  - legacy/experiments/polymers/wandb/run-20220701_141906-1ortlkio/tmp/code/20220627_delta_g_model.ipynb
+          - section: scratch
+            contents:
+              - legacy/scratch/20220714_prepare_mofdscribe_dataset.ipynb
