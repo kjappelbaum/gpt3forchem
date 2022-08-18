@@ -3,18 +3,27 @@
 # %% auto 0
 __all__ = ['fine_tune', 'query_gpt3', 'extract_prediction']
 
-# %% ../notebooks/01_api_wrappers.ipynb 4
+# %% ../notebooks/01_api_wrappers.ipynb 2
+import subprocess
+
+import openai
+import time
+import re
+
+# %% ../notebooks/01_api_wrappers.ipynb 5
 def fine_tune(train_file, valid_file, model: str = "ada"):
     # run the fine tuning
-    subprocess.run(
+    result = subprocess.run(
         f"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model}",
         shell=True,
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
+    modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
     # sync runs with wandb
     subprocess.run("openai wandb sync -n 1", shell=True)
+    return modelname
 
-
-# %% ../notebooks/01_api_wrappers.ipynb 6
+# %% ../notebooks/01_api_wrappers.ipynb 8
 def query_gpt3(model, df, temperature=0, max_tokens=10):
     completions = []
     for i, row in df.iterrows():
@@ -29,7 +38,7 @@ def query_gpt3(model, df, temperature=0, max_tokens=10):
 
     return completions
 
-# %% ../notebooks/01_api_wrappers.ipynb 7
+# %% ../notebooks/01_api_wrappers.ipynb 9
 def extract_prediction(completion):
     return completion["choices"][0]["text"].split("@")[0].strip()
 

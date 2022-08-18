@@ -1,0 +1,432 @@
+diff --git a/experiments/01_polymer_forward.ipynb b/experiments/01_polymer_forward.ipynb
+index ab8ac01..77ef59e 100644
+--- a/experiments/01_polymer_forward.ipynb
++++ b/experiments/01_polymer_forward.ipynb
+@@ -1,5 +1,140 @@
+ {
+  "cells": [
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "# Forward predictions of polymer adsorption energies\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 1,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "import time\n",
++    "\n",
++    "from sklearn.model_selection import train_test_split\n",
++    "\n",
++    "from gpt3forchem.data import get_polymer_data\n",
++    "from gpt3forchem.input import create_single_property_forward_prompts\n",
++    "from gpt3forchem.api_wrappers import fine_tune"
++   ]
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "Let's run one fine-tuning and inference for sanity check and then do it a coule of times for statistics.\n"
++   ]
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "## Sanity check\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 2,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "df = get_polymer_data()\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 3,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "df_train, df_test = train_test_split(df, train_size=200, random_state=42)\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 4,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "train_prompts = create_single_property_forward_prompts(\n",
++    "    df_train, \"deltaGmin_cat\", {\"deltaGmin_cat\": \"adsorption energy\"}\n",
++    ")\n",
++    "\n",
++    "test_prompts = create_single_property_forward_prompts(\n",
++    "    df_test, \"deltaGmin_cat\", {\"deltaGmin_cat\": \"adsorption energy\"}\n",
++    ")\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 5,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "train_size  = len(train_prompts)\n",
++    "test_size = len(test_prompts)\n",
++    "\n",
++    "filename_base = time.strftime(\"%Y-%m-%d-%H-%M-%S\", time.localtime())\n",
++    "train_filename = f\"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl\"\n",
++    "valid_filename = f\"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl\"\n",
++    "\n",
++    "train_prompts.to_json(train_filename, orient=\"records\", lines=True)\n",
++    "test_prompts.to_json(valid_filename, orient=\"records\", lines=True)\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 6,
++   "metadata": {},
++   "outputs": [
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "Upload progress: 100%|██████████| 26.7k/26.7k [00:00<00:00, 12.4Mit/s]\n"
++     ]
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Uploaded file from run_files/2022-08-17-20-19-20_train_prompts_polymers_200.jsonl: file-VjU4k0u827LCx1qCsKoeFjT4\n"
++     ]
++    },
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "Upload progress: 100%|██████████| 392k/392k [00:00<00:00, 677Mit/s]\n"
++     ]
++    },
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "Uploaded file from run_files/2022-08-17-20-19-20_valid_prompts_polymers_2925.jsonl: file-TvN3jRWpiVpfkPvCFvJeKiz9\n",
++      "Created fine-tune: ft-4ceg9L3UY3Tv8U7giF5uy4im\n",
++      "Streaming events until fine-tuning is complete...\n",
++      "\n",
++      "(Ctrl-C will interrupt the stream, but not cancel the fine-tune)\n",
++      "[2022-08-17 20:19:34] Created fine-tune: ft-4ceg9L3UY3Tv8U7giF5uy4im\n",
++      "[2022-08-17 20:19:41] Fine-tune costs $0.02\n",
++      "[2022-08-17 20:19:42] Fine-tune enqueued. Queue number: 0\n",
++      "[2022-08-17 20:19:43] Fine-tune started\n",
++      "[2022-08-17 20:20:27] Completed epoch 1/4\n",
++      "[2022-08-17 20:20:55] Completed epoch 2/4\n",
++      "[2022-08-17 20:21:23] Completed epoch 3/4\n"
++     ]
++    }
++   ],
++   "source": [
++    "modelname = fine_tune(train_filename, valid_filename)"
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+@@ -10,18 +145,26 @@
+  ],
+  "metadata": {
+   "kernelspec": {
+-   "display_name": "Python 3.9.13 64-bit",
++   "display_name": "Python 3.8.13 ('gpt3')",
+    "language": "python",
+    "name": "python3"
+   },
+   "language_info": {
++   "codemirror_mode": {
++    "name": "ipython",
++    "version": 3
++   },
++   "file_extension": ".py",
++   "mimetype": "text/x-python",
+    "name": "python",
+-   "version": "3.9.13"
++   "nbconvert_exporter": "python",
++   "pygments_lexer": "ipython3",
++   "version": "3.9.12"
+   },
+   "orig_nbformat": 4,
+   "vscode": {
+    "interpreter": {
+-    "hash": "b0fa6594d8f4cbf19f97940f81e996739fb7646882a419484c72d19e05852a7e"
++    "hash": "9a4fa60962de90e73b5da8d67a44b01d2de04630d82b94b8db1f727a73d31e61"
+    }
+   }
+  },
+diff --git a/gpt3forchem/_modidx.py b/gpt3forchem/_modidx.py
+index ff8e67c..fb48397 100644
+--- a/gpt3forchem/_modidx.py
++++ b/gpt3forchem/_modidx.py
+@@ -55,6 +55,7 @@ d = { 'settings': { 'allowed_cell_metadata_keys': '',
+                                    'gpt3forchem.input.POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT': 'https://kjappelbaum.github.io/gpt3forchem/input.html#polymer_one_property_inverse_completion_template_cat',
+                                    'gpt3forchem.input.POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT': 'https://kjappelbaum.github.io/gpt3forchem/input.html#polymer_one_property_inverse_prompt_template_cat',
+                                    'gpt3forchem.input.POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION': 'https://kjappelbaum.github.io/gpt3forchem/input.html#polymer_one_property_inverse_prompt_template_cat_w_composition',
++                                   'gpt3forchem.input.create_single_property_forward_prompts': 'https://kjappelbaum.github.io/gpt3forchem/input.html#create_single_property_forward_prompts',
+                                    'gpt3forchem.input.decode_categorical_value': 'https://kjappelbaum.github.io/gpt3forchem/input.html#decode_categorical_value',
+                                    'gpt3forchem.input.encode_categorical_value': 'https://kjappelbaum.github.io/gpt3forchem/input.html#encode_categorical_value',
+                                    'gpt3forchem.input.get_polymer_composition_dict': 'https://kjappelbaum.github.io/gpt3forchem/input.html#get_polymer_composition_dict'},
+diff --git a/gpt3forchem/api_wrappers.py b/gpt3forchem/api_wrappers.py
+index 912a0eb..f1ec9ce 100644
+--- a/gpt3forchem/api_wrappers.py
++++ b/gpt3forchem/api_wrappers.py
+@@ -3,7 +3,13 @@
+ # %% auto 0
+ __all__ = ['fine_tune', 'query_gpt3', 'extract_prediction']
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 4
++# %% ../notebooks/01_api_wrappers.ipynb 2
++import subprocess
++
++import openai
++import time
++
++# %% ../notebooks/01_api_wrappers.ipynb 5
+ def fine_tune(train_file, valid_file, model: str = "ada"):
+     # run the fine tuning
+     subprocess.run(
+@@ -14,7 +20,7 @@ def fine_tune(train_file, valid_file, model: str = "ada"):
+     subprocess.run("openai wandb sync -n 1", shell=True)
+ 
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 6
++# %% ../notebooks/01_api_wrappers.ipynb 7
+ def query_gpt3(model, df, temperature=0, max_tokens=10):
+     completions = []
+     for i, row in df.iterrows():
+@@ -29,7 +35,7 @@ def query_gpt3(model, df, temperature=0, max_tokens=10):
+ 
+     return completions
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 7
++# %% ../notebooks/01_api_wrappers.ipynb 8
+ def extract_prediction(completion):
+     return completion["choices"][0]["text"].split("@")[0].strip()
+ 
+diff --git a/gpt3forchem/input.py b/gpt3forchem/input.py
+index 02c8b37..f075dc7 100644
+--- a/gpt3forchem/input.py
++++ b/gpt3forchem/input.py
+@@ -4,9 +4,12 @@
+ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE',
+            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT', 'POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT',
+            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION', 'encode_categorical_value',
+-           'decode_categorical_value', 'get_polymer_composition_dict']
++           'decode_categorical_value', 'create_single_property_forward_prompts', 'get_polymer_composition_dict']
+ 
+ # %% ../notebooks/03_input.ipynb 2
++import pandas as pd
++from collections import Counter
++
+ _DEFAULT_ENCODING_DICT = {
+     "very small": 0,
+     "small": 1,
+@@ -18,14 +21,14 @@ _DEFAULT_ENCODING_DICT = {
+ _DEFAULT_DECODING_DICT = {v: k for k, v in _DEFAULT_ENCODING_DICT.items()}
+ 
+ 
+-def encode_categorical_value(value, encoding_dict):
++def encode_categorical_value(value, encoding_dict=_DEFAULT_DECODING_DICT):
+     try:
+         return encoding_dict[value]
+     except KeyError:
+         raise ValueError("Unknown value: %s" % value)
+ 
+ 
+-def decode_categorical_value(value, decoding_dict):
++def decode_categorical_value(value, decoding_dict=_DEFAULT_DECODING_DICT):
+     try:
+         return decoding_dict[value]
+     except KeyError:
+@@ -37,7 +40,43 @@ ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE = "what is the {property} of {text}###"
+ ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE = " {value}@@@"
+ 
+ 
+-# %% ../notebooks/03_input.ipynb 8
++# %% ../notebooks/03_input.ipynb 4
++def create_single_property_forward_prompts(
++    df, # input data
++    target, # target property
++    target_rename_dict, # dict to rename target property from the column name in df to the target property name in the prompt
++    encode_value=True, # whether to encode the value of the target property categorically
++    encoding_dict=_DEFAULT_ENCODING_DICT, # mapping from numerical categories to string
++    prompt_prefix="", # prefix to add to the prompt, e.g. "I am an expert chemist"
++):
++    prompts = []
++
++    target_name = target
++    for key, value in target_rename_dict.items():
++        target_name = target_name.replace(key, value)
++
++    for _, row in df.iterrows():
++        if encode_value:
++            value = encode_categorical_value(row[target], encoding_dict=encoding_dict)
++        else:
++            value = row[target]
++
++        prompts.append(
++            {
++                "prompt": prompt_prefix
++                + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
++                    property=target_name, text=row["string"]
++                ),
++                "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
++                    value=value
++                ),
++            }
++        )
++
++    return pd.DataFrame(prompts)
++
++
++# %% ../notebooks/03_input.ipynb 9
+ POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT = (
+     "what is a polymer with {class_name} {property}?###"
+ )
+@@ -46,7 +85,7 @@ POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT = " {text}@@@"
+ POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION = "what is a polymer with {class_name} {property} and {num_A} A, {num_B} B, {num_W} W, and {num_R} R?###"
+ 
+ 
+-# %% ../notebooks/03_input.ipynb 9
++# %% ../notebooks/03_input.ipynb 10
+ def get_polymer_composition_dict(row):
+     composition = Counter(row["string"].split("-"))
+     comp_dict = {}
+diff --git a/notebooks/01_api_wrappers.ipynb b/notebooks/01_api_wrappers.ipynb
+index 0be2429..e4a0dc9 100644
+--- a/notebooks/01_api_wrappers.ipynb
++++ b/notebooks/01_api_wrappers.ipynb
+@@ -16,11 +16,22 @@
+    "outputs": [],
+    "source": [
+     "# |hide\n",
+-    "from nbdev.showdoc import *\n",
++    "from nbdev.showdoc import *"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 3,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "# |export\n",
++    "\n",
+     "import subprocess\n",
+     "\n",
+     "import openai\n",
+-    "import time\n"
++    "import time\n",
++    "import re"
+    ]
+   },
+   {
+@@ -48,12 +59,24 @@
+     "# |export\n",
+     "def fine_tune(train_file, valid_file, model: str = \"ada\"):\n",
+     "    # run the fine tuning\n",
+-    "    subprocess.run(\n",
++    "    result = subprocess.run(\n",
+     "        f\"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model}\",\n",
+     "        shell=True,\n",
++    "        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True\n",
+     "    )\n",
++    "    modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result)[0]\n",
+     "    # sync runs with wandb\n",
+-    "    subprocess.run(\"openai wandb sync -n 1\", shell=True)\n"
++    "    subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    return modelname"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 4,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "_stdout_fragment = \"openai api completions.create -m ada:ft-epfl-2022-06-23-09-10-58 -p <YOUR_PROMPT>\""
+    ]
+   },
+   {
+diff --git a/notebooks/03_input.ipynb b/notebooks/03_input.ipynb
+index d5a5a0d..9bc4122 100644
+--- a/notebooks/03_input.ipynb
++++ b/notebooks/03_input.ipynb
+@@ -6,9 +6,7 @@
+    "metadata": {},
+    "outputs": [],
+    "source": [
+-    "# | default_exp input\n",
+-    "import pandas as pd\n",
+-    "from collections import Counter\n"
++    "# | default_exp input"
+    ]
+   },
+   {
+@@ -20,11 +18,14 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 8,
++   "execution_count": 21,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+     "# | export\n",
++    "import pandas as pd\n",
++    "from collections import Counter\n",
++    "\n",
+     "_DEFAULT_ENCODING_DICT = {\n",
+     "    \"very small\": 0,\n",
+     "    \"small\": 1,\n",
+@@ -67,6 +68,7 @@
+    "metadata": {},
+    "outputs": [],
+    "source": [
++    "# | export\n",
+     "def create_single_property_forward_prompts(\n",
+     "    df, # input data\n",
+     "    target, # target property\n",
+diff --git a/notebooks/index.ipynb b/notebooks/index.ipynb
+index 7a85238..a7c559c 100644
+--- a/notebooks/index.ipynb
++++ b/notebooks/index.ipynb
+@@ -39,8 +39,18 @@
+    "cell_type": "markdown",
+    "metadata": {},
+    "source": [
+-    "## How to use"
++    "## How to use\n",
++    "\n",
++    "\n",
++    "* the `legacy` directory contains code from initial exploration. The relevant parts have been migrated into notebooks. \n",
++    "\n",
++    "* the `experiments` directory contain code for the actual fine-tuning experiments"
+    ]
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": []
+   }
+  ],
+  "metadata": {
