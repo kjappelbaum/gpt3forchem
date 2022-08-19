@@ -1,0 +1,393 @@
+diff --git a/experiments/01_polymer_forward.ipynb b/experiments/01_polymer_forward.ipynb
+index 6e9a923..dc7bf3e 100644
+--- a/experiments/01_polymer_forward.ipynb
++++ b/experiments/01_polymer_forward.ipynb
+@@ -9,7 +9,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 23,
++   "execution_count": 1,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -40,7 +40,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 26,
++   "execution_count": 2,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -49,7 +49,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 27,
++   "execution_count": 3,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -58,7 +58,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 28,
++   "execution_count": 4,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -73,7 +73,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 29,
++   "execution_count": 5,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -90,67 +90,64 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 30,
++   "execution_count": 6,
+    "metadata": {},
+-   "outputs": [
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "wandb: Currently logged in as: kjappelbaum. Use `wandb login --relogin` to force relogin\n",
+-      "wandb: Tracking run with wandb version 0.13.1\n",
+-      "wandb: Run data is saved locally in /Users/kevinmaikjablonka/git/kjappelbaum/gpt3forchem/experiments/wandb/run-20220817_204432-ft-9PrAvlxyrCPMzgOBrXZI5Clc\n",
+-      "wandb: Run `wandb offline` to turn off syncing.\n",
+-      "wandb: Syncing run ft-9PrAvlxyrCPMzgOBrXZI5Clc\n",
+-      "wandb: ⭐️ View project at https://wandb.ai/kjappelbaum/GPT-3\n",
+-      "wandb: 🚀 View run at https://wandb.ai/kjappelbaum/GPT-3/runs/ft-9PrAvlxyrCPMzgOBrXZI5Clc\n",
+-      "wandb: Waiting for W&B process to finish... (success).\n",
+-      "wandb:                                                                                \n",
+-      "wandb: \n",
+-      "wandb: Run history:\n",
+-      "wandb:             elapsed_examples ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███\n",
+-      "wandb:               elapsed_tokens ▁▁▁▁▂▂▂▂▂▃▃▃▃▃▃▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███\n",
+-      "wandb:                training_loss █▅▄▅▄▃▄▃▃▄▃▃▃▃▃▅▃▃▂▃▃▃▃▂▃▂▁▁▁▃▂▂▂▁▂▃▁▁▂▁\n",
+-      "wandb:   training_sequence_accuracy █▁▁▁▁█▁▁▁▁▁█▁██▁▁▁█▁▁█▁█▁████▁█████▁██▁█\n",
+-      "wandb:      training_token_accuracy █▁▁▁▁█▁▁▁▁▁█▁██▁▁▁█▁▁█▁█▁████▁█████▁██▁█\n",
+-      "wandb:              validation_loss █▂▁▂▂▁▁▁▂▁▁▁▁▁▂▁▁▁▁▂▂▁▁▁▂▁▁▁▂▁▁▁▁▁▁▂▁▁▁▁\n",
+-      "wandb: validation_sequence_accuracy ▁▁▁▁▁█▁█▁▁▁██▁▁▁▁▁█▁▁▁██▁██▁▁██▁███▁█▁▁█\n",
+-      "wandb:    validation_token_accuracy ▁▆▆▆▆█▆█▆▆▆██▆▆▆▆▆█▆▆▆██▆██▆▆██▆███▆█▆▆█\n",
+-      "wandb: \n",
+-      "wandb: Run summary:\n",
+-      "wandb:             elapsed_examples 802.0\n",
+-      "wandb:               elapsed_tokens 62858.0\n",
+-      "wandb:             fine_tuned_model ada:ft-lsmoepfl-2022...\n",
+-      "wandb:                       status succeeded\n",
+-      "wandb:                training_loss 0.06899\n",
+-      "wandb:   training_sequence_accuracy 1.0\n",
+-      "wandb:      training_token_accuracy 1.0\n",
+-      "wandb:              validation_loss 0.06232\n",
+-      "wandb: validation_sequence_accuracy 1.0\n",
+-      "wandb:    validation_token_accuracy 1.0\n",
+-      "wandb: \n",
+-      "wandb: Synced ft-9PrAvlxyrCPMzgOBrXZI5Clc: https://wandb.ai/kjappelbaum/GPT-3/runs/ft-9PrAvlxyrCPMzgOBrXZI5Clc\n",
+-      "wandb: Synced 6 W&B file(s), 0 media file(s), 5 artifact file(s) and 0 other file(s)\n",
+-      "wandb: Find logs at: ./wandb/run-20220817_204432-ft-9PrAvlxyrCPMzgOBrXZI5Clc/logs\n"
+-     ]
+-    },
+-    {
+-     "name": "stdout",
+-     "output_type": "stream",
+-     "text": [
+-      "🎉 wandb sync completed successfully\n"
+-     ]
+-    }
+-   ],
++   "outputs": [],
+    "source": [
+     "modelname = fine_tune(train_filename, valid_filename)"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 32,
++   "execution_count": null,
+    "metadata": {},
+-   "outputs": [],
++   "outputs": [
++    {
++     "ename": "APIConnectionError",
++     "evalue": "Error communicating with OpenAI",
++     "output_type": "error",
++     "traceback": [
++      "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
++      "\u001b[0;31mtimeout\u001b[0m                                   Traceback (most recent call last)",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/urllib3/connectionpool.py:449\u001b[0m, in \u001b[0;36mHTTPConnectionPool._make_request\u001b[0;34m(self, conn, method, url, timeout, chunked, **httplib_request_kw)\u001b[0m\n\u001b[1;32m    445\u001b[0m         \u001b[39mexcept\u001b[39;00m \u001b[39mBaseException\u001b[39;00m \u001b[39mas\u001b[39;00m e:\n\u001b[1;32m    446\u001b[0m             \u001b[39m# Remove the TypeError from the exception chain in\u001b[39;00m\n\u001b[1;32m    447\u001b[0m             \u001b[39m# Python 3 (including for exceptions like SystemExit).\u001b[39;00m\n\u001b[1;32m    448\u001b[0m             \u001b[39m# Otherwise it looks like a bug in the code.\u001b[39;00m\n\u001b[0;32m--> 449\u001b[0m             six\u001b[39m.\u001b[39;49mraise_from(e, \u001b[39mNone\u001b[39;49;00m)\n\u001b[1;32m    450\u001b[0m \u001b[39mexcept\u001b[39;00m (SocketTimeout, BaseSSLError, SocketError) \u001b[39mas\u001b[39;00m e:\n",
++      "File \u001b[0;32m<string>:3\u001b[0m, in \u001b[0;36mraise_from\u001b[0;34m(value, from_value)\u001b[0m\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/urllib3/connectionpool.py:444\u001b[0m, in \u001b[0;36mHTTPConnectionPool._make_request\u001b[0;34m(self, conn, method, url, timeout, chunked, **httplib_request_kw)\u001b[0m\n\u001b[1;32m    443\u001b[0m \u001b[39mtry\u001b[39;00m:\n\u001b[0;32m--> 444\u001b[0m     httplib_response \u001b[39m=\u001b[39m conn\u001b[39m.\u001b[39;49mgetresponse()\n\u001b[1;32m    445\u001b[0m \u001b[39mexcept\u001b[39;00m \u001b[39mBaseException\u001b[39;00m \u001b[39mas\u001b[39;00m e:\n\u001b[1;32m    446\u001b[0m     \u001b[39m# Remove the TypeError from the exception chain in\u001b[39;00m\n\u001b[1;32m    447\u001b[0m     \u001b[39m# Python 3 (including for exceptions like SystemExit).\u001b[39;00m\n\u001b[1;32m    448\u001b[0m     \u001b[39m# Otherwise it looks like a bug in the code.\u001b[39;00m\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/http/client.py:1377\u001b[0m, in \u001b[0;36mHTTPConnection.getresponse\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m   1376\u001b[0m \u001b[39mtry\u001b[39;00m:\n\u001b[0;32m-> 1377\u001b[0m     response\u001b[39m.\u001b[39;49mbegin()\n\u001b[1;32m   1378\u001b[0m \u001b[39mexcept\u001b[39;00m \u001b[39mConnectionError\u001b[39;00m:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/http/client.py:320\u001b[0m, in \u001b[0;36mHTTPResponse.begin\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m    319\u001b[0m \u001b[39mwhile\u001b[39;00m \u001b[39mTrue\u001b[39;00m:\n\u001b[0;32m--> 320\u001b[0m     version, status, reason \u001b[39m=\u001b[39m \u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49m_read_status()\n\u001b[1;32m    321\u001b[0m     \u001b[39mif\u001b[39;00m status \u001b[39m!=\u001b[39m CONTINUE:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/http/client.py:281\u001b[0m, in \u001b[0;36mHTTPResponse._read_status\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m    280\u001b[0m \u001b[39mdef\u001b[39;00m \u001b[39m_read_status\u001b[39m(\u001b[39mself\u001b[39m):\n\u001b[0;32m--> 281\u001b[0m     line \u001b[39m=\u001b[39m \u001b[39mstr\u001b[39m(\u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49mfp\u001b[39m.\u001b[39;49mreadline(_MAXLINE \u001b[39m+\u001b[39;49m \u001b[39m1\u001b[39;49m), \u001b[39m\"\u001b[39m\u001b[39miso-8859-1\u001b[39m\u001b[39m\"\u001b[39m)\n\u001b[1;32m    282\u001b[0m     \u001b[39mif\u001b[39;00m \u001b[39mlen\u001b[39m(line) \u001b[39m>\u001b[39m _MAXLINE:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/socket.py:704\u001b[0m, in \u001b[0;36mSocketIO.readinto\u001b[0;34m(self, b)\u001b[0m\n\u001b[1;32m    703\u001b[0m \u001b[39mtry\u001b[39;00m:\n\u001b[0;32m--> 704\u001b[0m     \u001b[39mreturn\u001b[39;00m \u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49m_sock\u001b[39m.\u001b[39;49mrecv_into(b)\n\u001b[1;32m    705\u001b[0m \u001b[39mexcept\u001b[39;00m timeout:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/ssl.py:1241\u001b[0m, in \u001b[0;36mSSLSocket.recv_into\u001b[0;34m(self, buffer, nbytes, flags)\u001b[0m\n\u001b[1;32m   1238\u001b[0m         \u001b[39mraise\u001b[39;00m \u001b[39mValueError\u001b[39;00m(\n\u001b[1;32m   1239\u001b[0m           \u001b[39m\"\u001b[39m\u001b[39mnon-zero flags not allowed in calls to recv_into() on \u001b[39m\u001b[39m%s\u001b[39;00m\u001b[39m\"\u001b[39m \u001b[39m%\u001b[39m\n\u001b[1;32m   1240\u001b[0m           \u001b[39mself\u001b[39m\u001b[39m.\u001b[39m\u001b[39m__class__\u001b[39m)\n\u001b[0;32m-> 1241\u001b[0m     \u001b[39mreturn\u001b[39;00m \u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49mread(nbytes, buffer)\n\u001b[1;32m   1242\u001b[0m \u001b[39melse\u001b[39;00m:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/ssl.py:1099\u001b[0m, in \u001b[0;36mSSLSocket.read\u001b[0;34m(self, len, buffer)\u001b[0m\n\u001b[1;32m   1098\u001b[0m \u001b[39mif\u001b[39;00m buffer \u001b[39mis\u001b[39;00m \u001b[39mnot\u001b[39;00m \u001b[39mNone\u001b[39;00m:\n\u001b[0;32m-> 1099\u001b[0m     \u001b[39mreturn\u001b[39;00m \u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49m_sslobj\u001b[39m.\u001b[39;49mread(\u001b[39mlen\u001b[39;49m, buffer)\n\u001b[1;32m   1100\u001b[0m \u001b[39melse\u001b[39;00m:\n",
++      "\u001b[0;31mtimeout\u001b[0m: The read operation timed out",
++      "\nDuring handling of the above exception, another exception occurred:\n",
++      "\u001b[0;31mReadTimeoutError\u001b[0m                          Traceback (most recent call last)",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/requests/adapters.py:489\u001b[0m, in \u001b[0;36mHTTPAdapter.send\u001b[0;34m(self, request, stream, timeout, verify, cert, proxies)\u001b[0m\n\u001b[1;32m    488\u001b[0m \u001b[39mif\u001b[39;00m \u001b[39mnot\u001b[39;00m chunked:\n\u001b[0;32m--> 489\u001b[0m     resp \u001b[39m=\u001b[39m conn\u001b[39m.\u001b[39;49murlopen(\n\u001b[1;32m    490\u001b[0m         method\u001b[39m=\u001b[39;49mrequest\u001b[39m.\u001b[39;49mmethod,\n\u001b[1;32m    491\u001b[0m         url\u001b[39m=\u001b[39;49murl,\n\u001b[1;32m    492\u001b[0m         body\u001b[39m=\u001b[39;49mrequest\u001b[39m.\u001b[39;49mbody,\n\u001b[1;32m    493\u001b[0m         headers\u001b[39m=\u001b[39;49mrequest\u001b[39m.\u001b[39;49mheaders,\n\u001b[1;32m    494\u001b[0m         redirect\u001b[39m=\u001b[39;49m\u001b[39mFalse\u001b[39;49;00m,\n\u001b[1;32m    495\u001b[0m         assert_same_host\u001b[39m=\u001b[39;49m\u001b[39mFalse\u001b[39;49;00m,\n\u001b[1;32m    496\u001b[0m         preload_content\u001b[39m=\u001b[39;49m\u001b[39mFalse\u001b[39;49;00m,\n\u001b[1;32m    497\u001b[0m         decode_content\u001b[39m=\u001b[39;49m\u001b[39mFalse\u001b[39;49;00m,\n\u001b[1;32m    498\u001b[0m         retries\u001b[39m=\u001b[39;49m\u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49mmax_retries,\n\u001b[1;32m    499\u001b[0m         timeout\u001b[39m=\u001b[39;49mtimeout,\n\u001b[1;32m    500\u001b[0m     )\n\u001b[1;32m    502\u001b[0m \u001b[39m# Send the request.\u001b[39;00m\n\u001b[1;32m    503\u001b[0m \u001b[39melse\u001b[39;00m:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/urllib3/connectionpool.py:787\u001b[0m, in \u001b[0;36mHTTPConnectionPool.urlopen\u001b[0;34m(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)\u001b[0m\n\u001b[1;32m    785\u001b[0m     e \u001b[39m=\u001b[39m ProtocolError(\u001b[39m\"\u001b[39m\u001b[39mConnection aborted.\u001b[39m\u001b[39m\"\u001b[39m, e)\n\u001b[0;32m--> 787\u001b[0m retries \u001b[39m=\u001b[39m retries\u001b[39m.\u001b[39;49mincrement(\n\u001b[1;32m    788\u001b[0m     method, url, error\u001b[39m=\u001b[39;49me, _pool\u001b[39m=\u001b[39;49m\u001b[39mself\u001b[39;49m, _stacktrace\u001b[39m=\u001b[39;49msys\u001b[39m.\u001b[39;49mexc_info()[\u001b[39m2\u001b[39;49m]\n\u001b[1;32m    789\u001b[0m )\n\u001b[1;32m    790\u001b[0m retries\u001b[39m.\u001b[39msleep()\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/urllib3/util/retry.py:550\u001b[0m, in \u001b[0;36mRetry.increment\u001b[0;34m(self, method, url, response, error, _pool, _stacktrace)\u001b[0m\n\u001b[1;32m    549\u001b[0m \u001b[39mif\u001b[39;00m read \u001b[39mis\u001b[39;00m \u001b[39mFalse\u001b[39;00m \u001b[39mor\u001b[39;00m \u001b[39mnot\u001b[39;00m \u001b[39mself\u001b[39m\u001b[39m.\u001b[39m_is_method_retryable(method):\n\u001b[0;32m--> 550\u001b[0m     \u001b[39mraise\u001b[39;00m six\u001b[39m.\u001b[39;49mreraise(\u001b[39mtype\u001b[39;49m(error), error, _stacktrace)\n\u001b[1;32m    551\u001b[0m \u001b[39melif\u001b[39;00m read \u001b[39mis\u001b[39;00m \u001b[39mnot\u001b[39;00m \u001b[39mNone\u001b[39;00m:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/urllib3/packages/six.py:770\u001b[0m, in \u001b[0;36mreraise\u001b[0;34m(tp, value, tb)\u001b[0m\n\u001b[1;32m    769\u001b[0m         \u001b[39mraise\u001b[39;00m value\u001b[39m.\u001b[39mwith_traceback(tb)\n\u001b[0;32m--> 770\u001b[0m     \u001b[39mraise\u001b[39;00m value\n\u001b[1;32m    771\u001b[0m \u001b[39mfinally\u001b[39;00m:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/urllib3/connectionpool.py:703\u001b[0m, in \u001b[0;36mHTTPConnectionPool.urlopen\u001b[0;34m(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)\u001b[0m\n\u001b[1;32m    702\u001b[0m \u001b[39m# Make the request on the httplib connection object.\u001b[39;00m\n\u001b[0;32m--> 703\u001b[0m httplib_response \u001b[39m=\u001b[39m \u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49m_make_request(\n\u001b[1;32m    704\u001b[0m     conn,\n\u001b[1;32m    705\u001b[0m     method,\n\u001b[1;32m    706\u001b[0m     url,\n\u001b[1;32m    707\u001b[0m     timeout\u001b[39m=\u001b[39;49mtimeout_obj,\n\u001b[1;32m    708\u001b[0m     body\u001b[39m=\u001b[39;49mbody,\n\u001b[1;32m    709\u001b[0m     headers\u001b[39m=\u001b[39;49mheaders,\n\u001b[1;32m    710\u001b[0m     chunked\u001b[39m=\u001b[39;49mchunked,\n\u001b[1;32m    711\u001b[0m )\n\u001b[1;32m    713\u001b[0m \u001b[39m# If we're going to release the connection in ``finally:``, then\u001b[39;00m\n\u001b[1;32m    714\u001b[0m \u001b[39m# the response doesn't need to know about the connection. Otherwise\u001b[39;00m\n\u001b[1;32m    715\u001b[0m \u001b[39m# it will also try to release it and we'll have a double-release\u001b[39;00m\n\u001b[1;32m    716\u001b[0m \u001b[39m# mess.\u001b[39;00m\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/urllib3/connectionpool.py:451\u001b[0m, in \u001b[0;36mHTTPConnectionPool._make_request\u001b[0;34m(self, conn, method, url, timeout, chunked, **httplib_request_kw)\u001b[0m\n\u001b[1;32m    450\u001b[0m \u001b[39mexcept\u001b[39;00m (SocketTimeout, BaseSSLError, SocketError) \u001b[39mas\u001b[39;00m e:\n\u001b[0;32m--> 451\u001b[0m     \u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49m_raise_timeout(err\u001b[39m=\u001b[39;49me, url\u001b[39m=\u001b[39;49murl, timeout_value\u001b[39m=\u001b[39;49mread_timeout)\n\u001b[1;32m    452\u001b[0m     \u001b[39mraise\u001b[39;00m\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/urllib3/connectionpool.py:340\u001b[0m, in \u001b[0;36mHTTPConnectionPool._raise_timeout\u001b[0;34m(self, err, url, timeout_value)\u001b[0m\n\u001b[1;32m    339\u001b[0m \u001b[39mif\u001b[39;00m \u001b[39misinstance\u001b[39m(err, SocketTimeout):\n\u001b[0;32m--> 340\u001b[0m     \u001b[39mraise\u001b[39;00m ReadTimeoutError(\n\u001b[1;32m    341\u001b[0m         \u001b[39mself\u001b[39m, url, \u001b[39m\"\u001b[39m\u001b[39mRead timed out. (read timeout=\u001b[39m\u001b[39m%s\u001b[39;00m\u001b[39m)\u001b[39m\u001b[39m\"\u001b[39m \u001b[39m%\u001b[39m timeout_value\n\u001b[1;32m    342\u001b[0m     )\n\u001b[1;32m    344\u001b[0m \u001b[39m# See the above comment about EAGAIN in Python 3. In Python 2 we have\u001b[39;00m\n\u001b[1;32m    345\u001b[0m \u001b[39m# to specifically catch it and throw the timeout error\u001b[39;00m\n",
++      "\u001b[0;31mReadTimeoutError\u001b[0m: HTTPSConnectionPool(host='api.openai.com', port=443): Read timed out. (read timeout=600)",
++      "\nDuring handling of the above exception, another exception occurred:\n",
++      "\u001b[0;31mReadTimeout\u001b[0m                               Traceback (most recent call last)",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/openai/api_requestor.py:291\u001b[0m, in \u001b[0;36mAPIRequestor.request_raw\u001b[0;34m(self, method, url, params, supplied_headers, files, stream, request_id)\u001b[0m\n\u001b[1;32m    290\u001b[0m \u001b[39mtry\u001b[39;00m:\n\u001b[0;32m--> 291\u001b[0m     result \u001b[39m=\u001b[39m _thread_context\u001b[39m.\u001b[39;49msession\u001b[39m.\u001b[39;49mrequest(\n\u001b[1;32m    292\u001b[0m         method,\n\u001b[1;32m    293\u001b[0m         abs_url,\n\u001b[1;32m    294\u001b[0m         headers\u001b[39m=\u001b[39;49mheaders,\n\u001b[1;32m    295\u001b[0m         data\u001b[39m=\u001b[39;49mdata,\n\u001b[1;32m    296\u001b[0m         files\u001b[39m=\u001b[39;49mfiles,\n\u001b[1;32m    297\u001b[0m         stream\u001b[39m=\u001b[39;49mstream,\n\u001b[1;32m    298\u001b[0m         timeout\u001b[39m=\u001b[39;49mTIMEOUT_SECS,\n\u001b[1;32m    299\u001b[0m     )\n\u001b[1;32m    300\u001b[0m \u001b[39mexcept\u001b[39;00m requests\u001b[39m.\u001b[39mexceptions\u001b[39m.\u001b[39mRequestException \u001b[39mas\u001b[39;00m e:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/requests/sessions.py:587\u001b[0m, in \u001b[0;36mSession.request\u001b[0;34m(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)\u001b[0m\n\u001b[1;32m    586\u001b[0m send_kwargs\u001b[39m.\u001b[39mupdate(settings)\n\u001b[0;32m--> 587\u001b[0m resp \u001b[39m=\u001b[39m \u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49msend(prep, \u001b[39m*\u001b[39;49m\u001b[39m*\u001b[39;49msend_kwargs)\n\u001b[1;32m    589\u001b[0m \u001b[39mreturn\u001b[39;00m resp\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/requests/sessions.py:701\u001b[0m, in \u001b[0;36mSession.send\u001b[0;34m(self, request, **kwargs)\u001b[0m\n\u001b[1;32m    700\u001b[0m \u001b[39m# Send the request\u001b[39;00m\n\u001b[0;32m--> 701\u001b[0m r \u001b[39m=\u001b[39m adapter\u001b[39m.\u001b[39;49msend(request, \u001b[39m*\u001b[39;49m\u001b[39m*\u001b[39;49mkwargs)\n\u001b[1;32m    703\u001b[0m \u001b[39m# Total elapsed time of the request (approximately)\u001b[39;00m\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/requests/adapters.py:578\u001b[0m, in \u001b[0;36mHTTPAdapter.send\u001b[0;34m(self, request, stream, timeout, verify, cert, proxies)\u001b[0m\n\u001b[1;32m    577\u001b[0m \u001b[39melif\u001b[39;00m \u001b[39misinstance\u001b[39m(e, ReadTimeoutError):\n\u001b[0;32m--> 578\u001b[0m     \u001b[39mraise\u001b[39;00m ReadTimeout(e, request\u001b[39m=\u001b[39mrequest)\n\u001b[1;32m    579\u001b[0m \u001b[39melif\u001b[39;00m \u001b[39misinstance\u001b[39m(e, _InvalidHeader):\n",
++      "\u001b[0;31mReadTimeout\u001b[0m: HTTPSConnectionPool(host='api.openai.com', port=443): Read timed out. (read timeout=600)",
++      "\nThe above exception was the direct cause of the following exception:\n",
++      "\u001b[0;31mAPIConnectionError\u001b[0m                        Traceback (most recent call last)",
++      "\u001b[1;32m/Users/kevinmaikjablonka/git/kjappelbaum/gpt3forchem/experiments/01_polymer_forward.ipynb Cell 10\u001b[0m in \u001b[0;36m<cell line: 2>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      <a href='vscode-notebook-cell:/Users/kevinmaikjablonka/git/kjappelbaum/gpt3forchem/experiments/01_polymer_forward.ipynb#ch0000010?line=0'>1</a>\u001b[0m test_prompt_subset \u001b[39m=\u001b[39m test_prompts\n\u001b[0;32m----> <a href='vscode-notebook-cell:/Users/kevinmaikjablonka/git/kjappelbaum/gpt3forchem/experiments/01_polymer_forward.ipynb#ch0000010?line=1'>2</a>\u001b[0m completions \u001b[39m=\u001b[39m query_gpt3(modelname, test_prompt_subset)\n",
++      "File \u001b[0;32m~/git/kjappelbaum/gpt3forchem/gpt3forchem/api_wrappers.py:30\u001b[0m, in \u001b[0;36mquery_gpt3\u001b[0;34m(model, df, temperature, max_tokens)\u001b[0m\n\u001b[1;32m     28\u001b[0m completions \u001b[39m=\u001b[39m []\n\u001b[1;32m     29\u001b[0m \u001b[39mfor\u001b[39;00m i, row \u001b[39min\u001b[39;00m df\u001b[39m.\u001b[39miterrows():\n\u001b[0;32m---> 30\u001b[0m     completion \u001b[39m=\u001b[39m openai\u001b[39m.\u001b[39;49mCompletion\u001b[39m.\u001b[39;49mcreate(\n\u001b[1;32m     31\u001b[0m         model\u001b[39m=\u001b[39;49mmodel,\n\u001b[1;32m     32\u001b[0m         prompt\u001b[39m=\u001b[39;49mrow[\u001b[39m\"\u001b[39;49m\u001b[39mprompt\u001b[39;49m\u001b[39m\"\u001b[39;49m],\n\u001b[1;32m     33\u001b[0m         temperature\u001b[39m=\u001b[39;49mtemperature,\n\u001b[1;32m     34\u001b[0m         max_tokens\u001b[39m=\u001b[39;49mmax_tokens,\n\u001b[1;32m     35\u001b[0m     )\n\u001b[1;32m     36\u001b[0m     completions\u001b[39m.\u001b[39mappend(completion)\n\u001b[1;32m     37\u001b[0m     time\u001b[39m.\u001b[39msleep(\u001b[39m5\u001b[39m)\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/openai/api_resources/completion.py:25\u001b[0m, in \u001b[0;36mCompletion.create\u001b[0;34m(cls, *args, **kwargs)\u001b[0m\n\u001b[1;32m     23\u001b[0m \u001b[39mwhile\u001b[39;00m \u001b[39mTrue\u001b[39;00m:\n\u001b[1;32m     24\u001b[0m     \u001b[39mtry\u001b[39;00m:\n\u001b[0;32m---> 25\u001b[0m         \u001b[39mreturn\u001b[39;00m \u001b[39msuper\u001b[39;49m()\u001b[39m.\u001b[39;49mcreate(\u001b[39m*\u001b[39;49margs, \u001b[39m*\u001b[39;49m\u001b[39m*\u001b[39;49mkwargs)\n\u001b[1;32m     26\u001b[0m     \u001b[39mexcept\u001b[39;00m TryAgain \u001b[39mas\u001b[39;00m e:\n\u001b[1;32m     27\u001b[0m         \u001b[39mif\u001b[39;00m timeout \u001b[39mis\u001b[39;00m \u001b[39mnot\u001b[39;00m \u001b[39mNone\u001b[39;00m \u001b[39mand\u001b[39;00m time\u001b[39m.\u001b[39mtime() \u001b[39m>\u001b[39m start \u001b[39m+\u001b[39m timeout:\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/openai/api_resources/abstract/engine_api_resource.py:115\u001b[0m, in \u001b[0;36mEngineAPIResource.create\u001b[0;34m(cls, api_key, api_base, api_type, request_id, api_version, organization, **params)\u001b[0m\n\u001b[1;32m    107\u001b[0m requestor \u001b[39m=\u001b[39m api_requestor\u001b[39m.\u001b[39mAPIRequestor(\n\u001b[1;32m    108\u001b[0m     api_key,\n\u001b[1;32m    109\u001b[0m     api_base\u001b[39m=\u001b[39mapi_base,\n\u001b[0;32m   (...)\u001b[0m\n\u001b[1;32m    112\u001b[0m     organization\u001b[39m=\u001b[39morganization,\n\u001b[1;32m    113\u001b[0m )\n\u001b[1;32m    114\u001b[0m url \u001b[39m=\u001b[39m \u001b[39mcls\u001b[39m\u001b[39m.\u001b[39mclass_url(engine, api_type, api_version)\n\u001b[0;32m--> 115\u001b[0m response, _, api_key \u001b[39m=\u001b[39m requestor\u001b[39m.\u001b[39;49mrequest(\n\u001b[1;32m    116\u001b[0m     \u001b[39m\"\u001b[39;49m\u001b[39mpost\u001b[39;49m\u001b[39m\"\u001b[39;49m,\n\u001b[1;32m    117\u001b[0m     url,\n\u001b[1;32m    118\u001b[0m     params\u001b[39m=\u001b[39;49mparams,\n\u001b[1;32m    119\u001b[0m     headers\u001b[39m=\u001b[39;49mheaders,\n\u001b[1;32m    120\u001b[0m     stream\u001b[39m=\u001b[39;49mstream,\n\u001b[1;32m    121\u001b[0m     request_id\u001b[39m=\u001b[39;49mrequest_id,\n\u001b[1;32m    122\u001b[0m )\n\u001b[1;32m    124\u001b[0m \u001b[39mif\u001b[39;00m stream:\n\u001b[1;32m    125\u001b[0m     \u001b[39m# must be an iterator\u001b[39;00m\n\u001b[1;32m    126\u001b[0m     \u001b[39massert\u001b[39;00m \u001b[39mnot\u001b[39;00m \u001b[39misinstance\u001b[39m(response, OpenAIResponse)\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/openai/api_requestor.py:112\u001b[0m, in \u001b[0;36mAPIRequestor.request\u001b[0;34m(self, method, url, params, headers, files, stream, request_id)\u001b[0m\n\u001b[1;32m    102\u001b[0m \u001b[39mdef\u001b[39;00m \u001b[39mrequest\u001b[39m(\n\u001b[1;32m    103\u001b[0m     \u001b[39mself\u001b[39m,\n\u001b[1;32m    104\u001b[0m     method,\n\u001b[0;32m   (...)\u001b[0m\n\u001b[1;32m    110\u001b[0m     request_id: Optional[\u001b[39mstr\u001b[39m] \u001b[39m=\u001b[39m \u001b[39mNone\u001b[39;00m,\n\u001b[1;32m    111\u001b[0m ) \u001b[39m-\u001b[39m\u001b[39m>\u001b[39m Tuple[Union[OpenAIResponse, Iterator[OpenAIResponse]], \u001b[39mbool\u001b[39m, \u001b[39mstr\u001b[39m]:\n\u001b[0;32m--> 112\u001b[0m     result \u001b[39m=\u001b[39m \u001b[39mself\u001b[39;49m\u001b[39m.\u001b[39;49mrequest_raw(\n\u001b[1;32m    113\u001b[0m         method\u001b[39m.\u001b[39;49mlower(),\n\u001b[1;32m    114\u001b[0m         url,\n\u001b[1;32m    115\u001b[0m         params\u001b[39m=\u001b[39;49mparams,\n\u001b[1;32m    116\u001b[0m         supplied_headers\u001b[39m=\u001b[39;49mheaders,\n\u001b[1;32m    117\u001b[0m         files\u001b[39m=\u001b[39;49mfiles,\n\u001b[1;32m    118\u001b[0m         stream\u001b[39m=\u001b[39;49mstream,\n\u001b[1;32m    119\u001b[0m         request_id\u001b[39m=\u001b[39;49mrequest_id,\n\u001b[1;32m    120\u001b[0m     )\n\u001b[1;32m    121\u001b[0m     resp, got_stream \u001b[39m=\u001b[39m \u001b[39mself\u001b[39m\u001b[39m.\u001b[39m_interpret_response(result, stream)\n\u001b[1;32m    122\u001b[0m     \u001b[39mreturn\u001b[39;00m resp, got_stream, \u001b[39mself\u001b[39m\u001b[39m.\u001b[39mapi_key\n",
++      "File \u001b[0;32m~/miniconda3/envs/gpt3/lib/python3.9/site-packages/openai/api_requestor.py:301\u001b[0m, in \u001b[0;36mAPIRequestor.request_raw\u001b[0;34m(self, method, url, params, supplied_headers, files, stream, request_id)\u001b[0m\n\u001b[1;32m    291\u001b[0m     result \u001b[39m=\u001b[39m _thread_context\u001b[39m.\u001b[39msession\u001b[39m.\u001b[39mrequest(\n\u001b[1;32m    292\u001b[0m         method,\n\u001b[1;32m    293\u001b[0m         abs_url,\n\u001b[0;32m   (...)\u001b[0m\n\u001b[1;32m    298\u001b[0m         timeout\u001b[39m=\u001b[39mTIMEOUT_SECS,\n\u001b[1;32m    299\u001b[0m     )\n\u001b[1;32m    300\u001b[0m \u001b[39mexcept\u001b[39;00m requests\u001b[39m.\u001b[39mexceptions\u001b[39m.\u001b[39mRequestException \u001b[39mas\u001b[39;00m e:\n\u001b[0;32m--> 301\u001b[0m     \u001b[39mraise\u001b[39;00m error\u001b[39m.\u001b[39mAPIConnectionError(\u001b[39m\"\u001b[39m\u001b[39mError communicating with OpenAI\u001b[39m\u001b[39m\"\u001b[39m) \u001b[39mfrom\u001b[39;00m \u001b[39me\u001b[39;00m\n\u001b[1;32m    302\u001b[0m util\u001b[39m.\u001b[39mlog_info(\n\u001b[1;32m    303\u001b[0m     \u001b[39m\"\u001b[39m\u001b[39mOpenAI API response\u001b[39m\u001b[39m\"\u001b[39m,\n\u001b[1;32m    304\u001b[0m     path\u001b[39m=\u001b[39mabs_url,\n\u001b[1;32m    305\u001b[0m     response_code\u001b[39m=\u001b[39mresult\u001b[39m.\u001b[39mstatus_code,\n\u001b[1;32m    306\u001b[0m     processing_ms\u001b[39m=\u001b[39mresult\u001b[39m.\u001b[39mheaders\u001b[39m.\u001b[39mget(\u001b[39m\"\u001b[39m\u001b[39mOpenAI-Processing-Ms\u001b[39m\u001b[39m\"\u001b[39m),\n\u001b[1;32m    307\u001b[0m )\n\u001b[1;32m    308\u001b[0m \u001b[39m# Don't read the whole stream for debug logging unless necessary.\u001b[39;00m\n",
++      "\u001b[0;31mAPIConnectionError\u001b[0m: Error communicating with OpenAI"
++     ]
++    }
++   ],
+    "source": [
+     "test_prompt_subset = test_prompts\n",
+     "completions = query_gpt3(modelname, test_prompt_subset)"
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index d94aa84..c99e11e 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220817_204432-ft-9PrAvlxyrCPMzgOBrXZI5Clc
+\ No newline at end of file
++run-20220818_072642-ft-EGjyqUbr0EbripHqk9KMw6xI
+\ No newline at end of file
+diff --git a/gpt3forchem/_modidx.py b/gpt3forchem/_modidx.py
+index fb48397..eb4e182 100644
+--- a/gpt3forchem/_modidx.py
++++ b/gpt3forchem/_modidx.py
+@@ -35,7 +35,8 @@ d = { 'settings': { 'allowed_cell_metadata_keys': '',
+                 'version': '0.0.1'},
+   'syms': { 'gpt3forchem.api_wrappers': { 'gpt3forchem.api_wrappers.extract_prediction': 'https://kjappelbaum.github.io/gpt3forchem/api_wrappers.html#extract_prediction',
+                                           'gpt3forchem.api_wrappers.fine_tune': 'https://kjappelbaum.github.io/gpt3forchem/api_wrappers.html#fine_tune',
+-                                          'gpt3forchem.api_wrappers.query_gpt3': 'https://kjappelbaum.github.io/gpt3forchem/api_wrappers.html#query_gpt3'},
++                                          'gpt3forchem.api_wrappers.query_gpt3': 'https://kjappelbaum.github.io/gpt3forchem/api_wrappers.html#query_gpt3',
++                                          'gpt3forchem.api_wrappers.train_test_loop': 'https://kjappelbaum.github.io/gpt3forchem/api_wrappers.html#train_test_loop'},
+             'gpt3forchem.baselines': { 'gpt3forchem.baselines.BaseLineModel': 'https://kjappelbaum.github.io/gpt3forchem/baselines.html#baselinemodel',
+                                        'gpt3forchem.baselines.BaseLineModel.fit': 'https://kjappelbaum.github.io/gpt3forchem/baselines.html#baselinemodel.fit',
+                                        'gpt3forchem.baselines.BaseLineModel.predict': 'https://kjappelbaum.github.io/gpt3forchem/baselines.html#baselinemodel.predict',
+diff --git a/gpt3forchem/api_wrappers.py b/gpt3forchem/api_wrappers.py
+index 539d0e4..5f55a9a 100644
+--- a/gpt3forchem/api_wrappers.py
++++ b/gpt3forchem/api_wrappers.py
+@@ -1,7 +1,7 @@
+ # AUTOGENERATED! DO NOT EDIT! File to edit: ../notebooks/01_api_wrappers.ipynb.
+ 
+ # %% auto 0
+-__all__ = ['fine_tune', 'query_gpt3', 'extract_prediction']
++__all__ = ['fine_tune', 'query_gpt3', 'extract_prediction', 'train_test_loop']
+ 
+ # %% ../notebooks/01_api_wrappers.ipynb 2
+ import subprocess
+@@ -9,6 +9,8 @@ import subprocess
+ import openai
+ import time
+ import re
++from sklearn.model_selection import train_test_split
++from pycm import ConfusionMatrix
+ 
+ # %% ../notebooks/01_api_wrappers.ipynb 5
+ def fine_tune(train_file, valid_file, model: str = "ada"):
+@@ -24,17 +26,22 @@ def fine_tune(train_file, valid_file, model: str = "ada"):
+     return modelname
+ 
+ # %% ../notebooks/01_api_wrappers.ipynb 8
+-def query_gpt3(model, df, temperature=0, max_tokens=10):
++def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5):
+     completions = []
+     for i, row in df.iterrows():
+-        completion = openai.Completion.create(
+-            model=model,
+-            prompt=row["prompt"],
+-            temperature=temperature,
+-            max_tokens=max_tokens,
+-        )
+-        completions.append(completion)
+-        time.sleep(5)
++        try:
++            completion = openai.Completion.create(
++                model=model,
++                prompt=row["prompt"],
++                temperature=temperature,
++                max_tokens=max_tokens,
++            )
++            completions.append(completion)
++            time.sleep(sleep)
++        except Exception as e:
++            print(e)
++            print(f"Error on row {i}")
++            completions.append(None)
+ 
+     return completions
+ 
+@@ -42,3 +49,40 @@ def query_gpt3(model, df, temperature=0, max_tokens=10):
+ def extract_prediction(completion):
+     return completion["choices"][0]["text"].split("@")[0].strip()
+ 
++
++# %% ../notebooks/01_api_wrappers.ipynb 10
++def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None):
++
++    out = {}
++    train, test = train_test_split(df, train_size=train_size, random_state=random_state, stratify=stratify)
++
++    train_prompts = prompt_create_fn(train)
++    test_prompts = prompt_create_fn(test)
++
++
++    train_size  = len(train_prompts)
++    test_size = len(test_prompts)
++
++    filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
++    train_filename = f"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl"
++    valid_filename = f"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl"
++
++    train_prompts.to_json(train_filename, orient="records", lines=True)
++    test_prompts.to_json(valid_filename, orient="records", lines=True)
++
++    out['train_filename'] = train_filename
++    out['valid_filename'] = valid_filename
++    out['modelname'] = fine_tune(train_filename, valid_filename)
++
++    test_prompt_subset = test_prompts
++    completions = query_gpt3(out['modelname'], test_prompt_subset)
++
++    predictions = [extract_prediction(completion) for completion in completions]
++    true = [t.split('@')[0] for t in test_prompt_subset['completion']]
++
++    cm = ConfusionMatrix(true, predictions)
++
++    out['cm'] = cm
++
++    return out
++    
+diff --git a/notebooks/01_api_wrappers.ipynb b/notebooks/01_api_wrappers.ipynb
+index dfe6f05..a66394e 100644
+--- a/notebooks/01_api_wrappers.ipynb
++++ b/notebooks/01_api_wrappers.ipynb
+@@ -21,7 +21,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 3,
++   "execution_count": 13,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -31,7 +31,9 @@
+     "\n",
+     "import openai\n",
+     "import time\n",
+-    "import re"
++    "import re\n",
++    "from sklearn.model_selection import train_test_split\n",
++    "from pycm import ConfusionMatrix"
+    ]
+   },
+   {
+@@ -93,17 +95,22 @@
+    "outputs": [],
+    "source": [
+     "# |export\n",
+-    "def query_gpt3(model, df, temperature=0, max_tokens=10):\n",
++    "def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5):\n",
+     "    completions = []\n",
+     "    for i, row in df.iterrows():\n",
+-    "        completion = openai.Completion.create(\n",
+-    "            model=model,\n",
+-    "            prompt=row[\"prompt\"],\n",
+-    "            temperature=temperature,\n",
+-    "            max_tokens=max_tokens,\n",
+-    "        )\n",
+-    "        completions.append(completion)\n",
+-    "        time.sleep(5)\n",
++    "        try:\n",
++    "            completion = openai.Completion.create(\n",
++    "                model=model,\n",
++    "                prompt=row[\"prompt\"],\n",
++    "                temperature=temperature,\n",
++    "                max_tokens=max_tokens,\n",
++    "            )\n",
++    "            completions.append(completion)\n",
++    "            time.sleep(sleep)\n",
++    "        except Exception as e:\n",
++    "            print(e)\n",
++    "            print(f\"Error on row {i}\")\n",
++    "            completions.append(None)\n",
+     "\n",
+     "    return completions"
+    ]
+@@ -119,6 +126,51 @@
+     "    return completion[\"choices\"][0][\"text\"].split(\"@\")[0].strip()\n"
+    ]
+   },
++  {
++   "cell_type": "code",
++   "execution_count": 14,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "# |export\n",
++    "\n",
++    "def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None):\n",
++    "\n",
++    "    out = {}\n",
++    "    train, test = train_test_split(df, train_size=train_size, random_state=random_state, stratify=stratify)\n",
++    "\n",
++    "    train_prompts = prompt_create_fn(train)\n",
++    "    test_prompts = prompt_create_fn(test)\n",
++    "\n",
++    "\n",
++    "    train_size  = len(train_prompts)\n",
++    "    test_size = len(test_prompts)\n",
++    "\n",
++    "    filename_base = time.strftime(\"%Y-%m-%d-%H-%M-%S\", time.localtime())\n",
++    "    train_filename = f\"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl\"\n",
++    "    valid_filename = f\"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl\"\n",
++    "\n",
++    "    train_prompts.to_json(train_filename, orient=\"records\", lines=True)\n",
++    "    test_prompts.to_json(valid_filename, orient=\"records\", lines=True)\n",
++    "\n",
++    "    out['train_filename'] = train_filename\n",
++    "    out['valid_filename'] = valid_filename\n",
++    "    out['modelname'] = fine_tune(train_filename, valid_filename)\n",
++    "\n",
++    "    test_prompt_subset = test_prompts\n",
++    "    completions = query_gpt3(out['modelname'], test_prompt_subset)\n",
++    "\n",
++    "    predictions = [extract_prediction(completion) for completion in completions]\n",
++    "    true = [t.split('@')[0] for t in test_prompt_subset['completion']]\n",
++    "\n",
++    "    cm = ConfusionMatrix(true, predictions)\n",
++    "\n",
++    "    out['cm'] = cm\n",
++    "\n",
++    "    return out\n",
++    "    "
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
