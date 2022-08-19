@@ -1,0 +1,110 @@
+diff --git a/experiments/01_polymer_forward.ipynb b/experiments/01_polymer_forward.ipynb
+index 0a47967..b5ae34c 100644
+--- a/experiments/01_polymer_forward.ipynb
++++ b/experiments/01_polymer_forward.ipynb
+@@ -1301,6 +1301,46 @@
+     "print(cm)"
+    ]
+   },
++  {
++   "cell_type": "code",
++   "execution_count": 30,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "import re\n",
++    "import subprocess"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 31,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "# |export\n",
++    "def fine_tune(train_file, valid_file, model: str = \"ada\"):\n",
++    "    # run the fine tuning\n",
++    "    result = subprocess.run(\n",
++    "        f\"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model}\",\n",
++    "        shell=True,\n",
++    "        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True\n",
++    "    )\n",
++    "    print(result.stdout)\n",
++    "    modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
++    "    # sync runs with wandb\n",
++    "    subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    return modelname"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 32,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "modelname = fine_tune(train_filename, valid_filename, 'davinci')"
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index c99e11e..0c57f76 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220818_072642-ft-EGjyqUbr0EbripHqk9KMw6xI
+\ No newline at end of file
++run-20220818_221159-ft-NTqOw8HbPaeOibDQKdzqACYR
+\ No newline at end of file
+diff --git a/gpt3forchem/api_wrappers.py b/gpt3forchem/api_wrappers.py
+index 5f55a9a..71a2260 100644
+--- a/gpt3forchem/api_wrappers.py
++++ b/gpt3forchem/api_wrappers.py
+@@ -20,6 +20,7 @@ def fine_tune(train_file, valid_file, model: str = "ada"):
+         shell=True,
+         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+     )
++    print(result.stdout)
+     modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
+     # sync runs with wandb
+     subprocess.run("openai wandb sync -n 1", shell=True)
+@@ -51,7 +52,7 @@ def extract_prediction(completion):
+ 
+ 
+ # %% ../notebooks/01_api_wrappers.ipynb 10
+-def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None):
++def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None):
+ 
+     out = {}
+     train, test = train_test_split(df, train_size=train_size, random_state=random_state, stratify=stratify)
+@@ -75,11 +76,14 @@ def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=Non
+     out['modelname'] = fine_tune(train_filename, valid_filename)
+ 
+     test_prompt_subset = test_prompts
++    if test_subset is not None: 
++        test_prompt_subset = test_prompts.sample(test_subset)
+     completions = query_gpt3(out['modelname'], test_prompt_subset)
+ 
+-    predictions = [extract_prediction(completion) for completion in completions]
+-    true = [t.split('@')[0] for t in test_prompt_subset['completion']]
++    ok_completions = [(i, c) for i, c in enumerate(completions) if c is not None]
+ 
++    predictions = [extract_prediction(completion) for _,completion in ok_completions]
++    true = [int(test_prompt_subset.iloc[i]['completion'].split('@')[0]) for i,_ in ok_completions]
+     cm = ConfusionMatrix(true, predictions)
+ 
+     out['cm'] = cm
+diff --git a/notebooks/01_api_wrappers.ipynb b/notebooks/01_api_wrappers.ipynb
+index 25c8021..5b338e1 100644
+--- a/notebooks/01_api_wrappers.ipynb
++++ b/notebooks/01_api_wrappers.ipynb
+@@ -66,6 +66,7 @@
+     "        shell=True,\n",
+     "        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True\n",
+     "    )\n",
++    "    print(result.stdout)\n",
+     "    modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
+     "    # sync runs with wandb\n",
+     "    subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",

@@ -20,6 +20,7 @@ def fine_tune(train_file, valid_file, model: str = "ada"):
         shell=True,
         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
     )
+    print(result.stdout)
     modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
     # sync runs with wandb
     subprocess.run("openai wandb sync -n 1", shell=True)
@@ -51,7 +52,7 @@ def extract_prediction(completion):
 
 
 # %% ../notebooks/01_api_wrappers.ipynb 10
-def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None):
+def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None):
 
     out = {}
     train, test = train_test_split(df, train_size=train_size, random_state=random_state, stratify=stratify)
@@ -75,11 +76,14 @@ def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=Non
     out['modelname'] = fine_tune(train_filename, valid_filename)
 
     test_prompt_subset = test_prompts
+    if test_subset is not None: 
+        test_prompt_subset = test_prompts.sample(test_subset)
     completions = query_gpt3(out['modelname'], test_prompt_subset)
 
-    predictions = [extract_prediction(completion) for completion in completions]
-    true = [t.split('@')[0] for t in test_prompt_subset['completion']]
+    ok_completions = [(i, c) for i, c in enumerate(completions) if c is not None]
 
+    predictions = [extract_prediction(completion) for _,completion in ok_completions]
+    true = [int(test_prompt_subset.iloc[i]['completion'].split('@')[0]) for i,_ in ok_completions]
     cm = ConfusionMatrix(true, predictions)
 
     out['cm'] = cm
