@@ -1,0 +1,95 @@
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 0c57f76..67960c1 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220818_221159-ft-NTqOw8HbPaeOibDQKdzqACYR
+\ No newline at end of file
++run-20220819_082025-ft-3VuqoFyntXI7r7qYWNoyxU69
+\ No newline at end of file
+diff --git a/gpt3forchem/api_wrappers.py b/gpt3forchem/api_wrappers.py
+index 71a2260..8f8e58e 100644
+--- a/gpt3forchem/api_wrappers.py
++++ b/gpt3forchem/api_wrappers.py
+@@ -20,30 +20,39 @@ def fine_tune(train_file, valid_file, model: str = "ada"):
+         shell=True,
+         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+     )
+-    print(result.stdout)
+-    modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
+-    # sync runs with wandb
+-    subprocess.run("openai wandb sync -n 1", shell=True)
++    try:
++        modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
++        # sync runs with wandb
++        subprocess.run("openai wandb sync -n 1", shell=True)
++    except Exception:
++        print(result.stdout, result.stderr)
+     return modelname
+ 
+ # %% ../notebooks/01_api_wrappers.ipynb 8
+-def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5):
+-    completions = []
+-    for i, row in df.iterrows():
+-        try:
+-            completion = openai.Completion.create(
+-                model=model,
+-                prompt=row["prompt"],
+-                temperature=temperature,
+-                max_tokens=max_tokens,
+-            )
+-            completions.append(completion)
+-            time.sleep(sleep)
+-        except Exception as e:
+-            print(e)
+-            print(f"Error on row {i}")
+-            completions.append(None)
+-
++def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5, one_by_one=False):
++    if one_by_one:
++        completions = []
++        for i, row in df.iterrows():
++            try:
++                completion = openai.Completion.create(
++                    model=model,
++                    prompt=row["prompt"],
++                    temperature=temperature,
++                    max_tokens=max_tokens,
++                )
++                completions.append(completion)
++                time.sleep(sleep)
++            except Exception as e:
++                print(e)
++                print(f"Error on row {i}")
++                completions.append(None)
++    else: 
++        completions = openai.Completion.create(
++                    model=model,
++                    prompt=df["prompt"].to_list(),
++                    temperature=temperature,
++                    max_tokens=max_tokens,
++                )
+     return completions
+ 
+ # %% ../notebooks/01_api_wrappers.ipynb 9
+diff --git a/notebooks/01_api_wrappers.ipynb b/notebooks/01_api_wrappers.ipynb
+index 39d49bb..7128509 100644
+--- a/notebooks/01_api_wrappers.ipynb
++++ b/notebooks/01_api_wrappers.ipynb
+@@ -66,10 +66,12 @@
+     "        shell=True,\n",
+     "        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True\n",
+     "    )\n",
+-    "    print(result.stdout)\n",
+-    "    modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
+-    "    # sync runs with wandb\n",
+-    "    subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    try:\n",
++    "        modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
++    "        # sync runs with wandb\n",
++    "        subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    except Exception:\n",
++    "        print(result.stdout, result.stderr)\n",
+     "    return modelname"
+    ]
+   },

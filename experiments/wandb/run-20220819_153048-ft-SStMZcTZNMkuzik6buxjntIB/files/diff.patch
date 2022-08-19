@@ -1,0 +1,980 @@
+diff --git a/experiments/01_polymer_forward.ipynb b/experiments/01_polymer_forward.ipynb
+index c7515ac..846fcd8 100644
+--- a/experiments/01_polymer_forward.ipynb
++++ b/experiments/01_polymer_forward.ipynb
+@@ -1650,6 +1650,778 @@
+     "    return completions"
+    ]
+   },
++  {
++   "cell_type": "code",
++   "execution_count": 24,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "res = query_gpt3(\"davinci:ft-lsmoepfl-2022-08-19-02-11-53\", test_prompts.iloc[:5])"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 28,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "5"
++      ]
++     },
++     "execution_count": 28,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "len(res['choices'])"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 29,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "def extract_prediction(completion, i=0):\n",
++    "    return completion[\"choices\"][i][\"text\"].split(\"@\")[0].strip()\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 30,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "'2'"
++      ]
++     },
++     "execution_count": 30,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "extract_prediction(res)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 44,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "predictions = [\n",
++    "    extract_prediction(res, i)\n",
++    "    for i, completion in enumerate(res[\"choices\"][0])\n",
++    "]"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 43,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "<OpenAIObject at 0x170b428b0> JSON: {\n",
++       "  \"finish_reason\": \"length\",\n",
++       "  \"index\": 0,\n",
++       "  \"logprobs\": null,\n",
++       "  \"text\": \" 2@@@### 3@@@### 2@@\"\n",
++       "}"
++      ]
++     },
++     "execution_count": 43,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "res['choices'][0]"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 47,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "0.952"
++      ]
++     },
++     "execution_count": 47,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "cm.ACC_Macro"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 48,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "from fastcore.basics import chunked"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 55,
++   "metadata": {},
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "[(0, prompt        what is the adsorption energy of B-R-B-B-R-R-R...\n",
++      "completion                                                 2@@@\n",
++      "Name: 0, dtype: object), (1, prompt        what is the adsorption energy of R-A-R-B-R-W-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 1, dtype: object), (2, prompt        what is the adsorption energy of W-R-W-R-B-A-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 2, dtype: object), (3, prompt        what is the adsorption energy of W-R-W-B-W-A-A...\n",
++      "completion                                                 3@@@\n",
++      "Name: 3, dtype: object), (4, prompt        what is the adsorption energy of A-A-W-R-R-B-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 4, dtype: object), (5, prompt        what is the adsorption energy of R-W-W-A-B-B-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 5, dtype: object), (6, prompt        what is the adsorption energy of R-A-B-W-A-B-A...\n",
++      "completion                                                 4@@@\n",
++      "Name: 6, dtype: object), (7, prompt        what is the adsorption energy of W-R-B-A-R-W-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 7, dtype: object), (8, prompt        what is the adsorption energy of W-R-W-B-A-A-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 8, dtype: object), (9, prompt        what is the adsorption energy of R-W-A-B-R-R-A...\n",
++      "completion                                                 0@@@\n",
++      "Name: 9, dtype: object), (10, prompt        what is the adsorption energy of A-W-A-R-B-A-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 10, dtype: object), (11, prompt        what is the adsorption energy of A-B-R-B-W-A-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 11, dtype: object), (12, prompt        what is the adsorption energy of W-B-B-W-R-B-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 12, dtype: object), (13, prompt        what is the adsorption energy of W-W-B-R-B-A-B...\n",
++      "completion                                                 3@@@\n",
++      "Name: 13, dtype: object), (14, prompt        what is the adsorption energy of R-A-W-W-A-B-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 14, dtype: object), (15, prompt        what is the adsorption energy of R-R-A-A-W-B-W...\n",
++      "completion                                                 0@@@\n",
++      "Name: 15, dtype: object), (16, prompt        what is the adsorption energy of A-A-W-B-W-A-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 16, dtype: object), (17, prompt        what is the adsorption energy of R-A-W-R-R-W-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 17, dtype: object), (18, prompt        what is the adsorption energy of A-A-W-R-B-W-B...\n",
++      "completion                                                 2@@@\n",
++      "Name: 18, dtype: object), (19, prompt        what is the adsorption energy of B-A-A-A-B-A-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 19, dtype: object)]\n",
++      "[(20, prompt        what is the adsorption energy of R-R-A-A-W-R-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 20, dtype: object), (21, prompt        what is the adsorption energy of R-B-A-R-A-B-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 21, dtype: object), (22, prompt        what is the adsorption energy of A-B-R-B-B-W-R...\n",
++      "completion                                                 2@@@\n",
++      "Name: 22, dtype: object), (23, prompt        what is the adsorption energy of B-B-B-W-A-W-A...\n",
++      "completion                                                 3@@@\n",
++      "Name: 23, dtype: object), (24, prompt        what is the adsorption energy of B-R-A-R-A-A-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 24, dtype: object), (25, prompt        what is the adsorption energy of W-R-R-B-R-B-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 25, dtype: object), (26, prompt        what is the adsorption energy of B-W-R-A-R-A-B...\n",
++      "completion                                                 0@@@\n",
++      "Name: 26, dtype: object), (27, prompt        what is the adsorption energy of B-A-W-R-B-B-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 27, dtype: object), (28, prompt        what is the adsorption energy of R-B-A-R-A-A-B...\n",
++      "completion                                                 2@@@\n",
++      "Name: 28, dtype: object), (29, prompt        what is the adsorption energy of R-W-R-W-W-B-A...\n",
++      "completion                                                 4@@@\n",
++      "Name: 29, dtype: object), (30, prompt        what is the adsorption energy of A-R-B-B-R-R-A...\n",
++      "completion                                                 1@@@\n",
++      "Name: 30, dtype: object), (31, prompt        what is the adsorption energy of A-R-A-W-R-B-B...\n",
++      "completion                                                 2@@@\n",
++      "Name: 31, dtype: object), (32, prompt        what is the adsorption energy of R-B-W-W-A-A-A...\n",
++      "completion                                                 0@@@\n",
++      "Name: 32, dtype: object), (33, prompt        what is the adsorption energy of A-R-W-W-B-A-A...\n",
++      "completion                                                 0@@@\n",
++      "Name: 33, dtype: object), (34, prompt        what is the adsorption energy of W-R-A-W-B-A-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 34, dtype: object), (35, prompt        what is the adsorption energy of B-B-W-A-A-W-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 35, dtype: object), (36, prompt        what is the adsorption energy of B-B-B-A-W-R-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 36, dtype: object), (37, prompt        what is the adsorption energy of A-B-R-B-W-A-B...\n",
++      "completion                                                 3@@@\n",
++      "Name: 37, dtype: object), (38, prompt        what is the adsorption energy of A-R-W-B-R-R-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 38, dtype: object), (39, prompt        what is the adsorption energy of A-A-B-A-B-R-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 39, dtype: object)]\n",
++      "[(40, prompt        what is the adsorption energy of W-B-W-B-B-W-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 40, dtype: object), (41, prompt        what is the adsorption energy of R-A-B-W-B-B-A...\n",
++      "completion                                                 1@@@\n",
++      "Name: 41, dtype: object), (42, prompt        what is the adsorption energy of W-W-A-B-R-R-B...\n",
++      "completion                                                 2@@@\n",
++      "Name: 42, dtype: object), (43, prompt        what is the adsorption energy of B-B-R-B-R-W-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 43, dtype: object), (44, prompt        what is the adsorption energy of A-A-W-B-R-R-A...\n",
++      "completion                                                 1@@@\n",
++      "Name: 44, dtype: object), (45, prompt        what is the adsorption energy of R-B-A-R-B-W-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 45, dtype: object), (46, prompt        what is the adsorption energy of A-R-R-R-W-R-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 46, dtype: object), (47, prompt        what is the adsorption energy of R-B-A-W-B-B-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 47, dtype: object), (48, prompt        what is the adsorption energy of W-A-R-R-B-B-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 48, dtype: object), (49, prompt        what is the adsorption energy of R-W-W-A-A-B-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 49, dtype: object), (50, prompt        what is the adsorption energy of B-R-R-A-W-W-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 50, dtype: object), (51, prompt        what is the adsorption energy of A-W-W-W-B-A-A...\n",
++      "completion                                                 1@@@\n",
++      "Name: 51, dtype: object), (52, prompt        what is the adsorption energy of W-R-R-W-A-R-B...\n",
++      "completion                                                 0@@@\n",
++      "Name: 52, dtype: object), (53, prompt        what is the adsorption energy of R-B-B-R-B-B-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 53, dtype: object), (54, prompt        what is the adsorption energy of R-W-A-W-B-R-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 54, dtype: object), (55, prompt        what is the adsorption energy of W-W-A-W-A-A-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 55, dtype: object), (56, prompt        what is the adsorption energy of W-A-W-B-B-W-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 56, dtype: object), (57, prompt        what is the adsorption energy of W-W-W-A-W-B-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 57, dtype: object), (58, prompt        what is the adsorption energy of R-A-W-R-B-W-B...\n",
++      "completion                                                 0@@@\n",
++      "Name: 58, dtype: object), (59, prompt        what is the adsorption energy of A-B-R-B-W-B-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 59, dtype: object)]\n",
++      "[(60, prompt        what is the adsorption energy of B-W-W-W-B-R-R...\n",
++      "completion                                                 4@@@\n",
++      "Name: 60, dtype: object), (61, prompt        what is the adsorption energy of R-W-R-A-B-R-W...\n",
++      "completion                                                 0@@@\n",
++      "Name: 61, dtype: object), (62, prompt        what is the adsorption energy of A-B-B-B-B-R-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 62, dtype: object), (63, prompt        what is the adsorption energy of R-A-B-A-W-B-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 63, dtype: object), (64, prompt        what is the adsorption energy of B-B-A-W-R-R-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 64, dtype: object), (65, prompt        what is the adsorption energy of A-B-W-W-W-A-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 65, dtype: object), (66, prompt        what is the adsorption energy of W-R-W-B-A-B-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 66, dtype: object), (67, prompt        what is the adsorption energy of W-B-W-A-R-W-A...\n",
++      "completion                                                 3@@@\n",
++      "Name: 67, dtype: object), (68, prompt        what is the adsorption energy of B-W-W-R-R-R-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 68, dtype: object), (69, prompt        what is the adsorption energy of R-W-W-W-B-B-R...\n",
++      "completion                                                 2@@@\n",
++      "Name: 69, dtype: object), (70, prompt        what is the adsorption energy of A-W-A-W-B-W-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 70, dtype: object), (71, prompt        what is the adsorption energy of R-A-B-R-R-R-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 71, dtype: object), (72, prompt        what is the adsorption energy of A-W-R-A-R-R-B...\n",
++      "completion                                                 3@@@\n",
++      "Name: 72, dtype: object), (73, prompt        what is the adsorption energy of A-W-A-A-R-B-B...\n",
++      "completion                                                 2@@@\n",
++      "Name: 73, dtype: object), (74, prompt        what is the adsorption energy of B-B-B-B-B-A-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 74, dtype: object), (75, prompt        what is the adsorption energy of R-R-R-W-R-B-B...\n",
++      "completion                                                 0@@@\n",
++      "Name: 75, dtype: object), (76, prompt        what is the adsorption energy of R-A-B-B-W-B-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 76, dtype: object), (77, prompt        what is the adsorption energy of B-R-A-B-R-A-B...\n",
++      "completion                                                 0@@@\n",
++      "Name: 77, dtype: object), (78, prompt        what is the adsorption energy of W-B-A-R-B-A-B...\n",
++      "completion                                                 3@@@\n",
++      "Name: 78, dtype: object), (79, prompt        what is the adsorption energy of A-B-B-A-A-R-W...\n",
++      "completion                                                 0@@@\n",
++      "Name: 79, dtype: object)]\n",
++      "[(80, prompt        what is the adsorption energy of A-B-W-A-A-R-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 80, dtype: object), (81, prompt        what is the adsorption energy of B-W-A-R-B-R-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 81, dtype: object), (82, prompt        what is the adsorption energy of A-R-W-A-R-R-A...\n",
++      "completion                                                 0@@@\n",
++      "Name: 82, dtype: object), (83, prompt        what is the adsorption energy of B-R-A-B-R-A-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 83, dtype: object), (84, prompt        what is the adsorption energy of A-B-B-W-W-R-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 84, dtype: object), (85, prompt        what is the adsorption energy of A-R-B-B-B-B-R...\n",
++      "completion                                                 4@@@\n",
++      "Name: 85, dtype: object), (86, prompt        what is the adsorption energy of A-A-B-A-B-A-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 86, dtype: object), (87, prompt        what is the adsorption energy of R-W-B-W-A-R-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 87, dtype: object), (88, prompt        what is the adsorption energy of W-W-A-W-A-A-R...\n",
++      "completion                                                 2@@@\n",
++      "Name: 88, dtype: object), (89, prompt        what is the adsorption energy of B-R-B-B-W-A-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 89, dtype: object), (90, prompt        what is the adsorption energy of W-B-W-W-R-B-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 90, dtype: object), (91, prompt        what is the adsorption energy of B-W-R-W-W-R-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 91, dtype: object), (92, prompt        what is the adsorption energy of R-W-B-B-R-R-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 92, dtype: object), (93, prompt        what is the adsorption energy of W-A-A-R-B-W-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 93, dtype: object), (94, prompt        what is the adsorption energy of W-R-B-W-R-A-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 94, dtype: object), (95, prompt        what is the adsorption energy of B-R-A-B-R-R-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 95, dtype: object), (96, prompt        what is the adsorption energy of B-B-W-B-A-B-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 96, dtype: object), (97, prompt        what is the adsorption energy of R-W-R-W-A-B-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 97, dtype: object), (98, prompt        what is the adsorption energy of R-R-R-W-R-B-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 98, dtype: object), (99, prompt        what is the adsorption energy of R-W-R-R-A-B-A...\n",
++      "completion                                                 4@@@\n",
++      "Name: 99, dtype: object)]\n",
++      "[(100, prompt        what is the adsorption energy of W-B-A-R-W-R-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 100, dtype: object), (101, prompt        what is the adsorption energy of B-A-A-R-A-B-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 101, dtype: object), (102, prompt        what is the adsorption energy of R-B-A-W-R-A-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 102, dtype: object), (103, prompt        what is the adsorption energy of B-A-B-R-A-W-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 103, dtype: object), (104, prompt        what is the adsorption energy of W-B-A-W-A-R-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 104, dtype: object), (105, prompt        what is the adsorption energy of R-A-W-W-W-B-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 105, dtype: object), (106, prompt        what is the adsorption energy of R-W-B-A-B-B-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 106, dtype: object), (107, prompt        what is the adsorption energy of A-A-R-R-W-R-A...\n",
++      "completion                                                 4@@@\n",
++      "Name: 107, dtype: object), (108, prompt        what is the adsorption energy of A-B-R-B-R-A-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 108, dtype: object), (109, prompt        what is the adsorption energy of A-B-R-A-R-B-B...\n",
++      "completion                                                 3@@@\n",
++      "Name: 109, dtype: object), (110, prompt        what is the adsorption energy of B-R-W-B-A-A-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 110, dtype: object), (111, prompt        what is the adsorption energy of B-W-B-A-R-B-R...\n",
++      "completion                                                 2@@@\n",
++      "Name: 111, dtype: object), (112, prompt        what is the adsorption energy of R-A-A-R-B-R-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 112, dtype: object), (113, prompt        what is the adsorption energy of R-B-B-R-B-W-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 113, dtype: object), (114, prompt        what is the adsorption energy of R-R-W-R-W-A-B...\n",
++      "completion                                                 2@@@\n",
++      "Name: 114, dtype: object), (115, prompt        what is the adsorption energy of A-W-B-W-R-B-B...\n",
++      "completion                                                 3@@@\n",
++      "Name: 115, dtype: object), (116, prompt        what is the adsorption energy of A-A-W-A-W-W-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 116, dtype: object), (117, prompt        what is the adsorption energy of R-W-W-B-B-R-A...\n",
++      "completion                                                 1@@@\n",
++      "Name: 117, dtype: object), (118, prompt        what is the adsorption energy of W-W-B-A-B-R-R...\n",
++      "completion                                                 2@@@\n",
++      "Name: 118, dtype: object), (119, prompt        what is the adsorption energy of R-A-A-A-R-A-W...\n",
++      "completion                                                 0@@@\n",
++      "Name: 119, dtype: object)]\n",
++      "[(120, prompt        what is the adsorption energy of R-B-W-A-B-B-A...\n",
++      "completion                                                 3@@@\n",
++      "Name: 120, dtype: object), (121, prompt        what is the adsorption energy of W-B-A-B-A-A-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 121, dtype: object), (122, prompt        what is the adsorption energy of A-R-A-A-R-R-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 122, dtype: object), (123, prompt        what is the adsorption energy of A-R-W-B-R-B-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 123, dtype: object), (124, prompt        what is the adsorption energy of A-W-R-B-W-A-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 124, dtype: object), (125, prompt        what is the adsorption energy of B-R-B-W-A-A-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 125, dtype: object), (126, prompt        what is the adsorption energy of B-A-B-W-B-W-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 126, dtype: object), (127, prompt        what is the adsorption energy of R-R-B-A-B-A-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 127, dtype: object), (128, prompt        what is the adsorption energy of R-B-W-R-R-B-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 128, dtype: object), (129, prompt        what is the adsorption energy of W-B-W-A-B-R-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 129, dtype: object), (130, prompt        what is the adsorption energy of A-A-W-A-R-A-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 130, dtype: object), (131, prompt        what is the adsorption energy of B-W-R-B-W-W-B...\n",
++      "completion                                                 0@@@\n",
++      "Name: 131, dtype: object), (132, prompt        what is the adsorption energy of B-W-A-W-B-B-B...\n",
++      "completion                                                 2@@@\n",
++      "Name: 132, dtype: object), (133, prompt        what is the adsorption energy of W-W-A-B-W-R-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 133, dtype: object), (134, prompt        what is the adsorption energy of R-W-A-B-R-R-A...\n",
++      "completion                                                 3@@@\n",
++      "Name: 134, dtype: object), (135, prompt        what is the adsorption energy of R-R-A-R-R-B-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 135, dtype: object), (136, prompt        what is the adsorption energy of A-R-R-B-R-R-W...\n",
++      "completion                                                 0@@@\n",
++      "Name: 136, dtype: object), (137, prompt        what is the adsorption energy of B-R-B-B-B-R-A...\n",
++      "completion                                                 1@@@\n",
++      "Name: 137, dtype: object), (138, prompt        what is the adsorption energy of R-B-W-R-W-W-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 138, dtype: object), (139, prompt        what is the adsorption energy of A-A-B-W-B-R-R...\n",
++      "completion                                                 2@@@\n",
++      "Name: 139, dtype: object)]\n",
++      "[(140, prompt        what is the adsorption energy of A-W-R-A-W-W-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 140, dtype: object), (141, prompt        what is the adsorption energy of R-W-W-R-R-W-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 141, dtype: object), (142, prompt        what is the adsorption energy of W-A-A-A-A-R-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 142, dtype: object), (143, prompt        what is the adsorption energy of R-W-W-W-B-R-W...\n",
++      "completion                                                 0@@@\n",
++      "Name: 143, dtype: object), (144, prompt        what is the adsorption energy of A-R-R-W-W-A-R...\n",
++      "completion                                                 2@@@\n",
++      "Name: 144, dtype: object), (145, prompt        what is the adsorption energy of W-A-A-A-W-R-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 145, dtype: object), (146, prompt        what is the adsorption energy of W-W-A-B-A-W-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 146, dtype: object), (147, prompt        what is the adsorption energy of A-B-A-A-R-W-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 147, dtype: object), (148, prompt        what is the adsorption energy of R-W-A-B-A-B-B...\n",
++      "completion                                                 2@@@\n",
++      "Name: 148, dtype: object), (149, prompt        what is the adsorption energy of B-R-W-A-R-A-B...\n",
++      "completion                                                 1@@@\n",
++      "Name: 149, dtype: object), (150, prompt        what is the adsorption energy of A-B-W-W-W-R-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 150, dtype: object), (151, prompt        what is the adsorption energy of R-W-R-R-A-A-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 151, dtype: object), (152, prompt        what is the adsorption energy of B-A-R-B-R-R-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 152, dtype: object), (153, prompt        what is the adsorption energy of B-B-B-W-R-R-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 153, dtype: object), (154, prompt        what is the adsorption energy of W-B-W-R-A-B-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 154, dtype: object), (155, prompt        what is the adsorption energy of W-R-B-B-B-B-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 155, dtype: object), (156, prompt        what is the adsorption energy of R-W-R-A-B-B-W...\n",
++      "completion                                                 1@@@\n",
++      "Name: 156, dtype: object), (157, prompt        what is the adsorption energy of R-A-R-R-R-W-W...\n",
++      "completion                                                 3@@@\n",
++      "Name: 157, dtype: object), (158, prompt        what is the adsorption energy of A-R-B-A-R-W-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 158, dtype: object), (159, prompt        what is the adsorption energy of W-W-A-A-R-W-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 159, dtype: object)]\n",
++      "[(160, prompt        what is the adsorption energy of W-A-B-B-R-A-A...\n",
++      "completion                                                 0@@@\n",
++      "Name: 160, dtype: object), (161, prompt        what is the adsorption energy of R-A-B-R-W-B-W...\n",
++      "completion                                                 0@@@\n",
++      "Name: 161, dtype: object), (162, prompt        what is the adsorption energy of B-W-A-B-R-W-A...\n",
++      "completion                                                 1@@@\n",
++      "Name: 162, dtype: object), (163, prompt        what is the adsorption energy of W-W-R-B-B-B-A...\n",
++      "completion                                                 4@@@\n",
++      "Name: 163, dtype: object), (164, prompt        what is the adsorption energy of B-R-W-B-A-B-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 164, dtype: object), (165, prompt        what is the adsorption energy of B-W-B-A-A-B-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 165, dtype: object), (166, prompt        what is the adsorption energy of A-B-B-A-W-R-B...\n",
++      "completion                                                 0@@@\n",
++      "Name: 166, dtype: object), (167, prompt        what is the adsorption energy of B-B-B-B-R-W-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 167, dtype: object), (168, prompt        what is the adsorption energy of R-A-B-W-R-A-A...\n",
++      "completion                                                 0@@@\n",
++      "Name: 168, dtype: object), (169, prompt        what is the adsorption energy of A-B-A-A-B-W-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 169, dtype: object), (170, prompt        what is the adsorption energy of A-W-A-B-R-W-A...\n",
++      "completion                                                 4@@@\n",
++      "Name: 170, dtype: object), (171, prompt        what is the adsorption energy of B-A-R-W-R-W-B...\n",
++      "completion                                                 0@@@\n",
++      "Name: 171, dtype: object), (172, prompt        what is the adsorption energy of A-A-A-A-W-R-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 172, dtype: object), (173, prompt        what is the adsorption energy of R-B-B-A-A-W-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 173, dtype: object), (174, prompt        what is the adsorption energy of W-A-R-W-W-B-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 174, dtype: object), (175, prompt        what is the adsorption energy of B-B-W-W-B-W-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 175, dtype: object), (176, prompt        what is the adsorption energy of W-R-A-R-B-R-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 176, dtype: object), (177, prompt        what is the adsorption energy of R-W-W-R-W-R-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 177, dtype: object), (178, prompt        what is the adsorption energy of B-A-R-A-B-W-A...\n",
++      "completion                                                 2@@@\n",
++      "Name: 178, dtype: object), (179, prompt        what is the adsorption energy of W-W-B-A-A-B-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 179, dtype: object)]\n",
++      "[(180, prompt        what is the adsorption energy of W-B-B-B-R-A-A...\n",
++      "completion                                                 1@@@\n",
++      "Name: 180, dtype: object), (181, prompt        what is the adsorption energy of W-R-W-B-A-B-R...\n",
++      "completion                                                 0@@@\n",
++      "Name: 181, dtype: object), (182, prompt        what is the adsorption energy of R-A-R-A-W-R-A...\n",
++      "completion                                                 3@@@\n",
++      "Name: 182, dtype: object), (183, prompt        what is the adsorption energy of B-W-B-W-B-R-A...\n",
++      "completion                                                 3@@@\n",
++      "Name: 183, dtype: object), (184, prompt        what is the adsorption energy of A-B-R-R-R-W-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 184, dtype: object), (185, prompt        what is the adsorption energy of B-A-B-R-B-R-B...\n",
++      "completion                                                 2@@@\n",
++      "Name: 185, dtype: object), (186, prompt        what is the adsorption energy of W-B-A-W-W-A-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 186, dtype: object), (187, prompt        what is the adsorption energy of W-W-W-B-W-B-R...\n",
++      "completion                                                 1@@@\n",
++      "Name: 187, dtype: object), (188, prompt        what is the adsorption energy of B-W-W-A-R-W-R...\n",
++      "completion                                                 3@@@\n",
++      "Name: 188, dtype: object), (189, prompt        what is the adsorption energy of R-R-A-B-A-A-W...\n",
++      "completion                                                 0@@@\n",
++      "Name: 189, dtype: object), (190, prompt        what is the adsorption energy of W-A-B-B-R-A-A...\n",
++      "completion                                                 3@@@\n",
++      "Name: 190, dtype: object), (191, prompt        what is the adsorption energy of B-W-W-A-W-A-R...\n",
++      "completion                                                 2@@@\n",
++      "Name: 191, dtype: object), (192, prompt        what is the adsorption energy of W-A-R-W-A-A-W...\n",
++      "completion                                                 4@@@\n",
++      "Name: 192, dtype: object), (193, prompt        what is the adsorption energy of R-R-R-R-W-R-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 193, dtype: object), (194, prompt        what is the adsorption energy of B-R-W-B-W-R-A...\n",
++      "completion                                                 3@@@\n",
++      "Name: 194, dtype: object), (195, prompt        what is the adsorption energy of R-R-B-B-W-R-W...\n",
++      "completion                                                 0@@@\n",
++      "Name: 195, dtype: object), (196, prompt        what is the adsorption energy of A-B-A-W-W-B-W...\n",
++      "completion                                                 2@@@\n",
++      "Name: 196, dtype: object), (197, prompt        what is the adsorption energy of R-W-R-B-B-R-B...\n",
++      "completion                                                 4@@@\n",
++      "Name: 197, dtype: object), (198, prompt        what is the adsorption energy of R-W-W-A-W-R-B...\n",
++      "completion                                                 3@@@\n",
++      "Name: 198, dtype: object), (199, prompt        what is the adsorption energy of A-A-B-A-A-B-A...\n",
++      "completion                                                 1@@@\n",
++      "Name: 199, dtype: object)]\n"
++     ]
++    }
++   ],
++   "source": [
++    "for chunk in chunked(test_prompts.iterrows(), 20):\n",
++    "    print(chunk)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 56,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/html": [
++       "<div>\n",
++       "<style scoped>\n",
++       "    .dataframe tbody tr th:only-of-type {\n",
++       "        vertical-align: middle;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe tbody tr th {\n",
++       "        vertical-align: top;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe thead th {\n",
++       "        text-align: right;\n",
++       "    }\n",
++       "</style>\n",
++       "<table border=\"1\" class=\"dataframe\">\n",
++       "  <thead>\n",
++       "    <tr style=\"text-align: right;\">\n",
++       "      <th></th>\n",
++       "      <th>0</th>\n",
++       "      <th>1</th>\n",
++       "    </tr>\n",
++       "  </thead>\n",
++       "  <tbody>\n",
++       "    <tr>\n",
++       "      <th>0</th>\n",
++       "      <td>180</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>1</th>\n",
++       "      <td>181</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>2</th>\n",
++       "      <td>182</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3</th>\n",
++       "      <td>183</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>4</th>\n",
++       "      <td>184</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>5</th>\n",
++       "      <td>185</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>6</th>\n",
++       "      <td>186</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>7</th>\n",
++       "      <td>187</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>8</th>\n",
++       "      <td>188</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>9</th>\n",
++       "      <td>189</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>10</th>\n",
++       "      <td>190</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>11</th>\n",
++       "      <td>191</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>12</th>\n",
++       "      <td>192</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>13</th>\n",
++       "      <td>193</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>14</th>\n",
++       "      <td>194</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>15</th>\n",
++       "      <td>195</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>16</th>\n",
++       "      <td>196</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>17</th>\n",
++       "      <td>197</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>18</th>\n",
++       "      <td>198</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>19</th>\n",
++       "      <td>199</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "  </tbody>\n",
++       "</table>\n",
++       "</div>"
++      ],
++      "text/plain": [
++       "      0                                                  1\n",
++       "0   180  prompt        what is the adsorption energy of...\n",
++       "1   181  prompt        what is the adsorption energy of...\n",
++       "2   182  prompt        what is the adsorption energy of...\n",
++       "3   183  prompt        what is the adsorption energy of...\n",
++       "4   184  prompt        what is the adsorption energy of...\n",
++       "5   185  prompt        what is the adsorption energy of...\n",
++       "6   186  prompt        what is the adsorption energy of...\n",
++       "7   187  prompt        what is the adsorption energy of...\n",
++       "8   188  prompt        what is the adsorption energy of...\n",
++       "9   189  prompt        what is the adsorption energy of...\n",
++       "10  190  prompt        what is the adsorption energy of...\n",
++       "11  191  prompt        what is the adsorption energy of...\n",
++       "12  192  prompt        what is the adsorption energy of...\n",
++       "13  193  prompt        what is the adsorption energy of...\n",
++       "14  194  prompt        what is the adsorption energy of...\n",
++       "15  195  prompt        what is the adsorption energy of...\n",
++       "16  196  prompt        what is the adsorption energy of...\n",
++       "17  197  prompt        what is the adsorption energy of...\n",
++       "18  198  prompt        what is the adsorption energy of...\n",
++       "19  199  prompt        what is the adsorption energy of..."
++      ]
++     },
++     "execution_count": 56,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "pd.DataFrame(chunk)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 57,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "a = [res[\"choices\"][:2], res[\"choices\"][2:4]]"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 59,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "[<OpenAIObject at 0x170b428b0> JSON: {\n",
++       "   \"finish_reason\": \"length\",\n",
++       "   \"index\": 0,\n",
++       "   \"logprobs\": null,\n",
++       "   \"text\": \" 2@@@### 3@@@### 2@@\"\n",
++       " },\n",
++       " <OpenAIObject at 0x170b42a90> JSON: {\n",
++       "   \"finish_reason\": \"length\",\n",
++       "   \"index\": 1,\n",
++       "   \"logprobs\": null,\n",
++       "   \"text\": \" 3@@@ 3@@@ 3@@@ 3\"\n",
++       " },\n",
++       " <OpenAIObject at 0x170b42ef0> JSON: {\n",
++       "   \"finish_reason\": \"length\",\n",
++       "   \"index\": 2,\n",
++       "   \"logprobs\": null,\n",
++       "   \"text\": \" 1@@@### 2@@@### 3@@\"\n",
++       " },\n",
++       " <OpenAIObject at 0x170b3c130> JSON: {\n",
++       "   \"finish_reason\": \"length\",\n",
++       "   \"index\": 3,\n",
++       "   \"logprobs\": null,\n",
++       "   \"text\": \" 4@@@ 4@@@ 3@@@ 3\"\n",
++       " }]"
++      ]
++     },
++     "execution_count": 59,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "sum(a, [])"
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 0c57f76..c2ef294 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220818_221159-ft-NTqOw8HbPaeOibDQKdzqACYR
+\ No newline at end of file
++run-20220819_153048-ft-SStMZcTZNMkuzik6buxjntIB
+\ No newline at end of file
+diff --git a/gpt3forchem/api_wrappers.py b/gpt3forchem/api_wrappers.py
+index 71a2260..94f2c34 100644
+--- a/gpt3forchem/api_wrappers.py
++++ b/gpt3forchem/api_wrappers.py
+@@ -20,38 +20,65 @@ def fine_tune(train_file, valid_file, model: str = "ada"):
+         shell=True,
+         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+     )
+-    print(result.stdout)
+-    modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
+-    # sync runs with wandb
+-    subprocess.run("openai wandb sync -n 1", shell=True)
++    try:
++        modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
++        # sync runs with wandb
++        subprocess.run("openai wandb sync -n 1", shell=True)
++    except Exception:
++        print(result.stdout, result.stderr)
+     return modelname
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 8
+-def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5):
+-    completions = []
+-    for i, row in df.iterrows():
+-        try:
+-            completion = openai.Completion.create(
+-                model=model,
+-                prompt=row["prompt"],
+-                temperature=temperature,
+-                max_tokens=max_tokens,
+-            )
+-            completions.append(completion)
++# %% ../notebooks/01_api_wrappers.ipynb 7
++from fastcore.basics import chunked
++import pandas as pd
++def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5, one_by_one=False, parallel_max: int=20):
++    if one_by_one:
++        completions = []
++        for i, row in df.iterrows():
++            try:
++                completion = openai.Completion.create(
++                    model=model,
++                    prompt=row["prompt"],
++                    temperature=temperature,
++                    max_tokens=max_tokens,
++                )
++                completions.append(completion)
++                time.sleep(sleep)
++            except Exception as e:
++                print(e)
++                print(f"Error on row {i}")
++                completions.append(None)
++    else: 
++        # they have a limit on the maximum number of parallel completions 
++        # otherwise you get 
++        # openai.error.InvalidRequestError: Too many parallel completions requested. 
++        # You submitted 500 prompts, but you can currently request up to at most a total of 20). 
++        # Please contact support@openai.com and tell us about your use-case if you would like this limit increased. 
++        # (HINT: if you want to just evaluate probabilities without generating new text, you can submit more prompts if you set 'max_tokens' to 0.)
++        completions = []
++        for chunk in chunked(df.iterrows(), parallel_max):
++            completions_ = openai.Completion.create(
++                        model=model,
++                        prompt=pd.DataFrame(chunk)["prompt"].to_list(),
++                        temperature=temperature,
++                        max_tokens=max_tokens,
++                    )
++            completions.append(completions_)
+             time.sleep(sleep)
+-        except Exception as e:
+-            print(e)
+-            print(f"Error on row {i}")
+-            completions.append(None)
++
++        compl = {
++            'choices': sum([c.choices for c in completions], []),
++        }
++
+ 
+     return completions
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 9
+-def extract_prediction(completion):
+-    return completion["choices"][0]["text"].split("@")[0].strip()
++# %% ../notebooks/01_api_wrappers.ipynb 8
++def extract_prediction(completion, i=0):
++    return completion["choices"][i]["text"].split("@")[0].strip()
+ 
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 10
++# %% ../notebooks/01_api_wrappers.ipynb 9
+ def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None):
+ 
+     out = {}
+diff --git a/notebooks/01_api_wrappers.ipynb b/notebooks/01_api_wrappers.ipynb
+index 39d49bb..0d8b7b6 100644
+--- a/notebooks/01_api_wrappers.ipynb
++++ b/notebooks/01_api_wrappers.ipynb
+@@ -66,22 +66,15 @@
+     "        shell=True,\n",
+     "        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True\n",
+     "    )\n",
+-    "    print(result.stdout)\n",
+-    "    modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
+-    "    # sync runs with wandb\n",
+-    "    subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    try:\n",
++    "        modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
++    "        # sync runs with wandb\n",
++    "        subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    except Exception:\n",
++    "        print(result.stdout, result.stderr)\n",
+     "    return modelname"
+    ]
+   },
+-  {
+-   "cell_type": "code",
+-   "execution_count": 4,
+-   "metadata": {},
+-   "outputs": [],
+-   "source": [
+-    "_stdout_fragment = \"openai api completions.create -m ada:ft-epfl-2022-06-23-09-10-58 -p <YOUR_PROMPT>\""
+-   ]
+-  },
+   {
+    "cell_type": "markdown",
+    "metadata": {},
+@@ -96,7 +89,9 @@
+    "outputs": [],
+    "source": [
+     "# |export\n",
+-    "def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5, one_by_one=False):\n",
++    "from fastcore.basics import chunked\n",
++    "import pandas as pd\n",
++    "def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5, one_by_one=False, parallel_max: int=20):\n",
+     "    if one_by_one:\n",
+     "        completions = []\n",
+     "        for i, row in df.iterrows():\n",
+@@ -114,24 +109,40 @@
+     "                print(f\"Error on row {i}\")\n",
+     "                completions.append(None)\n",
+     "    else: \n",
+-    "        completions = openai.Completion.create(\n",
+-    "                    model=model,\n",
+-    "                    prompt=df[\"prompt\"].to_list(),\n",
+-    "                    temperature=temperature,\n",
+-    "                    max_tokens=max_tokens,\n",
+-    "                )\n",
++    "        # they have a limit on the maximum number of parallel completions \n",
++    "        # otherwise you get \n",
++    "        # openai.error.InvalidRequestError: Too many parallel completions requested. \n",
++    "        # You submitted 500 prompts, but you can currently request up to at most a total of 20). \n",
++    "        # Please contact support@openai.com and tell us about your use-case if you would like this limit increased. \n",
++    "        # (HINT: if you want to just evaluate probabilities without generating new text, you can submit more prompts if you set 'max_tokens' to 0.)\n",
++    "        completions = []\n",
++    "        for chunk in chunked(df.iterrows(), parallel_max):\n",
++    "            completions_ = openai.Completion.create(\n",
++    "                        model=model,\n",
++    "                        prompt=pd.DataFrame(chunk)[\"prompt\"].to_list(),\n",
++    "                        temperature=temperature,\n",
++    "                        max_tokens=max_tokens,\n",
++    "                    )\n",
++    "            completions.append(completions_)\n",
++    "            time.sleep(sleep)\n",
++    "\n",
++    "        compl = {\n",
++    "            'choices': sum([c.choices for c in completions], []),\n",
++    "        }\n",
++    "\n",
++    "\n",
+     "    return completions"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 1,
++   "execution_count": null,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+     "# |export\n",
+-    "def extract_prediction(completion):\n",
+-    "    return completion[\"choices\"][0][\"text\"].split(\"@\")[0].strip()\n"
++    "def extract_prediction(completion, i=0):\n",
++    "    return completion[\"choices\"][i][\"text\"].split(\"@\")[0].strip()\n"
+    ]
+   },
+   {

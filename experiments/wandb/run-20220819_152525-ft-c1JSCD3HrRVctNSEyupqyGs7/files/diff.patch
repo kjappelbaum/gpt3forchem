@@ -1,0 +1,322 @@
+diff --git a/experiments/01_polymer_forward.ipynb b/experiments/01_polymer_forward.ipynb
+index c7515ac..e5c0509 100644
+--- a/experiments/01_polymer_forward.ipynb
++++ b/experiments/01_polymer_forward.ipynb
+@@ -1650,6 +1650,122 @@
+     "    return completions"
+    ]
+   },
++  {
++   "cell_type": "code",
++   "execution_count": 24,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "res = query_gpt3(\"davinci:ft-lsmoepfl-2022-08-19-02-11-53\", test_prompts.iloc[:5])"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 28,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "5"
++      ]
++     },
++     "execution_count": 28,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "len(res['choices'])"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 29,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "def extract_prediction(completion, i=0):\n",
++    "    return completion[\"choices\"][i][\"text\"].split(\"@\")[0].strip()\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 30,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "'2'"
++      ]
++     },
++     "execution_count": 30,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "extract_prediction(res)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 44,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "predictions = [\n",
++    "    extract_prediction(res, i)\n",
++    "    for i, completion in enumerate(res[\"choices\"][0])\n",
++    "]"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 43,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "<OpenAIObject at 0x170b428b0> JSON: {\n",
++       "  \"finish_reason\": \"length\",\n",
++       "  \"index\": 0,\n",
++       "  \"logprobs\": null,\n",
++       "  \"text\": \" 2@@@### 3@@@### 2@@\"\n",
++       "}"
++      ]
++     },
++     "execution_count": 43,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "res['choices'][0]"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 47,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "0.952"
++      ]
++     },
++     "execution_count": 47,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "cm.ACC_Macro"
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 0c57f76..002fb3a 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220818_221159-ft-NTqOw8HbPaeOibDQKdzqACYR
+\ No newline at end of file
++run-20220819_152525-ft-c1JSCD3HrRVctNSEyupqyGs7
+\ No newline at end of file
+diff --git a/gpt3forchem/api_wrappers.py b/gpt3forchem/api_wrappers.py
+index 71a2260..2557dd7 100644
+--- a/gpt3forchem/api_wrappers.py
++++ b/gpt3forchem/api_wrappers.py
+@@ -20,38 +20,64 @@ def fine_tune(train_file, valid_file, model: str = "ada"):
+         shell=True,
+         stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
+     )
+-    print(result.stdout)
+-    modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
+-    # sync runs with wandb
+-    subprocess.run("openai wandb sync -n 1", shell=True)
++    try:
++        modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
++        # sync runs with wandb
++        subprocess.run("openai wandb sync -n 1", shell=True)
++    except Exception:
++        print(result.stdout, result.stderr)
+     return modelname
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 8
+-def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5):
+-    completions = []
+-    for i, row in df.iterrows():
+-        try:
+-            completion = openai.Completion.create(
+-                model=model,
+-                prompt=row["prompt"],
+-                temperature=temperature,
+-                max_tokens=max_tokens,
+-            )
+-            completions.append(completion)
++# %% ../notebooks/01_api_wrappers.ipynb 7
++from fastcore.basics import chunked
++def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5, one_by_one=False, parallel_max: int=20):
++    if one_by_one:
++        completions = []
++        for i, row in df.iterrows():
++            try:
++                completion = openai.Completion.create(
++                    model=model,
++                    prompt=row["prompt"],
++                    temperature=temperature,
++                    max_tokens=max_tokens,
++                )
++                completions.append(completion)
++                time.sleep(sleep)
++            except Exception as e:
++                print(e)
++                print(f"Error on row {i}")
++                completions.append(None)
++    else: 
++        # they have a limit on the maximum number of parallel completions 
++        # otherwise you get 
++        # openai.error.InvalidRequestError: Too many parallel completions requested. 
++        # You submitted 500 prompts, but you can currently request up to at most a total of 20). 
++        # Please contact support@openai.com and tell us about your use-case if you would like this limit increased. 
++        # (HINT: if you want to just evaluate probabilities without generating new text, you can submit more prompts if you set 'max_tokens' to 0.)
++        completions = []
++        for chunk in chunked(df.iterrows(), parallel_max):
++            completions_ = openai.Completion.create(
++                        model=model,
++                        prompt=chunk["prompt"].to_list(),
++                        temperature=temperature,
++                        max_tokens=max_tokens,
++                    )
++            completions.append(completions_)
+             time.sleep(sleep)
+-        except Exception as e:
+-            print(e)
+-            print(f"Error on row {i}")
+-            completions.append(None)
++
++        compl = {
++            'choices': sum([c.choices for c in completions], []),
++        }
++
+ 
+     return completions
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 9
+-def extract_prediction(completion):
+-    return completion["choices"][0]["text"].split("@")[0].strip()
++# %% ../notebooks/01_api_wrappers.ipynb 8
++def extract_prediction(completion, i=0):
++    return completion["choices"][i]["text"].split("@")[0].strip()
+ 
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 10
++# %% ../notebooks/01_api_wrappers.ipynb 9
+ def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None):
+ 
+     out = {}
+diff --git a/notebooks/01_api_wrappers.ipynb b/notebooks/01_api_wrappers.ipynb
+index 39d49bb..e6dd869 100644
+--- a/notebooks/01_api_wrappers.ipynb
++++ b/notebooks/01_api_wrappers.ipynb
+@@ -66,22 +66,15 @@
+     "        shell=True,\n",
+     "        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True\n",
+     "    )\n",
+-    "    print(result.stdout)\n",
+-    "    modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
+-    "    # sync runs with wandb\n",
+-    "    subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    try:\n",
++    "        modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
++    "        # sync runs with wandb\n",
++    "        subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    except Exception:\n",
++    "        print(result.stdout, result.stderr)\n",
+     "    return modelname"
+    ]
+   },
+-  {
+-   "cell_type": "code",
+-   "execution_count": 4,
+-   "metadata": {},
+-   "outputs": [],
+-   "source": [
+-    "_stdout_fragment = \"openai api completions.create -m ada:ft-epfl-2022-06-23-09-10-58 -p <YOUR_PROMPT>\""
+-   ]
+-  },
+   {
+    "cell_type": "markdown",
+    "metadata": {},
+@@ -96,7 +89,8 @@
+    "outputs": [],
+    "source": [
+     "# |export\n",
+-    "def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5, one_by_one=False):\n",
++    "from fastcore.basics import chunked\n",
++    "def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5, one_by_one=False, parallel_max: int=20):\n",
+     "    if one_by_one:\n",
+     "        completions = []\n",
+     "        for i, row in df.iterrows():\n",
+@@ -114,24 +108,40 @@
+     "                print(f\"Error on row {i}\")\n",
+     "                completions.append(None)\n",
+     "    else: \n",
+-    "        completions = openai.Completion.create(\n",
+-    "                    model=model,\n",
+-    "                    prompt=df[\"prompt\"].to_list(),\n",
+-    "                    temperature=temperature,\n",
+-    "                    max_tokens=max_tokens,\n",
+-    "                )\n",
++    "        # they have a limit on the maximum number of parallel completions \n",
++    "        # otherwise you get \n",
++    "        # openai.error.InvalidRequestError: Too many parallel completions requested. \n",
++    "        # You submitted 500 prompts, but you can currently request up to at most a total of 20). \n",
++    "        # Please contact support@openai.com and tell us about your use-case if you would like this limit increased. \n",
++    "        # (HINT: if you want to just evaluate probabilities without generating new text, you can submit more prompts if you set 'max_tokens' to 0.)\n",
++    "        completions = []\n",
++    "        for chunk in chunked(df.iterrows(), parallel_max):\n",
++    "            completions_ = openai.Completion.create(\n",
++    "                        model=model,\n",
++    "                        prompt=chunk[\"prompt\"].to_list(),\n",
++    "                        temperature=temperature,\n",
++    "                        max_tokens=max_tokens,\n",
++    "                    )\n",
++    "            completions.append(completions_)\n",
++    "            time.sleep(sleep)\n",
++    "\n",
++    "        compl = {\n",
++    "            'choices': sum([c.choices for c in completions], []),\n",
++    "        }\n",
++    "\n",
++    "\n",
+     "    return completions"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 1,
++   "execution_count": null,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+     "# |export\n",
+-    "def extract_prediction(completion):\n",
+-    "    return completion[\"choices\"][0][\"text\"].split(\"@\")[0].strip()\n"
++    "def extract_prediction(completion, i=0):\n",
++    "    return completion[\"choices\"][i][\"text\"].split(\"@\")[0].strip()\n"
+    ]
+   },
+   {

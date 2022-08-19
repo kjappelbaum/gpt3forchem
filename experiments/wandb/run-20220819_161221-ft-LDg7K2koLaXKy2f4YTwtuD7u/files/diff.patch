@@ -1,0 +1,774 @@
+diff --git a/experiments/01_polymer_forward.ipynb b/experiments/01_polymer_forward.ipynb
+index c7515ac..b2e784c 100644
+--- a/experiments/01_polymer_forward.ipynb
++++ b/experiments/01_polymer_forward.ipynb
+@@ -1650,6 +1650,378 @@
+     "    return completions"
+    ]
+   },
++  {
++   "cell_type": "code",
++   "execution_count": 24,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "res = query_gpt3(\"davinci:ft-lsmoepfl-2022-08-19-02-11-53\", test_prompts.iloc[:5])"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 28,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "5"
++      ]
++     },
++     "execution_count": 28,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "len(res['choices'])"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 29,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "def extract_prediction(completion, i=0):\n",
++    "    return completion[\"choices\"][i][\"text\"].split(\"@\")[0].strip()\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 30,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "'2'"
++      ]
++     },
++     "execution_count": 30,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "extract_prediction(res)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 44,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "predictions = [\n",
++    "    extract_prediction(res, i)\n",
++    "    for i, completion in enumerate(res[\"choices\"][0])\n",
++    "]"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 43,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "<OpenAIObject at 0x170b428b0> JSON: {\n",
++       "  \"finish_reason\": \"length\",\n",
++       "  \"index\": 0,\n",
++       "  \"logprobs\": null,\n",
++       "  \"text\": \" 2@@@### 3@@@### 2@@\"\n",
++       "}"
++      ]
++     },
++     "execution_count": 43,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "res['choices'][0]"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 47,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "0.952"
++      ]
++     },
++     "execution_count": 47,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "cm.ACC_Macro"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 48,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "from fastcore.basics import chunked"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 66,
++   "metadata": {},
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "['what is the adsorption energy of B-R-B-B-R-R-R-R-R-R-A-B-W-B-W-A-B-A-W-W-A-R-B-W-B-W-B-W-B-B-R-W-R-R-W-B-W-R###', 'what is the adsorption energy of R-A-R-B-R-W-W-B-W-R-B-R-B-A-B-B-W-B-W-A-R-R-B-B-A-W-B-R###', 'what is the adsorption energy of W-R-W-R-B-A-W-W-R-A-W-A-A-W-R-A-B-W-A-B-R-B-R-A-W-W-W-R-R-R-W-R-A-A-A-A-W-A###', 'what is the adsorption energy of W-R-W-B-W-A-A-A-R-W-B-R-W-A-W-W-R-B-W-B-R-R-A-A###', 'what is the adsorption energy of A-A-W-R-R-B-R-W-B-A-R-A-W-B-A-R-A-W-R-B-W-A-W-A###', 'what is the adsorption energy of R-W-W-A-B-B-W-B-W-B-A-R-A-R-R-W-R-R-A-W-R-R###', 'what is the adsorption energy of R-A-B-W-A-B-A-W-B-A-R-W-B-W-W-B-R-A-W-B-A-W-A-B-R-W-B-W-W-A###', 'what is the adsorption energy of W-R-B-A-R-W-W-R-A-B-R-W-A-R-W-W-W-W-W-B-R-W-B-W-A-W###', 'what is the adsorption energy of W-R-W-B-A-A-A-B-B-W-B-R-R-W-R-A-W-R-R-R-A-W-A-A-B-A-B-R###', 'what is the adsorption energy of R-W-A-B-R-R-A-A-R-B-A-A-A-B-R-A-R-B-A-R-B-W-W-A-W-R-A-A-B-A###', 'what is the adsorption energy of A-W-A-R-B-A-A-B-R-B-R-A-R-A-W-B-A-W-W-W-R-R-A-A-A-W###', 'what is the adsorption energy of A-B-R-B-W-A-W-B-R-R-B-W-R-A-A-W-A-R-R-W-W-R-R-A###', 'what is the adsorption energy of W-B-B-W-R-B-B-W-B-W-R-B-R-W-B-B-W-R-A-B-W-W-B-W-R-A-A-A-B-B-R-R-W-R###', 'what is the adsorption energy of W-W-B-R-B-A-B-W-B-B-W-R-W-B-W-W-R-A-W-W-B-A-W-R-A-B-A-A-A-A-A-W-A-W-R-R###', 'what is the adsorption energy of R-A-W-W-A-B-R-R-R-B-R-R-A-A-W-A-A-B-R-A-R-R-B-B-W-R-R-R-B-A###', 'what is the adsorption energy of R-R-A-A-W-B-W-R-W-B-W-A-A-R-R-A-R-W-R-B-R-B-B-A-R-B-R-R-A-A-W-R###', 'what is the adsorption energy of A-A-W-B-W-A-R-R-B-W-A-A-B-W-A-W-A-R-R-W-B-A-R-R-R-R###', 'what is the adsorption energy of R-A-W-R-R-W-W-A-A-B-A-R-R-A-R-R-B-R-B-W-B-A-B-B###', 'what is the adsorption energy of A-A-W-R-B-W-B-W-A-W-R-B-B-B-B-A-R-R-R-W-W-R-A-R-A-R###', 'what is the adsorption energy of B-A-A-A-B-A-R-W-A-B-W-A-A-B-R-R-R-W-W-R-W-B-R-R-W-W-B-A-R-A-A-W-B-R-A-B-R-A###']\n",
++      "['what is the adsorption energy of R-R-A-A-W-R-R-A-R-W-R-W-A-A-W-A-A-B-B-B-W-A-W-W-B-B-A-A-R-B-W-W-W-R-A-W-W-A###', 'what is the adsorption energy of R-B-A-R-A-B-R-W-A-A-W-A-B-R-R-W-R-A-B-B-W-W-W-W-B-R-R-R-W-R###', 'what is the adsorption energy of A-B-R-B-B-W-R-W-A-A-W-R-R-A-A-B-R-B-B-B-R-W-B-R-R-A###', 'what is the adsorption energy of B-B-B-W-A-W-A-W-B-A-R-B-R-R-B-W-R-R-B-B-W-A-W-A-B-B-R-R-A-W-W-R###', 'what is the adsorption energy of B-R-A-R-A-A-R-W-A-R-B-A-R-R-A-B-W-A-A-B-R-W-R-A-A-W-A-A###', 'what is the adsorption energy of W-R-R-B-R-B-B-A-R-B-W-W-A-W-B-W-B-W-B-B-B-A-W-R-A-R-R-R-B-B-R-W-A-W-R-R-A-R-B-W###', 'what is the adsorption energy of B-W-R-A-R-A-B-A-W-B-W-B-B-W-A-R-A-A-B-W-W-A-R-W-B-R-R-R-W-W-R-W-R-B-B-B-R-B-B-R-R-A###', 'what is the adsorption energy of B-A-W-R-B-B-B-R-W-W-W-R-W-A-B-W-W-A-R-B-B-R-R-W-B-R-W-A-W-B-R-B###', 'what is the adsorption energy of R-B-A-R-A-A-B-B-R-B-W-B-R-B-B-R-W-A-B-A-A-B-B-W-A-R-A-W###', 'what is the adsorption energy of R-W-R-W-W-B-A-A-W-W-B-W-A-B-A-A-B-B-R-W-R-W-R-W-W-W-A-R-B-W###', 'what is the adsorption energy of A-R-B-B-R-R-A-W-R-W-A-A-W-R-W-B-R-R-A-W-R-B-W-A-R-R-W-B-W-R-A-R-W-W-B-A###', 'what is the adsorption energy of A-R-A-W-R-B-B-A-B-B-B-R-W-W-A-W-R-A-A-W-R-B-W-A-W-W-A-B-W-R-R-R-A-B-W-W-A-W###', 'what is the adsorption energy of R-B-W-W-A-A-A-R-B-A-A-R-A-A-B-R-A-W-R-A-R-R-R-B-A-A-R-R-R-W-R-A###', 'what is the adsorption energy of A-R-W-W-B-A-A-R-A-W-A-R-A-A-B-R-R-R-A-R-B-R-R-W-A-A-R-R-R-B-A-A-B-B###', 'what is the adsorption energy of W-R-A-W-B-A-B-R-R-R-B-B-A-W-B-R-B-R-R-R-R-R-W-A-R-R###', 'what is the adsorption energy of B-B-W-A-A-W-A-W-W-R-W-R-R-B-B-B-B-A-W-W-R-W-A-A-W-B-R-B-R-R-B-B-W-R-B-B-A-A###', 'what is the adsorption energy of B-B-B-A-W-R-W-A-R-B-B-A-W-B-R-W-A-W-B-B-R-R-A-A-W-B-A-R-W-W-W-A-W-R-B-R-A-A-W-W###', 'what is the adsorption energy of A-B-R-B-W-A-B-A-B-B-R-R-A-R-B-W-A-B-B-A-W-R-B-R-W-B-W-W-A-A-B-B###', 'what is the adsorption energy of A-R-W-B-R-R-W-W-R-W-A-R-R-B-W-R-B-A-W-A-W-A-R-W-R-W-R-W-A-R-R-W-A-B-W-A###', 'what is the adsorption energy of A-A-B-A-B-R-W-W-A-W-R-W-B-A-B-R-A-B-R-B-W-R-B-B-A-R-B-A-B-W###']\n",
++      "['what is the adsorption energy of W-B-W-B-B-W-W-A-W-R-B-R-B-A-B-B-B-A-W-B-W-R-A-W-W-B-A-B-W-A-B-R###', 'what is the adsorption energy of R-A-B-W-B-B-A-B-W-A-W-R-R-B-A-A-R-B-B-B-A-W-B-R-R-A-R-R-A-B###', 'what is the adsorption energy of W-W-A-B-R-R-B-R-R-B-W-B-A-B-W-A-W-R-B-W-R-W-R-R-A-W-W-A-B-R-W-R-W-R-W-A-R-B###', 'what is the adsorption energy of B-B-R-B-R-W-B-A-B-R-B-W-R-B-W-B-B-W-R-A-A-B-R-A-R-B-W-R-W-R-B-R-R-R###', 'what is the adsorption energy of A-A-W-B-R-R-A-R-R-W-R-R-W-R-A-B-A-R-W-R-W-R-A-W-R-B-R-B###', 'what is the adsorption energy of R-B-A-R-B-W-R-W-W-B-W-R-A-A-B-A-R-R-B-B-B-B-R-B-B-W-R-B-W-B###', 'what is the adsorption energy of A-R-R-R-W-R-W-R-R-W-R-A-A-W-B-W-W-W-W-W-B-A-A-R-W-R-B-W-B-R-W-A###', 'what is the adsorption energy of R-B-A-W-B-B-W-A-W-W-W-A-R-A-A-A-A-B-A-R-W-W-W-W-W-W-A-A-W-R###', 'what is the adsorption energy of W-A-R-R-B-B-W-W-W-R-B-A-R-B-W-R-B-B-B-W-B-W-W-R-W-W-A-B-W-B-A-W###', 'what is the adsorption energy of R-W-W-A-A-B-W-B-A-B-W-B-B-A-W-W-A-A-B-W-B-B-R-A-B-B-R-B-B-A-W-R###', 'what is the adsorption energy of B-R-R-A-W-W-R-R-A-A-R-W-A-R-B-A-R-W-B-B-B-W-B-B-R-W-R-W-R-R-A-B-W-W-W-R###', 'what is the adsorption energy of A-W-W-W-B-A-A-R-A-B-B-R-R-R-W-A-A-A-W-A-A-W-A-W-B-A-R-R-B-B-A-W###', 'what is the adsorption energy of W-R-R-W-A-R-B-R-R-A-R-A-B-A-W-W-A-R-A-A-R-B-A-B-A-A-A-A-W-B-W-B###', 'what is the adsorption energy of R-B-B-R-B-B-R-W-A-B-W-A-R-R-A-B-W-B-R-A-W-R-W-R-W-A-R-R-B-A-W-A-R-A-R-B-B-W###', 'what is the adsorption energy of R-W-A-W-B-R-W-B-W-W-W-A-A-R-B-R-R-R-R-R-B-A-R-R###', 'what is the adsorption energy of W-W-A-W-A-A-W-B-B-B-B-W-W-A-W-B-B-A-R-W-A-B-R-R-B-R-R-B-B-R###', 'what is the adsorption energy of W-A-W-B-B-W-W-A-W-R-A-A-B-A-B-A-A-R-R-A-W-A-B-A-B-R###', 'what is the adsorption energy of W-W-W-A-W-B-W-B-B-W-W-B-W-R-W-W-B-R-B-B-B-A-B-R-R-B-A-A###', 'what is the adsorption energy of R-A-W-R-B-W-B-R-A-R-R-B-R-A-B-R-R-R-R-B-W-A-A-B-A-R-A-W-A-W-B-W-W-W-A-B-W-W-R-A###', 'what is the adsorption energy of A-B-R-B-W-B-W-W-A-A-R-W-A-A-W-R-W-W-W-B-A-W-A-A-A-W-B-W-A-A-A-R-R-B-W-R###']\n",
++      "['what is the adsorption energy of B-W-W-W-B-R-R-W-B-R-A-W-B-A-W-W-W-B-W-A-A-W-W-B-B-B-W-B-R-B###', 'what is the adsorption energy of R-W-R-A-B-R-W-B-B-A-W-R-W-A-W-B-B-A-R-W-A-R-B-A-R-R-R-A-R-R-W-A-W-B-R-B###', 'what is the adsorption energy of A-B-B-B-B-R-B-W-R-R-R-W-B-B-R-B-R-W-A-B-R-A-B-R-B-B-R-R-R-R-A-W###', 'what is the adsorption energy of R-A-B-A-W-B-W-R-A-B-A-B-B-B-A-B-B-R-W-B-W-R-R-B-R-A###', 'what is the adsorption energy of B-B-A-W-R-R-R-R-W-A-R-A-W-W-W-R-A-A-A-R-B-A-W-R-W-R-R-W-W-B-R-A-B-W-B-R###', 'what is the adsorption energy of A-B-W-W-W-A-W-B-R-A-B-A-W-A-A-A-A-A-W-R-A-B-B-R-W-W-R-R-R-R-A-A-R-B###', 'what is the adsorption energy of W-R-W-B-A-B-R-A-B-A-R-B-R-W-W-B-W-A-A-R-R-R-A-R-W-W-R-B-R-R-R-W###', 'what is the adsorption energy of W-B-W-A-R-W-A-B-A-A-B-A-W-A-R-W-B-B-B-R-B-A-R-W-R-R-A-B-A-W-W-A###', 'what is the adsorption energy of B-W-W-R-R-R-W-A-B-W-R-W-A-B-A-W-A-B-W-R-A-W-W-R-A-B-A-R-B-W-B-W-B-R-A-W###', 'what is the adsorption energy of R-W-W-W-B-B-R-W-A-W-W-B-R-R-W-W-A-W-A-W-R-R-B-B-A-R-B-B-R-W-W-R-R-B-R-R###', 'what is the adsorption energy of A-W-A-W-B-W-W-B-B-W-W-W-B-A-A-R-R-W-R-R-W-R-R-W-W-R-R-R-W-R###', 'what is the adsorption energy of R-A-B-R-R-R-R-R-R-B-A-W-A-A-R-B-B-B-R-W-W-A-A-A-W-A-W-A-R-A-B-W-A-R-R-A###', 'what is the adsorption energy of A-W-R-A-R-R-B-R-R-R-B-W-R-W-B-A-B-B-W-W-W-B-R-R-A-W-B-W-W-B-W-W-W-R###', 'what is the adsorption energy of A-W-A-A-R-B-B-B-B-B-B-W-A-A-W-W-A-A-R-R-R-R-A-R###', 'what is the adsorption energy of B-B-B-B-B-A-W-A-B-A-W-R-B-R-B-R-A-R-R-W-R-W-B-B-B-R-B-R###', 'what is the adsorption energy of R-R-R-W-R-B-B-B-A-B-B-R-B-A-A-A-R-W-B-A-R-A-R-R-B-A-W-B-B-A-B-A-W-R-B-A###', 'what is the adsorption energy of R-A-B-B-W-B-W-R-R-B-B-B-B-B-B-W-A-W-R-B-B-B-A-A###', 'what is the adsorption energy of B-R-A-B-R-A-B-W-R-A-R-R-A-A-W-W-B-B-R-R-R-A-A-B-B-A-R-B-R-R-A-A-A-W-A-B-R-B###', 'what is the adsorption energy of W-B-A-R-B-A-B-R-R-W-B-R-A-B-A-R-W-A-R-B-A-W###', 'what is the adsorption energy of A-B-B-A-A-R-W-A-R-B-A-A-A-A-B-R-R-B-B-R-R-W-W-A-W-B-W-B-B-B-W-A-W-W-A-R-A-R-B-B###']\n",
++      "['what is the adsorption energy of A-B-W-A-A-R-R-B-W-B-A-B-W-A-A-R-B-A-A-W-A-A-R-B###', 'what is the adsorption energy of B-W-A-R-B-R-B-B-A-R-W-W-B-B-R-R-A-R-W-R-B-A-A-W-R-A-R-W-A-A-R-B###', 'what is the adsorption energy of A-R-W-A-R-R-A-B-W-B-A-R-A-A-B-B-R-R-W-A-A-W-R-B-A-B-R-R-A-W-W-W-W-R###', 'what is the adsorption energy of B-R-A-B-R-A-W-R-B-R-B-R-B-R-W-B-B-A-A-B-R-B-R-A-A-R-W-B-R-W###', 'what is the adsorption energy of A-B-B-W-W-R-B-B-W-W-W-A-W-R-A-R-B-R-R-W-W-A-R-B-R-W-B-R-B-A-W-B-B-B-W-W-A-B###', 'what is the adsorption energy of A-R-B-B-B-B-R-A-A-R-B-W-B-W-B-R-A-B-B-B-W-W###', 'what is the adsorption energy of A-A-B-A-B-A-R-R-A-R-B-W-B-R-W-A-W-R-W-R-B-A-W-A-A-B-W-B-R-R-W-W-R-B-R-B-B-A###', 'what is the adsorption energy of R-W-B-W-A-R-B-A-B-B-W-W-B-A-W-B-W-B-B-W-A-W-B-R-W-R-A-A-W-B###', 'what is the adsorption energy of W-W-A-W-A-A-R-R-B-R-W-W-W-B-R-A-W-W-W-B-A-B-R-R-R-B-B-B-W-W-B-R-B-A-A-W-B-A###', 'what is the adsorption energy of B-R-B-B-W-A-B-W-A-R-B-B-R-R-B-W-B-A-W-W-A-W-W-W-W-B-B-W###', 'what is the adsorption energy of W-B-W-W-R-B-W-B-A-W-R-R-R-R-A-W-R-W-W-R-R-B-B-W-R-A-W-R-A-R-B-R###', 'what is the adsorption energy of B-W-R-W-W-R-B-W-W-B-B-W-B-R-R-R-B-B-W-W-R-W-A-W-A-A-A-R-W-R-W-B###', 'what is the adsorption energy of R-W-B-B-R-R-B-R-R-B-A-W-W-B-A-A-B-W-A-B-W-B-A-B-B-B-W-R-W-A-W-B###', 'what is the adsorption energy of W-A-A-R-B-W-W-B-W-W-A-W-W-R-A-B-B-A-W-A-W-R-A-A-R-A-R-B-R-W-B-R-R-A-W-A-W-A###', 'what is the adsorption energy of W-R-B-W-R-A-B-A-R-R-W-R-W-W-W-R-W-W-A-W-R-A-R-B-A-W-B-A-A-R-R-B-W-A-R-R-W-B###', 'what is the adsorption energy of B-R-A-B-R-R-R-R-B-W-B-R-B-R-A-B-A-R-A-A-R-W-W-W-R-A###', 'what is the adsorption energy of B-B-W-B-A-B-R-W-R-R-R-A-W-A-B-B-R-B-B-W-A-A-A-B-B-R-B-B###', 'what is the adsorption energy of R-W-R-W-A-B-B-W-A-W-A-R-A-A-W-A-A-A-R-W-W-R-A-W-A-A-B-R-W-R-W-A-B-R###', 'what is the adsorption energy of R-R-R-W-R-B-R-W-B-R-R-A-R-W-A-A-B-W-R-W-R-W-R-A-A-R-A-W-A-A-W-W-B-W###', 'what is the adsorption energy of R-W-R-R-A-B-A-W-A-W-W-B-B-A-A-A-W-R-A-B-A-W-W-W###']\n",
++      "['what is the adsorption energy of W-B-A-R-W-R-B-A-R-A-W-B-R-R-A-W-A-A-R-A-R-B-R-W-R-W-W-R-A-W-B-B###', 'what is the adsorption energy of B-A-A-R-A-B-A-W-B-W-W-A-R-R-B-W-B-R-B-A-R-B-B-W-A-B-B-W-B-R-B-A###', 'what is the adsorption energy of R-B-A-W-R-A-R-A-B-B-W-A-W-A-A-W-W-A-B-B-R-W-B-W-B-A-A-W-B-A-A-W-W-A-B-B###', 'what is the adsorption energy of B-A-B-R-A-W-B-B-B-A-W-B-R-B-W-B-B-B-A-W-R-R###', 'what is the adsorption energy of W-B-A-W-A-R-R-A-B-A-A-B-R-W-A-R-B-R-R-W-R-B-W-B-A-A-W-R-B-A-A-R-B-A-A-R-W-W###', 'what is the adsorption energy of R-A-W-W-W-B-B-B-W-W-A-R-B-W-A-W-W-R-A-R-B-B-R-R###', 'what is the adsorption energy of R-W-B-A-B-B-R-R-W-B-A-R-B-W-R-R-W-W-R-B-R-B-B-A-B-W-W-R-A-B-R-W###', 'what is the adsorption energy of A-A-R-R-W-R-A-W-A-W-R-W-B-W-B-W-B-W-B-B-A-W-R-A-B-W-R-W###', 'what is the adsorption energy of A-B-R-B-R-A-W-A-A-R-B-A-A-A-B-B-B-R-W-W-A-B-B-B-R-A-A-B-R-W###', 'what is the adsorption energy of A-B-R-A-R-B-B-W-B-R-A-R-A-B-W-W-W-B-R-B-B-R###', 'what is the adsorption energy of B-R-W-B-A-A-R-B-W-W-W-W-W-A-A-B-W-A-A-A-B-R-A-A-B-A-B-W-R-B###', 'what is the adsorption energy of B-W-B-A-R-B-R-R-R-R-W-R-B-B-W-W-A-A-R-W-B-B-W-W-R-A-W-B-R-W-R-W-R-R###', 'what is the adsorption energy of R-A-A-R-B-R-B-B-W-R-W-A-A-A-B-R-A-B-W-B-A-W-A-R-R-W-R-W-B-B-W-R-A-A-W-B-B-R-W-W###', 'what is the adsorption energy of R-B-B-R-B-W-B-W-R-A-A-B-B-W-W-B-W-A-W-B-W-R-A-R-B-W-W-R-W-B###', 'what is the adsorption energy of R-R-W-R-W-A-B-R-W-W-A-A-B-A-A-R-R-B-A-R-R-B###', 'what is the adsorption energy of A-W-B-W-R-B-B-R-B-B-A-R-A-A-W-B-W-A-B-W-A-A-A-B-B-R-A-A-W-B###', 'what is the adsorption energy of A-A-W-A-W-W-B-R-W-R-A-B-B-B-R-W-A-R-W-B-R-W-W-W-A-W-R-B-A-A###', 'what is the adsorption energy of R-W-W-B-B-R-A-A-B-A-W-B-A-W-B-R-R-B-B-W-W-B-W-W-A-R-B-A-A-R-R-A-W-R-B-W-R-R###', 'what is the adsorption energy of W-W-B-A-B-R-R-A-W-A-R-B-A-A-R-B-A-A-W-A-W-R-W-A-W-A-W-A-R-B-W-W-B-W-B-B-W-A###', 'what is the adsorption energy of R-A-A-A-R-A-W-A-A-A-B-B-B-R-R-A-A-R-B-A-W-A-A-W-R-W-W-R-W-R-R-R###']\n",
++      "['what is the adsorption energy of R-B-W-A-B-B-A-R-A-B-A-A-A-B-A-W-R-B-A-W-A-A-W-R###', 'what is the adsorption energy of W-B-A-B-A-A-W-A-W-W-W-W-A-B-R-B-W-B-R-A-W-R-R-B###', 'what is the adsorption energy of A-R-A-A-R-R-W-B-R-W-R-W-R-B-B-B-B-A-R-A-B-R-A-B-W-A-B-A-A-A###', 'what is the adsorption energy of A-R-W-B-R-B-R-A-A-R-B-W-B-W-W-A-A-R-A-B-R-R-B-B-R-R-R-R-B-R###', 'what is the adsorption energy of A-W-R-B-W-A-W-R-W-A-A-B-R-B-B-B-B-W-R-A-W-B-A-W-B-B-W-R-W-R-A-R-W-W-R-A-B-B-B-R-R-W###', 'what is the adsorption energy of B-R-B-W-A-A-A-W-A-R-R-W-R-A-R-A-B-A-R-W-A-A-B-A###', 'what is the adsorption energy of B-A-B-W-B-W-A-R-A-R-W-R-B-W-B-R-R-B-B-R-B-R-R-A###', 'what is the adsorption energy of R-R-B-A-B-A-B-B-B-R-B-R-A-B-W-B-W-R-B-B-A-B-W-B-R-W###', 'what is the adsorption energy of R-B-W-R-R-B-R-W-A-R-A-A-W-A-W-B-R-R-A-R-R-W-R-R-A-W-A-A-W-A-R-A-A-B-W-A###', 'what is the adsorption energy of W-B-W-A-B-R-W-R-B-B-B-R-B-W-R-W-W-W-R-W-B-W-W-B-W-R-A-B-B-W-A-A###', 'what is the adsorption energy of A-A-W-A-R-A-B-R-W-A-B-A-R-W-R-A-B-W-R-W-B-R-A-W-A-W-B-A-R-B-B-W-B-R###', 'what is the adsorption energy of B-W-R-B-W-W-B-R-R-R-A-R-R-A-A-A-W-A-B-A-W-A-R-A-R-A-R-W-A-R###', 'what is the adsorption energy of B-W-A-W-B-B-B-R-R-R-R-R-R-B-B-B-R-R-A-B-W-A-B-R-W-R-A-B###', 'what is the adsorption energy of W-W-A-B-W-R-B-W-A-W-B-R-A-B-A-W-R-A-A-R###', 'what is the adsorption energy of R-W-A-B-R-R-A-B-B-B-B-A-A-W-A-R-W-W-A-R-B-R###', 'what is the adsorption energy of R-R-A-R-R-B-R-R-W-W-W-R-W-A-W-A-B-R-A-B-A-A-A-R-R-R-R-B-A-W###', 'what is the adsorption energy of A-R-R-B-R-R-W-A-B-A-A-A-R-R-A-A-W-A-A-W-R-A-A-A-B-R-B-B-B-W###', 'what is the adsorption energy of B-R-B-B-B-R-A-R-R-B-W-R-A-W-W-R-A-B-R-B-R-W-B-R-B-R-B-R-B-R-B-A###', 'what is the adsorption energy of R-B-W-R-W-W-W-W-R-R-R-B-W-A-R-A-B-W-B-A-R-A-W-W-R-B-W-B###', 'what is the adsorption energy of A-A-B-W-B-R-R-B-R-W-R-A-B-B-R-R-B-W-R-B-W-R-W-B-R-A-W-W-W-R###']\n",
++      "['what is the adsorption energy of A-W-R-A-W-W-B-B-R-A-R-A-B-W-A-A-A-A-W-A-R-B-W-A-A-W-R-R-W-R-R-A###', 'what is the adsorption energy of R-W-W-R-R-W-B-A-B-R-A-A-W-B-R-A-B-W-B-R-R-A-R-W-W-W-R-W-A-W-R-B-A-R-B-R-W-B-B-W-B-A###', 'what is the adsorption energy of W-A-A-A-A-R-R-B-R-A-R-W-R-W-A-W-B-R-R-B-R-A-W-R-R-W-W-A-A-W-R-B-A-A-R-A###', 'what is the adsorption energy of R-W-W-W-B-R-W-B-A-R-R-R-W-A-W-B-B-R-A-A-A-R-R-R-A-W-B-W-W-R-A-W-B-A-R-B-R-W-W-B###', 'what is the adsorption energy of A-R-R-W-W-A-R-B-B-W-W-A-W-W-R-R-B-B-W-R-B-R-A-W-W-R-B-R-W-R-A-A###', 'what is the adsorption energy of W-A-A-A-W-R-W-W-W-B-A-B-A-A-A-B-B-R-A-W-A-A-R-B-R-W-W-A-W-B-A-W###', 'what is the adsorption energy of W-W-A-B-A-W-B-A-B-R-R-A-B-A-W-W-R-R-B-R-W-A-B-R-R-A-W-R-A-W-R-R###', 'what is the adsorption energy of A-B-A-A-R-W-R-R-B-B-W-R-W-R-B-A-A-W-B-W-W-A-R-A-A-B-R-A-A-W-W-A-B-R-B-B-R-B-A-R###', 'what is the adsorption energy of R-W-A-B-A-B-B-B-B-B-A-B-A-W-B-A-A-B-A-A-R-R-B-B-A-W-W-A-B-A-A-R###', 'what is the adsorption energy of B-R-W-A-R-A-B-R-B-R-R-R-B-W-A-B-B-W-W-W-W-B-A-R-A-B-R-R-R-A-B-A-A-B-W-B-W-B###', 'what is the adsorption energy of A-B-W-W-W-R-R-B-A-W-W-A-W-A-R-W-B-W-W-W-R-W-R-A-R-A-B-R-W-R###', 'what is the adsorption energy of R-W-R-R-A-A-R-B-R-W-W-A-R-B-B-A-W-A-W-R-B-B-W-B-R-R-W-A-A-A-A-A-B-R-B-W###', 'what is the adsorption energy of B-A-R-B-R-R-W-R-R-B-B-W-W-A-R-R-R-R-B-B-A-B-W-W-W-W-A-R-B-W-B-R-B-R###', 'what is the adsorption energy of B-B-B-W-R-R-W-W-B-R-W-A-W-A-A-W-A-R-A-A-W-B-B-R-A-R-R-R-R-W-W-A-W-R###', 'what is the adsorption energy of W-B-W-R-A-B-B-R-W-W-R-W-R-W-A-R-A-W-W-A-W-R-W-B-W-W###', 'what is the adsorption energy of W-R-B-B-B-B-A-R-R-R-A-A-R-A-B-B-R-R-B-W-A-A-W-R-B-W###', 'what is the adsorption energy of R-W-R-A-B-B-W-B-B-W-R-R-B-B-R-R-R-B-W-A-R-B-R-R-B-A-B-R-A-R###', 'what is the adsorption energy of R-A-R-R-R-W-W-W-B-W-W-W-W-W-R-A-A-B-B-W-A-B-R-W-R-R###', 'what is the adsorption energy of A-R-B-A-R-W-R-A-W-W-W-W-B-R-B-W-W-W-W-R-W-R-R-B-W-R-A-R-R-W###', 'what is the adsorption energy of W-W-A-A-R-W-B-B-B-W-B-A-A-W-B-A-R-A-A-B-W-B-W-A-W-R-B-B-R-B-B-B###']\n",
++      "['what is the adsorption energy of W-A-B-B-R-A-A-B-B-A-B-B-A-A-R-R-B-B-W-B-R-R-A-R-R-R-B-W-A-A-W-R-A-R-R-B-W-R-W-W-W-B###', 'what is the adsorption energy of R-A-B-R-W-B-W-R-A-R-A-R-R-B-A-A-R-W-R-A-W-R-R-B-W-W-R-A-A-B-B-A-R-A-A-A###', 'what is the adsorption energy of B-W-A-B-R-W-A-R-B-R-R-W-B-B-W-R-R-B-W-R-B-R-B-B-B-R-A-B-B-R-R-W-A-R###', 'what is the adsorption energy of W-W-R-B-B-B-A-B-B-B-A-R-W-W-W-A-W-A-A-A-W-W-A-A-R-R###', 'what is the adsorption energy of B-R-W-B-A-B-W-R-A-A-R-B-B-A-B-R-R-R-B-B-B-A-R-B-R-W-W-W-B-A-W-A-A-B###', 'what is the adsorption energy of B-W-B-A-A-B-R-A-W-R-B-R-A-W-B-A-A-A-A-A-R-B-W-A-A-B-R-A-B-R###', 'what is the adsorption energy of A-B-B-A-W-R-B-A-A-A-R-A-W-A-W-R-A-W-W-W-W-A-B-W-R-W-R-R-R-B-R-A-B-A-W-A-R-R-R-R-W-W###', 'what is the adsorption energy of B-B-B-B-R-W-R-W-W-B-W-R-B-W-W-W-R-R-W-A-A-R-W-A-R-R-R-W-A-W-R-A-A-W###', 'what is the adsorption energy of R-A-B-W-R-A-A-W-A-R-W-A-B-A-A-W-R-W-A-W-R-R-R-B-R-R-R-B-R-R###', 'what is the adsorption energy of A-B-A-A-B-W-W-B-W-R-R-R-W-A-W-A-R-B-W-B-A-R-B-B-A-B-B-A-A-A-B-R###', 'what is the adsorption energy of A-W-A-B-R-W-A-B-A-B-W-W-W-A-W-A-W-B-R-B-B-W-A-B-A-B-A-R-W-W-W-B-B-A-W-R###', 'what is the adsorption energy of B-A-R-W-R-W-B-R-R-W-R-B-R-R-A-W-A-R-B-A-B-R-B-B-R-B-B-A-A-B-R-R###', 'what is the adsorption energy of A-A-A-A-W-R-W-A-W-R-A-A-A-W-R-W-B-W-A-W-A-W-W-W-B-B-W-W-A-R-R-B-R-A###', 'what is the adsorption energy of R-B-B-A-A-W-R-R-B-R-A-R-R-B-B-A-A-A-B-R-B-B-W-R-W-R-W-A-A-B-B-R###', 'what is the adsorption energy of W-A-R-W-W-B-W-A-W-A-B-W-W-R-W-A-B-R-W-W-R-W-W-B###', 'what is the adsorption energy of B-B-W-W-B-W-A-B-A-B-A-A-R-B-A-A-W-A-A-A-R-W-B-B-B-W-B-R-R-A###', 'what is the adsorption energy of W-R-A-R-B-R-R-A-W-A-W-A-W-A-A-B-B-A-W-R-B-B-B-R-B-B-W-B-A-B-B-B###', 'what is the adsorption energy of R-W-W-R-W-R-A-B-W-B-B-R-A-W-W-W-W-A-R-B-R-A-A-A-W-R-A-R-W-A-R-B-B-B-B-B-W-B-W-R###', 'what is the adsorption energy of B-A-R-A-B-W-A-A-R-W-B-R-A-A-A-R-R-B-A-W-W-A-B-W-B-B-A-W-B-R###', 'what is the adsorption energy of W-W-B-A-A-B-R-A-A-B-W-B-W-A-R-W-W-W-R-B-R-B-B-W-B-A-A-R-A-W-B-B-B-R-B-A-A-W###']\n",
++      "['what is the adsorption energy of W-B-B-B-R-A-A-W-B-R-W-B-B-B-A-R-R-R-R-W-A-B-A-B-R-A-A-R-R-B-B-A-W-W-R-B###', 'what is the adsorption energy of W-R-W-B-A-B-R-A-R-A-B-B-A-R-R-A-A-W-R-A-R-A-R-B-A-B-R-W-R-A-R-R-B-A-A-B###', 'what is the adsorption energy of R-A-R-A-W-R-A-B-B-B-R-W-B-W-R-R-B-R-B-W-W-W-W-R-B-W-B-A-W-W###', 'what is the adsorption energy of B-W-B-W-B-R-A-R-A-R-W-B-W-W-R-W-B-B-B-B-R-B-A-R-W-W-A-B-R-R-B-R-W-B-W-R###', 'what is the adsorption energy of A-B-R-R-R-W-B-A-B-W-A-W-R-W-W-W-W-B-W-R-W-B-B-W-R-A###', 'what is the adsorption energy of B-A-B-R-B-R-B-A-B-W-A-W-R-A-B-B-W-A-B-R-A-R-W-W-B-W-A-R-B-A-W-W-R-R###', 'what is the adsorption energy of W-B-A-W-W-A-W-B-R-R-B-R-R-B-W-B-W-A-A-B###', 'what is the adsorption energy of W-W-W-B-W-B-R-A-A-A-R-A-R-B-R-R-R-R-B-R-B-W-A-R-W-R-R-R-W-A-W-B-W-B-B-B-B-W###', 'what is the adsorption energy of B-W-W-A-R-W-R-B-B-A-R-R-W-B-R-B-B-R-W-A-W-B-A-B-W-R-R-W-R-R###', 'what is the adsorption energy of R-R-A-B-A-A-W-A-R-B-A-A-W-W-A-R-R-A-B-R-W-W-B-W-R-A-A-B-A-R-B-A###', 'what is the adsorption energy of W-A-B-B-R-A-A-B-W-W-R-B-A-B-B-W-R-R-B-W-A-W-A-A-A-B-A-A###', 'what is the adsorption energy of B-W-W-A-W-A-R-W-B-W-A-A-A-B-A-A-B-A-A-B-R-W-R-B-R-B-R-B-B-A-A-B-B-W-W-A-R-B###', 'what is the adsorption energy of W-A-R-W-A-A-W-A-B-B-B-R-W-B-R-A-B-W-W-A-B-A-W-B-R-W-W-W-A-A-A-B-B-B###', 'what is the adsorption energy of R-R-R-R-W-R-W-W-W-W-A-A-B-W-W-A-R-W-R-B-R-B-B-W-A-B-A-B-A-R-W-B-B-R###', 'what is the adsorption energy of B-R-W-B-W-R-A-B-B-A-R-B-W-W-A-R-B-A-R-B-W-R-R-R-B-W-B-W-W-B###', 'what is the adsorption energy of R-R-B-B-W-R-W-B-A-B-B-B-R-A-R-B-A-A-R-W-A-W-W-W-A-B-A-A-W-W-R-R-R-A-A-R-W-W-B-R-B-B-B-R###', 'what is the adsorption energy of A-B-A-W-W-B-W-B-R-R-B-A-R-R-W-A-W-W-W-B-B-A-W-B-W-A-A-A-A-B-B-A-R-B-R-W-W-W###', 'what is the adsorption energy of R-W-R-B-B-R-B-B-R-R-B-B-A-W-A-A-B-B-B-W-W-B-B-W-A-B-W-R###', 'what is the adsorption energy of R-W-W-A-W-R-B-B-W-R-B-W-R-B-A-W-R-R-A-A-R-R-A-W-W-A-W-W###', 'what is the adsorption energy of A-A-B-A-A-B-A-B-R-R-R-B-W-W-A-W-W-W-R-A-A-R-A-A-A-W-W-B-B-W-A-R###']\n"
++     ]
++    }
++   ],
++   "source": [
++    "for chunk in chunked(test_prompts['prompt'], 20):\n",
++    "    print(chunk)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 63,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/html": [
++       "<div>\n",
++       "<style scoped>\n",
++       "    .dataframe tbody tr th:only-of-type {\n",
++       "        vertical-align: middle;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe tbody tr th {\n",
++       "        vertical-align: top;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe thead th {\n",
++       "        text-align: right;\n",
++       "    }\n",
++       "</style>\n",
++       "<table border=\"1\" class=\"dataframe\">\n",
++       "  <thead>\n",
++       "    <tr style=\"text-align: right;\">\n",
++       "      <th></th>\n",
++       "      <th>0</th>\n",
++       "      <th>1</th>\n",
++       "    </tr>\n",
++       "  </thead>\n",
++       "  <tbody>\n",
++       "    <tr>\n",
++       "      <th>0</th>\n",
++       "      <td>180</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>1</th>\n",
++       "      <td>181</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>2</th>\n",
++       "      <td>182</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3</th>\n",
++       "      <td>183</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>4</th>\n",
++       "      <td>184</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>5</th>\n",
++       "      <td>185</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>6</th>\n",
++       "      <td>186</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>7</th>\n",
++       "      <td>187</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>8</th>\n",
++       "      <td>188</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>9</th>\n",
++       "      <td>189</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>10</th>\n",
++       "      <td>190</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>11</th>\n",
++       "      <td>191</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>12</th>\n",
++       "      <td>192</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>13</th>\n",
++       "      <td>193</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>14</th>\n",
++       "      <td>194</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>15</th>\n",
++       "      <td>195</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>16</th>\n",
++       "      <td>196</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>17</th>\n",
++       "      <td>197</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>18</th>\n",
++       "      <td>198</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>19</th>\n",
++       "      <td>199</td>\n",
++       "      <td>prompt        what is the adsorption energy of...</td>\n",
++       "    </tr>\n",
++       "  </tbody>\n",
++       "</table>\n",
++       "</div>"
++      ],
++      "text/plain": [
++       "      0                                                  1\n",
++       "0   180  prompt        what is the adsorption energy of...\n",
++       "1   181  prompt        what is the adsorption energy of...\n",
++       "2   182  prompt        what is the adsorption energy of...\n",
++       "3   183  prompt        what is the adsorption energy of...\n",
++       "4   184  prompt        what is the adsorption energy of...\n",
++       "5   185  prompt        what is the adsorption energy of...\n",
++       "6   186  prompt        what is the adsorption energy of...\n",
++       "7   187  prompt        what is the adsorption energy of...\n",
++       "8   188  prompt        what is the adsorption energy of...\n",
++       "9   189  prompt        what is the adsorption energy of...\n",
++       "10  190  prompt        what is the adsorption energy of...\n",
++       "11  191  prompt        what is the adsorption energy of...\n",
++       "12  192  prompt        what is the adsorption energy of...\n",
++       "13  193  prompt        what is the adsorption energy of...\n",
++       "14  194  prompt        what is the adsorption energy of...\n",
++       "15  195  prompt        what is the adsorption energy of...\n",
++       "16  196  prompt        what is the adsorption energy of...\n",
++       "17  197  prompt        what is the adsorption energy of...\n",
++       "18  198  prompt        what is the adsorption energy of...\n",
++       "19  199  prompt        what is the adsorption energy of..."
++      ]
++     },
++     "execution_count": 63,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "pd.DataFrame.from_records(chunk)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 57,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "a = [res[\"choices\"][:2], res[\"choices\"][2:4]]"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 59,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "[<OpenAIObject at 0x170b428b0> JSON: {\n",
++       "   \"finish_reason\": \"length\",\n",
++       "   \"index\": 0,\n",
++       "   \"logprobs\": null,\n",
++       "   \"text\": \" 2@@@### 3@@@### 2@@\"\n",
++       " },\n",
++       " <OpenAIObject at 0x170b42a90> JSON: {\n",
++       "   \"finish_reason\": \"length\",\n",
++       "   \"index\": 1,\n",
++       "   \"logprobs\": null,\n",
++       "   \"text\": \" 3@@@ 3@@@ 3@@@ 3\"\n",
++       " },\n",
++       " <OpenAIObject at 0x170b42ef0> JSON: {\n",
++       "   \"finish_reason\": \"length\",\n",
++       "   \"index\": 2,\n",
++       "   \"logprobs\": null,\n",
++       "   \"text\": \" 1@@@### 2@@@### 3@@\"\n",
++       " },\n",
++       " <OpenAIObject at 0x170b3c130> JSON: {\n",
++       "   \"finish_reason\": \"length\",\n",
++       "   \"index\": 3,\n",
++       "   \"logprobs\": null,\n",
++       "   \"text\": \" 4@@@ 4@@@ 3@@@ 3\"\n",
++       " }]"
++      ]
++     },
++     "execution_count": 59,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "sum(a, [])"
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 0c57f76..3306768 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220818_221159-ft-NTqOw8HbPaeOibDQKdzqACYR
+\ No newline at end of file
++run-20220819_161221-ft-LDg7K2koLaXKy2f4YTwtuD7u
+\ No newline at end of file
+diff --git a/gpt3forchem/api_wrappers.py b/gpt3forchem/api_wrappers.py
+index 71a2260..341aa04 100644
+--- a/gpt3forchem/api_wrappers.py
++++ b/gpt3forchem/api_wrappers.py
+@@ -12,81 +12,134 @@ import re
+ from sklearn.model_selection import train_test_split
+ from pycm import ConfusionMatrix
+ 
++
+ # %% ../notebooks/01_api_wrappers.ipynb 5
+ def fine_tune(train_file, valid_file, model: str = "ada"):
+     # run the fine tuning
+     result = subprocess.run(
+         f"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model}",
+         shell=True,
+-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
++        stdout=subprocess.PIPE,
++        stderr=subprocess.PIPE,
++        text=True,
+     )
+-    print(result.stdout)
+-    modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
+-    # sync runs with wandb
+-    subprocess.run("openai wandb sync -n 1", shell=True)
++    try:
++        modelname = re.findall(r"completions.create -m ([\w\d:-]+) -p", result.stdout)[
++            0
++        ]
++        # sync runs with wandb
++        subprocess.run("openai wandb sync -n 1", shell=True)
++    except Exception:
++        print(result.stdout, result.stderr)
+     return modelname
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 8
+-def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5):
+-    completions = []
+-    for i, row in df.iterrows():
+-        try:
+-            completion = openai.Completion.create(
++
++# %% ../notebooks/01_api_wrappers.ipynb 7
++from fastcore.basics import chunked
++import pandas as pd
++
++
++def query_gpt3(
++    model,
++    df,
++    temperature=0,
++    max_tokens=10,
++    sleep=5,
++    one_by_one=False,
++    parallel_max: int = 20,
++):
++    if one_by_one:
++        completions = []
++        for i, row in df.iterrows():
++            try:
++                completion = openai.Completion.create(
++                    model=model,
++                    prompt=row["prompt"],
++                    temperature=temperature,
++                    max_tokens=max_tokens,
++                )
++                completions.append(completion)
++                time.sleep(sleep)
++            except Exception as e:
++                print(e)
++                print(f"Error on row {i}")
++                completions.append(None)
++    else:
++        # they have a limit on the maximum number of parallel completions
++        # otherwise you get
++        # openai.error.InvalidRequestError: Too many parallel completions requested.
++        # You submitted 500 prompts, but you can currently request up to at most a total of 20).
++        # Please contact support@openai.com and tell us about your use-case if you would like this limit increased.
++        # (HINT: if you want to just evaluate probabilities without generating new text, you can submit more prompts if you set 'max_tokens' to 0.)
++        completions = []
++        for chunk in chunked(df["prompt"], parallel_max):
++            completions_ = openai.Completion.create(
+                 model=model,
+-                prompt=row["prompt"],
++                prompt=chunk,
+                 temperature=temperature,
+                 max_tokens=max_tokens,
+             )
+-            completions.append(completion)
++            completions.append(completions_)
+             time.sleep(sleep)
+-        except Exception as e:
+-            print(e)
+-            print(f"Error on row {i}")
+-            completions.append(None)
++
++        completions = {
++            "choices": [choice for c in completions for choice in c['choices']],
++        }
+ 
+     return completions
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 9
+-def extract_prediction(completion):
+-    return completion["choices"][0]["text"].split("@")[0].strip()
+ 
++# %% ../notebooks/01_api_wrappers.ipynb 8
++def extract_prediction(completion, i=0):
++    return completion["choices"][i]["text"].split("@")[0].strip()
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 10
+-def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None):
++
++# %% ../notebooks/01_api_wrappers.ipynb 9
++def train_test_loop(
++    df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None
++):
+ 
+     out = {}
+-    train, test = train_test_split(df, train_size=train_size, random_state=random_state, stratify=stratify)
++    train, test = train_test_split(
++        df, train_size=train_size, random_state=random_state, stratify=stratify
++    )
+ 
+     train_prompts = prompt_create_fn(train)
+     test_prompts = prompt_create_fn(test)
+ 
+-
+-    train_size  = len(train_prompts)
++    train_size = len(train_prompts)
+     test_size = len(test_prompts)
+ 
+     filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
+-    train_filename = f"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl"
+-    valid_filename = f"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl"
++    train_filename = (
++        f"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl"
++    )
++    valid_filename = (
++        f"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl"
++    )
+ 
+     train_prompts.to_json(train_filename, orient="records", lines=True)
+     test_prompts.to_json(valid_filename, orient="records", lines=True)
+ 
+-    out['train_filename'] = train_filename
+-    out['valid_filename'] = valid_filename
+-    out['modelname'] = fine_tune(train_filename, valid_filename)
++    out["train_filename"] = train_filename
++    out["valid_filename"] = valid_filename
++    out["modelname"] = fine_tune(train_filename, valid_filename)
+ 
+     test_prompt_subset = test_prompts
+-    if test_subset is not None: 
++    if test_subset is not None:
+         test_prompt_subset = test_prompts.sample(test_subset)
+-    completions = query_gpt3(out['modelname'], test_prompt_subset)
++    completions = query_gpt3(out["modelname"], test_prompt_subset)
+ 
+     ok_completions = [(i, c) for i, c in enumerate(completions) if c is not None]
+ 
+-    predictions = [extract_prediction(completion) for _,completion in ok_completions]
+-    true = [int(test_prompt_subset.iloc[i]['completion'].split('@')[0]) for i,_ in ok_completions]
++    predictions = [extract_prediction(completion) for _, completion in ok_completions]
++    true = [
++        int(test_prompt_subset.iloc[i]["completion"].split("@")[0])
++        for i, _ in ok_completions
++    ]
+     cm = ConfusionMatrix(true, predictions)
+ 
+-    out['cm'] = cm
++    out["cm"] = cm
+ 
+     return out
+-    
++
+diff --git a/notebooks/01_api_wrappers.ipynb b/notebooks/01_api_wrappers.ipynb
+index 39d49bb..943ed3d 100644
+--- a/notebooks/01_api_wrappers.ipynb
++++ b/notebooks/01_api_wrappers.ipynb
+@@ -16,7 +16,7 @@
+    "outputs": [],
+    "source": [
+     "# |hide\n",
+-    "from nbdev.showdoc import *"
++    "from nbdev.showdoc import *\n"
+    ]
+   },
+   {
+@@ -33,7 +33,7 @@
+     "import time\n",
+     "import re\n",
+     "from sklearn.model_selection import train_test_split\n",
+-    "from pycm import ConfusionMatrix"
++    "from pycm import ConfusionMatrix\n"
+    ]
+   },
+   {
+@@ -64,22 +64,19 @@
+     "    result = subprocess.run(\n",
+     "        f\"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model}\",\n",
+     "        shell=True,\n",
+-    "        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True\n",
++    "        stdout=subprocess.PIPE,\n",
++    "        stderr=subprocess.PIPE,\n",
++    "        text=True,\n",
+     "    )\n",
+-    "    print(result.stdout)\n",
+-    "    modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
+-    "    # sync runs with wandb\n",
+-    "    subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
+-    "    return modelname"
+-   ]
+-  },
+-  {
+-   "cell_type": "code",
+-   "execution_count": 4,
+-   "metadata": {},
+-   "outputs": [],
+-   "source": [
+-    "_stdout_fragment = \"openai api completions.create -m ada:ft-epfl-2022-06-23-09-10-58 -p <YOUR_PROMPT>\""
++    "    try:\n",
++    "        modelname = re.findall(r\"completions.create -m ([\\w\\d:-]+) -p\", result.stdout)[\n",
++    "            0\n",
++    "        ]\n",
++    "        # sync runs with wandb\n",
++    "        subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    except Exception:\n",
++    "        print(result.stdout, result.stderr)\n",
++    "    return modelname\n"
+    ]
+   },
+   {
+@@ -91,12 +88,24 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 15,
++   "execution_count": 1,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+     "# |export\n",
+-    "def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5, one_by_one=False):\n",
++    "from fastcore.basics import chunked\n",
++    "import pandas as pd\n",
++    "\n",
++    "\n",
++    "def query_gpt3(\n",
++    "    model,\n",
++    "    df,\n",
++    "    temperature=0,\n",
++    "    max_tokens=10,\n",
++    "    sleep=5,\n",
++    "    one_by_one=False,\n",
++    "    parallel_max: int = 20,\n",
++    "):\n",
+     "    if one_by_one:\n",
+     "        completions = []\n",
+     "        for i, row in df.iterrows():\n",
+@@ -113,25 +122,40 @@
+     "                print(e)\n",
+     "                print(f\"Error on row {i}\")\n",
+     "                completions.append(None)\n",
+-    "    else: \n",
+-    "        completions = openai.Completion.create(\n",
+-    "                    model=model,\n",
+-    "                    prompt=df[\"prompt\"].to_list(),\n",
+-    "                    temperature=temperature,\n",
+-    "                    max_tokens=max_tokens,\n",
+-    "                )\n",
+-    "    return completions"
++    "    else:\n",
++    "        # they have a limit on the maximum number of parallel completions\n",
++    "        # otherwise you get\n",
++    "        # openai.error.InvalidRequestError: Too many parallel completions requested.\n",
++    "        # You submitted 500 prompts, but you can currently request up to at most a total of 20).\n",
++    "        # Please contact support@openai.com and tell us about your use-case if you would like this limit increased.\n",
++    "        # (HINT: if you want to just evaluate probabilities without generating new text, you can submit more prompts if you set 'max_tokens' to 0.)\n",
++    "        completions = []\n",
++    "        for chunk in chunked(df[\"prompt\"], parallel_max):\n",
++    "            completions_ = openai.Completion.create(\n",
++    "                model=model,\n",
++    "                prompt=chunk,\n",
++    "                temperature=temperature,\n",
++    "                max_tokens=max_tokens,\n",
++    "            )\n",
++    "            completions.append(completions_)\n",
++    "            time.sleep(sleep)\n",
++    "\n",
++    "        completions = {\n",
++    "            \"choices\": [choice for c in completions for choice in c['choices']],\n",
++    "        }\n",
++    "\n",
++    "    return completions\n"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 1,
++   "execution_count": null,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+     "# |export\n",
+-    "def extract_prediction(completion):\n",
+-    "    return completion[\"choices\"][0][\"text\"].split(\"@\")[0].strip()\n"
++    "def extract_prediction(completion, i=0):\n",
++    "    return completion[\"choices\"][i][\"text\"].split(\"@\")[0].strip()\n"
+    ]
+   },
+   {
+@@ -142,44 +166,54 @@
+    "source": [
+     "# |export\n",
+     "\n",
+-    "def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None):\n",
++    "\n",
++    "def train_test_loop(\n",
++    "    df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None\n",
++    "):\n",
+     "\n",
+     "    out = {}\n",
+-    "    train, test = train_test_split(df, train_size=train_size, random_state=random_state, stratify=stratify)\n",
++    "    train, test = train_test_split(\n",
++    "        df, train_size=train_size, random_state=random_state, stratify=stratify\n",
++    "    )\n",
+     "\n",
+     "    train_prompts = prompt_create_fn(train)\n",
+     "    test_prompts = prompt_create_fn(test)\n",
+     "\n",
+-    "\n",
+-    "    train_size  = len(train_prompts)\n",
++    "    train_size = len(train_prompts)\n",
+     "    test_size = len(test_prompts)\n",
+     "\n",
+     "    filename_base = time.strftime(\"%Y-%m-%d-%H-%M-%S\", time.localtime())\n",
+-    "    train_filename = f\"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl\"\n",
+-    "    valid_filename = f\"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl\"\n",
++    "    train_filename = (\n",
++    "        f\"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl\"\n",
++    "    )\n",
++    "    valid_filename = (\n",
++    "        f\"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl\"\n",
++    "    )\n",
+     "\n",
+     "    train_prompts.to_json(train_filename, orient=\"records\", lines=True)\n",
+     "    test_prompts.to_json(valid_filename, orient=\"records\", lines=True)\n",
+     "\n",
+-    "    out['train_filename'] = train_filename\n",
+-    "    out['valid_filename'] = valid_filename\n",
+-    "    out['modelname'] = fine_tune(train_filename, valid_filename)\n",
++    "    out[\"train_filename\"] = train_filename\n",
++    "    out[\"valid_filename\"] = valid_filename\n",
++    "    out[\"modelname\"] = fine_tune(train_filename, valid_filename)\n",
+     "\n",
+     "    test_prompt_subset = test_prompts\n",
+-    "    if test_subset is not None: \n",
++    "    if test_subset is not None:\n",
+     "        test_prompt_subset = test_prompts.sample(test_subset)\n",
+-    "    completions = query_gpt3(out['modelname'], test_prompt_subset)\n",
++    "    completions = query_gpt3(out[\"modelname\"], test_prompt_subset)\n",
+     "\n",
+     "    ok_completions = [(i, c) for i, c in enumerate(completions) if c is not None]\n",
+     "\n",
+-    "    predictions = [extract_prediction(completion) for _,completion in ok_completions]\n",
+-    "    true = [int(test_prompt_subset.iloc[i]['completion'].split('@')[0]) for i,_ in ok_completions]\n",
++    "    predictions = [extract_prediction(completion) for _, completion in ok_completions]\n",
++    "    true = [\n",
++    "        int(test_prompt_subset.iloc[i][\"completion\"].split(\"@\")[0])\n",
++    "        for i, _ in ok_completions\n",
++    "    ]\n",
+     "    cm = ConfusionMatrix(true, predictions)\n",
+     "\n",
+-    "    out['cm'] = cm\n",
++    "    out[\"cm\"] = cm\n",
+     "\n",
+-    "    return out\n",
+-    "    "
++    "    return out\n"
+    ]
+   },
+   {
