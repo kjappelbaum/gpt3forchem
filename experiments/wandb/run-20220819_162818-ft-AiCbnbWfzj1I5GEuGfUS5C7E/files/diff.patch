@@ -1,0 +1,27 @@
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 0995fa7..b462a13 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220819_162232-ft-1ak3Ox5HFxSuelkDFe1AJ9QV
+\ No newline at end of file
++run-20220819_162818-ft-AiCbnbWfzj1I5GEuGfUS5C7E
+\ No newline at end of file
+diff --git a/gpt3forchem/__init__.py b/gpt3forchem/__init__.py
+index e69de29..f102a9c 100644
+--- a/gpt3forchem/__init__.py
++++ b/gpt3forchem/__init__.py
+@@ -0,0 +1 @@
++__version__ = "0.0.1"
+diff --git a/gpt3forchem/_modidx.py b/gpt3forchem/_modidx.py
+index eb4e182..36e00dc 100644
+--- a/gpt3forchem/_modidx.py
++++ b/gpt3forchem/_modidx.py
+@@ -9,6 +9,7 @@ d = { 'settings': { 'allowed_cell_metadata_keys': '',
+                 'branch': 'main',
+                 'clean_ids': 'True',
+                 'copyright': 'EPFL 2022',
++                'custom_quarto_yml': 'False',
+                 'custom_sidebar': 'False',
+                 'description': 'Use GPT3 for predicting properties for molecules and materials as well as inverse design',
+                 'doc_baseurl': '/gpt3forchem/',
