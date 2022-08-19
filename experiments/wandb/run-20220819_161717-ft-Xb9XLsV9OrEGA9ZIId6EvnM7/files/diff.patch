@@ -1,0 +1,391 @@
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index f3ebf77..806fa76 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220819_161347-ft-zAJPtr7LSZH6Y4MSy3zAbZj1
+\ No newline at end of file
++run-20220819_161717-ft-Xb9XLsV9OrEGA9ZIId6EvnM7
+\ No newline at end of file
+diff --git a/gpt3forchem/api_wrappers.py b/gpt3forchem/api_wrappers.py
+index 71a2260..341aa04 100644
+--- a/gpt3forchem/api_wrappers.py
++++ b/gpt3forchem/api_wrappers.py
+@@ -12,81 +12,134 @@ import re
+ from sklearn.model_selection import train_test_split
+ from pycm import ConfusionMatrix
+ 
++
+ # %% ../notebooks/01_api_wrappers.ipynb 5
+ def fine_tune(train_file, valid_file, model: str = "ada"):
+     # run the fine tuning
+     result = subprocess.run(
+         f"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model}",
+         shell=True,
+-        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True
++        stdout=subprocess.PIPE,
++        stderr=subprocess.PIPE,
++        text=True,
+     )
+-    print(result.stdout)
+-    modelname = re.findall(r'completions.create -m ([\w\d:-]+) -p', result.stdout)[0]
+-    # sync runs with wandb
+-    subprocess.run("openai wandb sync -n 1", shell=True)
++    try:
++        modelname = re.findall(r"completions.create -m ([\w\d:-]+) -p", result.stdout)[
++            0
++        ]
++        # sync runs with wandb
++        subprocess.run("openai wandb sync -n 1", shell=True)
++    except Exception:
++        print(result.stdout, result.stderr)
+     return modelname
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 8
+-def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5):
+-    completions = []
+-    for i, row in df.iterrows():
+-        try:
+-            completion = openai.Completion.create(
++
++# %% ../notebooks/01_api_wrappers.ipynb 7
++from fastcore.basics import chunked
++import pandas as pd
++
++
++def query_gpt3(
++    model,
++    df,
++    temperature=0,
++    max_tokens=10,
++    sleep=5,
++    one_by_one=False,
++    parallel_max: int = 20,
++):
++    if one_by_one:
++        completions = []
++        for i, row in df.iterrows():
++            try:
++                completion = openai.Completion.create(
++                    model=model,
++                    prompt=row["prompt"],
++                    temperature=temperature,
++                    max_tokens=max_tokens,
++                )
++                completions.append(completion)
++                time.sleep(sleep)
++            except Exception as e:
++                print(e)
++                print(f"Error on row {i}")
++                completions.append(None)
++    else:
++        # they have a limit on the maximum number of parallel completions
++        # otherwise you get
++        # openai.error.InvalidRequestError: Too many parallel completions requested.
++        # You submitted 500 prompts, but you can currently request up to at most a total of 20).
++        # Please contact support@openai.com and tell us about your use-case if you would like this limit increased.
++        # (HINT: if you want to just evaluate probabilities without generating new text, you can submit more prompts if you set 'max_tokens' to 0.)
++        completions = []
++        for chunk in chunked(df["prompt"], parallel_max):
++            completions_ = openai.Completion.create(
+                 model=model,
+-                prompt=row["prompt"],
++                prompt=chunk,
+                 temperature=temperature,
+                 max_tokens=max_tokens,
+             )
+-            completions.append(completion)
++            completions.append(completions_)
+             time.sleep(sleep)
+-        except Exception as e:
+-            print(e)
+-            print(f"Error on row {i}")
+-            completions.append(None)
++
++        completions = {
++            "choices": [choice for c in completions for choice in c['choices']],
++        }
+ 
+     return completions
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 9
+-def extract_prediction(completion):
+-    return completion["choices"][0]["text"].split("@")[0].strip()
+ 
++# %% ../notebooks/01_api_wrappers.ipynb 8
++def extract_prediction(completion, i=0):
++    return completion["choices"][i]["text"].split("@")[0].strip()
+ 
+-# %% ../notebooks/01_api_wrappers.ipynb 10
+-def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None):
++
++# %% ../notebooks/01_api_wrappers.ipynb 9
++def train_test_loop(
++    df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None
++):
+ 
+     out = {}
+-    train, test = train_test_split(df, train_size=train_size, random_state=random_state, stratify=stratify)
++    train, test = train_test_split(
++        df, train_size=train_size, random_state=random_state, stratify=stratify
++    )
+ 
+     train_prompts = prompt_create_fn(train)
+     test_prompts = prompt_create_fn(test)
+ 
+-
+-    train_size  = len(train_prompts)
++    train_size = len(train_prompts)
+     test_size = len(test_prompts)
+ 
+     filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
+-    train_filename = f"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl"
+-    valid_filename = f"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl"
++    train_filename = (
++        f"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl"
++    )
++    valid_filename = (
++        f"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl"
++    )
+ 
+     train_prompts.to_json(train_filename, orient="records", lines=True)
+     test_prompts.to_json(valid_filename, orient="records", lines=True)
+ 
+-    out['train_filename'] = train_filename
+-    out['valid_filename'] = valid_filename
+-    out['modelname'] = fine_tune(train_filename, valid_filename)
++    out["train_filename"] = train_filename
++    out["valid_filename"] = valid_filename
++    out["modelname"] = fine_tune(train_filename, valid_filename)
+ 
+     test_prompt_subset = test_prompts
+-    if test_subset is not None: 
++    if test_subset is not None:
+         test_prompt_subset = test_prompts.sample(test_subset)
+-    completions = query_gpt3(out['modelname'], test_prompt_subset)
++    completions = query_gpt3(out["modelname"], test_prompt_subset)
+ 
+     ok_completions = [(i, c) for i, c in enumerate(completions) if c is not None]
+ 
+-    predictions = [extract_prediction(completion) for _,completion in ok_completions]
+-    true = [int(test_prompt_subset.iloc[i]['completion'].split('@')[0]) for i,_ in ok_completions]
++    predictions = [extract_prediction(completion) for _, completion in ok_completions]
++    true = [
++        int(test_prompt_subset.iloc[i]["completion"].split("@")[0])
++        for i, _ in ok_completions
++    ]
+     cm = ConfusionMatrix(true, predictions)
+ 
+-    out['cm'] = cm
++    out["cm"] = cm
+ 
+     return out
+-    
++
+diff --git a/notebooks/01_api_wrappers.ipynb b/notebooks/01_api_wrappers.ipynb
+index 39d49bb..943ed3d 100644
+--- a/notebooks/01_api_wrappers.ipynb
++++ b/notebooks/01_api_wrappers.ipynb
+@@ -16,7 +16,7 @@
+    "outputs": [],
+    "source": [
+     "# |hide\n",
+-    "from nbdev.showdoc import *"
++    "from nbdev.showdoc import *\n"
+    ]
+   },
+   {
+@@ -33,7 +33,7 @@
+     "import time\n",
+     "import re\n",
+     "from sklearn.model_selection import train_test_split\n",
+-    "from pycm import ConfusionMatrix"
++    "from pycm import ConfusionMatrix\n"
+    ]
+   },
+   {
+@@ -64,22 +64,19 @@
+     "    result = subprocess.run(\n",
+     "        f\"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model}\",\n",
+     "        shell=True,\n",
+-    "        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True\n",
++    "        stdout=subprocess.PIPE,\n",
++    "        stderr=subprocess.PIPE,\n",
++    "        text=True,\n",
+     "    )\n",
+-    "    print(result.stdout)\n",
+-    "    modelname = re.findall(r'completions.create -m ([\\w\\d:-]+) -p', result.stdout)[0]\n",
+-    "    # sync runs with wandb\n",
+-    "    subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
+-    "    return modelname"
+-   ]
+-  },
+-  {
+-   "cell_type": "code",
+-   "execution_count": 4,
+-   "metadata": {},
+-   "outputs": [],
+-   "source": [
+-    "_stdout_fragment = \"openai api completions.create -m ada:ft-epfl-2022-06-23-09-10-58 -p <YOUR_PROMPT>\""
++    "    try:\n",
++    "        modelname = re.findall(r\"completions.create -m ([\\w\\d:-]+) -p\", result.stdout)[\n",
++    "            0\n",
++    "        ]\n",
++    "        # sync runs with wandb\n",
++    "        subprocess.run(\"openai wandb sync -n 1\", shell=True)\n",
++    "    except Exception:\n",
++    "        print(result.stdout, result.stderr)\n",
++    "    return modelname\n"
+    ]
+   },
+   {
+@@ -91,12 +88,24 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 15,
++   "execution_count": 1,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+     "# |export\n",
+-    "def query_gpt3(model, df, temperature=0, max_tokens=10, sleep=5, one_by_one=False):\n",
++    "from fastcore.basics import chunked\n",
++    "import pandas as pd\n",
++    "\n",
++    "\n",
++    "def query_gpt3(\n",
++    "    model,\n",
++    "    df,\n",
++    "    temperature=0,\n",
++    "    max_tokens=10,\n",
++    "    sleep=5,\n",
++    "    one_by_one=False,\n",
++    "    parallel_max: int = 20,\n",
++    "):\n",
+     "    if one_by_one:\n",
+     "        completions = []\n",
+     "        for i, row in df.iterrows():\n",
+@@ -113,25 +122,40 @@
+     "                print(e)\n",
+     "                print(f\"Error on row {i}\")\n",
+     "                completions.append(None)\n",
+-    "    else: \n",
+-    "        completions = openai.Completion.create(\n",
+-    "                    model=model,\n",
+-    "                    prompt=df[\"prompt\"].to_list(),\n",
+-    "                    temperature=temperature,\n",
+-    "                    max_tokens=max_tokens,\n",
+-    "                )\n",
+-    "    return completions"
++    "    else:\n",
++    "        # they have a limit on the maximum number of parallel completions\n",
++    "        # otherwise you get\n",
++    "        # openai.error.InvalidRequestError: Too many parallel completions requested.\n",
++    "        # You submitted 500 prompts, but you can currently request up to at most a total of 20).\n",
++    "        # Please contact support@openai.com and tell us about your use-case if you would like this limit increased.\n",
++    "        # (HINT: if you want to just evaluate probabilities without generating new text, you can submit more prompts if you set 'max_tokens' to 0.)\n",
++    "        completions = []\n",
++    "        for chunk in chunked(df[\"prompt\"], parallel_max):\n",
++    "            completions_ = openai.Completion.create(\n",
++    "                model=model,\n",
++    "                prompt=chunk,\n",
++    "                temperature=temperature,\n",
++    "                max_tokens=max_tokens,\n",
++    "            )\n",
++    "            completions.append(completions_)\n",
++    "            time.sleep(sleep)\n",
++    "\n",
++    "        completions = {\n",
++    "            \"choices\": [choice for c in completions for choice in c['choices']],\n",
++    "        }\n",
++    "\n",
++    "    return completions\n"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 1,
++   "execution_count": null,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+     "# |export\n",
+-    "def extract_prediction(completion):\n",
+-    "    return completion[\"choices\"][0][\"text\"].split(\"@\")[0].strip()\n"
++    "def extract_prediction(completion, i=0):\n",
++    "    return completion[\"choices\"][i][\"text\"].split(\"@\")[0].strip()\n"
+    ]
+   },
+   {
+@@ -142,44 +166,54 @@
+    "source": [
+     "# |export\n",
+     "\n",
+-    "def train_test_loop(df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None):\n",
++    "\n",
++    "def train_test_loop(\n",
++    "    df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None\n",
++    "):\n",
+     "\n",
+     "    out = {}\n",
+-    "    train, test = train_test_split(df, train_size=train_size, random_state=random_state, stratify=stratify)\n",
++    "    train, test = train_test_split(\n",
++    "        df, train_size=train_size, random_state=random_state, stratify=stratify\n",
++    "    )\n",
+     "\n",
+     "    train_prompts = prompt_create_fn(train)\n",
+     "    test_prompts = prompt_create_fn(test)\n",
+     "\n",
+-    "\n",
+-    "    train_size  = len(train_prompts)\n",
++    "    train_size = len(train_prompts)\n",
+     "    test_size = len(test_prompts)\n",
+     "\n",
+     "    filename_base = time.strftime(\"%Y-%m-%d-%H-%M-%S\", time.localtime())\n",
+-    "    train_filename = f\"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl\"\n",
+-    "    valid_filename = f\"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl\"\n",
++    "    train_filename = (\n",
++    "        f\"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl\"\n",
++    "    )\n",
++    "    valid_filename = (\n",
++    "        f\"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl\"\n",
++    "    )\n",
+     "\n",
+     "    train_prompts.to_json(train_filename, orient=\"records\", lines=True)\n",
+     "    test_prompts.to_json(valid_filename, orient=\"records\", lines=True)\n",
+     "\n",
+-    "    out['train_filename'] = train_filename\n",
+-    "    out['valid_filename'] = valid_filename\n",
+-    "    out['modelname'] = fine_tune(train_filename, valid_filename)\n",
++    "    out[\"train_filename\"] = train_filename\n",
++    "    out[\"valid_filename\"] = valid_filename\n",
++    "    out[\"modelname\"] = fine_tune(train_filename, valid_filename)\n",
+     "\n",
+     "    test_prompt_subset = test_prompts\n",
+-    "    if test_subset is not None: \n",
++    "    if test_subset is not None:\n",
+     "        test_prompt_subset = test_prompts.sample(test_subset)\n",
+-    "    completions = query_gpt3(out['modelname'], test_prompt_subset)\n",
++    "    completions = query_gpt3(out[\"modelname\"], test_prompt_subset)\n",
+     "\n",
+     "    ok_completions = [(i, c) for i, c in enumerate(completions) if c is not None]\n",
+     "\n",
+-    "    predictions = [extract_prediction(completion) for _,completion in ok_completions]\n",
+-    "    true = [int(test_prompt_subset.iloc[i]['completion'].split('@')[0]) for i,_ in ok_completions]\n",
++    "    predictions = [extract_prediction(completion) for _, completion in ok_completions]\n",
++    "    true = [\n",
++    "        int(test_prompt_subset.iloc[i][\"completion\"].split(\"@\")[0])\n",
++    "        for i, _ in ok_completions\n",
++    "    ]\n",
+     "    cm = ConfusionMatrix(true, predictions)\n",
+     "\n",
+-    "    out['cm'] = cm\n",
++    "    out[\"cm\"] = cm\n",
+     "\n",
+-    "    return out\n",
+-    "    "
++    "    return out\n"
+    ]
+   },
+   {
