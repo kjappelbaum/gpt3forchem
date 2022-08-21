@@ -10,7 +10,7 @@ from gpt3forchem.input import create_single_property_forward_prompts
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
-MODEL_TYPES = ["ada", "davinci"]
+MODEL_TYPES = ["davinci", "ada"]
 PREFIXES = ["", "I'm an expert polymer chemist "]
 
 DF = get_polymer_data()
@@ -88,4 +88,8 @@ if __name__ == "__main__":
         for model_type in MODEL_TYPES:
             for train_set_size in TRAIN_SET_SIZE:
                 for prefix in PREFIXES:
-                    learning_curve_point(model_type, train_set_size, prefix)
+                    try:
+                        learning_curve_point(model_type, train_set_size, prefix)
+                    except Exception as e:
+                        time.sleep(10)
+                        print(e)

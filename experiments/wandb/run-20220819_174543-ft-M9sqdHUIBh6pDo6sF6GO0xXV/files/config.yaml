@@ -1,0 +1,96 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.1
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.9.13
+    start_time: 1660945543.558935
+    t:
+      1:
+      - 55
+      2:
+      - 55
+      3:
+      - 2
+      - 13
+      - 14
+      - 16
+      - 23
+      4: 3.9.13
+      5: 0.13.1
+      8:
+      - 4
+      - 5
+created_at:
+  desc: null
+  value: '2022-08-19T17:33:20'
+fine_tuned_model:
+  desc: null
+  value: ada:ft-lsmoepfl-2022-08-19-21-45-36
+hyperparams:
+  desc: null
+  value:
+    batch_size: 2
+    learning_rate_multiplier: 0.1
+    n_epochs: 4
+    prompt_loss_weight: 0.1
+id:
+  desc: null
+  value: ft-M9sqdHUIBh6pDo6sF6GO0xXV
+model:
+  desc: null
+  value: ada
+n_train:
+  desc: null
+  value: 1000
+n_valid:
+  desc: null
+  value: 2125
+object:
+  desc: null
+  value: fine-tune
+organization_id:
+  desc: null
+  value: org-TFRJXw3PPQocOWbu71eI2t9U
+result_files:
+  desc: null
+  value:
+    bytes: 111080
+    created_at: 1660945537
+    filename: compiled_results.csv
+    id: file-qHnzdA4W7pz14a8G1674hWi9
+    object: file
+    purpose: fine-tune-results
+    status: processed
+    status_details: null
+status:
+  desc: null
+  value: succeeded
+training_files:
+  desc: null
+  value:
+    bytes: 163876
+    created_at: 1660944798
+    filename: run_files/2022-08-19-17-33-16_train_prompts_polymers_1000.jsonl
+    id: file-Nyvj2xOwvoQmNvIGkbOla7HP
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null
+updated_at:
+  desc: null
+  value: 1660945538
+validation_files:
+  desc: null
+  value:
+    bytes: 348624
+    created_at: 1660944800
+    filename: run_files/2022-08-19-17-33-16_valid_prompts_polymers_2125.jsonl
+    id: file-zh5P1srh8EsthOQ35Dz2gKF0
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null

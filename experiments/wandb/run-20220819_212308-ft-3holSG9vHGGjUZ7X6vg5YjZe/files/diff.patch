@@ -1,0 +1,35 @@
+diff --git a/experiments/02_polymer_learning_curves.py b/experiments/02_polymer_learning_curves.py
+index a46fcc4..60bf606 100644
+--- a/experiments/02_polymer_learning_curves.py
++++ b/experiments/02_polymer_learning_curves.py
+@@ -10,7 +10,7 @@ from gpt3forchem.input import create_single_property_forward_prompts
+ 
+ TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
+ REPEATS = 10
+-MODEL_TYPES = ["ada", "davinci"]
++MODEL_TYPES = ["davinci", "ada"]
+ PREFIXES = ["", "I'm an expert polymer chemist "]
+ 
+ DF = get_polymer_data()
+@@ -88,4 +88,8 @@ if __name__ == "__main__":
+         for model_type in MODEL_TYPES:
+             for train_set_size in TRAIN_SET_SIZE:
+                 for prefix in PREFIXES:
+-                    learning_curve_point(model_type, train_set_size, prefix)
++                    try:
++                        learning_curve_point(model_type, train_set_size, prefix)
++                    except Exception as e:
++                        time.sleep(10)
++                        print(e)
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index b462a13..67ae1f8 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220819_162818-ft-AiCbnbWfzj1I5GEuGfUS5C7E
+\ No newline at end of file
++run-20220819_212308-ft-3holSG9vHGGjUZ7X6vg5YjZe
+\ No newline at end of file
+diff --git a/experiments/wandb/run-20220819_162818-ft-AiCbnbWfzj1I5GEuGfUS5C7E/run-ft-AiCbnbWfzj1I5GEuGfUS5C7E.wandb b/experiments/wandb/run-20220819_162818-ft-AiCbnbWfzj1I5GEuGfUS5C7E/run-ft-AiCbnbWfzj1I5GEuGfUS5C7E.wandb
+index a4b6e94..cdb7f2a 100644
+Binary files a/experiments/wandb/run-20220819_162818-ft-AiCbnbWfzj1I5GEuGfUS5C7E/run-ft-AiCbnbWfzj1I5GEuGfUS5C7E.wandb and b/experiments/wandb/run-20220819_162818-ft-AiCbnbWfzj1I5GEuGfUS5C7E/run-ft-AiCbnbWfzj1I5GEuGfUS5C7E.wandb differ
