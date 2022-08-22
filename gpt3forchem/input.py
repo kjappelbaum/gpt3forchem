@@ -4,7 +4,8 @@
 __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE',
            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT', 'POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT',
            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION', 'encode_categorical_value',
-           'decode_categorical_value', 'create_single_property_forward_prompts', 'get_polymer_composition_dict']
+           'decode_categorical_value', 'create_single_property_forward_prompts',
+           'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict']
 
 # %% ../notebooks/03_input.ipynb 2
 import pandas as pd
@@ -76,7 +77,40 @@ def create_single_property_forward_prompts(
     return pd.DataFrame(prompts)
 
 
-# %% ../notebooks/03_input.ipynb 9
+# %% ../notebooks/03_input.ipynb 7
+def create_single_property_forward_prompts_regression(
+    df, # input data
+    target, # target property
+    target_rename_dict, # dict to rename target property from the column name in df to the target property name in the prompt
+    prompt_prefix="", # prefix to add to the prompt, e.g. "I am an expert chemist"
+    num_digit=1,
+):
+    prompts = []
+
+    target_name = target
+    for key, value in target_rename_dict.items():
+        target_name = target_name.replace(key, value)
+
+    for _, row in df.iterrows():
+
+        value = f"{round(row[target], num_digit)}"
+
+        prompts.append(
+            {
+                "prompt": prompt_prefix
+                + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
+                    property=target_name, text=row["string"]
+                ),
+                "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
+                    value=value
+                ),
+            }
+        )
+
+    return pd.DataFrame(prompts)
+
+
+# %% ../notebooks/03_input.ipynb 10
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT = (
     "what is a polymer with {class_name} {property}?###"
 )
@@ -85,7 +119,7 @@ POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT = " {text}@@@"
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION = "what is a polymer with {class_name} {property} and {num_A} A, {num_B} B, {num_W} W, and {num_R} R?###"
 
 
-# %% ../notebooks/03_input.ipynb 10
+# %% ../notebooks/03_input.ipynb 11
 def get_polymer_composition_dict(row):
     composition = Counter(row["string"].split("-"))
     comp_dict = {}

@@ -1,0 +1,507 @@
+diff --git a/experiments/04_polymer.regression.ipynb b/experiments/04_polymer.regression.ipynb
+index ff98192..d83511b 100644
+--- a/experiments/04_polymer.regression.ipynb
++++ b/experiments/04_polymer.regression.ipynb
+@@ -9,7 +9,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 2,
++   "execution_count": 1,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -20,12 +20,12 @@
+     "\n",
+     "from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3\n",
+     "from gpt3forchem.data import get_polymer_data\n",
+-    "from gpt3forchem.input import create_single_property_forward_prompts"
++    "from gpt3forchem.input import create_single_property_forward_prompts_regression"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 3,
++   "execution_count": 2,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -35,22 +35,22 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 4,
++   "execution_count": 5,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+-    "train_prompts = create_single_property_forward_prompts(\n",
+-    "    df_train, \"deltaGmin_cat\", {\"deltaGmin_cat\": \"adsorption energy\"}, encode_value=False\n",
++    "train_prompts = create_single_property_forward_prompts_regression(\n",
++    "    df_train, \"deltaGmin\", {\"deltaGmin_cat\": \"adsorption energy\"}\n",
+     ")\n",
+     "\n",
+-    "test_prompts = create_single_property_forward_prompts(\n",
+-    "    df_test, \"deltaGmin_cat\", {\"deltaGmin_cat\": \"adsorption energy\"}, encode_value=False\n",
++    "test_prompts = create_single_property_forward_prompts_regression(\n",
++    "    df_test, \"deltaGmin\", {\"deltaGmin_cat\": \"adsorption energy\"}\n",
+     ")\n"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 5,
++   "execution_count": 6,
+    "metadata": {},
+    "outputs": [
+     {
+@@ -81,28 +81,28 @@
+        "  <tbody>\n",
+        "    <tr>\n",
+        "      <th>0</th>\n",
+-       "      <td>what is the adsorption energy of B-R-B-B-R-R-R...</td>\n",
+-       "      <td>medium@@@</td>\n",
++       "      <td>what is the deltaGmin of B-R-B-B-R-R-R-R-R-R-A...</td>\n",
++       "      <td>-12.3@@@</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>1</th>\n",
+-       "      <td>what is the adsorption energy of R-A-R-B-R-W-W...</td>\n",
+-       "      <td>large@@@</td>\n",
++       "      <td>what is the deltaGmin of R-A-R-B-R-W-W-B-W-R-B...</td>\n",
++       "      <td>-9.8@@@</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>2</th>\n",
+-       "      <td>what is the adsorption energy of W-R-W-R-B-A-W...</td>\n",
+-       "      <td>small@@@</td>\n",
++       "      <td>what is the deltaGmin of W-R-W-R-B-A-W-W-R-A-W...</td>\n",
++       "      <td>-13.9@@@</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>3</th>\n",
+-       "      <td>what is the adsorption energy of W-R-W-B-W-A-A...</td>\n",
+-       "      <td>large@@@</td>\n",
++       "      <td>what is the deltaGmin of W-R-W-B-W-A-A-A-R-W-B...</td>\n",
++       "      <td>-9.0@@@</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>4</th>\n",
+-       "      <td>what is the adsorption energy of A-A-W-R-R-B-R...</td>\n",
+-       "      <td>large@@@</td>\n",
++       "      <td>what is the deltaGmin of A-A-W-R-R-B-R-W-B-A-R...</td>\n",
++       "      <td>-10.4@@@</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>...</th>\n",
+@@ -111,28 +111,28 @@
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>195</th>\n",
+-       "      <td>what is the adsorption energy of R-R-B-B-W-R-W...</td>\n",
+-       "      <td>very small@@@</td>\n",
++       "      <td>what is the deltaGmin of R-R-B-B-W-R-W-B-A-B-B...</td>\n",
++       "      <td>-16.1@@@</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>196</th>\n",
+-       "      <td>what is the adsorption energy of A-B-A-W-W-B-W...</td>\n",
+-       "      <td>medium@@@</td>\n",
++       "      <td>what is the deltaGmin of A-B-A-W-W-B-W-B-R-R-B...</td>\n",
++       "      <td>-11.4@@@</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>197</th>\n",
+-       "      <td>what is the adsorption energy of R-W-R-B-B-R-B...</td>\n",
+-       "      <td>very large@@@</td>\n",
++       "      <td>what is the deltaGmin of R-W-R-B-B-R-B-B-R-R-B...</td>\n",
++       "      <td>-8.3@@@</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>198</th>\n",
+-       "      <td>what is the adsorption energy of R-W-W-A-W-R-B...</td>\n",
+-       "      <td>large@@@</td>\n",
++       "      <td>what is the deltaGmin of R-W-W-A-W-R-B-B-W-R-B...</td>\n",
++       "      <td>-9.5@@@</td>\n",
+        "    </tr>\n",
+        "    <tr>\n",
+        "      <th>199</th>\n",
+-       "      <td>what is the adsorption energy of A-A-B-A-A-B-A...</td>\n",
+-       "      <td>small@@@</td>\n",
++       "      <td>what is the deltaGmin of A-A-B-A-A-B-A-B-R-R-R...</td>\n",
++       "      <td>-14.1@@@</td>\n",
+        "    </tr>\n",
+        "  </tbody>\n",
+        "</table>\n",
+@@ -140,23 +140,23 @@
+        "</div>"
+       ],
+       "text/plain": [
+-       "                                                prompt      completion\n",
+-       "0    what is the adsorption energy of B-R-B-B-R-R-R...       medium@@@\n",
+-       "1    what is the adsorption energy of R-A-R-B-R-W-W...        large@@@\n",
+-       "2    what is the adsorption energy of W-R-W-R-B-A-W...        small@@@\n",
+-       "3    what is the adsorption energy of W-R-W-B-W-A-A...        large@@@\n",
+-       "4    what is the adsorption energy of A-A-W-R-R-B-R...        large@@@\n",
+-       "..                                                 ...             ...\n",
+-       "195  what is the adsorption energy of R-R-B-B-W-R-W...   very small@@@\n",
+-       "196  what is the adsorption energy of A-B-A-W-W-B-W...       medium@@@\n",
+-       "197  what is the adsorption energy of R-W-R-B-B-R-B...   very large@@@\n",
+-       "198  what is the adsorption energy of R-W-W-A-W-R-B...        large@@@\n",
+-       "199  what is the adsorption energy of A-A-B-A-A-B-A...        small@@@\n",
++       "                                                prompt completion\n",
++       "0    what is the deltaGmin of B-R-B-B-R-R-R-R-R-R-A...   -12.3@@@\n",
++       "1    what is the deltaGmin of R-A-R-B-R-W-W-B-W-R-B...    -9.8@@@\n",
++       "2    what is the deltaGmin of W-R-W-R-B-A-W-W-R-A-W...   -13.9@@@\n",
++       "3    what is the deltaGmin of W-R-W-B-W-A-A-A-R-W-B...    -9.0@@@\n",
++       "4    what is the deltaGmin of A-A-W-R-R-B-R-W-B-A-R...   -10.4@@@\n",
++       "..                                                 ...        ...\n",
++       "195  what is the deltaGmin of R-R-B-B-W-R-W-B-A-B-B...   -16.1@@@\n",
++       "196  what is the deltaGmin of A-B-A-W-W-B-W-B-R-R-B...   -11.4@@@\n",
++       "197  what is the deltaGmin of R-W-R-B-B-R-B-B-R-R-B...    -8.3@@@\n",
++       "198  what is the deltaGmin of R-W-W-A-W-R-B-B-W-R-B...    -9.5@@@\n",
++       "199  what is the deltaGmin of A-A-B-A-A-B-A-B-R-R-R...   -14.1@@@\n",
+        "\n",
+        "[200 rows x 2 columns]"
+       ]
+      },
+-     "execution_count": 5,
++     "execution_count": 6,
+      "metadata": {},
+      "output_type": "execute_result"
+     }
+@@ -165,6 +165,32 @@
+     "train_prompts"
+    ]
+   },
++  {
++   "cell_type": "code",
++   "execution_count": 7,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "train_size  = len(train_prompts)\n",
++    "test_size = len(test_prompts)\n",
++    "\n",
++    "filename_base = time.strftime(\"%Y-%m-%d-%H-%M-%S\", time.localtime())\n",
++    "train_filename = f\"run_files/{filename_base}_train_prompts_polymers_regression_{train_size}.jsonl\"\n",
++    "valid_filename = f\"run_files/{filename_base}_valid_prompts_polymers_regression_{test_size}.jsonl\"\n",
++    "\n",
++    "train_prompts.to_json(train_filename, orient=\"records\", lines=True)\n",
++    "test_prompts.to_json(valid_filename, orient=\"records\", lines=True)\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 8,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "modelname = fine_tune(train_filename, valid_filename)"
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index e2bf1a4..d83e553 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220820_010732-ft-jJKOvg5aQ4i2aCWJlgiENglL
+\ No newline at end of file
++run-20220822_101242-ft-90EAlxoVcipqeRguXMqBRnFT
+\ No newline at end of file
+diff --git a/gpt3forchem/_modidx.py b/gpt3forchem/_modidx.py
+index 36e00dc..63009c6 100644
+--- a/gpt3forchem/_modidx.py
++++ b/gpt3forchem/_modidx.py
+@@ -58,6 +58,7 @@ d = { 'settings': { 'allowed_cell_metadata_keys': '',
+                                    'gpt3forchem.input.POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT': 'https://kjappelbaum.github.io/gpt3forchem/input.html#polymer_one_property_inverse_prompt_template_cat',
+                                    'gpt3forchem.input.POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION': 'https://kjappelbaum.github.io/gpt3forchem/input.html#polymer_one_property_inverse_prompt_template_cat_w_composition',
+                                    'gpt3forchem.input.create_single_property_forward_prompts': 'https://kjappelbaum.github.io/gpt3forchem/input.html#create_single_property_forward_prompts',
++                                   'gpt3forchem.input.create_single_property_forward_prompts_regression': 'https://kjappelbaum.github.io/gpt3forchem/input.html#create_single_property_forward_prompts_regression',
+                                    'gpt3forchem.input.decode_categorical_value': 'https://kjappelbaum.github.io/gpt3forchem/input.html#decode_categorical_value',
+                                    'gpt3forchem.input.encode_categorical_value': 'https://kjappelbaum.github.io/gpt3forchem/input.html#encode_categorical_value',
+                                    'gpt3forchem.input.get_polymer_composition_dict': 'https://kjappelbaum.github.io/gpt3forchem/input.html#get_polymer_composition_dict'},
+diff --git a/gpt3forchem/input.py b/gpt3forchem/input.py
+index f075dc7..4e70a28 100644
+--- a/gpt3forchem/input.py
++++ b/gpt3forchem/input.py
+@@ -4,7 +4,8 @@
+ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE',
+            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT', 'POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT',
+            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION', 'encode_categorical_value',
+-           'decode_categorical_value', 'create_single_property_forward_prompts', 'get_polymer_composition_dict']
++           'decode_categorical_value', 'create_single_property_forward_prompts',
++           'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict']
+ 
+ # %% ../notebooks/03_input.ipynb 2
+ import pandas as pd
+@@ -76,7 +77,40 @@ def create_single_property_forward_prompts(
+     return pd.DataFrame(prompts)
+ 
+ 
+-# %% ../notebooks/03_input.ipynb 9
++# %% ../notebooks/03_input.ipynb 7
++def create_single_property_forward_prompts_regression(
++    df, # input data
++    target, # target property
++    target_rename_dict, # dict to rename target property from the column name in df to the target property name in the prompt
++    prompt_prefix="", # prefix to add to the prompt, e.g. "I am an expert chemist"
++    num_digit=1,
++):
++    prompts = []
++
++    target_name = target
++    for key, value in target_rename_dict.items():
++        target_name = target_name.replace(key, value)
++
++    for _, row in df.iterrows():
++
++        value = f"{round(row[target], num_digit)}"
++
++        prompts.append(
++            {
++                "prompt": prompt_prefix
++                + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
++                    property=target_name, text=row["string"]
++                ),
++                "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
++                    value=value
++                ),
++            }
++        )
++
++    return pd.DataFrame(prompts)
++
++
++# %% ../notebooks/03_input.ipynb 10
+ POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT = (
+     "what is a polymer with {class_name} {property}?###"
+ )
+@@ -85,7 +119,7 @@ POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT = " {text}@@@"
+ POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION = "what is a polymer with {class_name} {property} and {num_A} A, {num_B} B, {num_W} W, and {num_R} R?###"
+ 
+ 
+-# %% ../notebooks/03_input.ipynb 10
++# %% ../notebooks/03_input.ipynb 11
+ def get_polymer_composition_dict(row):
+     composition = Counter(row["string"].split("-"))
+     comp_dict = {}
+diff --git a/notebooks/00_data.ipynb b/notebooks/00_data.ipynb
+index 11e43d4..99c595a 100644
+--- a/notebooks/00_data.ipynb
++++ b/notebooks/00_data.ipynb
+@@ -79,7 +79,7 @@
+  ],
+  "metadata": {
+   "kernelspec": {
+-   "display_name": "Python 3.8.13 ('gpt3')",
++   "display_name": "Python 3.9.12 ('gpt3')",
+    "language": "python",
+    "name": "python3"
+   }
+diff --git a/notebooks/03_input.ipynb b/notebooks/03_input.ipynb
+index 9ad5de2..a5b8347 100644
+--- a/notebooks/03_input.ipynb
++++ b/notebooks/03_input.ipynb
+@@ -104,15 +104,6 @@
+     "    return pd.DataFrame(prompts)\n"
+    ]
+   },
+-  {
+-   "cell_type": "code",
+-   "execution_count": null,
+-   "metadata": {},
+-   "outputs": [],
+-   "source": [
+-    "from gpt3forchem.data import get_polymer_data\n"
+-   ]
+-  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+@@ -227,6 +218,8 @@
+     }
+    ],
+    "source": [
++    "from gpt3forchem.data import get_polymer_data\n",
++    "\n",
+     "create_single_property_forward_prompts(\n",
+     "    get_polymer_data(), \"deltaGmin_cat\", {\"deltaGmin_cat\": \"adsorption energy\"}\n",
+     ")\n"
+@@ -351,6 +344,164 @@
+     ")\n"
+    ]
+   },
++  {
++   "cell_type": "code",
++   "execution_count": null,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "# | export\n",
++    "def create_single_property_forward_prompts_regression(\n",
++    "    df, # input data\n",
++    "    target, # target property\n",
++    "    target_rename_dict, # dict to rename target property from the column name in df to the target property name in the prompt\n",
++    "    prompt_prefix=\"\", # prefix to add to the prompt, e.g. \"I am an expert chemist\"\n",
++    "    num_digit=1,\n",
++    "):\n",
++    "    prompts = []\n",
++    "\n",
++    "    target_name = target\n",
++    "    for key, value in target_rename_dict.items():\n",
++    "        target_name = target_name.replace(key, value)\n",
++    "\n",
++    "    for _, row in df.iterrows():\n",
++    "\n",
++    "        value = f\"{round(row[target], num_digit)}\"\n",
++    "\n",
++    "        prompts.append(\n",
++    "            {\n",
++    "                \"prompt\": prompt_prefix\n",
++    "                + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(\n",
++    "                    property=target_name, text=row[\"string\"]\n",
++    "                ),\n",
++    "                \"completion\": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(\n",
++    "                    value=value\n",
++    "                ),\n",
++    "            }\n",
++    "        )\n",
++    "\n",
++    "    return pd.DataFrame(prompts)\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": null,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/html": [
++       "<div>\n",
++       "<style scoped>\n",
++       "    .dataframe tbody tr th:only-of-type {\n",
++       "        vertical-align: middle;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe tbody tr th {\n",
++       "        vertical-align: top;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe thead th {\n",
++       "        text-align: right;\n",
++       "    }\n",
++       "</style>\n",
++       "<table border=\"1\" class=\"dataframe\">\n",
++       "  <thead>\n",
++       "    <tr style=\"text-align: right;\">\n",
++       "      <th></th>\n",
++       "      <th>prompt</th>\n",
++       "      <th>completion</th>\n",
++       "    </tr>\n",
++       "  </thead>\n",
++       "  <tbody>\n",
++       "    <tr>\n",
++       "      <th>0</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-7.5@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>1</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-7.3@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>2</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-6.4@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-6.7@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>4</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-6.6@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>...</th>\n",
++       "      <td>...</td>\n",
++       "      <td>...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3120</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-17.0@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3121</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-17.1@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3122</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-16.4@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3123</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-14.7@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3124</th>\n",
++       "      <td>you are an expert chemist: what is the deltaGm...</td>\n",
++       "      <td>-16.9@@@</td>\n",
++       "    </tr>\n",
++       "  </tbody>\n",
++       "</table>\n",
++       "<p>3125 rows × 2 columns</p>\n",
++       "</div>"
++      ],
++      "text/plain": [
++       "                                                 prompt completion\n",
++       "0     you are an expert chemist: what is the deltaGm...    -7.5@@@\n",
++       "1     you are an expert chemist: what is the deltaGm...    -7.3@@@\n",
++       "2     you are an expert chemist: what is the deltaGm...    -6.4@@@\n",
++       "3     you are an expert chemist: what is the deltaGm...    -6.7@@@\n",
++       "4     you are an expert chemist: what is the deltaGm...    -6.6@@@\n",
++       "...                                                 ...        ...\n",
++       "3120  you are an expert chemist: what is the deltaGm...   -17.0@@@\n",
++       "3121  you are an expert chemist: what is the deltaGm...   -17.1@@@\n",
++       "3122  you are an expert chemist: what is the deltaGm...   -16.4@@@\n",
++       "3123  you are an expert chemist: what is the deltaGm...   -14.7@@@\n",
++       "3124  you are an expert chemist: what is the deltaGm...   -16.9@@@\n",
++       "\n",
++       "[3125 rows x 2 columns]"
++      ]
++     },
++     "execution_count": null,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "create_single_property_forward_prompts_regression(\n",
++    "    get_polymer_data(), \"deltaGmin\", {\"deltaGmin_cat\": \"adsorption energy\"}, prompt_prefix='you are an expert chemist: '\n",
++    ")\n"
++   ]
++  },
+   {
+    "cell_type": "markdown",
+    "metadata": {},
+@@ -402,7 +553,7 @@
+  ],
+  "metadata": {
+   "kernelspec": {
+-   "display_name": "Python 3.8.13 ('gpt3')",
++   "display_name": "Python 3.9.12 ('gpt3')",
+    "language": "python",
+    "name": "python3"
+   }
