@@ -1,0 +1,22 @@
+diff --git a/experiments/02_polymer_learning_curves.py b/experiments/02_polymer_learning_curves.py
+index 60bf606..c898c25 100644
+--- a/experiments/02_polymer_learning_curves.py
++++ b/experiments/02_polymer_learning_curves.py
+@@ -10,7 +10,7 @@ from gpt3forchem.input import create_single_property_forward_prompts
+ 
+ TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
+ REPEATS = 10
+-MODEL_TYPES = ["davinci", "ada"]
++MODEL_TYPES = ["ada"]
+ PREFIXES = ["", "I'm an expert polymer chemist "]
+ 
+ DF = get_polymer_data()
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 3286af4..636a66d 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220822_104328-ft-fARz0PHXfc4Dp43XiAh173PQ
+\ No newline at end of file
++run-20220822_133905-ft-688aRiymKiicXtBZay61C3jD
+\ No newline at end of file

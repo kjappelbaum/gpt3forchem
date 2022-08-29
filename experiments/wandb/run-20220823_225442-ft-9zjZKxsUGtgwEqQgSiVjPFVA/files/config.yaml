@@ -1,0 +1,96 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.1
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.9.13
+    start_time: 1661313282.582861
+    t:
+      1:
+      - 55
+      2:
+      - 55
+      3:
+      - 2
+      - 13
+      - 14
+      - 16
+      - 23
+      4: 3.9.13
+      5: 0.13.1
+      8:
+      - 4
+      - 5
+created_at:
+  desc: null
+  value: '2022-08-23T22:42:00'
+fine_tuned_model:
+  desc: null
+  value: ada:ft-personal-2022-08-24-03-54-31
+hyperparams:
+  desc: null
+  value:
+    batch_size: 4
+    learning_rate_multiplier: 0.1
+    n_epochs: 4
+    prompt_loss_weight: 0.1
+id:
+  desc: null
+  value: ft-9zjZKxsUGtgwEqQgSiVjPFVA
+model:
+  desc: null
+  value: ada
+n_train:
+  desc: null
+  value: 2000
+n_valid:
+  desc: null
+  value: 1125
+object:
+  desc: null
+  value: fine-tune
+organization_id:
+  desc: null
+  value: org-eRwftHUvPVthUUPGPm4T2j0U
+result_files:
+  desc: null
+  value:
+    bytes: 116852
+    created_at: 1661313272
+    filename: compiled_results.csv
+    id: file-tU5WqxNU1CByP3BbrufbffDc
+    object: file
+    purpose: fine-tune-results
+    status: processed
+    status_details: null
+status:
+  desc: null
+  value: succeeded
+training_files:
+  desc: null
+  value:
+    bytes: 275234
+    created_at: 1661312517
+    filename: run_files/2022-08-23-22-41-51_train_prompts_polymers_regression_2000.jsonl
+    id: file-CDWRLDZmPrTpnRH3hEDNYQKg
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null
+updated_at:
+  desc: null
+  value: 1661313272
+validation_files:
+  desc: null
+  value:
+    bytes: 155071
+    created_at: 1661312519
+    filename: run_files/2022-08-23-22-41-51_valid_prompts_polymers_regression_1125.jsonl
+    id: file-uQdbWRdmiwcZ1ptJLGUzIpDL
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null

@@ -4,5 +4,6 @@ website:
       - index.ipynb
       - 00_data.ipynb
       - 01_api_wrappers.ipynb
-      - 03_analysis.ipynb
-      - 04_baselines.ipynb
+      - 03_input.ipynb
+      - 04_output.ipynb
+      - 05_baselines.ipynb

@@ -10,7 +10,7 @@ from gpt3forchem.input import create_single_property_forward_prompts
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
-MODEL_TYPES = ["davinci", "ada"]
+MODEL_TYPES = ["davinci"]  # , "ada"]
 PREFIXES = ["", "I'm an expert polymer chemist "]
 
 DF = get_polymer_data()
