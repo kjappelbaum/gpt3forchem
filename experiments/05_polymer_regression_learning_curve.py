@@ -56,7 +56,7 @@ def learning_curve_point(model_type, train_set_size, prefix):
 
     print(f"Training {model_type} model on {train_size} training examples")
     modelname = fine_tune(train_filename, valid_filename, model_type)
-    test_prompts = test_prompts.iloc[:40]
+    test_prompts = test_prompts.iloc[:MAX_TEST_SIZE]
     completions = query_gpt3(modelname, test_prompts)
     predictions = [
         extract_regression_prediction(completions, i)
