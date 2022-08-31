@@ -10,12 +10,12 @@ from gpt3forchem.input import create_single_property_forward_prompts
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
-MODEL_TYPES = ["davinci"]  # , "ada"]
-PREFIXES = ["", "I'm an expert polymer chemist "]
+MODEL_TYPES = ["ada"]  # , "ada"]
+PREFIXES = [""]  # , "I'm an expert polymer chemist "]
 
 DF = get_polymer_data()
 RANDOM_STATE = None
-MAX_TEST_SIZE = 200  # upper limit to speed it up, this will still require 10 requests
+MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 25 requests
 
 
 def learning_curve_point(model_type, train_set_size, prefix):
@@ -52,6 +52,7 @@ def learning_curve_point(model_type, train_set_size, prefix):
 
     print(f"Training {model_type} model on {train_size} training examples")
     modelname = fine_tune(train_filename, valid_filename, model_type)
+    # taking the first MAX_TEST_SIZE is ok as the train_test_split shuffles the data
     test_prompts = test_prompts.iloc[:MAX_TEST_SIZE]
     completions = query_gpt3(modelname, test_prompts)
     predictions = [
@@ -76,6 +77,7 @@ def learning_curve_point(model_type, train_set_size, prefix):
         "train_filename": train_filename,
         "valid_filename": valid_filename,
         "MAX_TEST_SIZE": MAX_TEST_SIZE,
+        "modelname": modelname,
     }
 
     outname = f"results/{filename_base}_results_polymers_{train_size}_{prefix}_{model_type}.pkl"

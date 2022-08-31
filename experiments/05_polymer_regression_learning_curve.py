@@ -8,6 +8,7 @@ from gpt3forchem.api_wrappers import (
     extract_prediction,
     extract_regression_prediction,
     fine_tune,
+    n,
     query_gpt3,
 )
 from gpt3forchem.data import get_polymer_data
@@ -21,7 +22,7 @@ PREFIXES = [""]  # "I'm an expert polymer chemist "]
 
 DF = get_polymer_data()
 RANDOM_STATE = None
-MAX_TEST_SIZE = 200  # upper limit to speed it up, this will still require 10 requests
+MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 10 requests
 
 
 def learning_curve_point(model_type, train_set_size, prefix):
@@ -77,6 +78,7 @@ def learning_curve_point(model_type, train_set_size, prefix):
         "train_filename": train_filename,
         "valid_filename": valid_filename,
         "MAX_TEST_SIZE": MAX_TEST_SIZE,
+        "modelname": modelname,
     }
 
     metrics = get_regression_metrics(true, predictions)
