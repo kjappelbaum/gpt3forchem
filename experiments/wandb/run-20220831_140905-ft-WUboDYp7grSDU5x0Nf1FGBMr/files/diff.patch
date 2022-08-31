@@ -1,0 +1,230 @@
+diff --git a/experiments/08_explore_photoswitch_learning.ipynb b/experiments/08_explore_photoswitch_learning.ipynb
+index 50bb975..386d409 100644
+--- a/experiments/08_explore_photoswitch_learning.ipynb
++++ b/experiments/08_explore_photoswitch_learning.ipynb
+@@ -1515,6 +1515,216 @@
+     "print(gpr_results['cm'])"
+    ]
+   },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "### Try different representation"
++   ]
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "Just out of curiosity, let's also try using the chemical name directly in this notebook."
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 63,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "data.dropna(subset=[\"name\"], inplace=True)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 64,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "prompts = create_single_property_forward_prompts(\n",
++    "    data,\n",
++    "    \"wavelength_cat\",\n",
++    "    {\"wavelength_cat\": \"transition wavelength\"},\n",
++    "    representation_col=\"name\",\n",
++    ")\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 65,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/html": [
++       "<div>\n",
++       "<style scoped>\n",
++       "    .dataframe tbody tr th:only-of-type {\n",
++       "        vertical-align: middle;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe tbody tr th {\n",
++       "        vertical-align: top;\n",
++       "    }\n",
++       "\n",
++       "    .dataframe thead th {\n",
++       "        text-align: right;\n",
++       "    }\n",
++       "</style>\n",
++       "<table border=\"1\" class=\"dataframe\">\n",
++       "  <thead>\n",
++       "    <tr style=\"text-align: right;\">\n",
++       "      <th></th>\n",
++       "      <th>prompt</th>\n",
++       "      <th>completion</th>\n",
++       "    </tr>\n",
++       "  </thead>\n",
++       "  <tbody>\n",
++       "    <tr>\n",
++       "      <th>0</th>\n",
++       "      <td>what is the transition wavelength of phenyl-(1...</td>\n",
++       "      <td>0@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>1</th>\n",
++       "      <td>what is the transition wavelength of (1-methyl...</td>\n",
++       "      <td>1@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>2</th>\n",
++       "      <td>what is the transition wavelength of bis(2-flu...</td>\n",
++       "      <td>0@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>3</th>\n",
++       "      <td>what is the transition wavelength of bis(2,4,6...</td>\n",
++       "      <td>0@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>4</th>\n",
++       "      <td>what is the transition wavelength of bis(2,3,5...</td>\n",
++       "      <td>0@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>...</th>\n",
++       "      <td>...</td>\n",
++       "      <td>...</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>83</th>\n",
++       "      <td>what is the transition wavelength of N-ethyl-4...</td>\n",
++       "      <td>2@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>84</th>\n",
++       "      <td>what is the transition wavelength of 2-[[4-(4-...</td>\n",
++       "      <td>2@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>85</th>\n",
++       "      <td>what is the transition wavelength of (E)-bis(1...</td>\n",
++       "      <td>2@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>86</th>\n",
++       "      <td>what is the transition wavelength of 1,3-benzo...</td>\n",
++       "      <td>0@@@</td>\n",
++       "    </tr>\n",
++       "    <tr>\n",
++       "      <th>87</th>\n",
++       "      <td>what is the transition wavelength of (6-nitro-...</td>\n",
++       "      <td>1@@@</td>\n",
++       "    </tr>\n",
++       "  </tbody>\n",
++       "</table>\n",
++       "<p>88 rows × 2 columns</p>\n",
++       "</div>"
++      ],
++      "text/plain": [
++       "                                               prompt completion\n",
++       "0   what is the transition wavelength of phenyl-(1...       0@@@\n",
++       "1   what is the transition wavelength of (1-methyl...       1@@@\n",
++       "2   what is the transition wavelength of bis(2-flu...       0@@@\n",
++       "3   what is the transition wavelength of bis(2,4,6...       0@@@\n",
++       "4   what is the transition wavelength of bis(2,3,5...       0@@@\n",
++       "..                                                ...        ...\n",
++       "83  what is the transition wavelength of N-ethyl-4...       2@@@\n",
++       "84  what is the transition wavelength of 2-[[4-(4-...       2@@@\n",
++       "85  what is the transition wavelength of (E)-bis(1...       2@@@\n",
++       "86  what is the transition wavelength of 1,3-benzo...       0@@@\n",
++       "87  what is the transition wavelength of (6-nitro-...       1@@@\n",
++       "\n",
++       "[88 rows x 2 columns]"
++      ]
++     },
++     "execution_count": 65,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "prompts"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 66,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "train_prompts, test_prompts = train_test_split(prompts, test_size=0.2, random_state=None)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 67,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "train_size = len(train_prompts)\n",
++    "test_size = len(test_prompts)\n",
++    "\n",
++    "filename_base = time.strftime(\"%Y-%m-%d-%H-%M-%S\", time.localtime())\n",
++    "train_filename = (\n",
++    "    f\"run_files/{filename_base}_train_prompts_photoswitch_{train_size}.jsonl\"\n",
++    ")\n",
++    "valid_filename = (\n",
++    "    f\"run_files/{filename_base}_valid_prompts_photoswitch_{test_size}.jsonl\"\n",
++    ")\n",
++    "\n",
++    "train_prompts.to_json(train_filename, orient=\"records\", lines=True)\n",
++    "test_prompts.to_json(valid_filename, orient=\"records\", lines=True)\n"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 68,
++   "metadata": {},
++   "outputs": [
++    {
++     "name": "stdout",
++     "output_type": "stream",
++     "text": [
++      "70 18\n"
++     ]
++    }
++   ],
++   "source": [
++    "print(train_size, test_size)"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 69,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "fine_tune(train_filename, valid_filename, \"ada\")"
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 96cf187..d5dc0cf 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220831_112133-ft-ZTxafJhLHFoI8mc5JUlWiiWo
+\ No newline at end of file
++run-20220831_140905-ft-WUboDYp7grSDU5x0Nf1FGBMr
+\ No newline at end of file

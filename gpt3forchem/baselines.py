@@ -349,11 +349,18 @@ def train_test_gpr_baseline(train_file, test_file, delete_from_prompt: str = 'wh
     test_frame = pd.read_json(test_file, orient="records", lines=True)
 
 
-    smiles_train = [row.prompt.replace(delete_from_prompt, '').replace('###', '').strip() for i, row in train_frame.iterrows()]
-    smiles_test = [row.prompt.replace(delete_from_prompt, '').replace('###', '').strip() for i, row in test_frame.iterrows()]
+    repr_train = [row.prompt.replace(delete_from_prompt, '').replace('###', '').strip() for i, row in train_frame.iterrows()]
+    repr_test = [row.prompt.replace(delete_from_prompt, '').replace('###', '').strip() for i, row in test_frame.iterrows()]
 
-    y_train = np.array([df[df[representation_column]==smile]['E isomer pi-pi* wavelength in nm'].values[0] for smile in smiles_train])
-    y_test = np.array([df[df[representation_column]==smile]['E isomer pi-pi* wavelength in nm'].values[0] for smile in smiles_test])
+    y_train = np.array([df[df[representation_column]==smile]['E isomer pi-pi* wavelength in nm'].values[0] for smile in repr_train])
+    y_test = np.array([df[df[representation_column]==smile]['E isomer pi-pi* wavelength in nm'].values[0] for smile in repr_test])
+
+    if representation_column =='SMILEs': 
+        smiles_train = repr_train
+        smiles_test = repr_test
+    else: 
+        smiles_train = np.array([df[df[representation_column]==smile]['SMILES'].values[0] for smile in repr_train])
+        smiles_test = np.array([df[df[representation_column]==smile]['SMILES'].values[0] for smile in repr_test]) 
 
     X_train = compute_fragprints(smiles_train)
     X_test = compute_fragprints(smiles_test)
