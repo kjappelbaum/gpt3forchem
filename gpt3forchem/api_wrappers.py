@@ -4,18 +4,22 @@
 __all__ = ['fine_tune', 'query_gpt3', 'extract_prediction', 'extract_regression_prediction', 'train_test_loop']
 
 # %% ../notebooks/01_api_wrappers.ipynb 2
+import re
 import subprocess
+import time
 
 import openai
-import time
-import re
-from sklearn.model_selection import train_test_split
 from pycm import ConfusionMatrix
+from sklearn.model_selection import train_test_split
 
 
 # %% ../notebooks/01_api_wrappers.ipynb 5
-def fine_tune(train_file, valid_file, model: str = "ada"):
-    # run the fine tuning
+def fine_tune(
+    train_file,  # path to json file with training prompts (column names "prompt" and "completion")
+    valid_file,  # path to json file with validation prompts (column names "prompt" and "completion")
+    model: str = "ada",  # model type to use. One of "ada", "davinci". "ada" is the default (and cheapest).
+):
+    """Run the fine tuning of a GPT-3 model via the OpenAI API."""
     result = subprocess.run(
         f"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model}",
         shell=True,
@@ -34,20 +38,21 @@ def fine_tune(train_file, valid_file, model: str = "ada"):
     return modelname
 
 
-# %% ../notebooks/01_api_wrappers.ipynb 7
-from fastcore.basics import chunked
+# %% ../notebooks/01_api_wrappers.ipynb 8
 import pandas as pd
+from fastcore.basics import chunked
 
 
 def query_gpt3(
-    model,
-    df,
-    temperature=0,
-    max_tokens=10,
-    sleep=5,
-    one_by_one=False,
-    parallel_max: int = 20,
+    model: str,  # name of the model to use, e.g. "ada:ft-personal-2022-08-24-10-41-29"
+    df: pd.DataFrame,  # dataframe with prompts and expected completions (column names "prompt" and "completion")
+    temperature: float = 0,  # temperature, 0 is the default and corresponds to argmax
+    max_tokens: int = 10,  # maximum number of tokens to generate
+    sleep: float = 5,  # number of seconds to wait between queries
+    one_by_one: bool = False,  # if True, generate one completion at a time (i.e., due to submit the maximum number of prompts per request)
+    parallel_max: int = 20,  # maximum number of prompts that can be sent per request
 ):
+    """Get completions for all prompts in a dataframe."""
     if one_by_one:
         completions = []
         for i, row in df.iterrows():
@@ -83,22 +88,30 @@ def query_gpt3(
             time.sleep(sleep)
 
         completions = {
-            "choices": [choice for c in completions for choice in c['choices']],
+            "choices": [choice for c in completions for choice in c["choices"]],
         }
 
     return completions
 
 
-# %% ../notebooks/01_api_wrappers.ipynb 8
-def extract_prediction(completion, i=0):
+# %% ../notebooks/01_api_wrappers.ipynb 9
+def extract_prediction(
+    completion,  # dictionary with "choices" key returned by the API
+    i: int = 0,  # index of the "choice" (relevant if multiple completions have been returned)
+) -> str:
     return completion["choices"][i]["text"].split("@")[0].strip()
 
 
-# %% ../notebooks/01_api_wrappers.ipynb 9
-def extract_regression_prediction(completion, i=0):
+# %% ../notebooks/01_api_wrappers.ipynb 12
+def extract_regression_prediction(
+    completion,  # dictionary with "choices" key returned by the API
+    i: int = 0,  # index of the "choice" (relevant if multiple completions have been returned)
+) -> float:
+    """Similar to `extract_prediction`, but returns a float."""
     return float(completion["choices"][i]["text"].split("@")[0].strip())
 
-# %% ../notebooks/01_api_wrappers.ipynb 12
+
+# %% ../notebooks/01_api_wrappers.ipynb 15
 def train_test_loop(
     df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None
 ):
