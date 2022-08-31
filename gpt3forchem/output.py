@@ -18,8 +18,12 @@ from strsimpy.normalized_levenshtein import NormalizedLevenshtein
 
 from sklearn.metrics import r2_score, max_error, mean_absolute_error, mean_squared_error
 
+
 # %% ../notebooks/04_output.ipynb 4
-def string_distances(training_set: Iterable[str], query_string: str):
+def string_distances(
+    training_set: Iterable[str], # string representations of the compounds in the training set
+    query_string: str # string representation of the compound to be queried
+):
 
     distances = defaultdict(list)
 
@@ -104,6 +108,8 @@ def get_completion_composition(string):
 
 
 # %% ../notebooks/04_output.ipynb 17
+import pandas as pd
+
 def string2performance(string):
     # we need to perform a bunch of tasks here:
     # 1) Featurize
@@ -161,10 +167,14 @@ def composition_mismatch(composition: dict, found: dict):
 
 
 # %% ../notebooks/04_output.ipynb 19
-def get_regression_metrics(y_true, y_pred):
+def get_regression_metrics(
+    y_true,  # actual values (ArrayLike)
+    y_pred,  # predicted values (ArrayLike)
+) -> dict:
     return {
         "r2": r2_score(y_true, y_pred),
         "max_error": max_error(y_true, y_pred),
         "mean_absolute_error": mean_absolute_error(y_true, y_pred),
         "mean_squared_error": mean_squared_error(y_true, y_pred),
     }
+
