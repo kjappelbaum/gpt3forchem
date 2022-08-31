@@ -43,12 +43,13 @@ ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE = " {value}@@@"
 
 # %% ../notebooks/03_input.ipynb 4
 def create_single_property_forward_prompts(
-    df, # input data
-    target, # target property
-    target_rename_dict, # dict to rename target property from the column name in df to the target property name in the prompt
-    encode_value=True, # whether to encode the value of the target property categorically
-    encoding_dict=_DEFAULT_ENCODING_DICT, # mapping from numerical categories to string
-    prompt_prefix="", # prefix to add to the prompt, e.g. "I am an expert chemist"
+    df: pd.DataFrame, # input data
+    target: str, # target property
+    target_rename_dict: dict, # dict to rename target property from the column name in df to the target property name in the prompt
+    encode_value: bool=True, # whether to encode the value of the target property categorically
+    encoding_dict: dict=_DEFAULT_ENCODING_DICT, # mapping from numerical categories to string
+    prompt_prefix: str="", # prefix to add to the prompt, e.g. "I am an expert chemist"
+    representation_col: str = 'string' # name of the column to use as the representation of the compound
 ):
     prompts = []
 
@@ -66,7 +67,7 @@ def create_single_property_forward_prompts(
             {
                 "prompt": prompt_prefix
                 + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
-                    property=target_name, text=row["string"]
+                    property=target_name, text=row[representation_col]
                 ),
                 "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
                     value=value
@@ -77,7 +78,7 @@ def create_single_property_forward_prompts(
     return pd.DataFrame(prompts)
 
 
-# %% ../notebooks/03_input.ipynb 7
+# %% ../notebooks/03_input.ipynb 8
 def create_single_property_forward_prompts_regression(
     df, # input data
     target, # target property
@@ -110,7 +111,7 @@ def create_single_property_forward_prompts_regression(
     return pd.DataFrame(prompts)
 
 
-# %% ../notebooks/03_input.ipynb 10
+# %% ../notebooks/03_input.ipynb 11
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT = (
     "what is a polymer with {class_name} {property}?###"
 )
@@ -119,7 +120,7 @@ POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT = " {text}@@@"
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION = "what is a polymer with {class_name} {property} and {num_A} A, {num_B} B, {num_W} W, and {num_R} R?###"
 
 
-# %% ../notebooks/03_input.ipynb 11
+# %% ../notebooks/03_input.ipynb 12
 def get_polymer_composition_dict(row):
     composition = Counter(row["string"].split("-"))
     comp_dict = {}

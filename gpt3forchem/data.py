@@ -22,5 +22,8 @@ def get_polymer_data(
 def get_photoswitch_data(
     datadir="../data" # path to folder with data files
 ):
-    return pd.read_csv(os.path.join(datadir, "photoswitches.csv"))
-
+    """By default we drop the rows without E isomer pi-pi* transition wavelength."""
+    df =  pd.read_csv(os.path.join(datadir, "photoswitches.csv"))
+    df.dropna(subset=['E isomer pi-pi* wavelength in nm'], inplace=True)
+    df.reset_index(inplace=True)
+    return df

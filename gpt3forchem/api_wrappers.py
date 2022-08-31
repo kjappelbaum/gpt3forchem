@@ -112,9 +112,20 @@ def extract_regression_prediction(
 
 
 # %% ../notebooks/01_api_wrappers.ipynb 15
+from typing import Optional
+
+
 def train_test_loop(
-    df, train_size, prompt_create_fn, random_state, stratify=None, test_subset=None
-):
+    df: pd.DataFrame,  # dataframe with prompts and expected completions (column names "prompt" and "completion"). Split will be performed within this function.
+    train_size: int,  # number of rows to use for training
+    prompt_create_fn: callable,  # function to create a prompt from a row of the dataframe
+    random_state: int,  # random state for splitting the dataframe
+    stratify: Optional[str] = None,  # column name to use for stratification
+    test_subset: Optional[
+        int
+    ] = None,  # number of rows to use for testing. If None, use the remainder of the dataframe.
+) -> dict:
+    """Run the full training and testing process for the classification task."""
 
     out = {}
     train, test = train_test_split(
