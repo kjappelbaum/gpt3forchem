@@ -1,0 +1,32 @@
+diff --git a/experiments/09_photoswitch_learning_curve.py b/experiments/09_photoswitch_learning_curve.py
+index fedb130..6284bab 100644
+--- a/experiments/09_photoswitch_learning_curve.py
++++ b/experiments/09_photoswitch_learning_curve.py
+@@ -87,6 +87,7 @@ def learning_curve_point(representation, model_type, train_set_size):
+     outname = f"results/photoswitch/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
+ 
+     save_pickle(outname, results)
++    return results
+ 
+ 
+ if __name__ == "__main__":
+@@ -97,6 +98,8 @@ if __name__ == "__main__":
+             else:
+                 train_sizes = TRAIN_SIZES_SMILES
+             for train_size in train_sizes:
+-                learning_curve_point(representation, MODEL_TYPE, train_size)
+-                print(f"Finished {representation} {train_size}")
++                res = learning_curve_point(representation, MODEL_TYPE, train_size)
++                print(
++                    f"Finished {representation} {train_size}. Accuracy: {res['accuracy']}. Baseline accuracy: {res['baseline_accuracy']}"
++                )
+                 time.sleep(1)
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index d5dc0cf..ab2e16d 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220831_140905-ft-WUboDYp7grSDU5x0Nf1FGBMr
+\ No newline at end of file
++run-20220831_150623-ft-XtTOvP7Wth7RBP4Ow1VsUy3P
+\ No newline at end of file

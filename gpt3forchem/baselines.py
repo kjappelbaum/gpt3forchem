@@ -372,8 +372,9 @@ def train_test_gpr_baseline(train_file, test_file, delete_from_prompt: str = 'wh
 
     _, bins = pd.cut(df['E isomer pi-pi* wavelength in nm'], 5, retbins=True)
 
-    predicted_bins = pd.cut(predictions.flatten(), bins, labels=np.arange(5))
-
+    # we clip as out-of-bound predictions result in NaNs
+    pred = np.clip(predictions.flatten(), a_min=bins[0], a_max=bins[-1])
+    predicted_bins = pd.cut(pred, bins, labels=np.arange(5), include_lowest=True)
     true_bins = pd.cut(y_test.flatten(), bins, labels=np.arange(5))
 
     cm = ConfusionMatrix(true_bins.astype(int), predicted_bins.astype(int))

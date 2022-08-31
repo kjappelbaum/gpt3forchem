@@ -1,0 +1,120 @@
+diff --git a/experiments/08_explore_photoswitch_learning.ipynb b/experiments/08_explore_photoswitch_learning.ipynb
+index 8871f4e..abde55f 100644
+--- a/experiments/08_explore_photoswitch_learning.ipynb
++++ b/experiments/08_explore_photoswitch_learning.ipynb
+@@ -205,6 +205,19 @@
+    "metadata": {},
+    "outputs": [],
+    "source": [
++    "train_size = len(train_prompts)\n",
++    "test_size = len(test_prompts)\n",
++    "\n",
++    "filename_base = time.strftime(\"%Y-%m-%d-%H-%M-%S\", time.localtime())\n",
++    "train_filename = (\n",
++    "    f\"run_files/{filename_base}_train_prompts_photoswitch_{train_size}.jsonl\"\n",
++    ")\n",
++    "valid_filename = (\n",
++    "    f\"run_files/{filename_base}_valid_prompts_photoswitch_{test_size}.jsonl\"\n",
++    ")\n",
++    "\n",
++    "train_prompts.to_json(train_filename, orient=\"records\", lines=True)\n",
++    "test_prompts.to_json(valid_filename, orient=\"records\", lines=True)\n",
+     "train_size = len(train_prompts)\n",
+     "test_size = len(test_prompts)\n",
+     "\n",
+@@ -2200,6 +2213,63 @@
+     "Here, the GPR seems to do better."
+    ]
+   },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "### Now try SELFIES before we debug the learning curve script."
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": 92,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "data = get_photoswitch_data()\n",
++    "prompts = create_single_property_forward_prompts(\n",
++    "    data,\n",
++    "    \"wavelength_cat\",\n",
++    "    {\"wavelength_cat\": \"transition wavelength\"},\n",
++    "    representation_col=\"selfies\",\n",
++    ")\n",
++    "train_prompts, test_prompts = train_test_split(\n",
++    "    prompts, test_size=0.2, random_state=None\n",
++    ")\n",
++    "\n",
++    "train_size = len(train_prompts)\n",
++    "test_size = len(test_prompts)\n",
++    "\n",
++    "filename_base = time.strftime(\"%Y-%m-%d-%H-%M-%S\", time.localtime())\n",
++    "train_filename = (\n",
++    "    f\"run_files/{filename_base}_train_prompts_photoswitch_{train_size}.jsonl\"\n",
++    ")\n",
++    "valid_filename = (\n",
++    "    f\"run_files/{filename_base}_valid_prompts_photoswitch_{test_size}.jsonl\"\n",
++    ")\n",
++    "\n",
++    "train_prompts.to_json(train_filename, orient=\"records\", lines=True)\n",
++    "test_prompts.to_json(valid_filename, orient=\"records\", lines=True)\n",
++    "train_size = len(train_prompts)\n",
++    "test_size = len(test_prompts)\n",
++    "\n",
++    "filename_base = time.strftime(\"%Y-%m-%d-%H-%M-%S\", time.localtime())\n",
++    "train_filename = (\n",
++    "    f\"run_files/{filename_base}_train_prompts_photoswitch_{train_size}.jsonl\"\n",
++    ")\n",
++    "valid_filename = (\n",
++    "    f\"run_files/{filename_base}_valid_prompts_photoswitch_{test_size}.jsonl\"\n",
++    ")\n",
++    "\n",
++    "train_prompts.to_json(train_filename, orient=\"records\", lines=True)\n",
++    "test_prompts.to_json(valid_filename, orient=\"records\", lines=True)\n",
++    "\n",
++    "\n",
++    "\n",
++    "fine_tune(train_filename, valid_filename, \"ada\")\n",
++    "\n"
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+diff --git a/experiments/09_photoswitch_learning_curve.py b/experiments/09_photoswitch_learning_curve.py
+index fedb130..6284bab 100644
+--- a/experiments/09_photoswitch_learning_curve.py
++++ b/experiments/09_photoswitch_learning_curve.py
+@@ -87,6 +87,7 @@ def learning_curve_point(representation, model_type, train_set_size):
+     outname = f"results/photoswitch/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
+ 
+     save_pickle(outname, results)
++    return results
+ 
+ 
+ if __name__ == "__main__":
+@@ -97,6 +98,8 @@ if __name__ == "__main__":
+             else:
+                 train_sizes = TRAIN_SIZES_SMILES
+             for train_size in train_sizes:
+-                learning_curve_point(representation, MODEL_TYPE, train_size)
+-                print(f"Finished {representation} {train_size}")
++                res = learning_curve_point(representation, MODEL_TYPE, train_size)
++                print(
++                    f"Finished {representation} {train_size}. Accuracy: {res['accuracy']}. Baseline accuracy: {res['baseline_accuracy']}"
++                )
+                 time.sleep(1)
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index d5dc0cf..28af5ed 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220831_140905-ft-WUboDYp7grSDU5x0Nf1FGBMr
+\ No newline at end of file
++run-20220831_151941-ft-5poqsRW52wj0wLt7hOUVfVnU
+\ No newline at end of file

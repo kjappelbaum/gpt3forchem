@@ -87,6 +87,7 @@ def learning_curve_point(representation, model_type, train_set_size):
     outname = f"results/photoswitch/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
 
     save_pickle(outname, results)
+    return results
 
 
 if __name__ == "__main__":
@@ -97,6 +98,8 @@ if __name__ == "__main__":
             else:
                 train_sizes = TRAIN_SIZES_SMILES
             for train_size in train_sizes:
-                learning_curve_point(representation, MODEL_TYPE, train_size)
-                print(f"Finished {representation} {train_size}")
+                res = learning_curve_point(representation, MODEL_TYPE, train_size)
+                print(
+                    f"Finished {representation} {train_size}. Accuracy: {res['accuracy']}. Baseline accuracy: {res['baseline_accuracy']}"
+                )
                 time.sleep(1)
