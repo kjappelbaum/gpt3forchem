@@ -1,0 +1,86 @@
+[
+  {
+    "objectID": "input.html",
+    "href": "input.html",
+    "title": "Creating prompts/training data",
+    "section": "",
+    "text": "source"
+  },
+  {
+    "objectID": "input.html#polymers",
+    "href": "input.html#polymers",
+    "title": "Creating prompts/training data",
+    "section": "Polymers",
+    "text": "Polymers\n\nsource\n\nget_polymer_composition_dict\n\n get_polymer_composition_dict (row)"
+  },
+  {
+    "objectID": "baselines.html",
+    "href": "baselines.html",
+    "title": "Baselines",
+    "section": "",
+    "text": "source"
+  },
+  {
+    "objectID": "baselines.html#polymers",
+    "href": "baselines.html#polymers",
+    "title": "Baselines",
+    "section": "Polymers",
+    "text": "Polymers\n\nCode specific for the polymer test case"
+  },
+  {
+    "objectID": "index.html#install",
+    "href": "index.html#install",
+    "title": "GPT3 for molecular and materials design and discovery",
+    "section": "Install",
+    "text": "Install\npip install gpt3forchem"
+  },
+  {
+    "objectID": "index.html#how-to-use",
+    "href": "index.html#how-to-use",
+    "title": "GPT3 for molecular and materials design and discovery",
+    "section": "How to use",
+    "text": "How to use\n\nthe legacy directory contains code from initial exploration. The relevant parts have been migrated into notebooks.\nthe experiments directory contain code for the actual fine-tuning experiments\n\nBefore you can use it, you need to set up the OpenAI API access (you might need to export your OPENAI_API_KEY)\nAlso, you need to keep in mind that there are rate limits wherefore we needed to add some delays between requests (and typically also not evaluate on the full datasets)."
+  },
+  {
+    "objectID": "data.html",
+    "href": "data.html",
+    "title": "Data",
+    "section": "",
+    "text": "source\n\n\n\n get_polymer_data (datadir='../data')\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ndatadir\nstr\n../data\npath to folder with data files\n\n\n\n\ndf = get_polymer_data(\"../data/\")\n\n\ndf.head()\n\n\n\n\n\n  \n    \n      \n      Unnamed: 0\n      smiles\n      string\n      deltaGmin\n      A2_normalized\n      deltaGmin_cat\n      A2_normalized_cat\n      num_[W]\n      max_[W]\n      num_[Tr]\n      ...\n      [W]\n      [W].1\n      [Tr]\n      [Tr].1\n      [Ta]\n      [Ta].1\n      [R]\n      [R].1\n      rel_shannon\n      length\n    \n  \n  \n    \n      0\n      0\n      [W][Ta][Tr][W][W][Ta][Ta][Ta][R][W][Tr][Tr][R]...\n      W-A-B-W-W-A-A-A-R-W-B-B-R-R-B-R\n      -7.535286\n      -0.109726\n      very large\n      very small\n      0.25\n      2\n      0.250000\n      ...\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      0.5\n      16\n    \n    \n      1\n      1\n      [R][W][W][R][R][Tr][Tr][Tr][Ta][Ta][Ta][W][W][...\n      R-W-W-R-R-B-B-B-A-A-A-W-W-A-R-B\n      -7.270527\n      0.580595\n      very large\n      very large\n      0.40\n      2\n      0.200000\n      ...\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      0.5\n      16\n    \n    \n      2\n      2\n      [Ta][R][Ta][W][Tr][W][Ta][R][Tr][W][Ta][Tr][Tr...\n      A-R-A-W-B-W-A-R-B-W-A-B-B-R-W-R\n      -6.416311\n      0.956320\n      very large\n      very large\n      0.00\n      0\n      1.000000\n      ...\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      0.5\n      16\n    \n    \n      3\n      3\n      [W][Ta][R][Ta][Tr][Tr][Tr][W][Ta][W][Tr][R][Ta...\n      W-A-R-A-B-B-B-W-A-W-B-R-A-W-R-R\n      -6.684816\n      1.129924\n      very large\n      very large\n      0.00\n      0\n      0.500000\n      ...\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      0.5\n      16\n    \n    \n      4\n      4\n      [R][R][Tr][Tr][W][R][Ta][W][R][W][Ta][Tr][Ta][...\n      R-R-B-B-W-R-A-W-R-W-A-B-A-A-W-B\n      -6.606492\n      -0.496439\n      very large\n      very small\n      0.00\n      0\n      0.333333\n      ...\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      4.0\n      0.25\n      0.5\n      16\n    \n  \n\n5 rows × 25 columns"
+  },
+  {
+    "objectID": "data.html#photoswitch",
+    "href": "data.html#photoswitch",
+    "title": "Data",
+    "section": "Photoswitch",
+    "text": "Photoswitch\n\nsource\n\nget_photoswitch_data\n\n get_photoswitch_data (datadir='../data')\n\nBy default we drop the rows without E isomer pi-pi* transition wavelength.\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ndatadir\nstr\n../data\npath to folder with data files\n\n\n\n\ndf = get_photoswitch_data(\"../data/\")\n\n\ndf.head()\n\n\n\n\n\n  \n    \n      \n      SMILES\n      rate of thermal isomerisation from Z-E in s-1\n      Solvent used for thermal isomerisation rates\n      Z PhotoStationaryState\n      E PhotoStationaryState\n      E isomer pi-pi* wavelength in nm\n      Extinction\n      E isomer n-pi* wavelength in nm\n      Extinction coefficient in M-1 cm-1\n      Z isomer pi-pi* wavelength in nm\n      ...\n      CAM-B3LYP/6-31G** DFT E isomer n-pi* wavelength in nm\n      CAM-B3LYP/6-31G** DFT Z isomer pi-pi* wavelength in nm\n      CAM-B3LYP/6-31G** DFT Z isomer n-pi* wavelength in nm\n      BHLYP/6-31G* DFT E isomer pi-pi* wavelength in nm\n      BHLYP/6-31G* DFT E isomer n-pi* wavelength in nm\n      BHLYP/6-31G* Z isomer pi-pi* wavelength in nm\n      BHLYP/6-31G* DFT Z isomer n-pi* wavelength in nm\n      name\n      selfies\n      wavelength_cat\n    \n  \n  \n    \n      0\n      C[N]1N=NC(=N1)N=NC2=CC=CC=C2\n      2.100000e-07\n      MeCN\n      76.0\n      72.0\n      310.0\n      1.67\n      442.0\n      0.0373\n      290.0\n      ...\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      [C][NH0][N][=N][C][=Branch1][Ring2][=N][Ring1]...\n      0.0\n    \n    \n      1\n      C[N]1C=NC(=N1)N=NC2=CC=CC=C2\n      3.800000e-07\n      MeCN\n      90.0\n      84.0\n      310.0\n      1.87\n      438.0\n      0.0505\n      272.0\n      ...\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      [C][NH0][C][=N][C][=Branch1][Ring2][=N][Ring1]...\n      0.0\n    \n    \n      2\n      C[N]1C=CC(=N1)N=NC2=CC=CC=C2\n      1.100000e-07\n      MeCN\n      98.0\n      97.0\n      320.0\n      1.46\n      425.0\n      0.0778\n      272.0\n      ...\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      [C][NH0][C][=C][C][=Branch1][Ring2][=N][Ring1]...\n      0.0\n    \n    \n      3\n      C[N]1C=C(C)C(=N1)N=NC2=CC=CC=C2\n      1.500000e-06\n      MeCN\n      96.0\n      87.0\n      325.0\n      1.74\n      428.0\n      0.0612\n      286.0\n      ...\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      [C][NH0][C][=C][Branch1][C][C][C][=Branch1][Ri...\n      0.0\n    \n    \n      4\n      C[N]1C=C(C=N1)N=NC2=CC=CC=C2\n      7.600000e-09\n      MeCN\n      98.0\n      70.0\n      328.0\n      1.66\n      417.0\n      0.0640\n      275.0\n      ...\n      427.0\n      256.0\n      401.0\n      NaN\n      NaN\n      NaN\n      NaN\n      NaN\n      [C][NH0][C][=C][Branch1][Branch1][C][=N][Ring1...\n      0.0\n    \n  \n\n5 rows × 36 columns"
+  },
+  {
+    "objectID": "output.html",
+    "href": "output.html",
+    "title": "Reusable code for analyzing results",
+    "section": "",
+    "text": "To measure how different our outputs are from the input data, we’ll use string distances.\nsource"
+  },
+  {
+    "objectID": "output.html#polymers",
+    "href": "output.html#polymers",
+    "title": "Reusable code for analyzing results",
+    "section": "Polymers",
+    "text": "Polymers\n\nCode specific for the polymer test case\n\n\nsource\n\nconvert2smiles\n\n convert2smiles (string)\n\nTo train the model, we simply use single letters, without any special characters such as brackets.\n\nconvert2smiles(\"AWWRRA\")\n\n'[Ta][W][W][R][R][Ta]'\n\n\nTo get the composition from the prompt, we will check how often we find a given monomer in the string.\n\nsource\n\n\nget_num_monomer\n\n get_num_monomer (string, monomer)\n\n\nget_num_monomer(\"Polymer with 3 A, 5 B and 0 C\", \"A\")\n\n3\n\n\n\nsource\n\n\nget_prompt_compostion\n\n get_prompt_compostion (prompt)\n\n\nsource\n\n\nget_target\n\n get_target (string, target_name='adsorption')\n\n\nsource\n\n\nget_prompt_data\n\n get_prompt_data (prompt)\n\n\nsource\n\n\nget_completion_composition\n\n get_completion_composition (string)\n\n\nsource\n\n\nstring2performance\n\n string2performance (string)\n\n\nsource\n\n\ncomposition_mismatch\n\n composition_mismatch (composition:dict, found:dict)\n\n\nsource\n\n\nget_regression_metrics\n\n get_regression_metrics (y_true, y_pred)\n\n\nget_regression_metrics(\n    [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]\n)\n\n{'r2': 1.0,\n 'max_error': 0,\n 'mean_absolute_error': 0.0,\n 'mean_squared_error': 0.0}"
+  },
+  {
+    "objectID": "api_wrappers.html",
+    "href": "api_wrappers.html",
+    "title": "API wrappers",
+    "section": "",
+    "text": "source\n\n\n\n fine_tune (train_file, valid_file, model:str='ada')\n\nRun the fine tuning of a GPT-3 model via the OpenAI API.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ntrain_file\n\n\npath to json file with training prompts (column names “prompt” and “completion”)\n\n\nvalid_file\n\n\npath to json file with validation prompts (column names “prompt” and “completion”)\n\n\nmodel\nstr\nada\nmodel type to use. One of “ada”, “davinci”. “ada” is the default (and cheapest)."
+  },
+  {
+    "objectID": "api_wrappers.html#predict",
+    "href": "api_wrappers.html#predict",
+    "title": "API wrappers",
+    "section": "Predict",
+    "text": "Predict\nSome helpers to make it easiers to get completions from the API.\n\nsource\n\nquery_gpt3\n\n query_gpt3 (model:str, df:pandas.core.frame.DataFrame,\n             temperature:float=0, max_tokens:int=10, sleep:float=5,\n             one_by_one:bool=False, parallel_max:int=20)\n\nGet completions for all prompts in a dataframe.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\nmodel\nstr\n\nname of the model to use, e.g. “ada:ft-personal-2022-08-24-10-41-29”\n\n\ndf\nDataFrame\n\ndataframe with prompts and expected completions (column names “prompt” and “completion”)\n\n\ntemperature\nfloat\n0\ntemperature, 0 is the default and corresponds to argmax\n\n\nmax_tokens\nint\n10\nmaximum number of tokens to generate\n\n\nsleep\nfloat\n5\nnumber of seconds to wait between queries\n\n\none_by_one\nbool\nFalse\nif True, generate one completion at a time (i.e., due to submit the maximum number of prompts per request)\n\n\nparallel_max\nint\n20\nmaximum number of prompts that can be sent per request\n\n\n\n\nsource\n\n\nextract_prediction\n\n extract_prediction (completion, i:int=0)\n\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ncompletion\n\n\ndictionary with “choices” key returned by the API\n\n\ni\nint\n0\nindex of the “choice” (relevant if multiple completions have been returned)\n\n\nReturns\nstr\n\n\n\n\n\n\nexample_pred = {\n    \"choices\": [{\"finish_reason\": \"length\", \"index\": 0, \"text\": \" 0@@@@@@@\"}]\n}\n\n\nextract_prediction(example_pred)\n\n'0'\n\n\n\nsource\n\n\nextract_regression_prediction\n\n extract_regression_prediction (completion, i:int=0)\n\nSimilar to extract_prediction, but returns a float.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ncompletion\n\n\ndictionary with “choices” key returned by the API\n\n\ni\nint\n0\nindex of the “choice” (relevant if multiple completions have been returned)\n\n\nReturns\nfloat\n\n\n\n\n\n\nexample_pred = {\n    \"choices\": [{\"finish_reason\": \"length\", \"index\": 0, \"text\": \" -8.2@@@@@@@\"}]\n}\n\n\nextract_regression_prediction(example_pred)\n\n-8.2\n\n\n\nsource\n\n\ntrain_test_loop\n\n train_test_loop (df:pandas.core.frame.DataFrame, train_size:int,\n                  prompt_create_fn:<built-infunctioncallable>,\n                  random_state:int, stratify:Optional[str]=None,\n                  test_subset:Optional[int]=None)\n\nRun the full training and testing process for the classification task.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ndf\nDataFrame\n\ndataframe with prompts and expected completions (column names “prompt” and “completion”). Split will be performed within this function.\n\n\ntrain_size\nint\n\nnumber of rows to use for training\n\n\nprompt_create_fn\ncallable\n\nfunction to create a prompt from a row of the dataframe\n\n\nrandom_state\nint\n\nrandom state for splitting the dataframe\n\n\nstratify\nOptional\nNone\ncolumn name to use for stratification\n\n\ntest_subset\nOptional\nNone\n\n\n\nReturns\ndict\n\nnumber of rows to use for testing. If None, use the remainder of the dataframe."
+  }
+]
