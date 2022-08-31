@@ -14,7 +14,7 @@ from nbdev.showdoc import *
 from strsimpy.levenshtein import Levenshtein
 from strsimpy.longest_common_subsequence import LongestCommonSubsequence
 from strsimpy.normalized_levenshtein import NormalizedLevenshtein
-
+import pandas as pd
 
 from sklearn.metrics import r2_score, max_error, mean_absolute_error, mean_squared_error
 
@@ -108,8 +108,6 @@ def get_completion_composition(string):
 
 
 # %% ../notebooks/04_output.ipynb 17
-import pandas as pd
-
 def string2performance(string):
     # we need to perform a bunch of tasks here:
     # 1) Featurize

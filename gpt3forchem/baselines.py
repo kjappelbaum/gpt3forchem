@@ -5,18 +5,24 @@ __all__ = ['BaseLineModel', 'XGBClassificationBaseline', 'XGBRegressionBaseline'
 
 # %% ../notebooks/05_baselines.ipynb 1
 from abc import ABC, abstractmethod
+from typing import Iterable
 
+import gpflow
 import numpy as np
+import tensorflow as tf
+from gpflow.mean_functions import Constant
+from gpflow.utilities import positive, print_summary
+from gpflow.utilities.ops import broadcasting_elementwise
 from nbdev.showdoc import *
 from optuna import create_study
 from optuna.integration import XGBoostPruningCallback
 from optuna.samplers import TPESampler
+from rdkit.Chem import AllChem, Descriptors, MolFromSmiles, MolToSmiles
 from sklearn.metrics import accuracy_score, f1_score, mean_squared_error
 from sklearn.model_selection import KFold
-from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import LabelEncoder, StandardScaler
 from wandb.xgboost import WandbCallback
 from xgboost import XGBClassifier, XGBRegressor
-
 
 # %% ../notebooks/05_baselines.ipynb 3
 class BaseLineModel(ABC):
@@ -206,12 +212,6 @@ class XGBRegressionBaseline(BaseLineModel):
 
 
 # %% ../notebooks/05_baselines.ipynb 8
-import gpflow
-from gpflow.utilities import positive
-from gpflow.utilities.ops import broadcasting_elementwise
-import tensorflow as tf
-
-
 class Tanimoto(gpflow.kernels.Kernel):
     """Tanimoto kernel.
 
@@ -262,9 +262,6 @@ class Tanimoto(gpflow.kernels.Kernel):
 
 
 # %% ../notebooks/05_baselines.ipynb 9
-from typing import Iterable
-from rdkit.Chem import MolFromSmiles, AllChem, Descriptors, MolToSmiles
-
 def compute_fragprints(
     smiles_list: Iterable[str] # list of SMILEs
 ) -> np.ndarray:
@@ -291,27 +288,26 @@ def compute_fragprints(
     return X
 
 # %% ../notebooks/05_baselines.ipynb 10
-import gpflow
-from gpflow.mean_functions import Constant
-from gpflow.utilities import print_summary
-from sklearn.preprocessing import StandardScaler
-
 class GPRBaseline(BaseLineModel):
+    """GPR w/ Tanimoto kernel baseline."""
     def __init__(self) -> None:
         self.model = None
         self.y_scaler = StandardScaler()
-    
-    def tune(self, 
-        X_train: np.ndarray, # N x D features 
-        y_train: np.ndarray # N x 1 target
+
+    def tune(
+        self,
+        X_train: np.ndarray, # N x D features
+        y_train: np.ndarray  # N x 1 target
     ):
         pass
-        
-    def fit(self, 
+
+    def fit(
+        self,
         X_train: np.ndarray, # N x D features
-        y_train: np.ndarray # N x 1 target
+        y_train: np.ndarray  # N x 1 target
     ):
         y_train = y_train.reshape(-1, 1)
+
         def objective_closure():
             return -m.log_marginal_likelihood()
 
@@ -332,11 +328,11 @@ class GPRBaseline(BaseLineModel):
         print_summary(m)
         self.model = m
 
-    def predict(self, 
+    def predict(
+            self, 
             X_test: np.ndarray # N x D features
-        ):
+        ):  
         y_pred, y_var = self.model.predict_f(X_test)
         y_pred = self.y_scaler.inverse_transform(y_pred)
         return y_pred
-
 

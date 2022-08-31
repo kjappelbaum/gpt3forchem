@@ -11,6 +11,7 @@ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLET
 import pandas as pd
 from collections import Counter
 
+# %% ../notebooks/03_input.ipynb 3
 _DEFAULT_ENCODING_DICT = {
     "very small": 0,
     "small": 1,
@@ -36,12 +37,12 @@ def decode_categorical_value(value, decoding_dict=_DEFAULT_DECODING_DICT):
         raise ValueError("Unknown value: %s" % value)
 
 
-# %% ../notebooks/03_input.ipynb 3
+# %% ../notebooks/03_input.ipynb 4
 ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE = "what is the {property} of {text}###"
 ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE = " {value}@@@"
 
 
-# %% ../notebooks/03_input.ipynb 4
+# %% ../notebooks/03_input.ipynb 5
 def create_single_property_forward_prompts(
     df: pd.DataFrame, # input data
     target: str, # target property
@@ -78,7 +79,7 @@ def create_single_property_forward_prompts(
     return pd.DataFrame(prompts)
 
 
-# %% ../notebooks/03_input.ipynb 8
+# %% ../notebooks/03_input.ipynb 9
 def create_single_property_forward_prompts_regression(
     df, # input data
     target, # target property
@@ -111,7 +112,7 @@ def create_single_property_forward_prompts_regression(
     return pd.DataFrame(prompts)
 
 
-# %% ../notebooks/03_input.ipynb 12
+# %% ../notebooks/03_input.ipynb 13
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT = (
     "what is a polymer with {class_name} {property}?###"
 )
@@ -120,7 +121,7 @@ POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT = " {text}@@@"
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION = "what is a polymer with {class_name} {property} and {num_A} A, {num_B} B, {num_W} W, and {num_R} R?###"
 
 
-# %% ../notebooks/03_input.ipynb 13
+# %% ../notebooks/03_input.ipynb 14
 def get_polymer_composition_dict(row):
     composition = Counter(row["string"].split("-"))
     comp_dict = {}
