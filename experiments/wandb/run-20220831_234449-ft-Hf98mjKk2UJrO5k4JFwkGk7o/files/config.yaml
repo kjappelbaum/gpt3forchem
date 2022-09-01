@@ -1,0 +1,96 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.1
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.9.13
+    start_time: 1661982289.45403
+    t:
+      1:
+      - 55
+      2:
+      - 55
+      3:
+      - 2
+      - 13
+      - 14
+      - 16
+      - 23
+      4: 3.9.13
+      5: 0.13.1
+      8:
+      - 4
+      - 5
+created_at:
+  desc: null
+  value: '2022-08-31T23:42:58'
+fine_tuned_model:
+  desc: null
+  value: ada:ft-lsmoepfl-2022-08-31-21-44-38
+hyperparams:
+  desc: null
+  value:
+    batch_size: 1
+    learning_rate_multiplier: 0.1
+    n_epochs: 2
+    prompt_loss_weight: 0.1
+id:
+  desc: null
+  value: ft-Hf98mjKk2UJrO5k4JFwkGk7o
+model:
+  desc: null
+  value: ada
+n_train:
+  desc: null
+  value: 200
+n_valid:
+  desc: null
+  value: 192
+object:
+  desc: null
+  value: fine-tune
+organization_id:
+  desc: null
+  value: org-TFRJXw3PPQocOWbu71eI2t9U
+result_files:
+  desc: null
+  value:
+    bytes: 22718
+    created_at: 1661982278
+    filename: compiled_results.csv
+    id: file-l4ocFp8bUSZ7Kazci9yzK2QS
+    object: file
+    purpose: fine-tune-results
+    status: processed
+    status_details: null
+status:
+  desc: null
+  value: succeeded
+training_files:
+  desc: null
+  value:
+    bytes: 47278
+    created_at: 1661982174
+    filename: run_files/2022-08-31-23-42-49_train_prompts_photoswitch_200_selfies.jsonl
+    id: file-VeaPXx08cVoKVFEbBidH1gm4
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null
+updated_at:
+  desc: null
+  value: 1661982279
+validation_files:
+  desc: null
+  value:
+    bytes: 43302
+    created_at: 1661982177
+    filename: run_files/2022-08-31-23-42-49_valid_prompts_photoswitch_192_selfies.jsonl
+    id: file-SDkziOMOyrEzOY2SkNi7RgJZ
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null

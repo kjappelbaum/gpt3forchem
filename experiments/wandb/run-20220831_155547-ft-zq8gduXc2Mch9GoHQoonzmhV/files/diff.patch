@@ -1,0 +1,19 @@
+diff --git a/.gitignore b/.gitignore
+index 97f0b83..0c141df 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -143,3 +143,4 @@ checklink/cookies.txt
+ .gitconfig
+ legacy
+ 
++dev/
+\ No newline at end of file
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 21b72cb..ab05973 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220831_152656-ft-tMaOO5fT4Y8mfa1Q6KOhmuP8
+\ No newline at end of file
++run-20220831_155547-ft-zq8gduXc2Mch9GoHQoonzmhV
+\ No newline at end of file

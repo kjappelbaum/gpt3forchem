@@ -1,4 +1,3 @@
-from doctest import DocFileCase
 import time
 
 from fastcore.xtras import save_pickle
@@ -51,7 +50,7 @@ def learning_curve_point(representation, model_type, train_set_size):
     test_prompts.to_json(valid_filename, orient="records", lines=True)
 
     print(f"Training {model_type} model on {train_size} training examples")
-    modelname = fine_tune(train_filename, valid_filename, model_type)
+    modelname = fine_tune(train_filename, valid_filename, model_type, n_epochs=2)
 
     completions = query_gpt3(modelname, test_prompts)
     predictions = [
@@ -84,7 +83,7 @@ def learning_curve_point(representation, model_type, train_set_size):
         "baseline_accuracy": baseline["cm"].ACC_Macro,
     }
 
-    outname = f"results/photoswitch/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
+    outname = f"results/photoswitch_2epoch/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
 
     save_pickle(outname, results)
     return results

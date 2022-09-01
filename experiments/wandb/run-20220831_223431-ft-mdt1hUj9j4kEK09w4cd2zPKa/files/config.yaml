@@ -1,0 +1,96 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.1
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.9.13
+    start_time: 1661978071.930165
+    t:
+      1:
+      - 55
+      2:
+      - 55
+      3:
+      - 2
+      - 13
+      - 14
+      - 16
+      - 23
+      4: 3.9.13
+      5: 0.13.1
+      8:
+      - 4
+      - 5
+created_at:
+  desc: null
+  value: '2022-08-31T22:32:08'
+fine_tuned_model:
+  desc: null
+  value: ada:ft-lsmoepfl-2022-08-31-20-34-16
+hyperparams:
+  desc: null
+  value:
+    batch_size: 1
+    learning_rate_multiplier: 0.1
+    n_epochs: 2
+    prompt_loss_weight: 0.1
+id:
+  desc: null
+  value: ft-mdt1hUj9j4kEK09w4cd2zPKa
+model:
+  desc: null
+  value: ada
+n_train:
+  desc: null
+  value: 300
+n_valid:
+  desc: null
+  value: 92
+object:
+  desc: null
+  value: fine-tune
+organization_id:
+  desc: null
+  value: org-TFRJXw3PPQocOWbu71eI2t9U
+result_files:
+  desc: null
+  value:
+    bytes: 33737
+    created_at: 1661978057
+    filename: compiled_results.csv
+    id: file-O3kTztEFF8wESizGX2PK98ke
+    object: file
+    purpose: fine-tune-results
+    status: processed
+    status_details: null
+status:
+  desc: null
+  value: succeeded
+training_files:
+  desc: null
+  value:
+    bytes: 36256
+    created_at: 1661977925
+    filename: run_files/2022-08-31-22-32-01_train_prompts_photoswitch_300_SMILES.jsonl
+    id: file-q7wjKNF5nLyfVnwu8fWwVJwX
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null
+updated_at:
+  desc: null
+  value: 1661978057
+validation_files:
+  desc: null
+  value:
+    bytes: 11198
+    created_at: 1661977928
+    filename: run_files/2022-08-31-22-32-01_valid_prompts_photoswitch_92_SMILES.jsonl
+    id: file-BvwNEoPbVmZ2oX8QUWoubauT
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null

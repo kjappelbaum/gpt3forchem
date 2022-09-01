@@ -17,11 +17,12 @@ from sklearn.model_selection import train_test_split
 def fine_tune(
     train_file,  # path to json file with training prompts (column names "prompt" and "completion")
     valid_file,  # path to json file with validation prompts (column names "prompt" and "completion")
-    model: str = "ada",  # model type to use. One of "ada", "davinci". "ada" is the default (and cheapest).
+    model: str = "ada",  # model type to use. One of "ada", "babbage", "curie", "davinci". "ada" is the default (and cheapest).
+    n_epochs: int = 4,  # number of epochs to fine-tune for
 ):
     """Run the fine tuning of a GPT-3 model via the OpenAI API."""
     result = subprocess.run(
-        f"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model}",
+        f"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model} --n_epochs {n_epochs}",
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
