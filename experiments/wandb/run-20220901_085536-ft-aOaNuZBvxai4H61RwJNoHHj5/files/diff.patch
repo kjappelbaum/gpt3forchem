@@ -1,0 +1,39 @@
+diff --git a/experiments/09_photoswitch_learning_curve.py b/experiments/09_photoswitch_learning_curve.py
+index e16ebf8..2735552 100644
+--- a/experiments/09_photoswitch_learning_curve.py
++++ b/experiments/09_photoswitch_learning_curve.py
+@@ -18,6 +18,7 @@ REPEATS = 10
+ DF = get_photoswitch_data()
+ MODEL_TYPE = "ada"
+ PREFIX = ""
++N_EPOCHS = 6
+ 
+ 
+ def learning_curve_point(representation, model_type, train_set_size):
+@@ -50,7 +51,7 @@ def learning_curve_point(representation, model_type, train_set_size):
+     test_prompts.to_json(valid_filename, orient="records", lines=True)
+ 
+     print(f"Training {model_type} model on {train_size} training examples")
+-    modelname = fine_tune(train_filename, valid_filename, model_type, n_epochs=2)
++    modelname = fine_tune(train_filename, valid_filename, model_type, n_epochs=N_EPOCHS)
+ 
+     completions = query_gpt3(modelname, test_prompts)
+     predictions = [
+@@ -83,7 +84,7 @@ def learning_curve_point(representation, model_type, train_set_size):
+         "baseline_accuracy": baseline["cm"].ACC_Macro,
+     }
+ 
+-    outname = f"results/photoswitch_2epoch/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
++    outname = f"results/photoswitch_{N_EPOCHS}epoch/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
+ 
+     save_pickle(outname, results)
+     return results
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 7fed3d1..d098b5c 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220901_005241-ft-iVEdyjQo8AYazmocOjMixpRB
+\ No newline at end of file
++run-20220901_085536-ft-aOaNuZBvxai4H61RwJNoHHj5
+\ No newline at end of file
