@@ -17,6 +17,7 @@ from typing import List
 from functools import partial
 import pandas as pd
 from fastcore.basics import chunked
+import concurrent.futures # fastcore parallel fails for partial functions (https://github.com/fastai/fastcore/pull/294)
 
 # %% ../notebooks/01_api_wrappers.ipynb 5
 def fine_tune(
@@ -26,6 +27,7 @@ def fine_tune(
     n_epochs: int = 4,  # number of epochs to fine-tune for
 ):
     """Run the fine tuning of a GPT-3 model via the OpenAI API."""
+    modelname = None
     result = subprocess.run(
         f"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model} --n_epochs {n_epochs}",
         shell=True,
@@ -229,9 +231,11 @@ def multiple_query_gpt3(
     one_by_one: bool = False,  # if True, generate one completion at a time (i.e., due to submit the maximum number of prompts per request)
     parallel_max: int = 20,  # maximum number of prompts that can be sent per request
 ):
+    models = [model for model in models if model is not None]
     curried_query = partial(query_gpt3, df=df, temperature=temperature, max_tokens=max_tokens, sleep=sleep, one_by_one=one_by_one, parallel_max=parallel_max)
 
-    completions = parallel(curried_query, models)
+    with concurrent.futures.ProcessPoolExecutor() as executor:
+        completions = executor.map(curried_query, models)
 
-    return completions
+    return list(completions)
 

@@ -1,0 +1,234 @@
+diff --git a/experiments/11_try_deep_ensemble.ipynb b/experiments/11_try_deep_ensemble.ipynb
+index 7aabd9e..9a0c8c5 100644
+--- a/experiments/11_try_deep_ensemble.ipynb
++++ b/experiments/11_try_deep_ensemble.ipynb
+@@ -12,7 +12,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 3,
++   "execution_count": 2,
+    "metadata": {},
+    "outputs": [
+     {
+@@ -47,7 +47,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 4,
++   "execution_count": 3,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -56,7 +56,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 5,
++   "execution_count": 4,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -70,7 +70,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 12,
++   "execution_count": 5,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -79,7 +79,7 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 13,
++   "execution_count": 6,
+    "metadata": {},
+    "outputs": [],
+    "source": [
+@@ -90,83 +90,79 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 14,
++   "execution_count": 7,
+    "metadata": {},
+    "outputs": [
+     {
+      "name": "stdout",
+      "output_type": "stream",
+      "text": [
+-      "Fine tuning on 10 train files and 1 valid files\n"
+-     ]
+-    },
+-    {
+-     "name": "stderr",
+-     "output_type": "stream",
+-     "text": [
+-      "wandb: Currently logged in as: kjappelbaum. Use `wandb login --relogin` to force relogin\n",
+-      "wandb: wandb version 0.13.2 is available!  To upgrade, please run:\n",
+-      "wandb:  $ pip install wandb --upgrade\n",
+-      "wandb: Tracking run with wandb version 0.13.1\n",
+-      "wandb: Run data is saved locally in /Users/kevinmaikjablonka/git/kjappelbaum/gpt3forchem/experiments/wandb/run-20220901_123234-ft-2Sepg0SHBs4k7dBvEmETqr0M\n",
+-      "wandb: Run `wandb offline` to turn off syncing.\n",
+-      "wandb: Syncing run ft-2Sepg0SHBs4k7dBvEmETqr0M\n",
+-      "wandb: ⭐️ View project at https://wandb.ai/kjappelbaum/GPT-3\n",
+-      "wandb: 🚀 View run at https://wandb.ai/kjappelbaum/GPT-3/runs/ft-2Sepg0SHBs4k7dBvEmETqr0M\n",
+-      "wandb: Waiting for W&B process to finish... (success).\n",
+-      "wandb:                                                                                \n",
+-      "wandb: \n",
+-      "wandb: Run history:\n",
+-      "wandb:             elapsed_examples ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███\n",
+-      "wandb:               elapsed_tokens ▁▁▁▂▂▂▂▂▂▃▃▃▃▃▄▄▄▄▄▄▅▅▅▅▅▅▆▆▆▆▆▇▇▇▇▇▇███\n",
+-      "wandb:                training_loss █▃▄▃▃▃▄▄▃▃▂▂▂▂▁▄▂▂▂▃▂▂▁▁▂▂▁▁▂▂▂▂▁▂▁▁▂▁▁▁\n",
+-      "wandb:   training_sequence_accuracy ▁█▁▁█▁▁▁▁▁▁▁███▁▁█▁▁█▁██▁▁████▁▁█▁██▁███\n",
+-      "wandb:      training_token_accuracy ▁█▅▅█▅▅▅▅▅▅▅███▅▅█▅▅█▅██▅▅████▅▅█▅██▅███\n",
+-      "wandb:              validation_loss ██▃▃▂▄▃▂▂▂▂▂▂▂▂▂▁▁▂▁▂▂▂▁▂▂▂▁▂▁▂▁▁▁▁▂▁▂▁▂\n",
+-      "wandb: validation_sequence_accuracy ▁▁▁▁█▁███▁█▁███▁██▁▁█▁▁██▁▁█▁████▁█▁▁▁█▁\n",
+-      "wandb:    validation_token_accuracy ▁▆▆▆█▆███▆█▆███▆██▆▆█▆▆██▆▆█▆████▆█▆▆▆█▆\n",
+-      "wandb: \n",
+-      "wandb: Run summary:\n",
+-      "wandb:             elapsed_examples 501.0\n",
+-      "wandb:               elapsed_tokens 25261.0\n",
+-      "wandb:             fine_tuned_model ada:ft-lsmoepfl-2022...\n",
+-      "wandb:                       status succeeded\n",
+-      "wandb:                training_loss 0.02519\n",
+-      "wandb:   training_sequence_accuracy 1.0\n",
+-      "wandb:      training_token_accuracy 1.0\n",
+-      "wandb:              validation_loss 0.06602\n",
+-      "wandb: validation_sequence_accuracy 1.0\n",
+-      "wandb:    validation_token_accuracy 1.0\n",
+-      "wandb: \n",
+-      "wandb: Synced ft-2Sepg0SHBs4k7dBvEmETqr0M: https://wandb.ai/kjappelbaum/GPT-3/runs/ft-2Sepg0SHBs4k7dBvEmETqr0M\n",
+-      "wandb: Synced 6 W&B file(s), 0 media file(s), 5 artifact file(s) and 0 other file(s)\n",
+-      "wandb: Find logs at: ./wandb/run-20220901_123234-ft-2Sepg0SHBs4k7dBvEmETqr0M/logs\n"
+-     ]
+-    },
+-    {
+-     "name": "stdout",
+-     "output_type": "stream",
+-     "text": [
+-      "🎉 wandb sync completed successfully\n"
++      "Fine tuning on 5 train files and 5 valid files\n",
++      "Fine-tune ft-0sMbEhCOyzwtyDu4KXcCcWBQ has the status \"pending\" and will not be logged\n",
++      "🎉 wandb sync completed successfully\n",
++      "Fine-tune ft-0sMbEhCOyzwtyDu4KXcCcWBQ has the status \"pending\" and will not be logged\n",
++      "🎉 wandb sync completed successfully\n",
++      "Fine-tune ft-0sMbEhCOyzwtyDu4KXcCcWBQ has the status \"pending\" and will not be logged\n",
++      "🎉 wandb sync completed successfully\n",
++      "Uploaded file from run_files/2022-09-01-13-33-35_train__ensemble_2_125.jsonl: file-hq8u626g7lvBn2brPfG5oqr1\n",
++      "Uploaded file from run_files/2022-09-01-13-33-35_valid__ensemble_2_40.jsonl: file-TSWNDsqoAFdORx2gdgrvfpPy\n",
++      "Created fine-tune: ft-93BW8r44toCI0uGx7RGezjqu\n",
++      "Streaming events until fine-tuning is complete...\n",
++      "\n",
++      "(Ctrl-C will interrupt the stream, but not cancel the fine-tune)\n",
++      "[2022-09-01 13:33:44] Created fine-tune: ft-93BW8r44toCI0uGx7RGezjqu\n",
++      "\n",
++      "Stream interrupted (client disconnected).\n",
++      "To resume the stream, run:\n",
++      "\n",
++      "  openai api fine_tunes.follow -i ft-93BW8r44toCI0uGx7RGezjqu\n",
++      "\n",
++      " \n",
++      "Upload progress:   0%|          | 0.00/15.2k [00:00<?, ?it/s]\n",
++      "Upload progress: 100%|██████████| 15.2k/15.2k [00:00<00:00, 7.84Mit/s]\n",
++      "\n",
++      "Upload progress:   0%|          | 0.00/4.88k [00:00<?, ?it/s]\n",
++      "Upload progress: 100%|██████████| 4.88k/4.88k [00:00<00:00, 6.13Mit/s]\n",
++      "\n",
++      "Uploaded file from run_files/2022-09-01-13-33-35_train__ensemble_3_125.jsonl: file-hGZ63CMW76bWNkrXgcwZjMIy\n",
++      "Uploaded file from run_files/2022-09-01-13-33-35_valid__ensemble_3_40.jsonl: file-LdkuvTXp4ylBQdRksKPFcLU3\n",
++      "Created fine-tune: ft-0sMbEhCOyzwtyDu4KXcCcWBQ\n",
++      "Streaming events until fine-tuning is complete...\n",
++      "\n",
++      "(Ctrl-C will interrupt the stream, but not cancel the fine-tune)\n",
++      "[2022-09-01 13:34:12] Created fine-tune: ft-0sMbEhCOyzwtyDu4KXcCcWBQ\n",
++      "\n",
++      "Stream interrupted (client disconnected).\n",
++      "To resume the stream, run:\n",
++      "\n",
++      "  openai api fine_tunes.follow -i ft-0sMbEhCOyzwtyDu4KXcCcWBQ\n",
++      "\n",
++      " \n",
++      "Upload progress:   0%|          | 0.00/15.0k [00:00<?, ?it/s]\n",
++      "Upload progress: 100%|██████████| 15.0k/15.0k [00:00<00:00, 11.3Mit/s]\n",
++      "\n",
++      "Upload progress:   0%|          | 0.00/4.88k [00:00<?, ?it/s]\n",
++      "Upload progress: 100%|██████████| 4.88k/4.88k [00:00<00:00, 6.13Mit/s]\n",
++      "\n"
+      ]
+     }
+    ],
+    "source": [
+-    "models = ensemble_fine_tune(train_prompts, test_prompts)"
++    "models = ensemble_fine_tune(train_prompts, test_prompts, num_models=5)"
+    ]
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 11,
++   "execution_count": 8,
+    "metadata": {},
+    "outputs": [
+     {
+      "data": {
+       "text/plain": [
+-       "(#1) ['ada:ft-lsmoepfl-2022-09-01-10-23-37']"
++       "(#5) ['ada:ft-lsmoepfl-2022-09-01-11-35-43','ada:ft-lsmoepfl-2022-09-01-11-37-42',None,None,'ada:ft-lsmoepfl-2022-09-01-11-39-37']"
+       ]
+      },
+-     "execution_count": 11,
++     "execution_count": 8,
+      "metadata": {},
+      "output_type": "execute_result"
+     }
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index 884420d..a147b84 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220901_123234-ft-2Sepg0SHBs4k7dBvEmETqr0M
+\ No newline at end of file
++run-20220901_134719-ft-4pIpxC74x4WtLb2yQz17kU8s
+\ No newline at end of file
+diff --git a/gpt3forchem/api_wrappers.py b/gpt3forchem/api_wrappers.py
+index 392a7f5..762a03a 100644
+--- a/gpt3forchem/api_wrappers.py
++++ b/gpt3forchem/api_wrappers.py
+@@ -26,6 +26,7 @@ def fine_tune(
+     n_epochs: int = 4,  # number of epochs to fine-tune for
+ ):
+     """Run the fine tuning of a GPT-3 model via the OpenAI API."""
++    modelname = None
+     result = subprocess.run(
+         f"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model} --n_epochs {n_epochs}",
+         shell=True,
+@@ -229,6 +230,7 @@ def multiple_query_gpt3(
+     one_by_one: bool = False,  # if True, generate one completion at a time (i.e., due to submit the maximum number of prompts per request)
+     parallel_max: int = 20,  # maximum number of prompts that can be sent per request
+ ):
++    models = [model for model in models if model is not None]
+     curried_query = partial(query_gpt3, df=df, temperature=temperature, max_tokens=max_tokens, sleep=sleep, one_by_one=one_by_one, parallel_max=parallel_max)
+ 
+     completions = parallel(curried_query, models)
+diff --git a/notebooks/01_api_wrappers.ipynb b/notebooks/01_api_wrappers.ipynb
+index c08f062..1b58f9d 100644
+--- a/notebooks/01_api_wrappers.ipynb
++++ b/notebooks/01_api_wrappers.ipynb
+@@ -71,6 +71,7 @@
+     "    n_epochs: int = 4,  # number of epochs to fine-tune for\n",
+     "):\n",
+     "    \"\"\"Run the fine tuning of a GPT-3 model via the OpenAI API.\"\"\"\n",
++    "    modelname = None\n",
+     "    result = subprocess.run(\n",
+     "        f\"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model} --n_epochs {n_epochs}\",\n",
+     "        shell=True,\n",
+@@ -417,6 +418,7 @@
+     "    one_by_one: bool = False,  # if True, generate one completion at a time (i.e., due to submit the maximum number of prompts per request)\n",
+     "    parallel_max: int = 20,  # maximum number of prompts that can be sent per request\n",
+     "):\n",
++    "    models = [model for model in models if model is not None]\n",
+     "    curried_query = partial(query_gpt3, df=df, temperature=temperature, max_tokens=max_tokens, sleep=sleep, one_by_one=one_by_one, parallel_max=parallel_max)\n",
+     "\n",
+     "    completions = parallel(curried_query, models)\n",
