@@ -1,0 +1,86 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.1
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.9.13
+    start_time: 1662038432.905909
+    t:
+      1:
+      - 55
+      3:
+      - 13
+      - 14
+      - 16
+      - 23
+      4: 3.9.13
+      5: 0.13.1
+      8:
+      - 5
+created_at:
+  desc: null
+  value: '2022-09-01T15:14:08'
+fine_tuned_model:
+  desc: null
+  value: ada:ft-lsmoepfl-2022-09-01-13-17-15
+hyperparams:
+  desc: null
+  value:
+    batch_size: 1
+    learning_rate_multiplier: 0.1
+    n_epochs: 4
+    prompt_loss_weight: 0.1
+id:
+  desc: null
+  value: ft-p2Qf2aCiPa5zHHIhBnIwzko1
+model:
+  desc: null
+  value: ada
+object:
+  desc: null
+  value: fine-tune
+organization_id:
+  desc: null
+  value: org-TFRJXw3PPQocOWbu71eI2t9U
+result_files:
+  desc: null
+  value:
+    bytes: 55178
+    created_at: 1662038235
+    filename: compiled_results.csv
+    id: file-cg3juuNYrwb5ysZ8Aqyf8Ofx
+    object: file
+    purpose: fine-tune-results
+    status: processed
+    status_details: null
+status:
+  desc: null
+  value: succeeded
+training_files:
+  desc: null
+  value:
+    bytes: 30131
+    created_at: 1662038044
+    filename: run_files/2022-09-01-15-13-58_train__ensemble_5_250.jsonl
+    id: file-fxWtSvBP0HUjho2CYqKsdPmg
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null
+updated_at:
+  desc: null
+  value: 1662038236
+validation_files:
+  desc: null
+  value:
+    bytes: 9734
+    created_at: 1662038047
+    filename: run_files/2022-09-01-15-13-58_valid__ensemble_5_79.jsonl
+    id: file-4qdrBZS6rWk85uPjewpBC6pF
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null

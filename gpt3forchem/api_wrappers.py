@@ -28,8 +28,10 @@ def fine_tune(
 ):
     """Run the fine tuning of a GPT-3 model via the OpenAI API."""
     modelname = None
+    # ToDo: perhaps also use their Python wrapper? Or call directly via requests? 
+    # subprocess is probably the ugliest way to do this, but it works.
     result = subprocess.run(
-        f"openai api fine_tunes.create -t {train_file} -v {valid_file} -m {model} --n_epochs {n_epochs}",
+        f"openai api fine_tunes.create -t {train_file}  -m {model} --n_epochs {n_epochs}" + f" -v {valid_file}" if valid_file is not None else "",
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
@@ -239,3 +241,8 @@ def multiple_query_gpt3(
 
     return list(completions)
 
+
+# %% ../notebooks/01_api_wrappers.ipynb 23
+def _get_embedding(texts, model):
+   embedding_responds =  openai.Embedding.create(input = texts, model=model)
+   return [['data'][i]['embedding'] for i in range(len(embedding_responds['data']))]

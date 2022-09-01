@@ -1,0 +1,170 @@
+diff --git a/experiments/11_try_deep_ensemble.ipynb b/experiments/11_try_deep_ensemble.ipynb
+index 6cba889..1c5d12a 100644
+--- a/experiments/11_try_deep_ensemble.ipynb
++++ b/experiments/11_try_deep_ensemble.ipynb
+@@ -12,9 +12,22 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 9,
++   "execution_count": 2,
+    "metadata": {},
+-   "outputs": [],
++   "outputs": [
++    {
++     "name": "stderr",
++     "output_type": "stream",
++     "text": [
++      "/Users/kevinmaikjablonka/miniconda3/envs/gpt3/lib/python3.9/site-packages/gpflow/experimental/utils.py:42: UserWarning: You're calling gpflow.experimental.check_shapes.decorator.check_shapes which is considered *experimental*. Expect: breaking changes, poor documentation, and bugs.\n",
++      "  warn(\n",
++      "/Users/kevinmaikjablonka/miniconda3/envs/gpt3/lib/python3.9/site-packages/gpflow/experimental/utils.py:42: UserWarning: You're calling gpflow.experimental.check_shapes.inheritance.inherit_check_shapes which is considered *experimental*. Expect: breaking changes, poor documentation, and bugs.\n",
++      "  warn(\n",
++      "/Users/kevinmaikjablonka/miniconda3/envs/gpt3/lib/python3.9/site-packages/tqdm/auto.py:22: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html\n",
++      "  from .autonotebook import tqdm as notebook_tqdm\n"
++     ]
++    }
++   ],
+    "source": [
+     "from gpt3forchem.data import get_photoswitch_data\n",
+     "from gpt3forchem.input import create_single_property_forward_prompts\n",
+@@ -60,15 +73,6 @@
+    "execution_count": 5,
+    "metadata": {},
+    "outputs": [],
+-   "source": [
+-    "prompts = prompts.sample(frac=0.5)"
+-   ]
+-  },
+-  {
+-   "cell_type": "code",
+-   "execution_count": 6,
+-   "metadata": {},
+-   "outputs": [],
+    "source": [
+     "train_prompts, test_prompts = train_test_split(\n",
+     "    prompts, test_size=0.2, random_state=None\n",
+@@ -77,65 +81,19 @@
+   },
+   {
+    "cell_type": "code",
+-   "execution_count": 7,
++   "execution_count": 6,
+    "metadata": {},
+    "outputs": [
+     {
+      "name": "stdout",
+      "output_type": "stream",
+      "text": [
+-      "Fine tuning on 5 train files and 5 valid files\n",
+-      "Fine-tune ft-0sMbEhCOyzwtyDu4KXcCcWBQ has the status \"pending\" and will not be logged\n",
+-      "🎉 wandb sync completed successfully\n",
+-      "Fine-tune ft-0sMbEhCOyzwtyDu4KXcCcWBQ has the status \"pending\" and will not be logged\n",
+-      "🎉 wandb sync completed successfully\n",
+-      "Fine-tune ft-0sMbEhCOyzwtyDu4KXcCcWBQ has the status \"pending\" and will not be logged\n",
+-      "🎉 wandb sync completed successfully\n",
+-      "Uploaded file from run_files/2022-09-01-13-33-35_train__ensemble_2_125.jsonl: file-hq8u626g7lvBn2brPfG5oqr1\n",
+-      "Uploaded file from run_files/2022-09-01-13-33-35_valid__ensemble_2_40.jsonl: file-TSWNDsqoAFdORx2gdgrvfpPy\n",
+-      "Created fine-tune: ft-93BW8r44toCI0uGx7RGezjqu\n",
+-      "Streaming events until fine-tuning is complete...\n",
+-      "\n",
+-      "(Ctrl-C will interrupt the stream, but not cancel the fine-tune)\n",
+-      "[2022-09-01 13:33:44] Created fine-tune: ft-93BW8r44toCI0uGx7RGezjqu\n",
+-      "\n",
+-      "Stream interrupted (client disconnected).\n",
+-      "To resume the stream, run:\n",
+-      "\n",
+-      "  openai api fine_tunes.follow -i ft-93BW8r44toCI0uGx7RGezjqu\n",
+-      "\n",
+-      " \n",
+-      "Upload progress:   0%|          | 0.00/15.2k [00:00<?, ?it/s]\n",
+-      "Upload progress: 100%|██████████| 15.2k/15.2k [00:00<00:00, 7.84Mit/s]\n",
+-      "\n",
+-      "Upload progress:   0%|          | 0.00/4.88k [00:00<?, ?it/s]\n",
+-      "Upload progress: 100%|██████████| 4.88k/4.88k [00:00<00:00, 6.13Mit/s]\n",
+-      "\n",
+-      "Uploaded file from run_files/2022-09-01-13-33-35_train__ensemble_3_125.jsonl: file-hGZ63CMW76bWNkrXgcwZjMIy\n",
+-      "Uploaded file from run_files/2022-09-01-13-33-35_valid__ensemble_3_40.jsonl: file-LdkuvTXp4ylBQdRksKPFcLU3\n",
+-      "Created fine-tune: ft-0sMbEhCOyzwtyDu4KXcCcWBQ\n",
+-      "Streaming events until fine-tuning is complete...\n",
+-      "\n",
+-      "(Ctrl-C will interrupt the stream, but not cancel the fine-tune)\n",
+-      "[2022-09-01 13:34:12] Created fine-tune: ft-0sMbEhCOyzwtyDu4KXcCcWBQ\n",
+-      "\n",
+-      "Stream interrupted (client disconnected).\n",
+-      "To resume the stream, run:\n",
+-      "\n",
+-      "  openai api fine_tunes.follow -i ft-0sMbEhCOyzwtyDu4KXcCcWBQ\n",
+-      "\n",
+-      " \n",
+-      "Upload progress:   0%|          | 0.00/15.0k [00:00<?, ?it/s]\n",
+-      "Upload progress: 100%|██████████| 15.0k/15.0k [00:00<00:00, 11.3Mit/s]\n",
+-      "\n",
+-      "Upload progress:   0%|          | 0.00/4.88k [00:00<?, ?it/s]\n",
+-      "Upload progress: 100%|██████████| 4.88k/4.88k [00:00<00:00, 6.13Mit/s]\n",
+-      "\n"
++      "Fine tuning on 10 train files and 10 valid files\n"
+      ]
+     }
+    ],
+    "source": [
+-    "models = ensemble_fine_tune(train_prompts, test_prompts, num_models=5)"
++    "models = ensemble_fine_tune(train_prompts, test_prompts, num_models=10)"
+    ]
+   },
+   {
+diff --git a/experiments/13_try_photoswitch_regression.ipynb b/experiments/13_try_photoswitch_regression.ipynb
+index 10ffb9d..d78b79e 100644
+--- a/experiments/13_try_photoswitch_regression.ipynb
++++ b/experiments/13_try_photoswitch_regression.ipynb
+@@ -3160,6 +3160,42 @@
+     "predictions[predictions['prediction'] == 461]"
+    ]
+   },
++  {
++   "cell_type": "code",
++   "execution_count": null,
++   "metadata": {},
++   "outputs": [],
++   "source": [
++    "from sklearn.metrics import r2_score, mean_absolute_error"
++   ]
++  },
++  {
++   "cell_type": "code",
++   "execution_count": null,
++   "metadata": {},
++   "outputs": [
++    {
++     "data": {
++      "text/plain": [
++       "0.8005821240594718"
++      ]
++     },
++     "execution_count": null,
++     "metadata": {},
++     "output_type": "execute_result"
++    }
++   ],
++   "source": [
++    "r2_score(predictions['prediction'], predictions['true'])"
++   ]
++  },
++  {
++   "cell_type": "markdown",
++   "metadata": {},
++   "source": [
++    "Ok, in regression we're worse (the baseline is >=.9)"
++   ]
++  },
+   {
+    "cell_type": "code",
+    "execution_count": null,
+diff --git a/experiments/wandb/latest-run b/experiments/wandb/latest-run
+index bc99354..d9fec0f 120000
+--- a/experiments/wandb/latest-run
++++ b/experiments/wandb/latest-run
+@@ -1 +1 @@
+-run-20220901_142114-ft-fQAERqByHSBq4Vkr7xgIwgrH
+\ No newline at end of file
++run-20220901_151725-ft-p2Qf2aCiPa5zHHIhBnIwzko1
+\ No newline at end of file
