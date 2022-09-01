@@ -7,11 +7,15 @@ __all__ = ['fine_tune', 'query_gpt3', 'extract_prediction', 'extract_regression_
 import re
 import subprocess
 import time
-
+from fastcore.parallel import parallel
 import openai
 from pycm import ConfusionMatrix
 from sklearn.model_selection import train_test_split
-
+import os
+from typing import List
+from functools import partial
+import pandas as pd
+from fastcore.basics import chunked
 
 # %% ../notebooks/01_api_wrappers.ipynb 5
 def fine_tune(
@@ -40,10 +44,6 @@ def fine_tune(
 
 
 # %% ../notebooks/01_api_wrappers.ipynb 8
-import pandas as pd
-from fastcore.basics import chunked
-
-
 def query_gpt3(
     model: str,  # name of the model to use, e.g. "ada:ft-personal-2022-08-24-10-41-29"
     df: pd.DataFrame,  # dataframe with prompts and expected completions (column names "prompt" and "completion")
