@@ -44,5 +44,6 @@ def get_photoswitch_data(
     """By default we drop the rows without E isomer pi-pi* transition wavelength."""
     df =  pd.read_csv(os.path.join(datadir, "photoswitches.csv"))
     df.dropna(subset=['E isomer pi-pi* wavelength in nm'], inplace=True)
+    df.drop_duplicates(subset=['SMILES'], inplace=True) # not sure how and if they did this in the initial work. There are certainly duplicates, e.g. C[N]1C=CC(=N1)N=NC2=CC=CC=C2
     df.reset_index(inplace=True)
     return df

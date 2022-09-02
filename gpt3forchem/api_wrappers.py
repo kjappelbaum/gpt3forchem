@@ -120,7 +120,7 @@ def extract_regression_prediction(
 # %% ../notebooks/01_api_wrappers.ipynb 15
 def extract_inverse_prediction(completion, i=0) -> str:
     """Extracts the prediction of a molecule/material generative task."""
-    return completion["choices"][i]["text"].split("@@@")[0].strip()
+    return completion["choices"][i]["text"].split("@@@")[0].strip().split()[0].strip()
 
 # %% ../notebooks/01_api_wrappers.ipynb 17
 from typing import Optional

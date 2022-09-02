@@ -3,13 +3,17 @@
 # %% auto 0
 __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE',
            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT', 'POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT',
-           'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION', 'encode_categorical_value',
+           'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION', 'PROMPT_TEMPLATE_photoswitch_w_n_pistar',
+           'PROMPT_TEMPLATE_photoswitch_', 'COMPLETION_TEMPLATE_photoswitch_', 'encode_categorical_value',
            'decode_categorical_value', 'create_single_property_forward_prompts',
-           'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict']
+           'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
+           'generate_inverse_photoswitch_prompts']
 
 # %% ../notebooks/03_input.ipynb 2
-import pandas as pd
 from collections import Counter
+
+import numpy as np
+import pandas as pd
 
 # %% ../notebooks/03_input.ipynb 3
 _DEFAULT_ENCODING_DICT = {
@@ -132,4 +136,32 @@ def get_polymer_composition_dict(row):
             count = 0
         comp_dict[f"num_{key}"] = count
     return comp_dict
+
+
+# %% ../notebooks/03_input.ipynb 16
+PROMPT_TEMPLATE_photoswitch_w_n_pistar = "What is a molecule with a pi-pi* transition wavelength of {} nm and n-pi* transition wavelength of {} nm###"
+PROMPT_TEMPLATE_photoswitch_ = "What is a molecule with a pi-pi* transition wavelength of {} nm###"
+COMPLETION_TEMPLATE_photoswitch_ = "{}@@@"
+
+
+def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
+    prompts = []
+    completions = []
+
+    for i, row in data.iterrows():
+        if np.isnan(row["E isomer n-pi* wavelength in nm"]):
+            prompt = PROMPT_TEMPLATE_photoswitch_.format(row["E isomer pi-pi* wavelength in nm"])
+        else:
+            prompt = PROMPT_TEMPLATE_photoswitch_w_n_pistar.format(
+                row["E isomer pi-pi* wavelength in nm"],
+                row["E isomer n-pi* wavelength in nm"],
+            )
+
+        completion = COMPLETION_TEMPLATE_photoswitch_.format(row["SMILES"])
+        prompts.append(prompt)
+        completions.append(completion)
+
+    prompts = pd.DataFrame({"prompt": prompts, "completion": completions})
+
+    return prompts
 
