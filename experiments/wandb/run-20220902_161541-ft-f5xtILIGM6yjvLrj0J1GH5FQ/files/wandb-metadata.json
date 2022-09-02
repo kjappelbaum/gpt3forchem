@@ -1,0 +1,26 @@
+{
+    "os": "macOS-12.3.1-arm64-arm-64bit",
+    "python": "3.9.13",
+    "heartbeatAt": "2022-09-02T14:15:46.867109",
+    "startedAt": "2022-09-02T14:15:41.119116",
+    "docker": null,
+    "cpu_count": 10,
+    "cuda": null,
+    "args": [
+        "wandb",
+        "sync",
+        "-n",
+        "1"
+    ],
+    "state": "running",
+    "program": "/Users/kevinmaikjablonka/miniconda3/envs/gpt3/bin/openai",
+    "git": {
+        "remote": "git@github.com:kjappelbaum/gpt3forchem.git",
+        "commit": "0997c6f40aaa93749dc2bcbf21491dfb8e5a526d"
+    },
+    "email": "kevin.jablonka@epfl.ch",
+    "root": "/Users/kevinmaikjablonka/git/kjappelbaum/gpt3forchem",
+    "host": "vpn-252-171.epfl.ch",
+    "username": "kevinmaikjablonka",
+    "executable": "/Users/kevinmaikjablonka/miniconda3/envs/gpt3/bin/python"
+}

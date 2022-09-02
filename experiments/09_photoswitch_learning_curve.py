@@ -18,13 +18,13 @@ REPEATS = 10
 DF = get_photoswitch_data()
 MODEL_TYPE = "ada"
 PREFIX = ""
-N_EPOCHS = 6
+N_EPOCHS = 4  # this is the default
 
 
 def learning_curve_point(representation, model_type, train_set_size):
     df = DF.dropna(subset=[representation])
     df_train, df_test = train_test_split(
-        df, train_size=train_set_size, random_state=None
+        df, train_size=train_set_size, random_state=None, stratify=df["wavelength_cat"]
     )
     train_prompts = create_single_property_forward_prompts(
         df_train,

@@ -1,0 +1,92 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.1
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.9.13
+    start_time: 1662128141.12984
+    t:
+      1:
+      - 55
+      2:
+      - 55
+      3:
+      - 13
+      - 14
+      - 16
+      - 23
+      4: 3.9.13
+      5: 0.13.1
+      8:
+      - 4
+      - 5
+created_at:
+  desc: null
+  value: '2022-09-02T16:11:37'
+fine_tuned_model:
+  desc: null
+  value: ada:ft-lsmoepfl-2022-09-02-14-15-28
+hyperparams:
+  desc: null
+  value:
+    batch_size: 1
+    learning_rate_multiplier: 0.1
+    n_epochs: 4
+    prompt_loss_weight: 0.1
+id:
+  desc: null
+  value: ft-f5xtILIGM6yjvLrj0J1GH5FQ
+model:
+  desc: null
+  value: ada
+n_train:
+  desc: null
+  value: 312
+object:
+  desc: null
+  value: fine-tune
+organization_id:
+  desc: null
+  value: org-TFRJXw3PPQocOWbu71eI2t9U
+result_files:
+  desc: null
+  value:
+    bytes: 63765
+    created_at: 1662128129
+    filename: compiled_results.csv
+    id: file-byHIVt8qtH8H0KKTNKu2WgYj
+    object: file
+    purpose: fine-tune-results
+    status: processed
+    status_details: null
+status:
+  desc: null
+  value: succeeded
+training_files:
+  desc: null
+  value:
+    bytes: 39235
+    created_at: 1662127895
+    filename: run_files/2022-09-02-16-08-18_train_prompts_photoswitch_regression_312.jsonl
+    id: file-MuyvL21woIBLM2gJbQgh0VxB
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null
+updated_at:
+  desc: null
+  value: 1662128130
+validation_files:
+  desc: null
+  value:
+    bytes: 9534
+    created_at: 1662127897
+    filename: run_files/2022-09-02-16-08-18_valid_prompts_photoswitch_regression_78.jsonl
+    id: file-pL7OeqMdv9v6Dm3eKKKCbs3f
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null
