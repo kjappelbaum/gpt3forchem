@@ -53,7 +53,7 @@ def inverse_run():
 
         result["train_filename"] = train_filename
         result["valid_filename"] = valid_filename
-        results.apend(result)
+        results.append(result)
 
     save_pickle(f"results/inverse_photoswitch/{filename_base}_metrics.pkl", results)
 

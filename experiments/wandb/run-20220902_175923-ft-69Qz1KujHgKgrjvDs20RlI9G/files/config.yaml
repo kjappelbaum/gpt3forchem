@@ -1,0 +1,92 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.13.1
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.9.13
+    start_time: 1662134363.843343
+    t:
+      1:
+      - 55
+      2:
+      - 55
+      3:
+      - 13
+      - 14
+      - 16
+      - 23
+      4: 3.9.13
+      5: 0.13.1
+      8:
+      - 4
+      - 5
+created_at:
+  desc: null
+  value: '2022-09-02T17:48:07'
+fine_tuned_model:
+  desc: null
+  value: ada:ft-lsmoepfl-2022-09-02-15-58-19
+hyperparams:
+  desc: null
+  value:
+    batch_size: 1
+    learning_rate_multiplier: 0.1
+    n_epochs: 4
+    prompt_loss_weight: 0.1
+id:
+  desc: null
+  value: ft-69Qz1KujHgKgrjvDs20RlI9G
+model:
+  desc: null
+  value: ada
+n_train:
+  desc: null
+  value: 351
+object:
+  desc: null
+  value: fine-tune
+organization_id:
+  desc: null
+  value: org-TFRJXw3PPQocOWbu71eI2t9U
+result_files:
+  desc: null
+  value:
+    bytes: 86651
+    created_at: 1662134301
+    filename: compiled_results.csv
+    id: file-Wj1kL5s0jt7wylpNpaoHDXb4
+    object: file
+    purpose: fine-tune-results
+    status: processed
+    status_details: null
+status:
+  desc: null
+  value: succeeded
+training_files:
+  desc: null
+  value:
+    bytes: 56982
+    created_at: 1662133666
+    filename: run_files/2022-09-02-17-47-39_train_prompts_photoswitch_inverse_351.jsonl
+    id: file-kESat1Jcdw6wz8c80Gt6nCLb
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null
+updated_at:
+  desc: null
+  value: 1662134301
+validation_files:
+  desc: null
+  value:
+    bytes: 6345
+    created_at: 1662133686
+    filename: run_files/2022-09-02-17-47-39_valid_prompts_photoswitch_inverse_39.jsonl
+    id: file-ZjewgTa07qxhP9I9kT236wpf
+    object: file
+    purpose: fine-tune
+    status: processed
+    status_details: null
