@@ -41,7 +41,7 @@ def fine_tune(
     valid_file,  # path to json file with validation prompts (column names "prompt" and "completion")
     model: str = "ada",  # model type to use. One of "ada", "babbage", "curie", "davinci". "ada" is the default (and cheapest).
     n_epochs: int = 4,  # number of epochs to fine-tune for
-    sleep: int = 60,  # number of seconds to wait between checking the status of the fine-tuning task
+    sleep: int = 120,  # number of seconds to wait between checking the status of the fine-tuning task
 ):
     """Run the fine tuning of a GPT-3 model via the OpenAI API.
     
@@ -53,7 +53,7 @@ def fine_tune(
     # ToDo: perhaps also use their Python wrapper? Or call directly via requests? 
     # subprocess is probably the ugliest way to do this, but it works.
     result = subprocess.run(
-        f"openai api fine_tunes.create -t {train_file}  -m {model} --n_epochs {n_epochs} --no-stream" + f" -v {valid_file}" if valid_file is not None else "",
+        f"openai api fine_tunes.create -t {train_file}  -m {model} --n_epochs {n_epochs}" + f" -v {valid_file}" if valid_file is not None else "",
         shell=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
