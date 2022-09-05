@@ -7,7 +7,7 @@ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLET
            'PROMPT_TEMPLATE_photoswitch_', 'COMPLETION_TEMPLATE_photoswitch_', 'encode_categorical_value',
            'decode_categorical_value', 'create_single_property_forward_prompts',
            'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
-           'generate_inverse_photoswitch_prompts']
+           'generate_inverse_photoswitch_prompts', 'create_single_property_forward_prompts_multiple_targets']
 
 # %% ../notebooks/03_input.ipynb 2
 from collections import Counter
@@ -164,4 +164,42 @@ def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
     prompts = pd.DataFrame({"prompt": prompts, "completion": completions})
 
     return prompts
+
+
+# %% ../notebooks/03_input.ipynb 30
+def create_single_property_forward_prompts_multiple_targets(
+    df: pd.DataFrame, # input data
+    targets: List[str], # target property
+    target_rename_dict: dict, # dict to rename target property from the column name in df to the target property name in the prompt
+    encode_value: bool=True, # whether to encode the value of the target property categorically
+    encoding_dict: dict=_DEFAULT_ENCODING_DICT, # mapping from numerical categories to string
+    prompt_prefix: str="", # prefix to add to the prompt, e.g. "I am an expert chemist"
+    representation_col: str = 'string' # name of the column to use as the representation of the compound
+):
+    prompts = []
+
+    for target in targets:
+        target_name = target
+        for key, value in target_rename_dict.items():
+            target_name = target_name.replace(key, value)
+
+        for _, row in df.iterrows():
+            if encode_value:
+                value = encode_categorical_value(row[target], encoding_dict=encoding_dict)
+            else:
+                value = row[target]
+
+            prompts.append(
+                {
+                    "prompt": prompt_prefix
+                    + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
+                        property=target_name, text=row[representation_col]
+                    ),
+                    "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
+                        value=value
+                    ),
+                }
+            )
+
+    return pd.DataFrame(prompts)
 
