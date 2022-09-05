@@ -4,18 +4,63 @@
 __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE',
            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT', 'POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT',
            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION', 'PROMPT_TEMPLATE_photoswitch_w_n_pistar',
-           'PROMPT_TEMPLATE_photoswitch_', 'COMPLETION_TEMPLATE_photoswitch_', 'encode_categorical_value',
-           'decode_categorical_value', 'create_single_property_forward_prompts',
+           'PROMPT_TEMPLATE_photoswitch_', 'COMPLETION_TEMPLATE_photoswitch_', 'randomize_smiles',
+           'encode_categorical_value', 'decode_categorical_value', 'create_single_property_forward_prompts',
            'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
            'generate_inverse_photoswitch_prompts', 'create_single_property_forward_prompts_multiple_targets']
 
-# %% ../notebooks/03_input.ipynb 2
+# %% ../notebooks/03_input.ipynb 3
+import random
+from typing import List
+
+from rdkit import Chem
+
+# %% ../notebooks/03_input.ipynb 4
+def randomize_smiles(
+    smiles: str, 
+    random_type: str = "rotated",  #  The type (unrestricted, restricted, rotated) of randomization performed.
+    isomericSmiles: bool = True
+):
+    """
+    From: https://github.com/undeadpixel/reinvent-randomized and https://github.com/GLambard/SMILES-X
+    Returns a random SMILES given a SMILES of a molecule.
+    """
+    mol = Chem.MolFromSmiles(smiles)
+    if not mol:
+        return None
+
+    if random_type == "unrestricted":
+        return Chem.MolToSmiles(
+            mol, canonical=False, doRandom=True, isomericSmiles=isomericSmiles
+        )
+    elif random_type == "restricted":
+        new_atom_order = list(range(mol.GetNumAtoms()))
+        random.shuffle(new_atom_order)
+        random_mol = Chem.RenumberAtoms(mol, newOrder=new_atom_order)
+        return Chem.MolToSmiles(
+            random_mol, canonical=False, isomericSmiles=isomericSmiles
+        )
+    elif random_type == "rotated":
+        n_atoms = mol.GetNumAtoms()
+        rotation_index = random.randint(0, n_atoms - 1)
+        atoms = list(range(n_atoms))
+        new_atoms_order = (
+            atoms[rotation_index % len(atoms) :] + atoms[: rotation_index % len(atoms)]
+        )
+        rotated_mol = Chem.RenumberAtoms(mol, new_atoms_order)
+        return Chem.MolToSmiles(
+            rotated_mol, canonical=False, isomericSmiles=isomericSmiles
+        )
+    raise ValueError("Type '{}' is not valid".format(random_type))
+
+
+# %% ../notebooks/03_input.ipynb 7
 from collections import Counter
 
 import numpy as np
 import pandas as pd
 
-# %% ../notebooks/03_input.ipynb 3
+# %% ../notebooks/03_input.ipynb 8
 _DEFAULT_ENCODING_DICT = {
     "very small": 0,
     "small": 1,
@@ -41,12 +86,12 @@ def decode_categorical_value(value, decoding_dict=_DEFAULT_DECODING_DICT):
         raise ValueError("Unknown value: %s" % value)
 
 
-# %% ../notebooks/03_input.ipynb 4
+# %% ../notebooks/03_input.ipynb 9
 ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE = "what is the {property} of {text}###"
 ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE = " {value}@@@"
 
 
-# %% ../notebooks/03_input.ipynb 5
+# %% ../notebooks/03_input.ipynb 10
 def create_single_property_forward_prompts(
     df: pd.DataFrame, # input data
     target: str, # target property
@@ -54,36 +99,48 @@ def create_single_property_forward_prompts(
     encode_value: bool=True, # whether to encode the value of the target property categorically
     encoding_dict: dict=_DEFAULT_ENCODING_DICT, # mapping from numerical categories to string
     prompt_prefix: str="", # prefix to add to the prompt, e.g. "I am an expert chemist"
-    representation_col: str = 'string' # name of the column to use as the representation of the compound
+    representation_col: str = 'string', # name of the column to use as the representation of the compound
+    smiles_augmentation: bool = False, # whether to augment the SMILES with randomization
+    smiles_augmentation_type: str = "rotated", # the type of randomization to perform
+    smiles_augmentation_rounds: int = 10, # the number of randomizations to perform
 ):
     prompts = []
 
-    target_name = target
-    for key, value in target_rename_dict.items():
-        target_name = target_name.replace(key, value)
+    if not smiles_augmentation: 
+        smiles_augmentation_rounds= 1
+    for _ in range(smiles_augmentation_rounds):
+        target_name = target
+        for key, value in target_rename_dict.items():
+            target_name = target_name.replace(key, value)
 
-    for _, row in df.iterrows():
-        if encode_value:
-            value = encode_categorical_value(row[target], encoding_dict=encoding_dict)
-        else:
-            value = row[target]
+        for _, row in df.iterrows():
+            if encode_value:
+                value = encode_categorical_value(row[target], encoding_dict=encoding_dict)
+            else:
+                value = row[target]
 
-        prompts.append(
-            {
-                "prompt": prompt_prefix
-                + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
-                    property=target_name, text=row[representation_col]
-                ),
-                "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
-                    value=value
-                ),
-            }
-        )
+            repr = row[representation_col]
+            if smiles_augmentation:
+                repr = randomize_smiles(repr, random_type=smiles_augmentation_type)
+            prompts.append(
+                {
+                    "prompt": prompt_prefix
+                    + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
+                        property=target_name, text=repr
+                    ),
+                    "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
+                        value=value
+                    ),
+                }
+            )
 
-    return pd.DataFrame(prompts)
+    df = pd.DataFrame(prompts)
+    df.dropna(subset=['prompt'], inplace=True)
+    df = df.sample(frac=1).reset_index(drop=True)
+    return df
 
 
-# %% ../notebooks/03_input.ipynb 9
+# %% ../notebooks/03_input.ipynb 16
 def create_single_property_forward_prompts_regression(
     df, # input data
     target, # target property
@@ -116,7 +173,7 @@ def create_single_property_forward_prompts_regression(
     return pd.DataFrame(prompts)
 
 
-# %% ../notebooks/03_input.ipynb 13
+# %% ../notebooks/03_input.ipynb 20
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT = (
     "what is a polymer with {class_name} {property}?###"
 )
@@ -125,7 +182,7 @@ POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT = " {text}@@@"
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION = "what is a polymer with {class_name} {property} and {num_A} A, {num_B} B, {num_W} W, and {num_R} R?###"
 
 
-# %% ../notebooks/03_input.ipynb 14
+# %% ../notebooks/03_input.ipynb 21
 def get_polymer_composition_dict(row):
     composition = Counter(row["string"].split("-"))
     comp_dict = {}
@@ -138,7 +195,7 @@ def get_polymer_composition_dict(row):
     return comp_dict
 
 
-# %% ../notebooks/03_input.ipynb 16
+# %% ../notebooks/03_input.ipynb 23
 PROMPT_TEMPLATE_photoswitch_w_n_pistar = "What is a molecule with a pi-pi* transition wavelength of {} nm and n-pi* transition wavelength of {} nm###"
 PROMPT_TEMPLATE_photoswitch_ = "What is a molecule with a pi-pi* transition wavelength of {} nm###"
 COMPLETION_TEMPLATE_photoswitch_ = "{}@@@"
@@ -166,7 +223,7 @@ def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
     return prompts
 
 
-# %% ../notebooks/03_input.ipynb 30
+# %% ../notebooks/03_input.ipynb 37
 def create_single_property_forward_prompts_multiple_targets(
     df: pd.DataFrame, # input data
     targets: List[str], # target property
