@@ -8,7 +8,7 @@ import os
 
 import pandas as pd
 from .helpers import HashableDataFrame
-
+from collections import Counter
 _THIS_DIR = os.path.abspath(os.path.dirname(os.path.abspath("")))
 
 
@@ -35,22 +35,22 @@ POLYMER_FEATURES = [
 def get_polymer_data(
     datadir="../data" # path to folder with data files
 ):
-    return pd.read_csv(os.path.join(datadir, "polymers.csv"))
+    return HashableDataFrame(pd.read_csv(os.path.join(datadir, "polymers.csv")))
 
 
-# %% ../notebooks/00_data.ipynb 10
+# %% ../notebooks/00_data.ipynb 12
 def get_photoswitch_data(
     datadir="../data" # path to folder with data files
 ):
     """By default we drop the rows without E isomer pi-pi* transition wavelength."""
     df =  pd.read_csv(os.path.join(datadir, "photoswitches.csv"))
     df.dropna(subset=['E isomer pi-pi* wavelength in nm'], inplace=True)
-    df.drop_duplicates(subset=['SMILES'], inplace=True) # not sure how and if they did this in the initial work. There are certainly duplicates, e.g. C[N]1C=CC(=N1)N=NC2=CC=CC=C2
+    df.drop_duplicates(subset=['SMILES'], inplace=True) # not sure how and if they did this in the initial work. There are certainly duplicates, e.g. C[N]1C=CC(=N1)N=NC2=CC=CC=C2 (see top)
     df.reset_index(inplace=True)
-    return df
+    return HashableDataFrame(df)
 
-# %% ../notebooks/00_data.ipynb 23
+# %% ../notebooks/00_data.ipynb 25
 def get_mof_data(
     datadir="../data" # path to folder with data files
 ):
-    return pd.read_csv(os.path.join(datadir, "mof.csv"))
+    return HashableDataFrame(pd.read_csv(os.path.join(datadir, "mof.csv")))
