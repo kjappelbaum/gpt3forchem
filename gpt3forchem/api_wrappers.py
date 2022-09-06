@@ -76,13 +76,14 @@ def fine_tune(
 @lru_cache(maxsize=None)
 def query_gpt3(
     model: str,  # name of the model to use, e.g. "ada:ft-personal-2022-08-24-10-41-29"
-    df: pd.DataFrame,  # dataframe with prompts and expected completions (column names "prompt" and "completion")
+    df: pd.DataFrame,  # hashable dataframe with prompts and expected completions (column names "prompt" and "completion")
     temperature: float = 0,  # temperature, 0 is the default and corresponds to argmax
     max_tokens: int = 10,  # maximum number of tokens to generate
     sleep: float = 5,  # number of seconds to wait between queries
     one_by_one: bool = False,  # if True, generate one completion at a time (i.e., due to submit the maximum number of prompts per request)
     parallel_max: int = 20,  # maximum number of prompts that can be sent per request
 ):
+    
     """Get completions for all prompts in a dataframe."""
     if one_by_one:
         completions = []

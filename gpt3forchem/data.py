@@ -7,6 +7,7 @@ __all__ = ['POLYMER_FEATURES', 'get_polymer_data', 'get_photoswitch_data', 'get_
 import os
 
 import pandas as pd
+from .helpers import HashableDataFrame
 
 _THIS_DIR = os.path.abspath(os.path.dirname(os.path.abspath("")))
 

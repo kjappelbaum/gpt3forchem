@@ -131,6 +131,7 @@ def create_single_property_forward_prompts(
                     "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
                         value=value
                     ),
+                    "repr": row[representation_col]
                 }
             )
 
