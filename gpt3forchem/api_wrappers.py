@@ -11,9 +11,10 @@ import os
 import re
 import subprocess
 import time
-from functools import partial, lru_cache
+from functools import lru_cache, partial
 from typing import List
 
+import numpy as np
 import openai
 import pandas as pd
 from fastcore.basics import chunked
@@ -73,7 +74,6 @@ def fine_tune(
 
 
 # %% ../notebooks/01_api_wrappers.ipynb 12
-@lru_cache(maxsize=None)
 def query_gpt3(
     model: str,  # name of the model to use, e.g. "ada:ft-personal-2022-08-24-10-41-29"
     df: pd.DataFrame,  # hashable dataframe with prompts and expected completions (column names "prompt" and "completion")
@@ -140,7 +140,10 @@ def extract_regression_prediction(
     i: int = 0,  # index of the "choice" (relevant if multiple completions have been returned)
 ) -> float:
     """Similar to `extract_prediction`, but returns a float."""
-    return float(completion["choices"][i]["text"].split("@")[0].strip())
+    try:
+        return float(completion["choices"][i]["text"].split("@")[0].strip())
+    except Exception:
+        return np.nan
 
 
 # %% ../notebooks/01_api_wrappers.ipynb 19
