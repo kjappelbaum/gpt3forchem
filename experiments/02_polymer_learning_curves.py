@@ -5,7 +5,8 @@ from pycm import ConfusionMatrix
 from sklearn.model_selection import train_test_split
 
 from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3
-from gpt3forchem.data import get_polymer_data
+from gpt3forchem.baselines import XGBClassificationBaseline
+from gpt3forchem.data import POLYMER_FEATURES, get_polymer_data
 from gpt3forchem.input import create_single_property_forward_prompts
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
@@ -20,7 +21,7 @@ MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 25 re
 
 def learning_curve_point(model_type, train_set_size, prefix):
     df_train, df_test = train_test_split(
-        DF, train_size=train_set_size, random_state=None
+        DF, train_size=train_set_size, random_state=None, stratify=DF["deltaGmin_cat"]
     )
     train_prompts = create_single_property_forward_prompts(
         df_train,
@@ -65,6 +66,11 @@ def learning_curve_point(model_type, train_set_size, prefix):
     ]
     cm = ConfusionMatrix(true, predictions)
 
+    baseline = XGBClassificationBaseline(None)
+    baseline.tune(df_train[POLYMER_FEATURES], df_train["deltaGmin_cat"])
+    baseline_predictions = baseline.predict(df_test[POLYMER_FEATURES])
+    baseline_cm = ConfusionMatrix(df_test["deltaGmin_cat"], baseline_predictions)
+
     results = {
         "model_type": model_type,
         "train_set_size": train_set_size,
@@ -78,9 +84,11 @@ def learning_curve_point(model_type, train_set_size, prefix):
         "valid_filename": valid_filename,
         "MAX_TEST_SIZE": MAX_TEST_SIZE,
         "modelname": modelname,
+        "baseline_cm": baseline_cm,
+        "baseline_accuracy": baseline_cm.ACC_Macro,
     }
 
-    outname = f"results/{filename_base}_results_polymers_{train_size}_{prefix}_{model_type}.pkl"
+    outname = f"results/20220909_polymer_classification/{filename_base}_results_polymers_{train_size}_{prefix}_{model_type}.pkl"
 
     save_pickle(outname, results)
 
