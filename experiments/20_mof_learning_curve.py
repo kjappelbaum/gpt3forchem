@@ -1,3 +1,4 @@
+from cProfile import run
 import time
 
 from fastcore.utils import save_pickle
@@ -6,47 +7,53 @@ from sklearn.model_selection import train_test_split
 
 from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3
 from gpt3forchem.baselines import XGBClassificationBaseline
-from gpt3forchem.data import POLYMER_FEATURES, get_polymer_data
+from gpt3forchem.data import get_mof_data, discretize
 from gpt3forchem.input import create_single_property_forward_prompts
+
+import click
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
 MODEL_TYPES = ["ada"]  # , "ada"]
 PREFIXES = [""]  # , "I'm an expert polymer chemist "]
 
-DF = get_polymer_data()
+DF = get_mof_data()
 RANDOM_STATE = None
 MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 25 requests
 
+MOFFEATURES = [f for f in DF.columns if f.startswith("features")]
 
-def learning_curve_point(model_type, train_set_size, prefix):
+
+def learning_curve_point(model_type, train_set_size, prefix, target, representation):
+    df = DF.copy()
+    discretize(df, target)
+    target = f"{target}_cat"
+    df = df.dropna(subset=[target, representation])
     df_train, df_test = train_test_split(
-        DF, train_size=train_set_size, random_state=None, stratify=DF["deltaGmin_cat"]
+        df, train_size=train_set_size, random_state=None, stratify=DF[target]
     )
     train_prompts = create_single_property_forward_prompts(
         df_train,
-        "deltaGmin_cat",
+        target,
         {"deltaGmin_cat": "adsorption energy"},
         prompt_prefix=prefix,
+        representation_col=representation,  # "info.mofid.mofid_clean",
     )
 
     test_prompts = create_single_property_forward_prompts(
         df_test,
-        "deltaGmin_cat",
+        target,
         {"deltaGmin_cat": "adsorption energy"},
         prompt_prefix=prefix,
+        representation_col=representation,  # "info.mofid.mofid_clean",
     )
 
     train_size = len(train_prompts)
     test_size = len(test_prompts)
 
     filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
-    train_filename = (
-        f"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl"
-    )
-    valid_filename = (
-        f"run_files/{filename_base}_valid_prompts_polymers_{test_size}.jsonl"
-    )
+    train_filename = f"run_files/{filename_base}_train_prompts_mof_{target}_{representation}_{train_size}.jsonl"
+    valid_filename = f"run_files/{filename_base}_valid_prompts_mof_{target}_{representation}_{test_size}.jsonl"
 
     train_prompts.to_json(train_filename, orient="records", lines=True)
     test_prompts.to_json(valid_filename, orient="records", lines=True)
@@ -68,10 +75,10 @@ def learning_curve_point(model_type, train_set_size, prefix):
 
     try:
         baseline = XGBClassificationBaseline(None)
-        baseline.tune(df_train[POLYMER_FEATURES], df_train["deltaGmin_cat"])
-        baseline.fit(df_train[POLYMER_FEATURES], df_train["deltaGmin_cat"])
-        baseline_predictions = baseline.predict(df_test[POLYMER_FEATURES])
-        baseline_cm = ConfusionMatrix(df_test["deltaGmin_cat"], baseline_predictions)
+        baseline.tune(df_train[MOFFEATURES], df_train[target])
+        baseline.fit(df_train[MOFFEATURES], df_train[target])
+        baseline_predictions = baseline.predict(df_test[MOFFEATURES])
+        baseline_cm = ConfusionMatrix(df_test[target], baseline_predictions)
         baseline_acc = baseline_cm.ACC_Macro
     except Exception as e:
         print(e)
@@ -95,18 +102,39 @@ def learning_curve_point(model_type, train_set_size, prefix):
         "baseline_accuracy": baseline_acc,
     }
 
-    outname = f"results/20220909_polymer_classification/{filename_base}_results_polymers_{train_size}_{prefix}_{model_type}.pkl"
+    outname = f"results/20220911_mof_classification/{filename_base}_results_mof_{train_size}_{prefix}_{model_type}.pkl"
 
     save_pickle(outname, results)
 
 
-if __name__ == "__main__":
-    for repeat in range(REPEATS):
+@click.command("cli")
+@click.argument(
+    "target",
+    type=click.Choice(
+        [
+            "outputs.pbe.bandgap",
+            "outputs.Xe-henry_coefficient-mol--kg--Pa",
+            "outputs.Kr-henry_coefficient-mol--kg--Pa",
+            "outputs.H2O-henry_coefficient-mol--kg--Pa",
+            "outputs.H2S-henry_coefficient-mol--kg--Pa",
+            "outputs.CO2-henry_coefficient-mol--kg--Pa",
+            "outputs.CH4-henry_coefficient-mol--kg--Pa",
+            "outputs.O2-henry_coefficient-mol--kg--Pa",
+        ]
+    ),
+)
+@click.argument(
+    "representation", type=click.Choice(["info.mofid.mofid_clean", "chemical_name"])
+)
+def run_lc(target, representation):
+    for prefix in PREFIXES:
         for model_type in MODEL_TYPES:
             for train_set_size in TRAIN_SET_SIZE:
-                for prefix in PREFIXES:
-                    try:
-                        learning_curve_point(model_type, train_set_size, prefix)
-                    except Exception as e:
-                        time.sleep(10)
-                        print(e)
+                for _ in range(REPEATS):
+                    learning_curve_point(
+                        model_type, train_set_size, prefix, target, representation
+                    )
+
+
+if __name__ == "__main__":
+    run_lc()

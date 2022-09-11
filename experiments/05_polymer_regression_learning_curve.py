@@ -11,7 +11,8 @@ from gpt3forchem.api_wrappers import (
     n,
     query_gpt3,
 )
-from gpt3forchem.data import get_polymer_data
+from gpt3forchem.baselines import XGBRegressionBaseline
+from gpt3forchem.data import POLYMER_FEATURES, get_polymer_data
 from gpt3forchem.input import create_single_property_forward_prompts_regression
 from gpt3forchem.output import get_regression_metrics
 
@@ -27,7 +28,7 @@ MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 10 re
 
 def learning_curve_point(model_type, train_set_size, prefix):
     df_train, df_test = train_test_split(
-        DF, train_size=train_set_size, random_state=None
+        DF, train_size=train_set_size, random_state=None, stratify=DF["deltaGmin_cat"]
     )
     train_prompts = create_single_property_forward_prompts_regression(
         df_train,
@@ -84,7 +85,15 @@ def learning_curve_point(model_type, train_set_size, prefix):
     metrics = get_regression_metrics(true, predictions)
     results.update(metrics)
 
-    outname = f"results/polymer_regression/{filename_base}_results_polymers_regression_{train_size}_{prefix}_{model_type}.pkl"
+    baseline = XGBRegressionBaseline(None)
+    baseline.tune(df_train[POLYMER_FEATURES], df_train["deltaGmin"])
+    baseline.fit(df_train[POLYMER_FEATURES], df_train["deltaGmin"])
+    baseline_predictions = baseline.predict(df_test[POLYMER_FEATURES])
+    baseline_metrics = get_regression_metrics(
+        df_test["deltaGmin"], baseline_predictions
+    )
+    results["baseline"] = baseline_metrics
+    outname = f"results/20220909_polymer_regression/{filename_base}_results_polymers_regression_{train_size}_{prefix}_{model_type}.pkl"
 
     save_pickle(outname, results)
 
