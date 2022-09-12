@@ -24,18 +24,46 @@ MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 25 re
 MOFFEATURES = [f for f in DF.columns if f.startswith("features")]
 
 
+rename_dicts = {
+    "outputs.pbe.bandgap_cat": {
+        "outputs.pbe.bandgap_cat": "bandgap",
+    },
+    "outputs.Xe-henry_coefficient-mol--kg--Pa_cat": {
+        "outputs.Xe-henry_coefficient-mol--kg--Pa_cat": "Xe Henry coefficient",
+    },
+    "outputs.Kr-henry_coefficient-mol--kg--Pa_cat": {
+        "outputs.Kr-henry_coefficient-mol--kg--Pa_cat": "Kr Henry coefficient",
+    },
+    "outputs.H2O-henry_coefficient-mol--kg--Pa_cat": {
+        "outputs.H2O-henry_coefficient-mol--kg--Pa_cat": "H2O Henry coefficient",
+    },
+    "outputs.H2S-henry_coefficient-mol--kg--Pa_cat": {
+        "outputs.H2S-henry_coefficient-mol--kg--Pa_cat": "H2S Henry coefficient",
+    },
+    "outputs.CO2-henry_coefficient-mol--kg--Pa_cat": {
+        "outputs.CO2-henry_coefficient-mol--kg--Pa_cat": "CO2 Henry coefficient",
+    },
+    "outputs.CH4-henry_coefficient-mol--kg--Pa_cat": {
+        "outputs.CH4-henry_coefficient-mol--kg--Pa_cat": "CH4 Henry coefficient",
+    },
+    "outputs.O2-henry_coefficient-mol--kg--Pa_cat": {
+        "outputs.O2-henry_coefficient-mol--kg--Pa_cat": "O2 Henry coefficient",
+    },
+}
+
+
 def learning_curve_point(model_type, train_set_size, prefix, target, representation):
     df = DF.copy()
     discretize(df, target)
     target = f"{target}_cat"
     df = df.dropna(subset=[target, representation])
     df_train, df_test = train_test_split(
-        df, train_size=train_set_size, random_state=None, stratify=DF[target]
+        df, train_size=train_set_size, random_state=None, stratify=df[target]
     )
     train_prompts = create_single_property_forward_prompts(
         df_train,
         target,
-        {"deltaGmin_cat": "adsorption energy"},
+        rename_dicts[target],
         prompt_prefix=prefix,
         representation_col=representation,  # "info.mofid.mofid_clean",
     )
@@ -43,7 +71,7 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
     test_prompts = create_single_property_forward_prompts(
         df_test,
         target,
-        {"deltaGmin_cat": "adsorption energy"},
+        rename_dicts[target],
         prompt_prefix=prefix,
         representation_col=representation,  # "info.mofid.mofid_clean",
     )
@@ -100,9 +128,11 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
         "modelname": modelname,
         "baseline_cm": baseline_cm,
         "baseline_accuracy": baseline_acc,
+        "representation": representation,
+        "target": target,
     }
 
-    outname = f"results/20220911_mof_classification/{filename_base}_results_mof_{train_size}_{prefix}_{model_type}.pkl"
+    outname = f"results/20220911_mof_classification/{filename_base}_results_mof_{train_size}_{prefix}_{model_type}_{representation}_{target}.pkl"
 
     save_pickle(outname, results)
 
@@ -127,13 +157,16 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
     "representation", type=click.Choice(["info.mofid.mofid_clean", "chemical_name"])
 )
 def run_lc(target, representation):
-    for prefix in PREFIXES:
-        for model_type in MODEL_TYPES:
-            for train_set_size in TRAIN_SET_SIZE:
-                for _ in range(REPEATS):
-                    learning_curve_point(
-                        model_type, train_set_size, prefix, target, representation
-                    )
+    for _ in range(REPEATS):
+        for prefix in PREFIXES:
+            for model_type in MODEL_TYPES:
+                for train_set_size in TRAIN_SET_SIZE:
+                    try:
+                        learning_curve_point(
+                            model_type, train_set_size, prefix, target, representation
+                        )
+                    except Exception as e:
+                        print(e)
 
 
 if __name__ == "__main__":
