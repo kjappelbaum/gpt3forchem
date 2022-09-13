@@ -66,13 +66,14 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
     completions = query_gpt3(modelname, test_prompts)
     predictions = [
         extract_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"][0])
+        for i, completion in enumerate(completions["choices"])
     ]
     true = [
         int(test_prompts.iloc[i]["completion"].split("@")[0])
         for i in range(len(predictions))
     ]
     smiles = test_prompts["repr"]
+    assert len(predictions) == len(true) == len(smiles)
 
     cm, brier, ece = augmented_classification_scores(
         smiles, true, predictions, cat_encode_func=None
@@ -91,7 +92,9 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
         canonical_subset_mask = test_prompts["repr"] == test_prompts["this_repr"]
         canonical_predictions = prediction_frame["prediction"][canonical_subset_mask]
         canonical_true = prediction_frame["true"][canonical_subset_mask]
-        cm_canonical_subset = ConfusionMatrix(canonical_true, canonical_predictions)
+        cm_canonical_subset = ConfusionMatrix(
+            canonical_true.to_list(), canonical_predictions.to_list()
+        )
 
         augmented_subset_mask = test_prompts["repr"] != test_prompts["this_repr"]
         augmented_predictions = prediction_frame["prediction"][augmented_subset_mask]
@@ -104,7 +107,7 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
             prediction_frame["smiles"][augmented_subset_mask],
             augmented_true,
             augmented_predictions,
-            cat_encode_func=False,
+            cat_encode_func=None,
         )
     else:
         cm_canonical_subset = None

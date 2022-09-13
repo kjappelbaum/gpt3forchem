@@ -15,11 +15,12 @@ from typing import List
 
 from rdkit import Chem
 
+
 # %% ../notebooks/03_input.ipynb 4
 def randomize_smiles(
-    smiles: str, 
+    smiles: str,
     random_type: str = "rotated",  #  The type (unrestricted, restricted, rotated) of randomization performed.
-    isomericSmiles: bool = True
+    isomericSmiles: bool = True,
 ):
     """
     From: https://github.com/undeadpixel/reinvent-randomized and https://github.com/GLambard/SMILES-X
@@ -60,6 +61,7 @@ from collections import Counter
 import numpy as np
 import pandas as pd
 
+
 # %% ../notebooks/03_input.ipynb 8
 _DEFAULT_ENCODING_DICT = {
     "very small": 0,
@@ -72,7 +74,7 @@ _DEFAULT_ENCODING_DICT = {
 _DEFAULT_DECODING_DICT = {v: k for k, v in _DEFAULT_ENCODING_DICT.items()}
 
 
-def encode_categorical_value(value, encoding_dict=_DEFAULT_DECODING_DICT):
+def encode_categorical_value(value, encoding_dict=_DEFAULT_ENCODING_DICT):
     try:
         return encoding_dict[value]
     except KeyError:
@@ -93,21 +95,22 @@ ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE = " {value}@@@"
 
 # %% ../notebooks/03_input.ipynb 10
 def create_single_property_forward_prompts(
-    df: pd.DataFrame, # input data
-    target: str, # target property
-    target_rename_dict: dict, # dict to rename target property from the column name in df to the target property name in the prompt
-    encode_value: bool=True, # whether to encode the value of the target property categorically
-    encoding_dict: dict=_DEFAULT_ENCODING_DICT, # mapping from numerical categories to string
-    prompt_prefix: str="", # prefix to add to the prompt, e.g. "I am an expert chemist"
-    representation_col: str = 'string', # name of the column to use as the representation of the compound
-    smiles_augmentation: bool = False, # whether to augment the SMILES with randomization
-    smiles_augmentation_type: str = "rotated", # the type of randomization to perform
-    smiles_augmentation_rounds: int = 10, # the number of randomizations to perform
+    df: pd.DataFrame,  # input data
+    target: str,  # target property
+    target_rename_dict: dict,  # dict to rename target property from the column name in df to the target property name in the prompt
+    encode_value: bool = True,  # whether to encode the value of the target property categorically
+    encoding_dict: dict = _DEFAULT_ENCODING_DICT,  # mapping from numerical categories to string
+    prompt_prefix: str = "",  # prefix to add to the prompt, e.g. "I am an expert chemist"
+    representation_col: str = "string",  # name of the column to use as the representation of the compound
+    smiles_augmentation: bool = False,  # whether to augment the SMILES with randomization
+    smiles_augmentation_type: str = "rotated",  # the type of randomization to perform
+    smiles_augmentation_rounds: int = 10,  # the number of randomizations to perform
+    include_canonical_smiles: bool = False,  # whether to include the canonical SMILES when using the augmentation
 ):
     prompts = []
 
-    if not smiles_augmentation: 
-        smiles_augmentation_rounds= 1
+    if not smiles_augmentation:
+        smiles_augmentation_rounds = 1
     for _ in range(smiles_augmentation_rounds):
         target_name = target
         for key, value in target_rename_dict.items():
@@ -115,7 +118,9 @@ def create_single_property_forward_prompts(
 
         for _, row in df.iterrows():
             if encode_value:
-                value = encode_categorical_value(row[target], encoding_dict=encoding_dict)
+                value = encode_categorical_value(
+                    row[target], encoding_dict=encoding_dict
+                )
             else:
                 value = row[target]
 
@@ -131,22 +136,46 @@ def create_single_property_forward_prompts(
                     "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
                         value=value
                     ),
-                    "repr": row[representation_col]
+                    "repr": row[representation_col],
+                    "this_repr": repr,
+                }
+            )
+    if smiles_augmentation and include_canonical_smiles:
+        for _, row in df.iterrows():
+            if encode_value:
+                value = encode_categorical_value(
+                    row[target], encoding_dict=encoding_dict
+                )
+            else:
+                value = row[target]
+
+            repr = row[representation_col]
+            prompts.append(
+                {
+                    "prompt": prompt_prefix
+                    + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
+                        property=target_name, text=repr
+                    ),
+                    "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
+                        value=value
+                    ),
+                    "repr": repr,
+                    "this_repr": repr,
                 }
             )
 
     df = pd.DataFrame(prompts)
-    df.dropna(subset=['prompt'], inplace=True)
-    df = df.sample(frac=1).reset_index(drop=True)
+    df.dropna(subset=["prompt"], inplace=True)
+    df = df.sample(frac=1).reset_index(drop=True) # shuffle
     return df
 
 
-# %% ../notebooks/03_input.ipynb 16
+# %% ../notebooks/03_input.ipynb 19
 def create_single_property_forward_prompts_regression(
-    df, # input data
-    target, # target property
-    target_rename_dict, # dict to rename target property from the column name in df to the target property name in the prompt
-    prompt_prefix="", # prefix to add to the prompt, e.g. "I am an expert chemist"
+    df,  # input data
+    target,  # target property
+    target_rename_dict,  # dict to rename target property from the column name in df to the target property name in the prompt
+    prompt_prefix="",  # prefix to add to the prompt, e.g. "I am an expert chemist"
     num_digit=1,
 ):
     prompts = []
@@ -174,7 +203,7 @@ def create_single_property_forward_prompts_regression(
     return pd.DataFrame(prompts)
 
 
-# %% ../notebooks/03_input.ipynb 20
+# %% ../notebooks/03_input.ipynb 23
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT = (
     "what is a polymer with {class_name} {property}?###"
 )
@@ -183,7 +212,7 @@ POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT = " {text}@@@"
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION = "what is a polymer with {class_name} {property} and {num_A} A, {num_B} B, {num_W} W, and {num_R} R?###"
 
 
-# %% ../notebooks/03_input.ipynb 21
+# %% ../notebooks/03_input.ipynb 24
 def get_polymer_composition_dict(row):
     composition = Counter(row["string"].split("-"))
     comp_dict = {}
@@ -196,9 +225,11 @@ def get_polymer_composition_dict(row):
     return comp_dict
 
 
-# %% ../notebooks/03_input.ipynb 23
+# %% ../notebooks/03_input.ipynb 26
 PROMPT_TEMPLATE_photoswitch_w_n_pistar = "What is a molecule with a pi-pi* transition wavelength of {} nm and n-pi* transition wavelength of {} nm###"
-PROMPT_TEMPLATE_photoswitch_ = "What is a molecule with a pi-pi* transition wavelength of {} nm###"
+PROMPT_TEMPLATE_photoswitch_ = (
+    "What is a molecule with a pi-pi* transition wavelength of {} nm###"
+)
 COMPLETION_TEMPLATE_photoswitch_ = "{}@@@"
 
 
@@ -208,7 +239,9 @@ def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
 
     for i, row in data.iterrows():
         if np.isnan(row["E isomer n-pi* wavelength in nm"]):
-            prompt = PROMPT_TEMPLATE_photoswitch_.format(row["E isomer pi-pi* wavelength in nm"])
+            prompt = PROMPT_TEMPLATE_photoswitch_.format(
+                row["E isomer pi-pi* wavelength in nm"]
+            )
         else:
             prompt = PROMPT_TEMPLATE_photoswitch_w_n_pistar.format(
                 row["E isomer pi-pi* wavelength in nm"],
@@ -224,15 +257,15 @@ def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
     return prompts
 
 
-# %% ../notebooks/03_input.ipynb 37
+# %% ../notebooks/03_input.ipynb 40
 def create_single_property_forward_prompts_multiple_targets(
-    df: pd.DataFrame, # input data
-    targets: List[str], # target property
-    target_rename_dict: dict, # dict to rename target property from the column name in df to the target property name in the prompt
-    encode_value: bool=True, # whether to encode the value of the target property categorically
-    encoding_dict: dict=_DEFAULT_ENCODING_DICT, # mapping from numerical categories to string
-    prompt_prefix: str="", # prefix to add to the prompt, e.g. "I am an expert chemist"
-    representation_col: str = 'string' # name of the column to use as the representation of the compound
+    df: pd.DataFrame,  # input data
+    targets: List[str],  # target property
+    target_rename_dict: dict,  # dict to rename target property from the column name in df to the target property name in the prompt
+    encode_value: bool = True,  # whether to encode the value of the target property categorically
+    encoding_dict: dict = _DEFAULT_ENCODING_DICT,  # mapping from numerical categories to string
+    prompt_prefix: str = "",  # prefix to add to the prompt, e.g. "I am an expert chemist"
+    representation_col: str = "string",  # name of the column to use as the representation of the compound
 ):
     prompts = []
 
@@ -243,7 +276,9 @@ def create_single_property_forward_prompts_multiple_targets(
 
         for _, row in df.iterrows():
             if encode_value:
-                value = encode_categorical_value(row[target], encoding_dict=encoding_dict)
+                value = encode_categorical_value(
+                    row[target], encoding_dict=encoding_dict
+                )
             else:
                 value = row[target]
 

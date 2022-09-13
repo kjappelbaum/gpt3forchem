@@ -10,6 +10,7 @@ from typing import Iterable
 
 import gpflow
 import numpy as np
+import pandas as pd
 import tensorflow as tf
 from gpflow.mean_functions import Constant
 from gpflow.utilities import positive, print_summary
@@ -18,16 +19,15 @@ from nbdev.showdoc import *
 from optuna import create_study
 from optuna.integration import XGBoostPruningCallback
 from optuna.samplers import TPESampler
+from pycm import ConfusionMatrix
 from rdkit.Chem import AllChem, Descriptors, MolFromSmiles, MolToSmiles
 from sklearn.metrics import accuracy_score, f1_score, mean_squared_error
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from wandb.xgboost import WandbCallback
 from xgboost import XGBClassifier, XGBRegressor
-from .data import get_photoswitch_data
 
-import pandas as pd 
-from pycm import ConfusionMatrix
+from .data import get_photoswitch_data
 
 # %% ../notebooks/05_baselines.ipynb 3
 class BaseLineModel(ABC):
@@ -61,7 +61,7 @@ class XGBClassificationBaseline(BaseLineModel):
             X,
             y,
             random_state=22,
-            n_splits=3,
+            n_splits=5,
             n_jobs=1,
             early_stopping_rounds=100,
         ):
@@ -125,10 +125,10 @@ class XGBClassificationBaseline(BaseLineModel):
 
     def fit(self, X_train, y_train):
         y_train = self.label_encoder.fit_transform(y_train)
-        self.model.fit(X_train, y_train)
+        self.model.fit(X_train.values, y_train)
 
     def predict(self, X):
-        return self.label_encoder.inverse_transform(self.model.predict(X))
+        return self.label_encoder.inverse_transform(self.model.predict(X.values))
 
 
 # %% ../notebooks/05_baselines.ipynb 5
@@ -144,7 +144,7 @@ class XGBRegressionBaseline(BaseLineModel):
             X,
             y,
             random_state=22,
-            n_splits=3,
+            n_splits=5,
             n_jobs=1,
             early_stopping_rounds=50,
         ):
@@ -210,10 +210,10 @@ class XGBRegressionBaseline(BaseLineModel):
         self.model = XGBRegressor(**study.best_params)
 
     def fit(self, X_train, y_train):
-        self.model.fit(X_train, y_train)
+        self.model.fit(X_train.values, y_train)
 
     def predict(self, X):
-        return self.model.predict(X)
+        return self.model.predict(X.value)
 
 
 # %% ../notebooks/05_baselines.ipynb 8
@@ -354,24 +354,39 @@ def train_test_gpr_baseline(train_file, test_file, delete_from_prompt: str = 'wh
     test_frame = pd.read_json(test_file, orient="records", lines=True)
 
 
-    repr_train = [row.prompt.replace(delete_from_prompt, '').replace('###', '').strip() for i, row in train_frame.iterrows()]
-    repr_test = [row.prompt.replace(delete_from_prompt, '').replace('###', '').strip() for i, row in test_frame.iterrows()]
-
+    repr_train = train_frame['repr']
+    repr_test = test_frame['repr']
     y_train = np.array([df[df[representation_column]==smile]['E isomer pi-pi* wavelength in nm'].values[0] for smile in repr_train])
     y_test = np.array([df[df[representation_column]==smile]['E isomer pi-pi* wavelength in nm'].values[0] for smile in repr_test])
 
-    if representation_column =='SMILEs': 
+    if representation_column =='SMILES': 
         smiles_train = repr_train
         smiles_test = repr_test
     else: 
         smiles_train = np.array([df[df[representation_column]==smile]['SMILES'].values[0] for smile in repr_train])
         smiles_test = np.array([df[df[representation_column]==smile]['SMILES'].values[0] for smile in repr_test]) 
 
-    X_train = compute_fragprints(smiles_train)
-    X_test = compute_fragprints(smiles_test)
+    df_train = pd.DataFrame(
+        {
+            "SMILES": smiles_train,
+            'y': y_train
+        }
+    )
+    df_test = pd.DataFrame(
+        {
+            "SMILES": smiles_test,
+            'y': y_test
+        }
+    )
+
+    df_train = df_train.drop_duplicates(subset=['SMILES'])
+    df_test = df_test.drop_duplicates(subset=['SMILES'])
+
+    X_train = compute_fragprints(df_train['SMILES'].values)
+    X_test = compute_fragprints(df_test['SMILES'].values)
 
     baseline = GPRBaseline()
-    baseline.fit(X_train, y_train)
+    baseline.fit(X_train, df_train['y'].values)
 
     predictions = baseline.predict(X_test)
 
@@ -380,7 +395,7 @@ def train_test_gpr_baseline(train_file, test_file, delete_from_prompt: str = 'wh
     # we clip as out-of-bound predictions result in NaNs
     pred = np.clip(predictions.flatten(), a_min=bins[0], a_max=bins[-1])
     predicted_bins = pd.cut(pred, bins, labels=np.arange(5), include_lowest=True)
-    true_bins = pd.cut(y_test.flatten(), bins, labels=np.arange(5))
+    true_bins = pd.cut(df_test['y'].values.flatten(), bins, labels=np.arange(5))
 
     cm = ConfusionMatrix(true_bins.astype(int), predicted_bins.astype(int))
 
