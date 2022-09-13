@@ -8,6 +8,7 @@ from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3
 from gpt3forchem.baselines import train_test_gpr_baseline
 from gpt3forchem.data import get_photoswitch_data
 from gpt3forchem.input import create_single_property_forward_prompts
+from gpt3forchem.helpers import make_if_not_exists
 
 TRAIN_SIZES_NAMES = [10, 40, 60, 70]
 TRAIN_SIZES_SMILES = [10, 50, 100, 200, 300, 350]
@@ -19,6 +20,8 @@ DF = get_photoswitch_data()
 MODEL_TYPE = "ada"
 PREFIX = ""
 N_EPOCHS = 4  # this is the default
+OUTDIR = f"results/photoswitch_20220913_{N_EPOCHS}epoch"
+make_if_not_exists(OUTDIR)
 
 
 def learning_curve_point(representation, model_type, train_set_size):
@@ -56,12 +59,13 @@ def learning_curve_point(representation, model_type, train_set_size):
     completions = query_gpt3(modelname, test_prompts)
     predictions = [
         extract_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"][0])
+        for i, completion in enumerate(completions["choices"])
     ]
     true = [
         int(test_prompts.iloc[i]["completion"].split("@")[0])
         for i in range(len(predictions))
     ]
+    assert len(predictions) == len(true)
     cm = ConfusionMatrix(true, predictions)
 
     baseline = train_test_gpr_baseline(
@@ -84,7 +88,7 @@ def learning_curve_point(representation, model_type, train_set_size):
         "baseline_accuracy": baseline["cm"].ACC_Macro,
     }
 
-    outname = f"results/photoswitch_{N_EPOCHS}epoch/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
+    outname = f"{OUTDIR}/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
 
     save_pickle(outname, results)
     return results

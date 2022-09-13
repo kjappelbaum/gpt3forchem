@@ -8,13 +8,13 @@ from gpt3forchem.api_wrappers import (
     extract_prediction,
     extract_regression_prediction,
     fine_tune,
-    n,
     query_gpt3,
 )
 from gpt3forchem.baselines import XGBRegressionBaseline
 from gpt3forchem.data import POLYMER_FEATURES, get_polymer_data
 from gpt3forchem.input import create_single_property_forward_prompts_regression
 from gpt3forchem.output import get_regression_metrics
+from gpt3forchem.helpers import make_if_not_exists
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
@@ -24,6 +24,9 @@ PREFIXES = [""]  # "I'm an expert polymer chemist "]
 DF = get_polymer_data()
 RANDOM_STATE = None
 MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 10 requests
+OUTDIR = "results/20220913_polymer_regression"
+
+make_if_not_exists(OUTDIR)
 
 
 def learning_curve_point(model_type, train_set_size, prefix):
@@ -62,7 +65,7 @@ def learning_curve_point(model_type, train_set_size, prefix):
     completions = query_gpt3(modelname, test_prompts)
     predictions = [
         extract_regression_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"][0])
+        for i, completion in enumerate(completions["choices"])
     ]
     true = [
         float(test_prompts.iloc[i]["completion"].split("@")[0])
@@ -93,7 +96,7 @@ def learning_curve_point(model_type, train_set_size, prefix):
         df_test["deltaGmin"], baseline_predictions
     )
     results["baseline"] = baseline_metrics
-    outname = f"results/20220909_polymer_regression/{filename_base}_results_polymers_regression_{train_size}_{prefix}_{model_type}.pkl"
+    outname = f"{OUTDIR}/{filename_base}_results_polymers_regression_{train_size}_{prefix}_{model_type}.pkl"
 
     save_pickle(outname, results)
 

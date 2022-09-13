@@ -1,4 +1,3 @@
-from cProfile import run
 import time
 
 from fastcore.utils import save_pickle
@@ -9,7 +8,7 @@ from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3
 from gpt3forchem.baselines import XGBClassificationBaseline
 from gpt3forchem.data import get_mof_data, discretize
 from gpt3forchem.input import create_single_property_forward_prompts
-
+from gpt3forchem.helpers import make_if_not_exists
 import click
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
@@ -22,8 +21,8 @@ RANDOM_STATE = None
 MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 25 requests
 
 MOFFEATURES = [f for f in DF.columns if f.startswith("features")]
-
-
+OUTDIR = "results/20220911_mof_classification"
+make_if_not_exists(OUTDIR)
 rename_dicts = {
     "outputs.pbe.bandgap_cat": {
         "outputs.pbe.bandgap_cat": "bandgap",
@@ -93,12 +92,13 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
     completions = query_gpt3(modelname, test_prompts)
     predictions = [
         extract_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"][0])
+        for i, completion in enumerate(completions["choices"])
     ]
     true = [
         int(test_prompts.iloc[i]["completion"].split("@")[0])
         for i in range(len(predictions))
     ]
+    assert len(predictions) == len(true)
     cm = ConfusionMatrix(true, predictions)
 
     try:
@@ -132,7 +132,7 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
         "target": target,
     }
 
-    outname = f"results/20220911_mof_classification/{filename_base}_results_mof_{train_size}_{prefix}_{model_type}_{representation}_{target}.pkl"
+    outname = f"{OUTDIR}/{filename_base}_results_mof_{train_size}_{prefix}_{model_type}_{representation}_{target}.pkl"
 
     save_pickle(outname, results)
 

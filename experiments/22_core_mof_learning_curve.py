@@ -1,61 +1,62 @@
 import time
 
+import click
 from fastcore.utils import save_pickle
 from pycm import ConfusionMatrix
 from sklearn.model_selection import train_test_split
 
 from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3
 from gpt3forchem.baselines import XGBClassificationBaseline
-from gpt3forchem.data import get_mof_data, discretize
+from gpt3forchem.data import discretize, get_core_mof_data
 from gpt3forchem.input import create_single_property_forward_prompts
-
-import click
+from gpt3forchem.helpers import make_if_not_exists
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
 MODEL_TYPES = ["ada"]  # , "ada"]
 PREFIXES = [""]  # , "I'm an expert polymer chemist "]
 
-DF = get_mof_data()
+DF = get_core_mof_data()
 RANDOM_STATE = None
 MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 25 requests
 
 MOFFEATURES = [f for f in DF.columns if f.startswith("features")]
 
-
+OUTDIR = "results/20220911_mof_classification"
+make_if_not_exists(OUTDIR)
 rename_dicts = {
-    "outputs.pure_CO2_kH": {
-        "outputs.pure_CO2_kH": "CO2 Henry coefficient",
+    "outputs.pure_CO2_kH_cat": {
+        "outputs.pure_CO2_kH_cat": "CO2 Henry coefficient",
     },
-    "outputs.pure_CO2_widomHOA": {
-        "outputs.pure_CO2_widomHOA": "CO2 heat of adsorption",
+    "outputs.pure_CO2_widomHOA_cat": {
+        "outputs.pure_CO2_widomHOA_cat": "CO2 heat of adsorption",
     },
-    "outputs.pure_methane_kH": {
-        "outputs.pure_methane_kH": "CH4 Henry coefficient",
+    "outputs.pure_methane_kH_cat": {
+        "outputs.pure_methane_kH_cat": "CH4 Henry coefficient",
     },
-    "outputs.pure_methane_widomHOA": {
-        "outputs.pure_methane_widomHOA": "CH4 heat of adsorption",
+    "outputs.pure_methane_widomHOA_cat": {
+        "outputs.pure_methane_widomHOA_cat": "CH4 heat of adsorption",
     },
-    "outputs.pure_uptake_CO2_298.00_15000": {
-        "outputs.pure_uptake_CO2_298.00_15000": "CO2 uptake at 15000 Pa",
+    "outputs.pure_uptake_CO2_298.00_15000_cat": {
+        "outputs.pure_uptake_CO2_298.00_15000_cat": "CO2 uptake at 15000 Pa",
     },
-    "outputs.pure_uptake_CO2_298.00_1600000": {
-        "outputs.pure_uptake_CO2_298.00_1600000": "CO2 uptake at 1600000 Pa",
+    "outputs.pure_uptake_CO2_298.00_1600000_cat": {
+        "outputs.pure_uptake_CO2_298.00_1600000_cat": "CO2 uptake at 1600000 Pa",
     },
-    "outputs.pure_uptake_methane_298.00_580000": {
-        "outputs.pure_uptake_methane_298.00_580000": "CH4 uptake at 580000 Pa",
+    "outputs.pure_uptake_methane_298.00_580000_cat": {
+        "outputs.pure_uptake_methane_298.00_580000_cat": "CH4 uptake at 580000 Pa",
     },
-    "outputs.pure_uptake_methane_298.00_6500000": {
-        "outputs.pure_uptake_methane_298.00_6500000": "CH4 uptake at 6500000 Pa",
+    "outputs.pure_uptake_methane_298.00_6500000_cat": {
+        "outputs.pure_uptake_methane_298.00_6500000_cat": "CH4 uptake at 6500000 Pa",
     },
-    "outputs.logKH_CO2": {
-        "outputs.logKH_CO2": "logarithm of CO2 Henry coefficient",
+    "outputs.logKH_CO2_cat": {
+        "outputs.logKH_CO2_cat": "logarithm of CO2 Henry coefficient",
     },
-    "outputs.logKH_CH4": {
-        "outputs.logKH_CH4": "logarithm of CH4 Henry coefficient",
+    "outputs.logKH_CH4_cat": {
+        "outputs.logKH_CH4_cat": "logarithm of CH4 Henry coefficient",
     },
-    "outputs.CH4DC": {
-        "outputs.CH4DC": "CH4 deliverable capacity",
+    "outputs.CH4DC_cat": {
+        "outputs.CH4DC_cat": "CH4 deliverable capacity",
     },
 }
 
@@ -101,12 +102,13 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
     completions = query_gpt3(modelname, test_prompts)
     predictions = [
         extract_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"][0])
+        for i, completion in enumerate(completions["choices"])
     ]
     true = [
         int(test_prompts.iloc[i]["completion"].split("@")[0])
         for i in range(len(predictions))
     ]
+    assert len(predictions) == len(true)
     cm = ConfusionMatrix(true, predictions)
 
     try:
@@ -140,7 +142,7 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
         "target": target,
     }
 
-    outname = f"results/20220912_core_mof_classification/{filename_base}_results_mof_{train_size}_{prefix}_{model_type}_{representation}_{target}.pkl"
+    outname = f"{OUTDIR}/{filename_base}_results_mof_{train_size}_{prefix}_{model_type}_{representation}_{target}.pkl"
 
     save_pickle(outname, results)
 
@@ -166,7 +168,7 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
         ]
     ),
 )
-@click.argument("representation", type=click.Choice(["clean_mofid", "chemical_name"]))
+@click.argument("representation", type=click.Choice(["clean_mofid", "chemical_name_y"]))
 def run_lc(target, representation):
     for _ in range(REPEATS):
         for prefix in PREFIXES:

@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3
 from gpt3forchem.baselines import train_test_gpr_baseline
 from gpt3forchem.data import get_photoswitch_data
-from gpt3forchem.helpers import augmented_classification_scores
+from gpt3forchem.helpers import augmented_classification_scores, make_if_not_exists
 from gpt3forchem.input import create_single_property_forward_prompts
 
 TRAIN_SIZES_NAMES = [10, 40, 60, 70]
@@ -22,6 +22,8 @@ DF = get_photoswitch_data()
 MODEL_TYPE = "ada"
 PREFIX = ""
 N_EPOCHS = 4  # this is the default
+OUTDIR = "results/20220913_photoswitch_augment"
+make_if_not_exists(OUTDIR)
 
 
 def learning_curve_point(representation, model_type, train_set_size, include_canonical):
@@ -72,7 +74,9 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
     ]
     smiles = test_prompts["repr"]
 
-    cm, brier, ece = augmented_classification_scores(smiles, true, predictions)
+    cm, brier, ece = augmented_classification_scores(
+        smiles, true, predictions, cat_encode_func=None
+    )
     prediction_frame = pd.DataFrame(
         {
             "smiles": smiles,
@@ -100,6 +104,7 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
             prediction_frame["smiles"][augmented_subset_mask],
             augmented_true,
             augmented_predictions,
+            cat_encode_func=False,
         )
     else:
         cm_canonical_subset = None
@@ -116,6 +121,8 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
         # "prefix": prefix,
         "train_size": train_size,
         "test_size": test_size,
+        "augmented_size_train": len(train_prompts),
+        "augmented_size_test": len(test_prompts),
         "cm": cm,
         "brier": brier,
         "ece": ece,
@@ -136,7 +143,7 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
         "baseline_accuracy": baseline["cm"].ACC_Macro,
     }
 
-    outname = f"results/20220913_photoswitch_augment/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}_{include_canonical}.pkl"
+    outname = f"{OUTDIR}/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}_{include_canonical}.pkl"
 
     save_pickle(outname, results)
     return results
