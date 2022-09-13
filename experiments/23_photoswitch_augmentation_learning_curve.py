@@ -35,7 +35,7 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
         {"wavelength_cat": "transition wavelength"},
         representation_col=representation,
         smiles_augmentation=True,
-        include_canonical=include_canonical,
+        include_canonical_smiles=include_canonical,
     )
 
     test_prompts = create_single_property_forward_prompts(
@@ -44,7 +44,7 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
         {"wavelength_cat": "transition wavelength"},
         representation_col=representation,
         smiles_augmentation=True,
-        include_canonical=include_canonical,
+        include_canonical_smiles=include_canonical,
     )
 
     train_size = len(train_prompts)
@@ -135,7 +135,7 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
         "baseline_accuracy": baseline["cm"].ACC_Macro,
     }
 
-    outname = f"results/20220913_photoswitch_augment/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
+    outname = f"results/20220913_photoswitch_augment/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}_{include_canonical}.pkl"
 
     save_pickle(outname, results)
     return results
