@@ -29,6 +29,10 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
     df_train, df_test = train_test_split(
         df, train_size=train_set_size, random_state=None, stratify=df["wavelength_cat"]
     )
+
+    train_size = len(df_train)
+    test_size = len(df_test)
+
     train_prompts = create_single_property_forward_prompts(
         df_train,
         "wavelength_cat",
@@ -46,9 +50,6 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
         smiles_augmentation=True,
         include_canonical_smiles=include_canonical,
     )
-
-    train_size = len(train_prompts)
-    test_size = len(test_prompts)
 
     filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     train_filename = f"run_files/{filename_base}_train_prompts_photoswitch_{train_size}_{representation}.jsonl"
