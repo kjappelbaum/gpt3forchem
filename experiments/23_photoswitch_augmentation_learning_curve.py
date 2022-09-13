@@ -8,6 +8,7 @@ from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3
 from gpt3forchem.baselines import train_test_gpr_baseline
 from gpt3forchem.data import get_photoswitch_data
 from gpt3forchem.input import create_single_property_forward_prompts
+from gpt3forchem.helpers import augmented_classification_scores
 
 TRAIN_SIZES_NAMES = [10, 40, 60, 70]
 TRAIN_SIZES_SMILES = [10, 50, 100, 200, 300, 350]
