@@ -3,7 +3,7 @@ import time
 from fastcore.xtras import save_pickle
 from pycm import ConfusionMatrix
 from sklearn.model_selection import train_test_split
-
+import pandas as pd
 from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3
 from gpt3forchem.baselines import train_test_gpr_baseline
 from gpt3forchem.data import get_photoswitch_data
@@ -22,7 +22,7 @@ PREFIX = ""
 N_EPOCHS = 4  # this is the default
 
 
-def learning_curve_point(representation, model_type, train_set_size):
+def learning_curve_point(representation, model_type, train_set_size, include_canonical):
     df = DF.dropna(subset=[representation])
     df_train, df_test = train_test_split(
         df, train_size=train_set_size, random_state=None, stratify=df["wavelength_cat"]
@@ -33,6 +33,7 @@ def learning_curve_point(representation, model_type, train_set_size):
         {"wavelength_cat": "transition wavelength"},
         representation_col=representation,
         smiles_augmentation=True,
+        include_canonical=include_canonical,
     )
 
     test_prompts = create_single_property_forward_prompts(
@@ -41,6 +42,7 @@ def learning_curve_point(representation, model_type, train_set_size):
         {"wavelength_cat": "transition wavelength"},
         representation_col=representation,
         smiles_augmentation=True,
+        include_canonical=include_canonical,
     )
 
     train_size = len(train_prompts)
@@ -65,7 +67,15 @@ def learning_curve_point(representation, model_type, train_set_size):
         int(test_prompts.iloc[i]["completion"].split("@")[0])
         for i in range(len(predictions))
     ]
-    cm = ConfusionMatrix(true, predictions)
+    smiles = test_prompts["repr"]
+
+    prediction_frame = pd.DataFrame(
+        {
+            "smiles": smiles,
+            "prediction": predictions,
+            "true": true,
+        }
+    )
 
     baseline = train_test_gpr_baseline(
         train_filename, valid_filename, representation_column=representation
