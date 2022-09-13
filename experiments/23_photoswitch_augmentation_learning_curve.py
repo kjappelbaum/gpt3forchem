@@ -1,14 +1,16 @@
 import time
 
+import click
+import pandas as pd
 from fastcore.xtras import save_pickle
 from pycm import ConfusionMatrix
 from sklearn.model_selection import train_test_split
-import pandas as pd
+
 from gpt3forchem.api_wrappers import extract_prediction, fine_tune, query_gpt3
 from gpt3forchem.baselines import train_test_gpr_baseline
 from gpt3forchem.data import get_photoswitch_data
-from gpt3forchem.input import create_single_property_forward_prompts
 from gpt3forchem.helpers import augmented_classification_scores
+from gpt3forchem.input import create_single_property_forward_prompts
 
 TRAIN_SIZES_NAMES = [10, 40, 60, 70]
 TRAIN_SIZES_SMILES = [10, 50, 100, 200, 300, 350]
@@ -69,6 +71,7 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
     ]
     smiles = test_prompts["repr"]
 
+    cm, brier, ece = augmented_classification_scores(smiles, true, predictions)
     prediction_frame = pd.DataFrame(
         {
             "smiles": smiles,
@@ -76,6 +79,32 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
             "true": true,
         }
     )
+
+    # if we use the canonical smiles, we should also get the predictions for the different subsets:
+    # canonical, augmented, and canonical + augmented
+    if include_canonical:
+        canonical_subset_mask = test_prompts["repr"] == test_prompts["this_repr"]
+        canonical_predictions = prediction_frame["prediction"][canonical_subset_mask]
+        canonical_true = prediction_frame["true"][canonical_subset_mask]
+        cm_canonical_subset = ConfusionMatrix(canonical_true, canonical_predictions)
+
+        augmented_subset_mask = test_prompts["repr"] != test_prompts["this_repr"]
+        augmented_predictions = prediction_frame["prediction"][augmented_subset_mask]
+        augmented_true = prediction_frame["true"][augmented_subset_mask]
+        (
+            cm_augmented_subset,
+            brier_augmented_subset,
+            ece_augmented_subset,
+        ) = augmented_classification_scores(
+            prediction_frame["smiles"][augmented_subset_mask],
+            augmented_true,
+            augmented_predictions,
+        )
+    else:
+        cm_canonical_subset = None
+        cm_augmented_subset = None
+        brier_augmented_subset = None
+        ece_augmented_subset = None
 
     baseline = train_test_gpr_baseline(
         train_filename, valid_filename, representation_column=representation
@@ -87,6 +116,15 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
         "train_size": train_size,
         "test_size": test_size,
         "cm": cm,
+        "brier": brier,
+        "ece": ece,
+        "include_canonical": include_canonical,
+        "subset_scores": {
+            "canonical": cm_canonical_subset,
+            "augmented": cm_augmented_subset,
+            "brier_augmented": brier_augmented_subset,
+            "ece_augmented": ece_augmented_subset,
+        },
         "accuracy": cm.ACC_Macro,
         "completions": completions,
         "train_filename": train_filename,
@@ -97,13 +135,16 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
         "baseline_accuracy": baseline["cm"].ACC_Macro,
     }
 
-    outname = f"results/photoswitch_{N_EPOCHS}epoch/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
+    outname = f"results/20220913_photoswitch_augment/{filename_base}_results_photoswitch_{train_size}_{model_type}_{representation}.pkl"
 
     save_pickle(outname, results)
     return results
 
 
-if __name__ == "__main__":
+@click.command("cli")
+@click.argument("representation", type=click.Choice(REPRESENTATIONS))
+@click.option("--include-canonical", default=False, is_flag=True)
+def run_lc(representation, include_canonical):
     for _ in range(REPEATS):
         for representation in REPRESENTATIONS:
             if representation == "name":
@@ -111,8 +152,17 @@ if __name__ == "__main__":
             else:
                 train_sizes = TRAIN_SIZES_SMILES
             for train_size in train_sizes:
-                res = learning_curve_point(representation, MODEL_TYPE, train_size)
+                res = learning_curve_point(
+                    representation,
+                    MODEL_TYPE,
+                    train_size,
+                    include_canonical=include_canonical,
+                )
                 print(
-                    f"Finished {representation} {train_size}. Accuracy: {res['accuracy']}. Baseline accuracy: {res['baseline_accuracy']}"
+                    f"Finished {representation} {train_size} {include_canonical}. Accuracy: {res['accuracy']}. Baseline accuracy: {res['baseline_accuracy']}"
                 )
                 time.sleep(1)
+
+
+if __name__ == "__main__":
+    run_lc()
