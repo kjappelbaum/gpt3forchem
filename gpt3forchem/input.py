@@ -7,14 +7,13 @@ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLET
            'PROMPT_TEMPLATE_photoswitch_', 'COMPLETION_TEMPLATE_photoswitch_', 'randomize_smiles',
            'encode_categorical_value', 'decode_categorical_value', 'create_single_property_forward_prompts',
            'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
-           'generate_inverse_photoswitch_prompts', 'create_single_property_forward_prompts_multiple_targets']
+           'generate_inverse_photoswitch_prompts', 'generate_property_desc', 'create_prompts_w_gas_context']
 
 # %% ../notebooks/03_input.ipynb 3
 import random
 from typing import List
 
 from rdkit import Chem
-
 
 # %% ../notebooks/03_input.ipynb 4
 def randomize_smiles(
@@ -257,42 +256,60 @@ def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
     return prompts
 
 
-# %% ../notebooks/03_input.ipynb 40
-def create_single_property_forward_prompts_multiple_targets(
-    df: pd.DataFrame,  # input data
-    targets: List[str],  # target property
-    target_rename_dict: dict,  # dict to rename target property from the column name in df to the target property name in the prompt
-    encode_value: bool = True,  # whether to encode the value of the target property categorically
-    encoding_dict: dict = _DEFAULT_ENCODING_DICT,  # mapping from numerical categories to string
-    prompt_prefix: str = "",  # prefix to add to the prompt, e.g. "I am an expert chemist"
-    representation_col: str = "string",  # name of the column to use as the representation of the compound
+# %% ../notebooks/03_input.ipynb 43
+def generate_property_desc(properties, gas_data, gas): 
+    if properties is None: 
+        return ""
+    text = []
+    row = gas_data[gas_data["formula"] == gas]
+    for prop in properties:
+        text.append(f"{prop.replace('_', ' ')} {row[prop].values[0]}")
+    
+    text = ", ".join(text)
+    
+    return f"({text})"
+
+
+
+# %% ../notebooks/03_input.ipynb 45
+_GAS_CONTEXT_PROMPT_TEMPLATE = "What is the {identifier} {description} Henry cofficient of {repr}###"
+
+
+def create_prompts_w_gas_context(
+    df, gas_data, gases=["CO2", "Xe"], properties=None, identifier=None, regression=False,
 ):
     prompts = []
 
-    for target in targets:
-        target_name = target
-        for key, value in target_rename_dict.items():
-            target_name = target_name.replace(key, value)
+    identifier = "formula" if identifier is None else identifier
 
-        for _, row in df.iterrows():
-            if encode_value:
-                value = encode_categorical_value(
-                    row[target], encoding_dict=encoding_dict
-                )
+    for _, row in df.iterrows():
+        for gas in gases:
+            subset = gas_data[gas_data["formula"] == gas]
+            name = subset[identifier]
+            if not regression:
+                column = subset["related_column"]
             else:
-                value = row[target]
+                raise NotImplementedError("Regression not implemented yet")
+            if not pd.isna(row[column]):
+                if properties is None:
+                    property_desc = ""
+                else:
+                    property_desc = generate_property_desc(properties, gas_data, gas)
 
-            prompts.append(
-                {
-                    "prompt": prompt_prefix
-                    + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
-                        property=target_name, text=row[representation_col]
-                    ),
-                    "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
-                        value=value
-                    ),
-                }
-            )
+                prompts.append(
+                    {
+                        "prompt": _GAS_CONTEXT_PROMPT_TEMPLATE.format(
+                            identifier=name,
+                            description=property_desc,
+                            repr=row[repr],
+                        ),
+                        "completion": f"{row[column]}@@@",
+                        "repr": repr,
+                    }
+                )
+
+    df = pd.DataFrame(prompts)
+    df.dropna(subset=["prompt"], inplace=True)
+    df = df.sample(frac=1).reset_index(drop=True)  # shuffle
 
     return pd.DataFrame(prompts)
-

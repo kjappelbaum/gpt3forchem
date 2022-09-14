@@ -377,17 +377,18 @@ def augmented_classification_scores(repr, true, predictions, cat_encode_func: Op
             'true': true,
             'predictions': predictions,
         })
-    
+
     if cat_encode_func is not None:
         augmented_predictions['true'] = augmented_predictions['true'].apply(cat_encode_func)
         augmented_predictions['predictions'] = augmented_predictions['predictions'].apply(cat_encode_func)
-    
+
     predictions_augmented = augmented_predictions.groupby('repr').agg(['mean', 'std', only_mode])
+
     cm = ConfusionMatrix(
         predictions_augmented['true']['only_mode'].values,
         predictions_augmented['predictions']['only_mode'].values,
     )
-    
+
     class_probablities = multiclass_vote_to_probabilities(augmented_predictions, 'predictions', 'repr')
 
     brier_score = multiclass_brier_score(augmented_predictions.groupby('repr').mean()['true'].values.astype(int), class_probablities[class_names].values)

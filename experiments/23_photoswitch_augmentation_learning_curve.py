@@ -11,6 +11,7 @@ from gpt3forchem.baselines import train_test_gpr_baseline
 from gpt3forchem.data import get_photoswitch_data
 from gpt3forchem.helpers import augmented_classification_scores, make_if_not_exists
 from gpt3forchem.input import create_single_property_forward_prompts
+from gpt3forchem.output import extract_numeric_prediction
 
 TRAIN_SIZES_NAMES = [10, 40, 60, 70]
 TRAIN_SIZES_SMILES = [10, 50, 100, 200, 300, 350]
@@ -64,10 +65,12 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
     modelname = fine_tune(train_filename, valid_filename, model_type, n_epochs=N_EPOCHS)
 
     completions = query_gpt3(modelname, test_prompts)
-    predictions = [
-        extract_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"])
-    ]
+    predictions = extract_numeric_prediction(
+        [
+            extract_prediction(completions, i)
+            for i, completion in enumerate(completions["choices"])
+        ]
+    )
     true = [
         int(test_prompts.iloc[i]["completion"].split("@")[0])
         for i in range(len(predictions))
@@ -163,16 +166,20 @@ def run_lc(representation, include_canonical):
             else:
                 train_sizes = TRAIN_SIZES_SMILES
             for train_size in train_sizes:
-                res = learning_curve_point(
-                    representation,
-                    MODEL_TYPE,
-                    train_size,
-                    include_canonical=include_canonical,
-                )
-                print(
-                    f"Finished {representation} {train_size} {include_canonical}. Accuracy: {res['accuracy']}. Baseline accuracy: {res['baseline_accuracy']}"
-                )
-                time.sleep(1)
+                try:
+                    res = learning_curve_point(
+                        representation,
+                        MODEL_TYPE,
+                        train_size,
+                        include_canonical=include_canonical,
+                    )
+                    print(
+                        f"Finished {representation} {train_size} {include_canonical}. Accuracy: {res['accuracy']}. Baseline accuracy: {res['baseline_accuracy']}"
+                    )
+                    time.sleep(1)
+                except Exception as e:
+                    print(f"Error: {e}")
+                    continue
 
 
 if __name__ == "__main__":
