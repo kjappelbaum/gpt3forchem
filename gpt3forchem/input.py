@@ -7,7 +7,8 @@ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLET
            'PROMPT_TEMPLATE_photoswitch_', 'COMPLETION_TEMPLATE_photoswitch_', 'randomize_smiles',
            'encode_categorical_value', 'decode_categorical_value', 'create_single_property_forward_prompts',
            'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
-           'generate_inverse_photoswitch_prompts', 'generate_property_desc', 'create_prompts_w_gas_context']
+           'create_single_property_inverse_polymer_prompts', 'generate_inverse_photoswitch_prompts',
+           'generate_property_desc', 'create_prompts_w_gas_context']
 
 # %% ../notebooks/03_input.ipynb 3
 import random
@@ -224,7 +225,45 @@ def get_polymer_composition_dict(row):
     return comp_dict
 
 
-# %% ../notebooks/03_input.ipynb 26
+# %% ../notebooks/03_input.ipynb 25
+def create_single_property_inverse_polymer_prompts(df, target, target_rename_dict, encode_value=True, with_composition=True):
+    prompts = []
+
+    target_name = target
+    for key, value in target_rename_dict.items():
+        target_name = target_name.replace(key, value)
+
+    for _, row in df.iterrows():
+        if encode_value:
+            value = encode_categorical_value(row[target])
+        else:
+            value = row[target]
+
+        if with_composition:
+            comp_dict = get_polymer_composition_dict(row)
+
+            prompt = POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION.format(
+                class_name=value, property=target_name, **comp_dict
+            )
+        else:
+            prompt = (
+                POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT.format(
+                    class_name=value, property=target_name
+                ),
+            )
+        prompts.append(
+            {
+                "prompt": prompt,
+                "completion": POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT.format(
+                    text=row["string"]
+                ),
+            }
+        )
+
+    return pd.DataFrame(prompts)
+
+
+# %% ../notebooks/03_input.ipynb 29
 PROMPT_TEMPLATE_photoswitch_w_n_pistar = "What is a molecule with a pi-pi* transition wavelength of {} nm and n-pi* transition wavelength of {} nm###"
 PROMPT_TEMPLATE_photoswitch_ = (
     "What is a molecule with a pi-pi* transition wavelength of {} nm###"
@@ -256,7 +295,7 @@ def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
     return prompts
 
 
-# %% ../notebooks/03_input.ipynb 43
+# %% ../notebooks/03_input.ipynb 46
 def generate_property_desc(properties, gas_data, gas): 
     if properties is None: 
         return ""
@@ -271,7 +310,7 @@ def generate_property_desc(properties, gas_data, gas):
 
 
 
-# %% ../notebooks/03_input.ipynb 45
+# %% ../notebooks/03_input.ipynb 48
 _GAS_CONTEXT_PROMPT_TEMPLATE = "What is the {identifier} {description} Henry cofficient of {repr}###"
 
 
