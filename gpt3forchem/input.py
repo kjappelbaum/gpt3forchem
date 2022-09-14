@@ -276,7 +276,7 @@ _GAS_CONTEXT_PROMPT_TEMPLATE = "What is the {identifier} {description} Henry cof
 
 
 def create_prompts_w_gas_context(
-    df, gas_data, gases=["CO2", "Xe"], properties=None, identifier=None, regression=False,
+    df, gas_data, gases=["CO2", "Xe"], properties=None, identifier=None, regression=False, representation="info.mofid.mofid_clean"
 ):
     prompts = []
 
@@ -285,12 +285,13 @@ def create_prompts_w_gas_context(
     for _, row in df.iterrows():
         for gas in gases:
             subset = gas_data[gas_data["formula"] == gas]
-            name = subset[identifier]
+          
+            name = subset[identifier].values[0].replace("_", " ")
             if not regression:
-                column = subset["related_column"]
+                column = subset["related_column"].values[0]
             else:
                 raise NotImplementedError("Regression not implemented yet")
-            if not pd.isna(row[column]):
+            if not pd.isna(row[column]) and not 'nan' in row[column]:
                 if properties is None:
                     property_desc = ""
                 else:
@@ -301,10 +302,10 @@ def create_prompts_w_gas_context(
                         "prompt": _GAS_CONTEXT_PROMPT_TEMPLATE.format(
                             identifier=name,
                             description=property_desc,
-                            repr=row[repr],
+                            repr=row[representation],
                         ),
                         "completion": f"{row[column]}@@@",
-                        "repr": repr,
+                        "repr": row[representation],
                     }
                 )
 

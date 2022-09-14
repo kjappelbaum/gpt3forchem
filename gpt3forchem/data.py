@@ -2,7 +2,7 @@
 
 # %% auto 0
 __all__ = ['POLYMER_FEATURES', 'gas_features', 'discretize', 'get_polymer_data', 'get_photoswitch_data', 'get_mof_data',
-           'get_core_mof_data', 'get_opv_data']
+           'preprocess_mof_data', 'get_core_mof_data', 'get_opv_data']
 
 # %% ../notebooks/00_data.ipynb 2
 import os
@@ -13,6 +13,7 @@ import pandas as pd
 from .helpers import HashableDataFrame
 
 _THIS_DIR = os.path.abspath(os.path.dirname(os.path.abspath("")))
+import numpy as np 
 
 
 # %% ../notebooks/00_data.ipynb 4
@@ -70,15 +71,42 @@ def get_photoswitch_data(datadir="../data"):  # path to folder with data files
 
 # %% ../notebooks/00_data.ipynb 26
 def get_mof_data(datadir="../data"):  # path to folder with data files
-    return HashableDataFrame(pd.read_csv(os.path.join(datadir, "mof.csv")))
+    df =  HashableDataFrame(pd.read_csv(os.path.join(datadir, "mof.csv")))
 
 
-# %% ../notebooks/00_data.ipynb 36
+    return df
+
+# %% ../notebooks/00_data.ipynb 28
+def preprocess_mof_data(mof_data, n_bins=None, labels=None): 
+    if n_bins is None:
+        n_bins = 3
+    if labels is None:
+        labels = ["low", "medium", "high"]
+    features = [
+        "outputs.Xe-henry_coefficient-mol--kg--Pa",
+        "outputs.Kr-henry_coefficient-mol--kg--Pa",
+        "outputs.H2O-henry_coefficient-mol--kg--Pa",
+        "outputs.H2S-henry_coefficient-mol--kg--Pa",
+        "outputs.CO2-henry_coefficient-mol--kg--Pa",
+        "outputs.CH4-henry_coefficient-mol--kg--Pa",
+        "outputs.O2-henry_coefficient-mol--kg--Pa",
+    ]
+
+    for feature in features:
+        mof_data[feature + '_log'] = np.log10(mof_data[feature] + 1e-40)
+
+    for feature in features:
+
+        discretize(
+            mof_data, f"{feature}_log", n_bins=n_bins, labels=labels
+        )
+
+# %% ../notebooks/00_data.ipynb 37
 def get_core_mof_data(datadir="../data"):  # path to folder with data files
     return HashableDataFrame(pd.read_csv(os.path.join(datadir, "core_mof.csv")))
 
 
-# %% ../notebooks/00_data.ipynb 39
+# %% ../notebooks/00_data.ipynb 40
 gas_features = pd.DataFrame(
     [
         {
@@ -165,7 +193,7 @@ gas_features = pd.DataFrame(
 )
 
 
-# %% ../notebooks/00_data.ipynb 52
+# %% ../notebooks/00_data.ipynb 53
 def get_opv_data(datadir="../data"):  # path to folder with data files
     """Load the OPV dataset."""
     df = pd.read_csv(os.path.join(datadir, "opv.csv"))
