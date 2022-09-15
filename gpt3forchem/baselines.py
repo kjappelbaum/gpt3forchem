@@ -156,13 +156,13 @@ class XGBRegressionBaseline(BaseLineModel):
                 "n_estimators": 10000,
                 "max_depth": trial.suggest_int("max_depth", 4, 12),
                 "learning_rate": trial.suggest_loguniform("learning_rate", 0.005, 0.05),
-                "colsample_bytree": trial.suggest_loguniform(
-                    "colsample_bytree", 0.2, 0.6
+                "colsample_bytree": trial.suggest_uniform(
+                    "colsample_bytree", 0.2, 0.6 # note: log uniform was used before
                 ),
-                "subsample": trial.suggest_loguniform("subsample", 0.4, 0.8),
+                "subsample": trial.suggest_uniform("subsample", 0.4, 0.8), # note: log uniform was used before
                 "alpha": trial.suggest_loguniform("alpha", 0.01, 10.0),
                 "lambda": trial.suggest_loguniform("lambda", 1e-8, 10.0),
-                "gamma": trial.suggest_loguniform("lambda", 1e-8, 10.0),
+                "gamma": trial.suggest_loguniform("gamma", 1e-8, 10.0), # note: this was wrong before (lambda was used as name) 
                 "min_child_weight": trial.suggest_loguniform(
                     "min_child_weight", 10, 1000
                 ),
@@ -214,7 +214,7 @@ class XGBRegressionBaseline(BaseLineModel):
         self.model.fit(X_train.values, y_train)
 
     def predict(self, X):
-        return self.model.predict(X.value)
+        return self.model.predict(X.values)
 
 
 # %% ../notebooks/05_baselines.ipynb 8

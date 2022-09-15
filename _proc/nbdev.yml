@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "gpt3forchem"
+  site-url: "https://kjappelbaum.github.io/gpt3forchem/"
+  description: "Use GPT3 for predicting properties for molecules and materials as well as inverse design"
+  repo-branch: main
+  repo-url: "https://github.com/kjappelbaum/gpt3forchem/"

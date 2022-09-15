@@ -11,7 +11,6 @@ from gpt3forchem.baselines import train_test_gpr_baseline
 from gpt3forchem.data import get_photoswitch_data
 from gpt3forchem.helpers import augmented_classification_scores, make_if_not_exists
 from gpt3forchem.input import create_single_property_forward_prompts
-from gpt3forchem.output import extract_numeric_prediction
 
 TRAIN_SIZES_NAMES = [10, 40, 60, 70]
 TRAIN_SIZES_SMILES = [10, 50, 100, 200, 300, 350]
@@ -65,12 +64,10 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
     modelname = fine_tune(train_filename, valid_filename, model_type, n_epochs=N_EPOCHS)
 
     completions = query_gpt3(modelname, test_prompts)
-    predictions = extract_numeric_prediction(
-        [
-            extract_prediction(completions, i)
-            for i, completion in enumerate(completions["choices"])
-        ]
-    )
+    predictions = [
+        extract_prediction(completions, i)
+        for i, completion in enumerate(completions["choices"])
+    ]
     true = [
         int(test_prompts.iloc[i]["completion"].split("@")[0])
         for i in range(len(predictions))

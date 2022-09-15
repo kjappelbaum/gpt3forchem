@@ -170,7 +170,7 @@ def create_single_property_forward_prompts(
     return df
 
 
-# %% ../notebooks/03_input.ipynb 19
+# %% ../notebooks/03_input.ipynb 21
 def create_single_property_forward_prompts_regression(
     df,  # input data
     target,  # target property
@@ -203,7 +203,7 @@ def create_single_property_forward_prompts_regression(
     return pd.DataFrame(prompts)
 
 
-# %% ../notebooks/03_input.ipynb 23
+# %% ../notebooks/03_input.ipynb 25
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT = (
     "what is a polymer with {class_name} {property}?###"
 )
@@ -212,7 +212,7 @@ POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT = " {text}@@@"
 POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION = "what is a polymer with {class_name} {property} and {num_A} A, {num_B} B, {num_W} W, and {num_R} R?###"
 
 
-# %% ../notebooks/03_input.ipynb 24
+# %% ../notebooks/03_input.ipynb 26
 def get_polymer_composition_dict(row):
     composition = Counter(row["string"].split("-"))
     comp_dict = {}
@@ -225,7 +225,7 @@ def get_polymer_composition_dict(row):
     return comp_dict
 
 
-# %% ../notebooks/03_input.ipynb 25
+# %% ../notebooks/03_input.ipynb 27
 def create_single_property_inverse_polymer_prompts(df, target, target_rename_dict, encode_value=True, with_composition=True):
     prompts = []
 
@@ -263,7 +263,7 @@ def create_single_property_inverse_polymer_prompts(df, target, target_rename_dic
     return pd.DataFrame(prompts)
 
 
-# %% ../notebooks/03_input.ipynb 29
+# %% ../notebooks/03_input.ipynb 31
 PROMPT_TEMPLATE_photoswitch_w_n_pistar = "What is a molecule with a pi-pi* transition wavelength of {} nm and n-pi* transition wavelength of {} nm###"
 PROMPT_TEMPLATE_photoswitch_ = (
     "What is a molecule with a pi-pi* transition wavelength of {} nm###"
@@ -295,7 +295,7 @@ def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
     return prompts
 
 
-# %% ../notebooks/03_input.ipynb 46
+# %% ../notebooks/03_input.ipynb 49
 def generate_property_desc(properties, gas_data, gas): 
     if properties is None: 
         return ""
@@ -310,7 +310,7 @@ def generate_property_desc(properties, gas_data, gas):
 
 
 
-# %% ../notebooks/03_input.ipynb 48
+# %% ../notebooks/03_input.ipynb 51
 _GAS_CONTEXT_PROMPT_TEMPLATE = "What is the {identifier} {description} Henry cofficient of {repr}###"
 
 

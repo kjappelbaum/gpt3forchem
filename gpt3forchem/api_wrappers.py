@@ -276,7 +276,7 @@ def multiple_query_gpt3(
     return list(completions)
 
 
-# %% ../notebooks/01_api_wrappers.ipynb 29
+# %% ../notebooks/01_api_wrappers.ipynb 30
 def _get_embedding(texts, model):
    embedding_responds =  openai.Embedding.create(input = texts, model=model)
    return [['data'][i]['embedding'] for i in range(len(embedding_responds['data']))]

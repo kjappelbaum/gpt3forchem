@@ -5,18 +5,19 @@ __all__ = ['HashableDataFrame', 'picp', 'multiclass_vote_to_probabilities', 'mul
            'expected_calibration_error', 'only_mode', 'augmented_classification_scores', 'make_if_not_exists']
 
 # %% ../notebooks/06_helpers.ipynb 1
+import os
+from collections import Counter, defaultdict
 from functools import lru_cache
 from hashlib import sha256
-from typing import Iterable, Optional, Callable
+from typing import Callable, Iterable, Optional
+
 import numpy as np
 import pandas as pd
 from pandas.util import hash_pandas_object
-from collections import defaultdict
-from collections import Counter
 from pycm import ConfusionMatrix
-from .input import encode_categorical_value
 from scipy.stats import mode
-import os
+
+from .input import encode_categorical_value
 
 # %% ../notebooks/06_helpers.ipynb 2
 # taken from https://gist.github.com/dsevero/3f3db7acb45d6cd8e945e8a32eaca168
@@ -50,15 +51,16 @@ def picp(y_true, y_lower, y_upper):
     return np.mean(satisfies_upper_bound * satisfies_lower_bound)
 
 
-# %% ../notebooks/06_helpers.ipynb 14
+# %% ../notebooks/06_helpers.ipynb 15
 def multiclass_vote_to_probabilities(
-        prediction_frame: pd.DataFrame, # input dataframe with predictions and representations 
+        prediction_frame: pd.DataFrame, # input dataframe with predictions and representations
         prediction_colum: str, # name of the column with predictions
         representation_column: str, # name of the column with representations
-        classes: Iterable=np.arange(5) # names of all possible classes
+        classes: Optional[Iterable]=None # names of all possible classes
     ) -> pd.DataFrame:
-    """For each representation, get the frequency of each class."""
-    
+
+    if classes is None: 
+        classes = np.arange(5)
     new_frame = []
     reprs = prediction_frame[representation_column].unique()
     for repr in reprs:
@@ -78,7 +80,7 @@ def multiclass_vote_to_probabilities(
     
     return pd.DataFrame(new_frame)
 
-# %% ../notebooks/06_helpers.ipynb 21
+# %% ../notebooks/06_helpers.ipynb 22
 # code taken from https://github.com/IBM/UQ360/blob/main/uq360/metrics/classification_metrics.py as having the tensorflow dependency is annoying
 # The original LICENSE
 #                               Apache License
@@ -365,11 +367,11 @@ def expected_calibration_error(y_true, y_prob, y_pred=None, num_bins=10, return_
 
 
 
-# %% ../notebooks/06_helpers.ipynb 27
+# %% ../notebooks/06_helpers.ipynb 28
 def only_mode(x):
     return mode(x)[0][0]
 
-# %% ../notebooks/06_helpers.ipynb 28
+# %% ../notebooks/06_helpers.ipynb 29
 def augmented_classification_scores(repr, true, predictions, cat_encode_func: Optional[Callable]=encode_categorical_value, class_names=np.arange(5)): 
     augmented_predictions = pd.DataFrame(
         {
@@ -398,7 +400,7 @@ def augmented_classification_scores(repr, true, predictions, cat_encode_func: Op
     return cm, brier_score, ece
 
 
-# %% ../notebooks/06_helpers.ipynb 30
+# %% ../notebooks/06_helpers.ipynb 31
 def make_if_not_exists(path):
     if not os.path.exists(path):
         os.makedirs(path)
