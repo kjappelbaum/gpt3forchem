@@ -157,26 +157,25 @@ def learning_curve_point(representation, model_type, train_set_size, include_can
 @click.option("--include-canonical", default=False, is_flag=True)
 def run_lc(representation, include_canonical):
     for _ in range(REPEATS):
-        for representation in REPRESENTATIONS:
-            if representation == "name":
-                train_sizes = TRAIN_SIZES_NAMES
-            else:
-                train_sizes = TRAIN_SIZES_SMILES
-            for train_size in train_sizes:
-                try:
-                    res = learning_curve_point(
-                        representation,
-                        MODEL_TYPE,
-                        train_size,
-                        include_canonical=include_canonical,
-                    )
-                    print(
-                        f"Finished {representation} {train_size} {include_canonical}. Accuracy: {res['accuracy']}. Baseline accuracy: {res['baseline_accuracy']}"
-                    )
-                    time.sleep(1)
-                except Exception as e:
-                    print(f"Error: {e}")
-                    continue
+        if representation == "name":
+            train_sizes = TRAIN_SIZES_NAMES
+        else:
+            train_sizes = TRAIN_SIZES_SMILES
+        for train_size in train_sizes:
+            try:
+                res = learning_curve_point(
+                    representation,
+                    MODEL_TYPE,
+                    train_size,
+                    include_canonical=include_canonical,
+                )
+                print(
+                    f"Finished {representation} {train_size} {include_canonical}. Accuracy: {res['accuracy']}. Baseline accuracy: {res['baseline_accuracy']}"
+                )
+                time.sleep(1)
+            except Exception as e:
+                print(f"Error: {e}")
+                continue
 
 
 if __name__ == "__main__":
