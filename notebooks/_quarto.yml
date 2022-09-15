@@ -1,38 +1,20 @@
-ipynb-filters: [nbdev_filter]
-
 project:
   type: website
-  output-dir: _docs
-  preview:
-    port: 3000
-    browser: false
 
 format:
   html:
     theme: cosmo
     css: styles.css
     toc: true
-    toc-depth: 4
 
 website:
-  title: "gpt3forchem"
-  site-url: "https://kjappelbaum.github.io/gpt3forchem/"
-  description: "Use GPT3 for predicting properties for molecules and materials as well as inverse design"
   twitter-card: true
   open-graph: true
-  reader-mode: true
-  repo-branch: main
-  repo-url: "https://github.com/kjappelbaum/gpt3forchem/"
   repo-actions: [issue]
   navbar:
     background: primary
     search: true
-    right:
-      - icon: github
-        href: "https://github.com/kjappelbaum/gpt3forchem/"
   sidebar:
-    style: "floating"
+    style: floating
 
-metadata-files: 
-  - sidebar.yml
-  - custom.yml
+metadata-files: [nbdev.yml, sidebar.yml]
