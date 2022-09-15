@@ -18,7 +18,12 @@ import numpy as np
 
 # %% ../notebooks/00_data.ipynb 4
 def discretize(
-    df: pd.DataFrame, col: str, n_bins: int = 5, new_name: str = None, labels=None
+    df: pd.DataFrame,
+    col: str,
+    n_bins: int = 5,
+    new_name: str = None,
+    labels=None,
+    quantile_cut=False,
 ) -> None:
     """Adds a new column to the dataframe with the discretized values of the column."""
     if new_name is None:
@@ -26,11 +31,18 @@ def discretize(
     if labels is None:
         labels = ["very small", "small", "medium", "large", "very large"]
 
-    df[new_name] = pd.cut(
-        df[col],
-        n_bins,
-        labels=labels,
-    )
+    if quantile_cut:
+        df[new_name] = pd.qcut(
+            df[col],
+            n_bins,
+            labels=labels,
+        )
+    else:
+        df[new_name] = pd.cut(
+            df[col],
+            n_bins,
+            labels=labels,
+        )
 
 
 # %% ../notebooks/00_data.ipynb 6
@@ -77,7 +89,7 @@ def get_mof_data(datadir="../data"):  # path to folder with data files
     return df
 
 # %% ../notebooks/00_data.ipynb 28
-def preprocess_mof_data(mof_data, n_bins=None, labels=None): 
+def preprocess_mof_data(mof_data, n_bins=None, labels=None, quantile_cut: bool = False): 
     if n_bins is None:
         n_bins = 3
     if labels is None:
@@ -98,7 +110,7 @@ def preprocess_mof_data(mof_data, n_bins=None, labels=None):
     for feature in features:
 
         discretize(
-            mof_data, f"{feature}_log", n_bins=n_bins, labels=labels
+            mof_data, f"{feature}_log", n_bins=n_bins, labels=labels, quantile_cut=quantile_cut
         )
 
 # %% ../notebooks/00_data.ipynb 37

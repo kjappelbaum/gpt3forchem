@@ -23,6 +23,7 @@ MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 25 re
 MOFFEATURES = [f for f in DF.columns if f.startswith("features")]
 OUTDIR = "results/20220913_mof_classification"
 make_if_not_exists(OUTDIR)
+# ToDo: This renaming is probably not working correctly
 rename_dicts = {
     "outputs.pbe.bandgap_cat": {
         "outputs.pbe.bandgap_cat": "bandgap",

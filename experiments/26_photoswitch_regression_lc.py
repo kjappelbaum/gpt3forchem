@@ -16,6 +16,7 @@ from gpt3forchem.input import create_single_property_forward_prompts
 from gpt3forchem.output import extract_numeric_prediction, get_regression_metrics
 import click
 from gpt3forchem.helpers import make_if_not_exists
+from fastcore.utils import save_pickle
 from gpt3forchem.baselines import train_test_gpr_baseline
 
 DF = get_photoswitch_data()
@@ -55,8 +56,8 @@ def learning_curve_point(representation, train_set_size):
     test_size = len(test_prompts)
 
     filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
-    train_filename = f"run_files/{filename_base}_train_prompts_photoswitch_regression_{train_size}.jsonl"
-    valid_filename = f"run_files/{filename_base}_valid_prompts_photoswitch_regression_{test_size}.jsonl"
+    train_filename = f"run_files/{filename_base}_train_prompts_photoswitch_regression_{representation}_{train_size}.jsonl"
+    valid_filename = f"run_files/{filename_base}_valid_prompts_photoswitch_regression_{representation}_{test_size}.jsonl"
 
     train_prompts.to_json(train_filename, orient="records", lines=True)
     test_prompts.to_json(valid_filename, orient="records", lines=True)
@@ -64,8 +65,8 @@ def learning_curve_point(representation, train_set_size):
     test_size = len(test_prompts)
 
     filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
-    train_filename = f"run_files/{filename_base}_train_prompts_photoswitch_regression_{train_size}.jsonl"
-    valid_filename = f"run_files/{filename_base}_valid_prompts_photoswitch_regression_{test_size}.jsonl"
+    train_filename = f"run_files/{filename_base}_train_prompts_photoswitch_regression_{representation}_{train_size}.jsonl"
+    valid_filename = f"run_files/{filename_base}_valid_prompts_photoswitch_regression_{representation}_{test_size}.jsonl"
 
     train_prompts.to_json(train_filename, orient="records", lines=True)
     test_prompts.to_json(valid_filename, orient="records", lines=True)
@@ -105,25 +106,31 @@ def learning_curve_point(representation, train_set_size):
     outname = f"{OUTDIR}/{filename_base}_results_photoswitch_regression_{train_size}_{representation}.pkl"
 
     save_pickle(outname, results)
+    return results
+
+
+@click.command("cli")
+@click.argument("representation", type=click.Choice(REPRESENTATIONS))
+def lc(representation):
+    for _ in range(REPEATS):
+        if representation == "name":
+            train_sizes = TRAIN_SIZES_NAMES
+        else:
+            train_sizes = TRAIN_SIZES_SMILES
+        for train_size in train_sizes:
+            try:
+                res = learning_curve_point(
+                    representation,
+                    train_size,
+                )
+                print(
+                    f"Finished {representation} {train_size}. R2: {res['metrics']['r2']}, baseline R2: {res['baseline_metrics']['r2']}"
+                )
+                time.sleep(1)
+            except Exception as e:
+                print(f"Error: {e}")
+                continue
 
 
 if __name__ == "__main__":
-    for _ in range(REPEATS):
-        for representation in REPRESENTATIONS:
-            if representation == "name":
-                train_sizes = TRAIN_SIZES_NAMES
-            else:
-                train_sizes = TRAIN_SIZES_SMILES
-            for train_size in train_sizes:
-                try:
-                    res = learning_curve_point(
-                        representation,
-                        train_size,
-                    )
-                    print(
-                        f"Finished {representation} {train_size}. R2: {res['metrics']['r2']}, baseline R2: {res['baseline_metrics']['r2']}"
-                    )
-                    time.sleep(1)
-                except Exception as e:
-                    print(f"Error: {e}")
-                    continue
+    lc()

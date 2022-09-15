@@ -7,6 +7,7 @@ from gpt3forchem.api_wrappers import fine_tune
 from gpt3forchem.data import get_photoswitch_data
 from gpt3forchem.input import generate_inverse_photoswitch_prompts
 from gpt3forchem.output import test_inverse_photoswitch
+from gpt3forchem.helpers import make_if_not_exists
 
 REPEATS = 10
 TRAIN_TEST_RATIO = 0.8
@@ -21,6 +22,8 @@ TRAIN_TEST_RATIO = (
 TEMPERATURES = [0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
 MODEL_TYPE = "ada"
 N_EPOCHS = 4
+OUTDIR = "results/20220915_inverse_photoswitch"
+make_if_not_exists(OUTDIR)
 
 
 def inverse_run():
@@ -55,7 +58,7 @@ def inverse_run():
         result["valid_filename"] = valid_filename
         results.append(result)
 
-    save_pickle(f"results/inverse_photoswitch/{filename_base}_metrics.pkl", results)
+    save_pickle(f"{OUTDIR}/{filename_base}_metrics.pkl", results)
 
 
 if __name__ == "__main__":
