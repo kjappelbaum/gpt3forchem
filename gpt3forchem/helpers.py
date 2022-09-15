@@ -2,7 +2,8 @@
 
 # %% auto 0
 __all__ = ['HashableDataFrame', 'picp', 'multiclass_vote_to_probabilities', 'multiclass_brier_score',
-           'expected_calibration_error', 'only_mode', 'augmented_classification_scores', 'make_if_not_exists']
+           'expected_calibration_error', 'only_mode', 'augmented_classification_scores', 'make_if_not_exists',
+           'mean_confidence_interval', 'get_else_nan']
 
 # %% ../notebooks/06_helpers.ipynb 2
 import os
@@ -18,6 +19,9 @@ from pycm import ConfusionMatrix
 from scipy.stats import mode
 
 from .input import encode_categorical_value
+
+import numpy as np
+import scipy.stats
 
 # %% ../notebooks/06_helpers.ipynb 3
 # taken from https://gist.github.com/dsevero/3f3db7acb45d6cd8e945e8a32eaca168
@@ -404,3 +408,24 @@ def augmented_classification_scores(repr, true, predictions, cat_encode_func: Op
 def make_if_not_exists(path):
     if not os.path.exists(path):
         os.makedirs(path)
+
+# %% ../notebooks/06_helpers.ipynb 33
+def mean_confidence_interval(data, confidence=0.95):
+    a = 1.0 * np.array(data)
+    n = len(a)
+    m, se = np.mean(a), scipy.stats.sem(a)
+    h = se * scipy.stats.t.ppf((1 + confidence) / 2., n-1)
+    return m, m-h, m+h
+
+# %% ../notebooks/06_helpers.ipynb 35
+def get_else_nan(x, key):
+    if isinstance(x, dict):
+        try:
+            return x[key]
+        except KeyError:
+            return np.nan
+    else:
+        try:
+            return getattr(x, key)
+        except AttributeError:
+            return np.nan

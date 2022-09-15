@@ -78,7 +78,9 @@ def learning_curve_point(model_type, train_set_size, prefix):
         baseline.tune(df_train[POLYMER_FEATURES], df_train["deltaGmin_cat"])
         baseline.fit(df_train[POLYMER_FEATURES], df_train["deltaGmin_cat"])
         baseline_predictions = baseline.predict(df_test[POLYMER_FEATURES])
-        baseline_cm = ConfusionMatrix(df_test["deltaGmin_cat"], baseline_predictions)
+        baseline_cm = ConfusionMatrix(
+            df_test["deltaGmin_cat"].to_list(), baseline_predictions
+        )
         baseline_acc = baseline_cm.ACC_Macro
     except Exception as e:
         print(e)
@@ -110,7 +112,7 @@ def learning_curve_point(model_type, train_set_size, prefix):
 if __name__ == "__main__":
     for repeat in range(REPEATS):
         for model_type in MODEL_TYPES:
-            for train_set_size in TRAIN_SET_SIZE:
+            for train_set_size in TRAIN_SET_SIZE[::-1]:
                 for prefix in PREFIXES:
                     try:
                         learning_curve_point(model_type, train_set_size, prefix)

@@ -2,10 +2,11 @@
 
 # %% auto 0
 __all__ = ['aggregate_array', 'string_distances', 'is_valid_smiles', 'is_string_in_training_data', 'get_similarity_to_train_mols',
-           'extract_numeric_prediction', 'convert2smiles', 'get_num_monomer', 'get_prompt_compostion', 'get_target',
-           'get_prompt_data', 'get_polymer_completion_composition', 'featurize_many_polymers',
-           'LinearPolymerSmilesFeaturizer', 'polymer_string2performance', 'composition_mismatch',
-           'get_regression_metrics', 'predict_photoswitch', 'get_expected_wavelengths', 'test_inverse_photoswitch']
+           'extract_numeric_prediction', 'get_continuos_binned_distance', 'convert2smiles', 'get_num_monomer',
+           'get_prompt_compostion', 'get_target', 'get_polymer_prompt_data', 'get_polymer_completion_composition',
+           'featurize_many_polymers', 'LinearPolymerSmilesFeaturizer', 'polymer_string2performance',
+           'composition_mismatch', 'get_inverse_polymer_metrics', 'get_regression_metrics', 'predict_photoswitch',
+           'get_expected_wavelengths', 'test_inverse_photoswitch']
 
 # %% ../notebooks/04_output.ipynb 1
 import math
@@ -27,6 +28,7 @@ from strsimpy.normalized_levenshtein import NormalizedLevenshtein
 
 from .api_wrappers import extract_inverse_prediction, query_gpt3
 from .baselines import compute_fragprints
+from .data import POLYMER_FEATURES
 
 # %% ../notebooks/04_output.ipynb 4
 _DEFAULT_AGGREGATIONS =  [
@@ -126,7 +128,20 @@ def extract_numeric_prediction(predictions: List[str], is_int: bool = True):
             converted.append(np.nan)
     return converted
 
-# %% ../notebooks/04_output.ipynb 22
+# %% ../notebooks/04_output.ipynb 21
+def get_continuos_binned_distance(prediction, bin, bins):
+    in_bin = (prediction >= bins[bin][0]) & (prediction < bins[bin][1])
+    if in_bin:
+        loss = 0
+    else:
+        # compute the minimum distance to bin
+        left_edge_distance = abs(prediction - bins[bin][0])
+        right_edge_distance = abs(prediction - bins[bin][1])
+        loss = min(left_edge_distance, right_edge_distance)
+    return loss
+
+
+# %% ../notebooks/04_output.ipynb 23
 def convert2smiles(string):
     new_encoding = {"A": "[Ta]", "B": "[Tr]", "W": "[W]", "R": "[R]"}
 
@@ -138,7 +153,7 @@ def convert2smiles(string):
     return string
 
 
-# %% ../notebooks/04_output.ipynb 26
+# %% ../notebooks/04_output.ipynb 27
 def get_num_monomer(string, monomer):
     num = re.findall(f"([\d+]) {monomer}", string)
     try:
@@ -148,7 +163,7 @@ def get_num_monomer(string, monomer):
     return num
 
 
-# %% ../notebooks/04_output.ipynb 28
+# %% ../notebooks/04_output.ipynb 29
 def get_prompt_compostion(prompt):
     composition = {}
 
@@ -158,27 +173,27 @@ def get_prompt_compostion(prompt):
     return composition
 
 
-# %% ../notebooks/04_output.ipynb 29
+# %% ../notebooks/04_output.ipynb 30
 def get_target(string, target_name="adsorption"):
     num = re.findall(f"([\d+]) {target_name}", string)
     return int(num[0])
 
 
-# %% ../notebooks/04_output.ipynb 30
-def get_prompt_data(prompt):
+# %% ../notebooks/04_output.ipynb 31
+def get_polymer_prompt_data(prompt):
     composition = get_prompt_compostion(prompt)
 
     return composition, get_target(prompt)
 
 
-# %% ../notebooks/04_output.ipynb 31
+# %% ../notebooks/04_output.ipynb 33
 def get_polymer_completion_composition(string):
     parts = string.split("-")
     counts = Counter(parts)
     return dict(counts)
 
 
-# %% ../notebooks/04_output.ipynb 35
+# %% ../notebooks/04_output.ipynb 37
 # Copyright 2020 PyPAL authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -370,7 +385,7 @@ class LinearPolymerSmilesFeaturizer:
         return self.features
 
 
-# %% ../notebooks/04_output.ipynb 37
+# %% ../notebooks/04_output.ipynb 39
 def polymer_string2performance(string, model_dir = '../models'):
     # we need to perform a bunch of tasks here:
     # 1) Featurize
@@ -384,7 +399,7 @@ def polymer_string2performance(string, model_dir = '../models'):
     smiles = convert2smiles(predicted_monomer_sequence)
 
     features = pd.DataFrame(featurize_many_polymers([smiles]))
-    prediction = DELTA_G_MODEL.predict(features[FEATURES])
+    prediction = DELTA_G_MODEL.predict(features[POLYMER_FEATURES])
     return {
         "monomer_squence": monomer_sq,
         "composition": composition,
@@ -393,7 +408,7 @@ def polymer_string2performance(string, model_dir = '../models'):
     }
 
 
-# %% ../notebooks/04_output.ipynb 39
+# %% ../notebooks/04_output.ipynb 41
 def composition_mismatch(composition: dict, found: dict):
     distances = []
 
@@ -429,7 +444,35 @@ def composition_mismatch(composition: dict, found: dict):
     }
 
 
-# %% ../notebooks/04_output.ipynb 40
+# %% ../notebooks/04_output.ipynb 42
+def get_inverse_polymer_metrics(completion_texts, df_test, df_train, max_num_train_sequences = 2000):
+    losses = []
+    composition_mismatches = []
+
+    train_sequences = [polymer_string2performance(seq)["monomer_squence"] for seq in df_train["completion"]]
+
+    for i, row in tqdm(df_test.iterrows(), total=len(completion_texts)):
+        if i < len(completion_texts):
+            try:
+                composition, bin = get_polymer_prompt_data(row["prompt"])
+                completion_data = polymer_string2performance(completion_texts[i])
+                loss = get_continuos_binned_distance(completion_data["prediction"][0], bin, bins)
+                losses.append(loss)
+
+                mm = composition_mismatch(composition, completion_data["composition"])
+                distances = string_distances(
+                    train_sequences[:max_num_train_sequences], completion_data["monomer_squence"]
+                )
+                mm.update(completion_data)
+                mm.update(distances)
+                mm.update({"loss": loss})
+                composition_mismatches.append(mm)
+            except Exception as e:
+                print(e)
+    return losses, pd.DataFrame(composition_mismatches)
+
+
+# %% ../notebooks/04_output.ipynb 43
 def get_regression_metrics(
     y_true,  # actual values (ArrayLike)
     y_pred,  # predicted values (ArrayLike)
@@ -451,7 +494,7 @@ def get_regression_metrics(
         }
 
 
-# %% ../notebooks/04_output.ipynb 45
+# %% ../notebooks/04_output.ipynb 48
 def _predict_photoswitch(smiles_string: str,pi_pi_star_model_file='../models/pi_pi_star_model.joblib', n_pi_star_model_file='../models/n_pi_star_model.joblib'):
     """Predicting for a single SMILES string. Not really efficient due to the I/O overhead in loading the model."""
     pi_pi_star_model = joblib.load(pi_pi_star_model_file)
@@ -459,7 +502,7 @@ def _predict_photoswitch(smiles_string: str,pi_pi_star_model_file='../models/pi_
     fragprints = compute_fragprints([smiles_string])
     return pi_pi_star_model.predict(fragprints)[0], n_pi_star_model.predict(fragprints)[0]
 
-# %% ../notebooks/04_output.ipynb 46
+# %% ../notebooks/04_output.ipynb 49
 def predict_photoswitch(smiles: Iterable[str], pi_pi_star_model_file='../models/pi_pi_star_model.joblib', n_pi_star_model_file='../models/n_pi_star_model.joblib'): 
     """Predicting for a single SMILES string. Not really efficient due to the I/O overhead in loading the model."""
     if not isinstance(smiles, Iterable):
@@ -469,7 +512,7 @@ def predict_photoswitch(smiles: Iterable[str], pi_pi_star_model_file='../models/
     fragprints = compute_fragprints(smiles)
     return pi_pi_star_model.predict(fragprints), n_pi_star_model.predict(fragprints)
 
-# %% ../notebooks/04_output.ipynb 48
+# %% ../notebooks/04_output.ipynb 51
 _PI_PI_STAR_REGEX = r'pi-pi\* transition wavelength of ([.\d]+) nm'
 _N_PI_STAR_REGEX = r'n-pi\* transition wavelength of ([.\d]+) nm'
 
@@ -480,7 +523,7 @@ def get_expected_wavelengths(prompt):
     n_pi_star = float(n_pi_star_match.group(1)) if n_pi_star_match else None
     return pi_pi_star, n_pi_star
 
-# %% ../notebooks/04_output.ipynb 52
+# %% ../notebooks/04_output.ipynb 55
 def test_inverse_photoswitch(
     prompt_frame, model, train_smiles, temperature, max_tokens: int = 80
 ):
