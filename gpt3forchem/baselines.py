@@ -47,10 +47,11 @@ class BaseLineModel(ABC):
 
 # %% ../notebooks/05_baselines.ipynb 4
 class XGBClassificationBaseline(BaseLineModel):
-    def __init__(self, seed, num_trials=100) -> None:
+    def __init__(self, seed, num_trials=100, timeout=None) -> None:
         self.seed = seed
         self.num_trials = num_trials
         self.model = XGBClassifier()
+        self.timeout = timeout
 
         self.label_encoder = LabelEncoder()
 
@@ -64,13 +65,12 @@ class XGBClassificationBaseline(BaseLineModel):
             random_state=22,
             n_splits=5,
             n_jobs=1,
-            early_stopping_rounds=100,
         ):
             # XGBoost parameters
             params = {
                 "verbosity": 0,  # 0 (silent) - 3 (debug)
                 "n_estimators": trial.suggest_int("n_estimators", 4, 10_000),
-                "max_depth": trial.suggest_int("max_depth", 4, 100),
+                "max_depth": trial.suggest_int("max_depth", 4, 50),
                 "learning_rate": trial.suggest_loguniform("learning_rate", 0.001, 0.05),
                 "colsample_bytree": trial.suggest_loguniform(
                     "colsample_bytree", 0.2, 1
@@ -83,7 +83,7 @@ class XGBClassificationBaseline(BaseLineModel):
             }
 
             model = XGBClassifier(**params)
-            pruning_callback = XGBoostPruningCallback(trial, "validation_0-mlogloss")
+            #pruning_callback = XGBoostPruningCallback(trial, "validation_0-mlogloss")
             kf = KFold(n_splits=n_splits)
             X_values = X.values
             y_values = y
@@ -97,10 +97,9 @@ class XGBClassificationBaseline(BaseLineModel):
                     X_A,
                     y_A,
                     eval_set=[(X_B, y_B)],
-                    eval_metric="mlogloss",
+                    #eval_metric="mlogloss",
                     verbose=0,
-                    callbacks=[pruning_callback],
-                    early_stopping_rounds=early_stopping_rounds,
+                    #callbacks=[pruning_callback],
                 )
                 y_pred = model.predict(X_B)
                 scores.append(f1_score(y_pred, y_B, average="macro"))
@@ -115,14 +114,15 @@ class XGBClassificationBaseline(BaseLineModel):
                 y_train,
                 random_state=self.seed,
                 n_splits=5,
-                n_jobs=-1,
-                early_stopping_rounds=100,
+                n_jobs=1,
+                
             ),
             n_trials=self.num_trials,
             n_jobs=1,
+            timeout=self.timeout,
         )
 
-        self.model = XGBClassifier(**study.best_params, callbacks=[WandbCallback()])
+        self.model = XGBClassifier(**study.best_params)
 
     def fit(self, X_train, y_train):
         y_train = self.label_encoder.fit_transform(y_train)
@@ -203,6 +203,7 @@ class XGBRegressionBaseline(BaseLineModel):
                 n_splits=5,
                 n_jobs=8,
                 early_stopping_rounds=100,
+                
             ),
             n_trials=self.num_trials,
             n_jobs=1,

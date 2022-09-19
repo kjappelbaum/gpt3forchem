@@ -21,7 +21,7 @@ from gpt3forchem.baselines import train_test_gpr_baseline
 
 DF = get_photoswitch_data()
 
-TRAIN_SIZES_NAMES = [10, 40, 60, 70]
+TRAIN_SIZES_NAMES = [50]  # [10, 40, 60, 70]
 TRAIN_SIZES_SMILES = [10, 50, 100, 200, 300, 350]
 REPEATS = 10
 MODEL_TYPES = ["ada"]
