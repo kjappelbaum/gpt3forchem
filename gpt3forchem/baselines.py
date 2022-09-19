@@ -120,13 +120,15 @@ class XGBClassificationBaseline(BaseLineModel):
             n_trials=self.num_trials,
             n_jobs=1,
             timeout=self.timeout,
-        )
+        )   
 
+        print(**study.best_params)
         self.model = XGBClassifier(**study.best_params)
 
     def fit(self, X_train, y_train):
         y_train = self.label_encoder.fit_transform(y_train)
-        self.model.fit(X_train.values, y_train)
+        self.model.fit(X_train.values, y_train, verbosity=1)
+        return self.model
 
     def predict(self, X):
         return self.label_encoder.inverse_transform(self.model.predict(X.values))
@@ -171,7 +173,7 @@ class XGBRegressionBaseline(BaseLineModel):
             }
 
             model = XGBRegressor(**params)
-            pruning_callback = XGBoostPruningCallback(trial, "validation_0-rmse")
+           
             kf = KFold(n_splits=n_splits)
             X_values = X.values
             y_values = y.values
@@ -184,8 +186,7 @@ class XGBRegressionBaseline(BaseLineModel):
                     y_A,
                     eval_set=[(X_B, y_B)],
                     eval_metric="rmse",
-                    verbose=0,
-                    callbacks=[pruning_callback],
+                    verbose=0, 
                     early_stopping_rounds=early_stopping_rounds,
                 )
                 y_pred = model.predict(X_B)

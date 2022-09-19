@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['HashableDataFrame', 'picp', 'multiclass_vote_to_probabilities', 'multiclass_brier_score',
            'expected_calibration_error', 'only_mode', 'augmented_classification_scores', 'make_if_not_exists',
-           'mean_confidence_interval', 'get_else_nan']
+           'mean_confidence_interval', 'get_else_nan', 'get_bin_ranges']
 
 # %% ../notebooks/06_helpers.ipynb 2
 import os
@@ -429,3 +429,9 @@ def get_else_nan(x, key):
             return getattr(x, key)
         except AttributeError:
             return np.nan
+
+# %% ../notebooks/06_helpers.ipynb 42
+def get_bin_ranges(df, column, num_bins=5): 
+    _, ranges = pd.cut(df[column], num_bins, retbins=True)
+    bins = {i: (ranges[i], ranges[i + 1]) for i in range(len(ranges) - 1)}
+    return bins
