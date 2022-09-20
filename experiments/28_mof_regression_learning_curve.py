@@ -105,15 +105,12 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
     assert len(predictions) == len(true)
     metrics = get_regression_metrics(true, predictions)
 
-    try:
-        baseline = XGBRegressionBaseline(None)
-        baseline.tune(df_train[MOFFEATURES], df_train[target])
-        baseline.fit(df_train[MOFFEATURES], df_train[target])
-        baseline_predictions = baseline.predict(df_test[MOFFEATURES])
-        baseline_metrics = get_regression_metrics(true, baseline_predictions)
-    except Exception as e:
-        print(e)
-        baseline_metrics = None
+    baseline = XGBRegressionBaseline(None)
+    baseline.tune(df_train[MOFFEATURES], df_train[target])
+    baseline.fit(df_train[MOFFEATURES], df_train[target])
+    baseline_predictions = baseline.predict(df_test[MOFFEATURES])
+
+    baseline_metrics = get_regression_metrics(true, baseline_predictions)
 
     results = {
         "model_type": model_type,

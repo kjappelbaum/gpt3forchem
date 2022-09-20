@@ -10,8 +10,9 @@ import time
 
 DF = get_polymer_data()
 bins = get_bin_ranges(DF, "deltaGmin", 5)
-OUTDIR = "20220919_polymer_inverse"
+OUTDIR = "results/20220919_polymer_inverse"
 make_if_not_exists(OUTDIR)
+TEMPERATURES = [0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
 
 
 def get_inverse_point():
@@ -48,15 +49,25 @@ def get_inverse_point():
 
     modelname = fine_tune(train_filename, valid_filename, "ada")
 
-    completions = query_gpt3(modelname, test_prompts, max_tokens=200)
-    predictions = [
-        extract_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"])
-    ]
+    t_dependend_metrics = {}
+    t_dependend_predictions = {}
+    t_dependend_completions = {}
+    for temperature in TEMPERATURES:
+        completions = query_gpt3(
+            modelname, test_prompts, max_tokens=200, temperature=temperature
+        )
+        predictions = [
+            extract_prediction(completions, i)
+            for i, completion in enumerate(completions["choices"])
+        ]
 
-    prediction_metrics = get_inverse_polymer_metrics(
-        predictions, test_prompts, train_prompts, bins, max_num_train_sequences=2500
-    )
+        prediction_metrics = get_inverse_polymer_metrics(
+            predictions, test_prompts, train_prompts, bins, max_num_train_sequences=2500
+        )
+        t_dependend_metrics[temperature] = prediction_metrics
+        t_dependend_predictions[temperature] = predictions
+        t_dependend_completions[temperature] = completions
+
     true = [prompt.split("@")[0] for prompt in test_prompts["completion"]]
 
     optimal_metrics = get_inverse_polymer_metrics(
@@ -67,9 +78,9 @@ def get_inverse_point():
         "train_file": train_filename,
         "valid_file": valid_filename,
         "modelname": modelname,
-        "predictions": predictions,
-        "completions": completions,
-        "prediction_metrics": prediction_metrics,
+        "predictions": t_dependend_predictions,
+        "completions": t_dependend_completions,
+        "metrics": t_dependend_metrics,
         "optimal_metrics": optimal_metrics,
     }
 

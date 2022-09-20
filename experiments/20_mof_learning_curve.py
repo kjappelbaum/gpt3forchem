@@ -102,17 +102,12 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
     assert len(predictions) == len(true)
     cm = ConfusionMatrix(true, predictions)
 
-    try:
-        baseline = XGBClassificationBaseline(None)
-        baseline.tune(df_train[MOFFEATURES], df_train[target])
-        baseline.fit(df_train[MOFFEATURES], df_train[target])
-        baseline_predictions = baseline.predict(df_test[MOFFEATURES])
-        baseline_cm = ConfusionMatrix(df_test[target], baseline_predictions)
-        baseline_acc = baseline_cm.ACC_Macro
-    except Exception as e:
-        print(e)
-        baseline_cm = None
-        baseline_acc = None
+    baseline = XGBClassificationBaseline(None)
+    baseline.tune(df_train[MOFFEATURES], df_train[target])
+    baseline.fit(df_train[MOFFEATURES], df_train[target])
+    baseline_predictions = baseline.predict(df_test[MOFFEATURES])
+    baseline_cm = ConfusionMatrix(df_test[target], baseline_predictions)
+    baseline_acc = baseline_cm.ACC_Macro
 
     results = {
         "model_type": model_type,
