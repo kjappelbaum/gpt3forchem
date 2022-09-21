@@ -20,11 +20,11 @@ DF = get_polymer_data()
 RANDOM_STATE = None
 MAX_TEST_SIZE = 500  # upper limit to speed it up, this will still require 25 requests
 OUTDIR = "results/20220913_polymer_classification"
-
+ONLY_BASELINE = True
 make_if_not_exists(OUTDIR)
 
 
-def learning_curve_point(model_type, train_set_size, prefix):
+def learning_curve_point(model_type, train_set_size, prefix, only_baseline):
     df_train, df_test = train_test_split(
         DF, train_size=train_set_size, random_state=None, stratify=DF["deltaGmin_cat"]
     )
@@ -57,21 +57,27 @@ def learning_curve_point(model_type, train_set_size, prefix):
     test_prompts.to_json(valid_filename, orient="records", lines=True)
 
     print(f"Training {model_type} model on {train_size} training examples")
-    modelname = fine_tune(train_filename, valid_filename, model_type)
-    # taking the first MAX_TEST_SIZE is ok as the train_test_split shuffles the data
-    test_prompts = test_prompts.iloc[:MAX_TEST_SIZE]
-    completions = query_gpt3(modelname, test_prompts)
-    predictions = [
-        extract_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"])
-    ]
 
-    true = [
-        int(test_prompts.iloc[i]["completion"].split("@")[0])
-        for i in range(len(predictions))
-    ]
-    cm = ConfusionMatrix(true, predictions)
-    assert len(predictions) == len(true)
+    if not only_baseline:
+        modelname = fine_tune(train_filename, valid_filename, model_type)
+        # taking the first MAX_TEST_SIZE is ok as the train_test_split shuffles the data
+        test_prompts = test_prompts.iloc[:MAX_TEST_SIZE]
+        completions = query_gpt3(modelname, test_prompts)
+        predictions = [
+            extract_prediction(completions, i)
+            for i, completion in enumerate(completions["choices"])
+        ]
+
+        true = [
+            int(test_prompts.iloc[i]["completion"].split("@")[0])
+            for i in range(len(predictions))
+        ]
+        cm = ConfusionMatrix(true, predictions)
+        assert len(predictions) == len(true)
+    else:
+        cm = None
+        completions = None
+        modelname = None
 
     # try:
     baseline = XGBClassificationBaseline(None)
@@ -94,7 +100,6 @@ def learning_curve_point(model_type, train_set_size, prefix):
         "train_size": train_size,
         "test_size": test_size,
         "cm": cm,
-        "accuracy": cm.ACC_Macro,
         "completions": completions,
         "train_filename": train_filename,
         "valid_filename": valid_filename,
@@ -115,7 +120,9 @@ if __name__ == "__main__":
             for train_set_size in TRAIN_SET_SIZE:
                 for prefix in PREFIXES:
                     try:
-                        learning_curve_point(model_type, train_set_size, prefix)
+                        learning_curve_point(
+                            model_type, train_set_size, prefix, ONLY_BASELINE
+                        )
                     except Exception as e:
                         time.sleep(10)
                         print(e)

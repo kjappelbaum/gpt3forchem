@@ -56,7 +56,9 @@ rename_dicts = {
 }
 
 
-def learning_curve_point(model_type, train_set_size, prefix, target, representation):
+def learning_curve_point(
+    model_type, train_set_size, prefix, target, representation, only_baseline
+):
     df = DF.copy()
     df = df.dropna(subset=[target, representation])
     df_train, df_test = train_test_split(
@@ -89,21 +91,22 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
     test_prompts.to_json(valid_filename, orient="records", lines=True)
 
     print(f"Training {model_type} model on {train_size} training examples")
-    modelname = fine_tune(train_filename, valid_filename, model_type)
+    if not only_baseline:
+        modelname = fine_tune(train_filename, valid_filename, model_type)
 
-    # taking the first MAX_TEST_SIZE is ok as the train_test_split shuffles the data
-    test_prompts = test_prompts.iloc[:MAX_TEST_SIZE]
-    completions = query_gpt3(modelname, test_prompts)
-    predictions = [
-        extract_regression_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"])
-    ]
-    true = [
-        float(test_prompts.iloc[i]["completion"].split("@")[0])
-        for i in range(len(predictions))
-    ]
-    assert len(predictions) == len(true)
-    metrics = get_regression_metrics(true, predictions)
+        # taking the first MAX_TEST_SIZE is ok as the train_test_split shuffles the data
+        test_prompts = test_prompts.iloc[:MAX_TEST_SIZE]
+        completions = query_gpt3(modelname, test_prompts)
+        predictions = [
+            extract_regression_prediction(completions, i)
+            for i, completion in enumerate(completions["choices"])
+        ]
+        true = [
+            float(test_prompts.iloc[i]["completion"].split("@")[0])
+            for i in range(len(predictions))
+        ]
+        assert len(predictions) == len(true)
+        metrics = get_regression_metrics(true, predictions)
 
     baseline = XGBRegressionBaseline(None)
     baseline.tune(df_train[MOFFEATURES], df_train[target])
@@ -118,12 +121,12 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
         "prefix": prefix,
         "train_size": train_size,
         "test_size": test_size,
-        "metrics": metrics,
-        "completions": completions,
+        "metrics": metrics if metrics else None,
+        "completions": completions if completions else None,
         "train_filename": train_filename,
         "valid_filename": valid_filename,
         "MAX_TEST_SIZE": MAX_TEST_SIZE,
-        "modelname": modelname,
+        "modelname": modelname if modelname else None,
         "baseline_metrics": baseline_metrics,
         "representation": representation,
         "target": target,
@@ -153,14 +156,20 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
 @click.argument(
     "representation", type=click.Choice(["info.mofid.mofid_clean", "chemical_name"])
 )
-def run_lc(target, representation):
+@click.option("--only_baseline", is_flag=True)
+def run_lc(target, representation, only_baseline):
     for _ in range(REPEATS):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
                 for train_set_size in TRAIN_SET_SIZE:
                     try:
                         learning_curve_point(
-                            model_type, train_set_size, prefix, target, representation
+                            model_type,
+                            train_set_size,
+                            prefix,
+                            target,
+                            representation,
+                            only_baseline,
                         )
                     except Exception as e:
                         print(e)

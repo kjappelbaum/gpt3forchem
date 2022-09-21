@@ -122,12 +122,11 @@ class XGBClassificationBaseline(BaseLineModel):
             timeout=self.timeout,
         )   
 
-        print(**study.best_params)
         self.model = XGBClassifier(**study.best_params)
 
     def fit(self, X_train, y_train):
         y_train = self.label_encoder.fit_transform(y_train)
-        self.model.fit(X_train.values, y_train, verbosity=1)
+        self.model.fit(X_train.values, y_train)
         return self.model
 
     def predict(self, X):
