@@ -52,7 +52,9 @@ rename_dicts = {
 }
 
 
-def learning_curve_point(model_type, train_set_size, prefix, target, representation):
+def learning_curve_point(
+    model_type, train_set_size, prefix, target, representation, only_baseline
+):
     df = DF.copy()
     discretize(df, target)
     target = f"{target}_cat"
@@ -86,21 +88,29 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
     train_prompts.to_json(train_filename, orient="records", lines=True)
     test_prompts.to_json(valid_filename, orient="records", lines=True)
 
-    print(f"Training {model_type} model on {train_size} training examples")
-    modelname = fine_tune(train_filename, valid_filename, model_type)
-    # taking the first MAX_TEST_SIZE is ok as the train_test_split shuffles the data
-    test_prompts = test_prompts.iloc[:MAX_TEST_SIZE]
-    completions = query_gpt3(modelname, test_prompts)
-    predictions = [
-        extract_prediction(completions, i)
-        for i, completion in enumerate(completions["choices"])
-    ]
-    true = [
-        int(test_prompts.iloc[i]["completion"].split("@")[0])
-        for i in range(len(predictions))
-    ]
-    assert len(predictions) == len(true)
-    cm = ConfusionMatrix(true, predictions)
+    if not only_baseline:
+        print(f"Training {model_type} model on {train_size} training examples")
+        modelname = fine_tune(train_filename, valid_filename, model_type)
+        # taking the first MAX_TEST_SIZE is ok as the train_test_split shuffles the data
+        test_prompts = test_prompts.iloc[:MAX_TEST_SIZE]
+        completions = query_gpt3(modelname, test_prompts)
+        predictions = [
+            extract_prediction(completions, i)
+            for i, completion in enumerate(completions["choices"])
+        ]
+        true = [
+            int(test_prompts.iloc[i]["completion"].split("@")[0])
+            for i in range(len(predictions))
+        ]
+        assert len(predictions) == len(true)
+        cm = ConfusionMatrix(true, predictions)
+        acc = cm.ACC_Macro
+    else:
+        cm = None
+        completions = None
+        modelname = None
+        predictions = None
+        acc = None
 
     baseline = XGBClassificationBaseline(None)
     baseline.tune(df_train[MOFFEATURES], df_train[target])
@@ -116,7 +126,7 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
         "train_size": train_size,
         "test_size": test_size,
         "cm": cm,
-        "accuracy": cm.ACC_Macro,
+        "accuracy": acc,
         "completions": completions,
         "train_filename": train_filename,
         "valid_filename": valid_filename,
@@ -152,14 +162,20 @@ def learning_curve_point(model_type, train_set_size, prefix, target, representat
 @click.argument(
     "representation", type=click.Choice(["info.mofid.mofid_clean", "chemical_name"])
 )
-def run_lc(target, representation):
+@click.option("--only_baseline", is_flag=True)
+def run_lc(target, representation, only_baseline):
     for _ in range(REPEATS):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
                 for train_set_size in TRAIN_SET_SIZE:
                     try:
                         learning_curve_point(
-                            model_type, train_set_size, prefix, target, representation
+                            model_type,
+                            train_set_size,
+                            prefix,
+                            target,
+                            representation,
+                            only_baseline,
                         )
                     except Exception as e:
                         print(e)
