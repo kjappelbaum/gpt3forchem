@@ -96,7 +96,10 @@ def learning_curve_point(
 
     train_prompts.to_json(train_filename, orient="records", lines=True)
     test_prompts.to_json(valid_filename, orient="records", lines=True)
-
+    true = [
+            int(test_prompts.iloc[i]["completion"].split("@")[0])
+            for i in range(len(test_prompts))
+        ]
     if not only_baseline:
         print(f"Training {model_type} model on {train_size} training examples")
         modelname = fine_tune(train_filename, valid_filename, model_type)
@@ -107,10 +110,7 @@ def learning_curve_point(
             extract_prediction(completions, i)
             for i, completion in enumerate(completions["choices"])
         ]
-        true = [
-            int(test_prompts.iloc[i]["completion"].split("@")[0])
-            for i in range(len(predictions))
-        ]
+
         assert len(predictions) == len(true)
         cm = ConfusionMatrix(true, predictions)
         acc = cm.ACC_Macro

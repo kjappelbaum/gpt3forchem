@@ -159,7 +159,7 @@ def convert2smiles(string):
 
 # %% ../notebooks/04_output.ipynb 28
 def get_num_monomer(string, monomer):
-    num = re.findall(f"([\d+]) {monomer}", string)
+    num = re.findall(f"([\d]+) {monomer}", string)
     try:
         num = int(num[0])
     except Exception:
@@ -167,7 +167,7 @@ def get_num_monomer(string, monomer):
     return num
 
 
-# %% ../notebooks/04_output.ipynb 30
+# %% ../notebooks/04_output.ipynb 31
 def get_prompt_compostion(prompt):
     composition = {}
 
@@ -177,7 +177,7 @@ def get_prompt_compostion(prompt):
     return composition
 
 
-# %% ../notebooks/04_output.ipynb 31
+# %% ../notebooks/04_output.ipynb 33
 def get_target(string, target_name="adsorption", numerically_encoded=True):
     if numerically_encoded:
         num = re.findall(f"([\d+]) {target_name}", string)
@@ -186,21 +186,21 @@ def get_target(string, target_name="adsorption", numerically_encoded=True):
         val = re.findall(f"(very large|large|medium|small|very small) {target_name}", string)
         return val[0]
 
-# %% ../notebooks/04_output.ipynb 35
+# %% ../notebooks/04_output.ipynb 37
 def get_polymer_prompt_data(prompt, numerically_encoded=False):
     composition = get_prompt_compostion(prompt)
 
     return composition, get_target(prompt, numerically_encoded=numerically_encoded)
 
 
-# %% ../notebooks/04_output.ipynb 38
+# %% ../notebooks/04_output.ipynb 40
 def get_polymer_completion_composition(string):
     parts = string.split("-")
     counts = Counter(parts)
     return dict(counts)
 
 
-# %% ../notebooks/04_output.ipynb 42
+# %% ../notebooks/04_output.ipynb 45
 # Copyright 2020 PyPAL authors
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -392,7 +392,7 @@ class LinearPolymerSmilesFeaturizer:
         return self.features
 
 
-# %% ../notebooks/04_output.ipynb 44
+# %% ../notebooks/04_output.ipynb 47
 def polymer_string2performance(string, model_dir = '../models'):
     # we need to perform a bunch of tasks here:
     # 1) Featurize
@@ -415,7 +415,7 @@ def polymer_string2performance(string, model_dir = '../models'):
     }
 
 
-# %% ../notebooks/04_output.ipynb 46
+# %% ../notebooks/04_output.ipynb 49
 def composition_mismatch(composition: dict, found: dict):
     distances = []
 
@@ -451,7 +451,7 @@ def composition_mismatch(composition: dict, found: dict):
     }
 
 
-# %% ../notebooks/04_output.ipynb 47
+# %% ../notebooks/04_output.ipynb 51
 def get_inverse_polymer_metrics(completion_texts, df_test, df_train, bins, max_num_train_sequences = 2000, numerically_encoded = False):
     losses = []
     composition_mismatches = []
@@ -481,7 +481,7 @@ def get_inverse_polymer_metrics(completion_texts, df_test, df_train, bins, max_n
     return losses, pd.DataFrame(composition_mismatches)
 
 
-# %% ../notebooks/04_output.ipynb 48
+# %% ../notebooks/04_output.ipynb 52
 def get_regression_metrics(
     y_true,  # actual values (ArrayLike)
     y_pred,  # predicted values (ArrayLike)
@@ -503,7 +503,7 @@ def get_regression_metrics(
         }
 
 
-# %% ../notebooks/04_output.ipynb 53
+# %% ../notebooks/04_output.ipynb 57
 def _predict_photoswitch(smiles_string: str,pi_pi_star_model_file='../models/pi_pi_star_model.joblib', n_pi_star_model_file='../models/n_pi_star_model.joblib'):
     """Predicting for a single SMILES string. Not really efficient due to the I/O overhead in loading the model."""
     pi_pi_star_model = joblib.load(pi_pi_star_model_file)
@@ -511,7 +511,7 @@ def _predict_photoswitch(smiles_string: str,pi_pi_star_model_file='../models/pi_
     fragprints = compute_fragprints([smiles_string])
     return pi_pi_star_model.predict(fragprints)[0], n_pi_star_model.predict(fragprints)[0]
 
-# %% ../notebooks/04_output.ipynb 54
+# %% ../notebooks/04_output.ipynb 58
 def predict_photoswitch(smiles: Iterable[str], pi_pi_star_model_file='../models/pi_pi_star_model.joblib', n_pi_star_model_file='../models/n_pi_star_model.joblib'): 
     """Predicting for a single SMILES string. Not really efficient due to the I/O overhead in loading the model."""
     if not isinstance(smiles, Iterable):
@@ -521,7 +521,7 @@ def predict_photoswitch(smiles: Iterable[str], pi_pi_star_model_file='../models/
     fragprints = compute_fragprints(smiles)
     return pi_pi_star_model.predict(fragprints), n_pi_star_model.predict(fragprints)
 
-# %% ../notebooks/04_output.ipynb 56
+# %% ../notebooks/04_output.ipynb 60
 _PI_PI_STAR_REGEX = r'pi-pi\* transition wavelength of ([.\d]+) nm'
 _N_PI_STAR_REGEX = r'n-pi\* transition wavelength of ([.\d]+) nm'
 
@@ -532,7 +532,7 @@ def get_expected_wavelengths(prompt):
     n_pi_star = float(n_pi_star_match.group(1)) if n_pi_star_match else None
     return pi_pi_star, n_pi_star
 
-# %% ../notebooks/04_output.ipynb 60
+# %% ../notebooks/04_output.ipynb 64
 def test_inverse_photoswitch(
     prompt_frame, model, train_smiles, temperature, max_tokens: int = 80
 ):

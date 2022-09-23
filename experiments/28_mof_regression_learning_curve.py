@@ -15,6 +15,7 @@ from gpt3forchem.input import create_single_property_forward_prompts
 from gpt3forchem.helpers import make_if_not_exists
 from gpt3forchem.output import get_regression_metrics
 import click
+import numpy as np
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
@@ -91,6 +92,10 @@ def learning_curve_point(
     test_prompts.to_json(valid_filename, orient="records", lines=True)
 
     print(f"Training {model_type} model on {train_size} training examples")
+    true = [
+            float(test_prompts.iloc[i]["completion"].split("@")[0])
+            for i in range(len(test_prompts))
+        ]
     if not only_baseline:
         modelname = fine_tune(train_filename, valid_filename, model_type)
 
@@ -101,12 +106,14 @@ def learning_curve_point(
             extract_regression_prediction(completions, i)
             for i, completion in enumerate(completions["choices"])
         ]
-        true = [
-            float(test_prompts.iloc[i]["completion"].split("@")[0])
-            for i in range(len(predictions))
-        ]
+
         assert len(predictions) == len(true)
         metrics = get_regression_metrics(true, predictions)
+    else:
+        metrics = None
+        predictions = None
+        completions = None
+        modelname = None
 
     baseline = XGBRegressionBaseline(None)
     baseline.tune(df_train[MOFFEATURES], df_train[target])
@@ -121,12 +128,12 @@ def learning_curve_point(
         "prefix": prefix,
         "train_size": train_size,
         "test_size": test_size,
-        "metrics": metrics if metrics else None,
-        "completions": completions if completions else None,
+        "metrics": metrics,
+        "completions": completions,
         "train_filename": train_filename,
         "valid_filename": valid_filename,
         "MAX_TEST_SIZE": MAX_TEST_SIZE,
-        "modelname": modelname if modelname else None,
+        "modelname": modelname,
         "baseline_metrics": baseline_metrics,
         "representation": representation,
         "target": target,
@@ -162,18 +169,16 @@ def run_lc(target, representation, only_baseline):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
                 for train_set_size in TRAIN_SET_SIZE:
-                    try:
-                        learning_curve_point(
-                            model_type,
-                            train_set_size,
-                            prefix,
-                            target,
-                            representation,
-                            only_baseline,
-                        )
-                    except Exception as e:
-                        print(e)
 
+                    learning_curve_point(
+                        model_type,
+                        train_set_size,
+                        prefix,
+                        target,
+                        representation,
+                        only_baseline,
+                    )
+      
 
 if __name__ == "__main__":
     run_lc()
