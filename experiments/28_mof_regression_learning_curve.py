@@ -168,7 +168,7 @@ def run_lc(target, representation, only_baseline):
     for _ in range(REPEATS):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
-                for train_set_size in TRAIN_SET_SIZE:
+                for train_set_size in TRAIN_SET_SIZE[::-1]:
 
                     learning_curve_point(
                         model_type,

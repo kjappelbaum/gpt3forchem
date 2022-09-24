@@ -116,7 +116,7 @@ def learning_curve_point(
     baseline.tune(df_train[MOFFEATURES], df_train[target])
     baseline.fit(df_train[MOFFEATURES], df_train[target])
     baseline_predictions = baseline.predict(df_test[MOFFEATURES])
-    baseline_cm = ConfusionMatrix(df_test[target], baseline_predictions)
+    baseline_cm = ConfusionMatrix(true, baseline_predictions)
     baseline_acc = baseline_cm.ACC_Macro
 
     results = {
@@ -167,7 +167,7 @@ def run_lc(target, representation, only_baseline):
     for _ in range(REPEATS):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
-                for train_set_size in TRAIN_SET_SIZE:
+                for train_set_size in TRAIN_SET_SIZE[::-1]:
                     try:
                         learning_curve_point(
                             model_type,
