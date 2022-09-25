@@ -10,6 +10,8 @@ GPT3 for molecular and materials design and discovery
 
     pip install gpt3forchem
 
+You'll also need to install `gpflow` from the `develop` branch: `pip install git+https://github.com/GPflow/GPflow.git@develop`
+
 ## How to use
 
 - the `legacy` directory contains code from initial exploration. The

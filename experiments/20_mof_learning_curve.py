@@ -53,7 +53,7 @@ rename_dicts = {
 
 
 def learning_curve_point(
-    model_type, train_set_size, prefix, target, representation, only_baseline
+    model_type, train_set_size, prefix, target, representation, only_baseline, skip_hyperopt
 ):
     df = DF.copy()
     discretize(df, target)
@@ -113,7 +113,8 @@ def learning_curve_point(
         acc = None
 
     baseline = XGBClassificationBaseline(None)
-    baseline.tune(df_train[MOFFEATURES], df_train[target])
+    if not skip_hyperopt:
+        baseline.tune(df_train[MOFFEATURES], df_train[target])
     baseline.fit(df_train[MOFFEATURES], df_train[target])
     baseline_predictions = baseline.predict(df_test[MOFFEATURES])
     baseline_cm = ConfusionMatrix(true, baseline_predictions)
@@ -138,7 +139,8 @@ def learning_curve_point(
         "target": target,
     }
 
-    outname = f"{OUTDIR}/{filename_base}_results_mof_{train_size}_{prefix}_{model_type}_{representation}_{target}.pkl"
+    skip_hyperopt_name_ext = "_skip_hyperopt" if skip_hyperopt else ""
+    outname = f"{OUTDIR}/{filename_base}_results_mof_{train_size}_{prefix}_{model_type}_{representation}_{target}_{skip_hyperopt_name_ext}.pkl"
 
     save_pickle(outname, results)
 
@@ -163,7 +165,8 @@ def learning_curve_point(
     "representation", type=click.Choice(["info.mofid.mofid_clean", "chemical_name"])
 )
 @click.option("--only_baseline", is_flag=True)
-def run_lc(target, representation, only_baseline):
+@click.option("--skip-hyperopt", is_flag=True)
+def run_lc(target, representation, only_baseline, skip_hyperopt):
     for _ in range(REPEATS):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
@@ -176,6 +179,7 @@ def run_lc(target, representation, only_baseline):
                             target,
                             representation,
                             only_baseline,
+                            skip_hyperopt
                         )
                     except Exception as e:
                         print(e)
