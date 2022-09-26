@@ -58,7 +58,7 @@ rename_dicts = {
 
 
 def learning_curve_point(
-    model_type, train_set_size, prefix, target, representation, only_baseline
+    model_type, train_set_size, prefix, target, representation, only_baseline, skip_baseline
 ):
     df = DF.copy()
     df = df.dropna(subset=[target, representation])
@@ -92,10 +92,10 @@ def learning_curve_point(
     test_prompts.to_json(valid_filename, orient="records", lines=True)
 
     print(f"Training {model_type} model on {train_size} training examples")
-    true = [
+    true = np.array([
             float(test_prompts.iloc[i]["completion"].split("@")[0])
             for i in range(len(test_prompts))
-        ]
+        ])
     if not only_baseline:
         modelname = fine_tune(train_filename, valid_filename, model_type)
 
@@ -107,21 +107,26 @@ def learning_curve_point(
             for i, completion in enumerate(completions["choices"])
         ]
 
-        assert len(predictions) == len(true)
-        metrics = get_regression_metrics(true, predictions)
+        assert len(predictions) == len(true[:MAX_TEST_SIZE])
+        metrics = get_regression_metrics(true[:MAX_TEST_SIZE], predictions)
     else:
         metrics = None
         predictions = None
         completions = None
         modelname = None
 
-    baseline = XGBRegressionBaseline(None)
-    baseline.tune(df_train[MOFFEATURES], df_train[target])
-    baseline.fit(df_train[MOFFEATURES], df_train[target])
-    baseline_predictions = baseline.predict(df_test[MOFFEATURES])
+    try:
+        if not skip_baseline:
+            baseline = XGBRegressionBaseline(None)
+            baseline.tune(df_train[MOFFEATURES], df_train[target])
+            baseline.fit(df_train[MOFFEATURES], df_train[target])
+            baseline_predictions = baseline.predict(df_test[MOFFEATURES])
 
-    baseline_metrics = get_regression_metrics(true, baseline_predictions)
-
+            baseline_metrics = get_regression_metrics(true, baseline_predictions)
+        else:
+            baseline_metrics = None
+    except Exception as e:
+        baseline_metrics = None
     results = {
         "model_type": model_type,
         "train_set_size": train_set_size,
@@ -164,11 +169,12 @@ def learning_curve_point(
     "representation", type=click.Choice(["info.mofid.mofid_clean", "chemical_name"])
 )
 @click.option("--only_baseline", is_flag=True)
-def run_lc(target, representation, only_baseline):
+@click.option('--skip_baseline', is_flag=True)
+def run_lc(target, representation, only_baseline, skip_baseline):
     for _ in range(REPEATS):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
-                for train_set_size in TRAIN_SET_SIZE:
+                for train_set_size in TRAIN_SET_SIZE[::-1]:
 
                     learning_curve_point(
                         model_type,
@@ -177,6 +183,7 @@ def run_lc(target, representation, only_baseline):
                         target,
                         representation,
                         only_baseline,
+                        skip_baseline
                     )
       
 

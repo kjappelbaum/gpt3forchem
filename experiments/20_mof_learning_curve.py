@@ -10,6 +10,7 @@ from gpt3forchem.data import get_mof_data, discretize
 from gpt3forchem.input import create_single_property_forward_prompts
 from gpt3forchem.helpers import make_if_not_exists
 import click
+import numpy as np 
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
@@ -87,10 +88,10 @@ def learning_curve_point(
 
     train_prompts.to_json(train_filename, orient="records", lines=True)
     test_prompts.to_json(valid_filename, orient="records", lines=True)
-    true = [
+    true = np.array([
             int(test_prompts.iloc[i]["completion"].split("@")[0])
             for i in range(len(test_prompts))
-        ]
+        ])
     if not only_baseline:
         print(f"Training {model_type} model on {train_size} training examples")
         modelname = fine_tune(train_filename, valid_filename, model_type)
@@ -102,9 +103,10 @@ def learning_curve_point(
             for i, completion in enumerate(completions["choices"])
         ]
 
-        assert len(predictions) == len(true)
-        cm = ConfusionMatrix(true, predictions)
+        assert len(predictions) == len(true[:MAX_TEST_SIZE])
+        cm = ConfusionMatrix(true[:MAX_TEST_SIZE], predictions)
         acc = cm.ACC_Macro
+        print(f"Done. Accuracy: {cm.ACC_Macro}, F1 Macro: {cm.F1_Macro}, F1 Micro: {cm.F1_Micro}")
     else:
         cm = None
         completions = None
@@ -171,18 +173,17 @@ def run_lc(target, representation, only_baseline, skip_hyperopt):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
                 for train_set_size in TRAIN_SET_SIZE[::-1]:
-                    try:
-                        learning_curve_point(
-                            model_type,
-                            train_set_size,
-                            prefix,
-                            target,
-                            representation,
-                            only_baseline,
-                            skip_hyperopt
-                        )
-                    except Exception as e:
-                        print(e)
+                    learning_curve_point(
+                        model_type,
+                        train_set_size,
+                        prefix,
+                        target,
+                        representation,
+                        only_baseline,
+                        skip_hyperopt
+                    )
+        
+
 
 
 if __name__ == "__main__":
