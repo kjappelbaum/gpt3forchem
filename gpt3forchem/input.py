@@ -8,13 +8,16 @@ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLET
            'encode_categorical_value', 'decode_categorical_value', 'create_single_property_forward_prompts',
            'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
            'create_single_property_inverse_polymer_prompts', 'generate_inverse_photoswitch_prompts',
-           'generate_property_desc', 'create_prompts_w_gas_context']
+           'generate_property_desc', 'create_prompts_w_gas_context', 'create_mof_yield_prompt',
+           'get_mof_yield_prompt_completions']
 
-# %% ../notebooks/03_input.ipynb 3
+# %% ../notebooks/03_input.ipynb 1
 import random
 from typing import List
 
 from rdkit import Chem
+import numpy as np
+import pandas as pd
 
 # %% ../notebooks/03_input.ipynb 4
 def randomize_smiles(
@@ -353,3 +356,68 @@ def create_prompts_w_gas_context(
     df = df.sample(frac=1).reset_index(drop=True)  # shuffle
 
     return pd.DataFrame(prompts)
+
+# %% ../notebooks/03_input.ipynb 58
+def create_mof_yield_prompt(row): 
+    linkers = row[['linker_1', 'linker_2']]
+    linkers = [l for l in linkers if not pd.isna(l)]
+
+    metals = row['core_All_Metals'].split(',')
+
+    solvents = row[['solvent1', 'solvent2', 'solvent3', 'solvent4', 'solvent5']]
+    solvents = [s for s in solvents if not pd.isna(s)]
+    sol_molratio = row[['sol_molratio1', 'sol_molratio2', 'sol_molratio3', 'sol_molratio4', 'sol_molratio5']]
+    sol_molratio = [s for s in sol_molratio if not pd.isna(s)]
+    additives = row[['additive1', 'additive2', 'additive3', 'additive4', 'additive5']]
+    additives = [a for a in additives if not pd.isna(a)]
+
+    temperature = row['temperature_Celsius']
+    time = row['time_h']
+
+    start = 'What is the yield of the reaction of the metal' 
+    if len(metals) > 1:
+        start += 's '
+    else: 
+        start += ' '
+
+    start += ', '.join(metals) + ' with the linker' 
+    if len(linkers) > 1:
+        start += 's '
+    else:
+        start += ' '
+    
+    start += ', '.join(linkers) 
+    
+    # for the solvents, combine their names and molratios
+    solvents = [f"{np.round(r,2)} {s}" for s, r in zip(solvents, sol_molratio)]
+
+    start += ' in the solvents ' + ', '.join(solvents) + f' at {temperature} Celsius for {time} hours'
+
+    # add the additives
+    if len(additives) > 0:
+        start += ' with the additive' 
+        if len(additives) > 1:
+            start += 's '
+        else:
+            start += ' '
+        start += ', '.join(additives) + '?'
+    else:
+        start += '?'
+        
+    return start
+    
+
+# %% ../notebooks/03_input.ipynb 62
+def get_mof_yield_prompt_completions(dataframe, yield_column: str = "yield"): 
+    rows = []
+
+    for i, row in dataframe.iterrows(): 
+        prompt = create_mof_yield_prompt(row)
+        completion = f"{int(row[yield_column])}@@@"
+        rows.append({
+            'prompt': prompt,
+            'completion': completion,
+            'repr': row['basename']
+        })
+    
+    return pd.DataFrame(rows)
