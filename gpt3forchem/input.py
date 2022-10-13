@@ -9,15 +9,15 @@ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLET
            'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
            'create_single_property_inverse_polymer_prompts', 'generate_inverse_photoswitch_prompts',
            'generate_property_desc', 'create_prompts_w_gas_context', 'create_mof_yield_prompt',
-           'get_mof_yield_prompt_completions']
+           'get_mof_yield_prompt_completions', 'create_reaction_yield_prompts']
 
 # %% ../notebooks/03_input.ipynb 1
 import random
 from typing import List
 
-from rdkit import Chem
 import numpy as np
 import pandas as pd
+from rdkit import Chem
 
 # %% ../notebooks/03_input.ipynb 4
 def randomize_smiles(
@@ -421,3 +421,27 @@ def get_mof_yield_prompt_completions(dataframe, yield_column: str = "yield"):
         })
     
     return pd.DataFrame(rows)
+
+# %% ../notebooks/03_input.ipynb 65
+_WITHOUT_REACTION_SMILES_TEMPLATE = """What is the yield of the reaction with the following description: {description}###"""
+_WITH_REACTION_SMILES_TEMPLATE = """What is the yield of the reaction   {reaction_smiles} with the following description: {description}###"""
+
+def create_reaction_yield_prompts(data, include_reaction_smiles: bool = False): 
+    prompts = []
+
+    for i, row in data.iterrows(): 
+        method = row['paragraph_without_yield_and_charac']
+        yield_ = int(row['yield'])
+        reaction_smiles = row['reaction_smiles']
+        if include_reaction_smiles: 
+            prompt = _WITH_REACTION_SMILES_TEMPLATE.format(reaction_smiles=reaction_smiles, description=method)
+        else:
+            prompt = _WITHOUT_REACTION_SMILES_TEMPLATE.format(description=method)
+        prompts.append({
+            'prompt': prompt,
+            'completion': f"{yield_}@@@",
+            'repr': row['reaction_smiles']
+        })
+    
+    return pd.DataFrame(prompts)
+        
