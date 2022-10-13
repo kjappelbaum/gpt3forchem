@@ -424,9 +424,9 @@ def get_mof_yield_prompt_completions(dataframe, yield_column: str = "yield"):
 
 # %% ../notebooks/03_input.ipynb 65
 _WITHOUT_REACTION_SMILES_TEMPLATE = """What is the yield of the reaction with the following description: {description}###"""
-_WITH_REACTION_SMILES_TEMPLATE = """What is the yield of the reaction   {reaction_smiles} with the following description: {description}###"""
-
-def create_reaction_yield_prompts(data, include_reaction_smiles: bool = False): 
+_WITH_REACTION_SMILES_TEMPLATE = """What is the yield of the reaction {reaction_smiles} with the following description: {description}###"""
+_ONLY_REACTION_SMILES_TEMPLATE = """What is the yield of the reaction {reaction_smiles}###"""
+def create_reaction_yield_prompts(data, include_reaction_smiles: bool = False, only_reaction_smiles: bool = False): 
     prompts = []
 
     for i, row in data.iterrows(): 
@@ -435,6 +435,8 @@ def create_reaction_yield_prompts(data, include_reaction_smiles: bool = False):
         reaction_smiles = row['reaction_smiles']
         if include_reaction_smiles: 
             prompt = _WITH_REACTION_SMILES_TEMPLATE.format(reaction_smiles=reaction_smiles, description=method)
+        elif only_reaction_smiles:
+            prompt = _ONLY_REACTION_SMILES_TEMPLATE.format(reaction_smiles=reaction_smiles)
         else:
             prompt = _WITHOUT_REACTION_SMILES_TEMPLATE.format(description=method)
         prompts.append({
