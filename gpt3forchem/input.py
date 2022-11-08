@@ -430,20 +430,23 @@ def create_reaction_yield_prompts(data, include_reaction_smiles: bool = False, o
     prompts = []
 
     for i, row in data.iterrows(): 
-        method = row['paragraph_without_yield_and_charac']
-        yield_ = int(row['yield'])
-        reaction_smiles = row['reaction_smiles']
-        if include_reaction_smiles: 
-            prompt = _WITH_REACTION_SMILES_TEMPLATE.format(reaction_smiles=reaction_smiles, description=method)
-        elif only_reaction_smiles:
-            prompt = _ONLY_REACTION_SMILES_TEMPLATE.format(reaction_smiles=reaction_smiles)
-        else:
-            prompt = _WITHOUT_REACTION_SMILES_TEMPLATE.format(description=method)
-        prompts.append({
-            'prompt': prompt,
-            'completion': f"{yield_}@@@",
-            'repr': row['reaction_smiles']
-        })
+        try:
+            method = row['paragraph_without_yield_and_charac']
+            yield_ = int(row['yield'])
+            reaction_smiles = row['reaction_smiles']
+            if include_reaction_smiles: 
+                prompt = _WITH_REACTION_SMILES_TEMPLATE.format(reaction_smiles=reaction_smiles, description=method)
+            elif only_reaction_smiles:
+                prompt = _ONLY_REACTION_SMILES_TEMPLATE.format(reaction_smiles=reaction_smiles)
+            else:
+                prompt = _WITHOUT_REACTION_SMILES_TEMPLATE.format(description=method)
+            prompts.append({
+                'prompt': prompt,
+                'completion': f"{yield_}@@@",
+                'repr': row['reaction_smiles']
+            })
+        except Exception: 
+            pass
     
     return pd.DataFrame(prompts)
         
