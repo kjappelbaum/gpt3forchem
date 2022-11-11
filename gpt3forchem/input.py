@@ -9,7 +9,7 @@ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLET
            'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
            'create_single_property_inverse_polymer_prompts', 'generate_inverse_photoswitch_prompts',
            'generate_property_desc', 'create_prompts_w_gas_context', 'create_mof_yield_prompt',
-           'get_mof_yield_prompt_completions', 'create_reaction_yield_prompts']
+           'get_mof_yield_prompt_completions', 'create_reaction_yield_prompts', 'create_prompts_solubility']
 
 # %% ../notebooks/03_input.ipynb 1
 import random
@@ -450,3 +450,41 @@ def create_reaction_yield_prompts(data, include_reaction_smiles: bool = False, o
     
     return pd.DataFrame(prompts)
         
+
+# %% ../notebooks/03_input.ipynb 72
+_SOLUBILITY_PROMPT_TEMPLATE = "What is the solubility of {repr}###"
+_SOLUBILITY_FEATURES =['MolWt', 'MolLogP', 'MolMR', 'HeavyAtomCount',
+       'NumHAcceptors', 'NumHDonors', 'NumHeteroatoms', 'NumRotatableBonds',
+       'NumValenceElectrons', 'NumAromaticRings', 'NumSaturatedRings',
+       'NumAliphaticRings', 'RingCount', 'TPSA', 'LabuteASA', 'BalabanJ',
+       'BertzCT']
+
+def create_prompts_solubility(
+    df, regression=False, representation="SMILES"
+):
+    prompts = []
+
+    for _, row in df.iterrows():
+        if representation=='features':
+            identifier = " ".join([str(np.round(row[feature], 2)) for feature in _SOLUBILITY_FEATURES])
+        else:
+            identifier = row[representation]
+
+        solubility = np.round(solubility,2) if regression else row['Solubility_cat']
+        
+        prompts.append(
+            {
+                "prompt": _SOLUBILITY_PROMPT_TEMPLATE.format(
+                    repr=identifier,
+                ),
+                "completion": f"{solubility}@@@",
+                "repr": identifier,
+                'smiles': row['SMILES']
+            }
+        )
+
+    df = pd.DataFrame(prompts)
+    df.dropna(subset=["prompt"], inplace=True)
+    df = df.sample(frac=1).reset_index(drop=True)  # shuffle
+
+    return pd.DataFrame(prompts)

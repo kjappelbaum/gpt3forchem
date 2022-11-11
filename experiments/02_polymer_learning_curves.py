@@ -10,6 +10,7 @@ from gpt3forchem.baselines import XGBClassificationBaseline
 from gpt3forchem.data import POLYMER_FEATURES, get_polymer_data
 from gpt3forchem.input import create_single_property_forward_prompts
 from gpt3forchem.helpers import make_if_not_exists
+from tabpfn.scripts.transformer_prediction_interface import TabPFNClassifier
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
@@ -43,8 +44,7 @@ def learning_curve_point(model_type, train_set_size, prefix, only_baseline):
     )
 
     train_size = len(train_prompts)
-    test_size = len(test_prompts)
-
+    test_size = len(test_prompts
     filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     train_filename = (
         f"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl"

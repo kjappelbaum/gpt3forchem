@@ -2,7 +2,8 @@
 
 # %% auto 0
 __all__ = ['POLYMER_FEATURES', 'gas_features', 'discretize', 'get_polymer_data', 'get_photoswitch_data', 'get_mof_data',
-           'preprocess_mof_data', 'get_core_mof_data', 'get_opv_data', 'get_mof_yield_data', 'get_uspto_yield_data']
+           'preprocess_mof_data', 'get_core_mof_data', 'get_opv_data', 'get_mof_yield_data', 'get_uspto_yield_data',
+           'get_solubility_data']
 
 # %% ../notebooks/00_data.ipynb 2
 import os
@@ -224,5 +225,12 @@ def get_mof_yield_data(datadir="../data"):  # path to folder with data files
 def get_uspto_yield_data(datadir="../data"):  # path to folder with data files
     """Load the USPTO dataset."""
     df = pd.read_csv(os.path.join(datadir, "USTPO_yields.csv"))
+    return HashableDataFrame(df)
+
+
+# %% ../notebooks/00_data.ipynb 62
+def get_solubility_data(datadir="../data"):  # path to folder with data files
+    """Load the solubilit dataset."""
+    df = pd.read_csv(os.path.join(datadir, "solubility.csv"))
     return HashableDataFrame(df)
 

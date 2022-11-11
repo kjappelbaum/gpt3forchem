@@ -145,6 +145,8 @@ legacy
 
 dev/
 
-data/USTPO_yields.csv # > 2GB 
+*/USTPO_yields.csv # > 2GB 
 dataset_eda_and_prep/all_reaction_data.pkl
 dataset_eda_and_prep/all_reactions.pkl
+*.pkl
+dataset_eda_and_prep/
