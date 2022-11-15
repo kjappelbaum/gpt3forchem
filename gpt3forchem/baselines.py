@@ -27,7 +27,7 @@ from sklearn.model_selection import KFold
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from wandb.xgboost import WandbCallback
 from xgboost import XGBClassifier, XGBRegressor
-
+from tabpfn.scripts.transformer_prediction_interface import TabPFNClassifier
 from .data import get_photoswitch_data
 
 # %% ../notebooks/05_baselines.ipynb 3
@@ -420,13 +420,14 @@ class Tanimoto(gpflow.kernels.Kernel):
 
 
 # %% ../notebooks/05_baselines.ipynb 23
-def compute_morgan_fingerprints(smiles_list: Iterable[str] # list of SMILEs
+def compute_morgan_fingerprints(smiles_list: Iterable[str], # list of SMILEs
+n_bits: int = 2048 # number of bits in the fingerprint
 ) -> np.ndarray:
     rdkit_mols = [MolFromSmiles(smiles) for smiles in smiles_list]
     rdkit_smiles = [MolToSmiles(mol, isomericSmiles=False) for mol in rdkit_mols]
     rdkit_mols = [MolFromSmiles(smiles) for smiles in rdkit_smiles]
     X = [
-        AllChem.GetMorganFingerprintAsBitVect(mol, 3, nBits=2048)
+        AllChem.GetMorganFingerprintAsBitVect(mol, 3, nBits=n_bits)
         for mol in rdkit_mols
     ]
     X = np.asarray(X)
@@ -501,7 +502,7 @@ class GPRBaseline(BaseLineModel):
 
 
 # %% ../notebooks/05_baselines.ipynb 37
-def train_test_gpr_baseline(train_file, test_file, delete_from_prompt: str = 'what is the transition wavelength of', representation_column: str = 'SMILES'): 
+def train_test_gpr_baseline(train_file, test_file, delete_from_prompt: str = 'what is the transition wavelength of', representation_column: str = 'SMILES', tabpfn: bool =False): 
     df = get_photoswitch_data()
     train_frame = pd.read_json(train_file, orient="records", lines=True)
     test_frame = pd.read_json(test_file, orient="records", lines=True)
@@ -509,8 +510,11 @@ def train_test_gpr_baseline(train_file, test_file, delete_from_prompt: str = 'wh
 
     repr_train = train_frame['repr']
     repr_test = test_frame['repr']
+
+    _, bins = pd.cut(df['E isomer pi-pi* wavelength in nm'], 5, retbins=True)
     y_train = np.array([df[df[representation_column]==smile]['E isomer pi-pi* wavelength in nm'].values[0] for smile in repr_train])
     y_test = np.array([df[df[representation_column]==smile]['E isomer pi-pi* wavelength in nm'].values[0] for smile in repr_test])
+
 
     if representation_column =='SMILES': 
         smiles_train = repr_train
@@ -534,27 +538,41 @@ def train_test_gpr_baseline(train_file, test_file, delete_from_prompt: str = 'wh
 
     df_train = df_train.drop_duplicates(subset=['SMILES'])
     df_test = df_test.drop_duplicates(subset=['SMILES'])
+    
+    df_train['bin'] = pd.cut(df_train['y'].values.flatten(), bins=bins, labels=False)
+    df_test['bin'] = pd.cut(df_test['y'].values.flatten(), bins=bins, labels=False)
 
-    X_train = compute_fragprints(df_train['SMILES'].values)
-    X_test = compute_fragprints(df_test['SMILES'].values)
+    if tabpfn:
+        X_train = compute_morgan_fingerprints(df_train['SMILES'].values,n_bits=100)
+        X_test = compute_morgan_fingerprints(df_test['SMILES'].values,n_bits=100)
+    else:
+        X_train = compute_fragprints(df_train['SMILES'].values)
+        X_test = compute_fragprints(df_test['SMILES'].values)
 
-    baseline = GPRBaseline()
-    baseline.fit(X_train, df_train['y'].values)
+    if not tabpfn:
+        baseline = GPRBaseline()
+        baseline.fit(X_train, df_train['y'].values)
 
-    predictions = baseline.predict(X_test)
+        predictions = baseline.predict(X_test)
 
-    _, bins = pd.cut(df['E isomer pi-pi* wavelength in nm'], 5, retbins=True)
 
-    # we clip as out-of-bound predictions result in NaNs
-    pred = np.clip(predictions.flatten(), a_min=bins[0], a_max=bins[-1])
-    predicted_bins = pd.cut(pred, bins, labels=np.arange(5), include_lowest=True)
+
+        # we clip as out-of-bound predictions result in NaNs
+        pred = np.clip(predictions.flatten(), a_min=bins[0], a_max=bins[-1])
+        predicted_bins = pd.cut(pred, bins, labels=np.arange(5), include_lowest=True)
+        
+
+    else:
+        classifier = TabPFNClassifier(device='cpu', N_ensemble_configurations=32)
+        classifier.fit(X_train, df_train['bin'].values)
+        predicted_bins, _ = classifier.predict(X_test, return_winning_probability=True)
+
     true_bins = pd.cut(df_test['y'].values.flatten(), bins, labels=np.arange(5))
-
     cm = ConfusionMatrix(true_bins.astype(int), predicted_bins.astype(int))
 
     return {
         'true_bins': true_bins,
         'predicted_bins': predicted_bins,
         'cm': cm,
-        'predictions': predictions
+        'predictions': predictions if not tabpfn else None,
     }
