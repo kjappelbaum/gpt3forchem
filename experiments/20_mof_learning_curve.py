@@ -11,6 +11,8 @@ from gpt3forchem.input import create_single_property_forward_prompts
 from gpt3forchem.helpers import make_if_not_exists
 import click
 import numpy as np 
+from sklearn.decomposition import PCA 
+from tabpfn.scripts.transformer_prediction_interface import TabPFNClassifier
 
 TRAIN_SET_SIZE = [10, 50, 100, 200, 500, 1000, 2000, 3000]
 REPEATS = 10
@@ -54,7 +56,7 @@ rename_dicts = {
 
 
 def learning_curve_point(
-    model_type, train_set_size, prefix, target, representation, only_baseline, skip_hyperopt
+    model_type, train_set_size, prefix, target, representation, only_baseline, skip_hyperopt, tabpfn_baseline
 ):
     df = DF.copy()
     discretize(df, target)
@@ -113,14 +115,23 @@ def learning_curve_point(
         modelname = None
         predictions = None
         acc = None
-
-    baseline = XGBClassificationBaseline(None)
-    if not skip_hyperopt:
-        baseline.tune(df_train[MOFFEATURES], df_train[target])
-    baseline.fit(df_train[MOFFEATURES], df_train[target])
-    baseline_predictions = baseline.predict(df_test[MOFFEATURES])
-    baseline_cm = ConfusionMatrix(df_test[target].to_list(), baseline_predictions)
-    baseline_acc = baseline_cm.ACC_Macro
+    if not tabpfn_baseline:
+        baseline = XGBClassificationBaseline(None)
+        if not skip_hyperopt:
+            baseline.tune(df_train[MOFFEATURES], df_train[target])
+        baseline.fit(df_train[MOFFEATURES], df_train[target])
+        baseline_predictions = baseline.predict(df_test[MOFFEATURES])
+        baseline_cm = ConfusionMatrix(df_test[target].to_list(), baseline_predictions)
+        baseline_acc = baseline_cm.ACC_Macro
+    else: 
+        baseline = TabPFNClassifier(device='cpu', N_ensemble_configurations=32)
+        pca = PCA(n_components=100)
+        X_train = pca.fit_transform(df_train[MOFFEATURES])
+        X_test = pca.transform(df_test[MOFFEATURES])
+        baseline.fit(X_train, df_train[target])
+        baseline_predictions = baseline.predict(X_test)
+        baseline_cm = ConfusionMatrix(df_test[target].to_list(), baseline_predictions)
+        baseline_acc = baseline_cm.ACC_Macro
 
     results = {
         "model_type": model_type,
@@ -139,6 +150,7 @@ def learning_curve_point(
         "baseline_accuracy": baseline_acc,
         "representation": representation,
         "target": target,
+        "tabpfn_baseline": tabpfn_baseline,
     }
 
     skip_hyperopt_name_ext = "_skip_hyperopt" if skip_hyperopt else ""
@@ -168,7 +180,8 @@ def learning_curve_point(
 )
 @click.option("--only_baseline", is_flag=True)
 @click.option("--skip-hyperopt", is_flag=True)
-def run_lc(target, representation, only_baseline, skip_hyperopt):
+@click.option("--tabpfn", is_flag=True)
+def run_lc(target, representation, only_baseline, skip_hyperopt, tabpfn):
     for _ in range(REPEATS):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
@@ -180,7 +193,8 @@ def run_lc(target, representation, only_baseline, skip_hyperopt):
                         target,
                         representation,
                         only_baseline,
-                        skip_hyperopt
+                        skip_hyperopt,
+                        tabpfn
                     )
         
 
