@@ -43,7 +43,7 @@ def learning_curve_point(model_type, train_set_size, prefix, only_baseline):
     )
 
     train_size = len(train_prompts)
-    test_size = len(test_prompts
+    test_size = len(test_prompts)
     filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     train_filename = (
         f"run_files/{filename_base}_train_prompts_polymers_{train_size}.jsonl"

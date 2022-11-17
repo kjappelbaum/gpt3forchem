@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of 1,4-Dithiane-2,5-diol###","completion":"large@@@","repr":"1,4-Dithiane-2,5-diol","smiles":"OC1CSC(O)CS1"}
+{"prompt":"What is the solubility of 1-methyl-2-propan-2-ylbenzene###","completion":"small@@@","repr":"1-methyl-2-propan-2-ylbenzene","smiles":"CC(C)c1ccccc1C"}
+{"prompt":"What is the solubility of 3-(2-Methylphenoxy)pyridazine###","completion":"large@@@","repr":"3-(2-Methylphenoxy)pyridazine","smiles":"Cc1ccccc1Oc2cccnn2"}
+{"prompt":"What is the solubility of lithium (Z)-octadec-9-enoate###","completion":"very small@@@","repr":"lithium (Z)-octadec-9-enoate","smiles":"[Li+].CCCCCCCC\\C=C\/CCCCCCCC([O-])=O"}
+{"prompt":"What is the solubility of 1,2-di(propan-2-yl)benzene###","completion":"very small@@@","repr":"1,2-di(propan-2-yl)benzene","smiles":"CC(C)c1ccccc1C(C)C"}
+{"prompt":"What is the solubility of oxane-2,3,4,5-tetrol###","completion":"very large@@@","repr":"oxane-2,3,4,5-tetrol","smiles":"OC1COC(O)C(O)C1O"}
+{"prompt":"What is the solubility of 3-chloro-4-(chloromethyl)-1-[3-(trifluoromethyl)phenyl]pyrrolidin-2-one###","completion":"small@@@","repr":"3-chloro-4-(chloromethyl)-1-[3-(trifluoromethyl)phenyl]pyrrolidin-2-one","smiles":"FC(F)(F)C1=CC=CC(=C1)N2CC(CCl)C(Cl)C2=O"}
+{"prompt":"What is the solubility of Dichlorotin\ntin(+2) cation dichloride###","completion":"very large@@@","repr":"Dichlorotin\ntin(+2) cation dichloride","smiles":"[Cl-].[Cl-].[Sn++]"}
+{"prompt":"What is the solubility of (2Z)-N-carbamoyl-2-ethylidenehexanamide###","completion":"medium@@@","repr":"(2Z)-N-carbamoyl-2-ethylidenehexanamide","smiles":"CCCC\\C(=C\\C)C(=O)NC(N)=O"}
+{"prompt":"What is the solubility of sodium 4-[(2E)-2-(2-oxonaphthalen-1-ylidene)hydrazinyl]naphthalene-1-sulfonate###","completion":"medium@@@","repr":"sodium 4-[(2E)-2-(2-oxonaphthalen-1-ylidene)hydrazinyl]naphthalene-1-sulfonate","smiles":"[Na+].[O-][S](=O)(=O)c1ccc(N\\N=C2\\C(=O)C=Cc3ccccc23)c4ccccc14"}

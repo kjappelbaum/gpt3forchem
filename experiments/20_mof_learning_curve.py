@@ -125,10 +125,10 @@ def learning_curve_point(
         baseline_acc = baseline_cm.ACC_Macro
     else: 
         baseline = TabPFNClassifier(device='cpu', N_ensemble_configurations=32)
-        pca = PCA(n_components=100)
+        pca = PCA(n_components=min(100, len(df_train)))
         X_train = pca.fit_transform(df_train[MOFFEATURES])
         X_test = pca.transform(df_test[MOFFEATURES])
-        baseline.fit(X_train, df_train[target])
+        baseline.fit(X_train, df_train[target], overwrite_warning=True)
         baseline_predictions = baseline.predict(X_test)
         baseline_cm = ConfusionMatrix(df_test[target].to_list(), baseline_predictions)
         baseline_acc = baseline_cm.ACC_Macro
@@ -185,17 +185,20 @@ def run_lc(target, representation, only_baseline, skip_hyperopt, tabpfn):
     for _ in range(REPEATS):
         for prefix in PREFIXES:
             for model_type in MODEL_TYPES:
-                for train_set_size in TRAIN_SET_SIZE[::-1]:
-                    learning_curve_point(
-                        model_type,
-                        train_set_size,
-                        prefix,
-                        target,
-                        representation,
-                        only_baseline,
-                        skip_hyperopt,
-                        tabpfn
-                    )
+                for train_set_size in TRAIN_SET_SIZE:
+                    try:
+                        learning_curve_point(
+                            model_type,
+                            train_set_size,
+                            prefix,
+                            target,
+                            representation,
+                            only_baseline,
+                            skip_hyperopt,
+                            tabpfn
+                        )
+                    except Exception as e:
+                        pass
         
 
 

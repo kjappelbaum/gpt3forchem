@@ -4,20 +4,23 @@
 __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE',
            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT', 'POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT',
            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION', 'PROMPT_TEMPLATE_photoswitch_w_n_pistar',
-           'PROMPT_TEMPLATE_photoswitch_', 'COMPLETION_TEMPLATE_photoswitch_', 'randomize_smiles',
-           'encode_categorical_value', 'decode_categorical_value', 'create_single_property_forward_prompts',
-           'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
-           'create_single_property_inverse_polymer_prompts', 'generate_inverse_photoswitch_prompts',
-           'generate_property_desc', 'create_prompts_w_gas_context', 'create_mof_yield_prompt',
-           'get_mof_yield_prompt_completions', 'create_reaction_yield_prompts', 'create_prompts_solubility']
+           'PROMPT_TEMPLATE_photoswitch_', 'COMPLETION_TEMPLATE_photoswitch_', 'FRAGMENT_PROMPT_TEMPlATE',
+           'randomize_smiles', 'encode_categorical_value', 'decode_categorical_value',
+           'create_single_property_forward_prompts', 'create_single_property_forward_prompts_regression',
+           'get_polymer_composition_dict', 'create_single_property_inverse_polymer_prompts',
+           'generate_inverse_photoswitch_prompts', 'generate_fragment_prompt',
+           'generate_one_hot_encoded_fragment_prompt', 'generate_property_desc', 'create_prompts_w_gas_context',
+           'create_mof_yield_prompt', 'get_mof_yield_prompt_completions', 'create_reaction_yield_prompts',
+           'create_prompts_solubility']
 
 # %% ../notebooks/03_input.ipynb 1
 import random
-from typing import List
+from typing import List, Dict
 
 import numpy as np
 import pandas as pd
 from rdkit import Chem
+import EFGs
 
 # %% ../notebooks/03_input.ipynb 4
 def randomize_smiles(
@@ -298,7 +301,55 @@ def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
     return prompts
 
 
-# %% ../notebooks/03_input.ipynb 49
+# %% ../notebooks/03_input.ipynb 35
+FRAGMENT_PROMPT_TEMPlATE = "What is the transition wavelength of a molecule with following fragments {}?###"
+
+def generate_fragment_prompt(data: pd.DataFrame, target: str, regression: bool) -> pd.DataFrame:
+    prompts = []
+    completions = []
+
+    for i, row in data.iterrows():
+        fragments = EFGs.mol2frag(Chem.MolFromSmiles(row["SMILES"]))[0]
+
+        fragment_string = ", ".join(sorted(fragments, key=lambda x: len(x), reverse=True))
+
+        prompt = FRAGMENT_PROMPT_TEMPlATE.format(fragment_string)
+        if regression: 
+            value = np.round(row[target],2)
+        else: 
+            value = row[target]
+        completion = COMPLETION_TEMPLATE_photoswitch_.format(value)
+        prompts.append(prompt)
+        completions.append(completion)
+
+    prompts = pd.DataFrame({"prompt": prompts, "completion": completions})
+
+    return prompts
+
+# %% ../notebooks/03_input.ipynb 38
+def generate_one_hot_encoded_fragment_prompt(data: pd.DataFrame, target: str, regression: bool, one_hot_mapper: Dict[str, str]) -> pd.DataFrame:
+    prompts = []
+    completions = []
+
+    for i, row in data.iterrows():
+        fragments = EFGs.mol2frag(Chem.MolFromSmiles(row["SMILES"]))[0]
+
+        fragment_string = ", ".join(sorted([one_hot_mapper[f] for f in fragments], reverse=True))
+
+        prompt = FRAGMENT_PROMPT_TEMPlATE.format(fragment_string)
+        if regression: 
+            value = np.round(row[target],2)
+        else: 
+            value = row[target]
+        completion = COMPLETION_TEMPLATE_photoswitch_.format(value)
+        prompts.append(prompt)
+        completions.append(completion)
+
+    prompts = pd.DataFrame({"prompt": prompts, "completion": completions})
+
+    return prompts
+
+# %% ../notebooks/03_input.ipynb 53
 def generate_property_desc(properties, gas_data, gas): 
     if properties is None: 
         return ""
@@ -313,7 +364,7 @@ def generate_property_desc(properties, gas_data, gas):
 
 
 
-# %% ../notebooks/03_input.ipynb 51
+# %% ../notebooks/03_input.ipynb 55
 _GAS_CONTEXT_PROMPT_TEMPLATE = "What is the {identifier} {description} Henry cofficient of {repr}###"
 
 
@@ -357,7 +408,7 @@ def create_prompts_w_gas_context(
 
     return pd.DataFrame(prompts)
 
-# %% ../notebooks/03_input.ipynb 58
+# %% ../notebooks/03_input.ipynb 62
 def create_mof_yield_prompt(row): 
     linkers = row[['linker_1', 'linker_2']]
     linkers = [l for l in linkers if not pd.isna(l)]
@@ -407,7 +458,7 @@ def create_mof_yield_prompt(row):
     return start
     
 
-# %% ../notebooks/03_input.ipynb 62
+# %% ../notebooks/03_input.ipynb 66
 def get_mof_yield_prompt_completions(dataframe, yield_column: str = "yield"): 
     rows = []
 
@@ -422,7 +473,7 @@ def get_mof_yield_prompt_completions(dataframe, yield_column: str = "yield"):
     
     return pd.DataFrame(rows)
 
-# %% ../notebooks/03_input.ipynb 65
+# %% ../notebooks/03_input.ipynb 69
 _WITHOUT_REACTION_SMILES_TEMPLATE = """What is the yield of the reaction with the following description: {description}###"""
 _WITH_REACTION_SMILES_TEMPLATE = """What is the yield of the reaction {reaction_smiles} with the following description: {description}###"""
 _ONLY_REACTION_SMILES_TEMPLATE = """What is the yield of the reaction {reaction_smiles}###"""
@@ -451,7 +502,7 @@ def create_reaction_yield_prompts(data, include_reaction_smiles: bool = False, o
     return pd.DataFrame(prompts)
         
 
-# %% ../notebooks/03_input.ipynb 72
+# %% ../notebooks/03_input.ipynb 76
 _SOLUBILITY_PROMPT_TEMPLATE = "What is the solubility of {repr}###"
 _SOLUBILITY_FEATURES =['MolWt', 'MolLogP', 'MolMR', 'HeavyAtomCount',
        'NumHAcceptors', 'NumHDonors', 'NumHeteroatoms', 'NumRotatableBonds',

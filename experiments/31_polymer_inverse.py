@@ -7,18 +7,24 @@ from gpt3forchem.helpers import get_bin_ranges, make_if_not_exists
 from gpt3forchem.output import get_inverse_polymer_metrics
 from gpt3forchem.input import create_single_property_inverse_polymer_prompts
 import time
+import click
 
 DF = get_polymer_data()
 bins = get_bin_ranges(DF, "deltaGmin", 5)
-OUTDIR = "results/20220919_polymer_inverse"
+OUTDIR = "results/20221117_polymer_inverse"
 make_if_not_exists(OUTDIR)
-TEMPERATURES = [0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
+TEMPERATURES = [0]#, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
 
 
-def get_inverse_point():
-    train_df, test_df = train_test_split(
-        DF, train_size=0.9, random_state=None, stratify=DF["deltaGmin_cat"]
-    )
+def get_inverse_point(exclude_category=None):
+
+    if exclude_category is None:
+        train_df, test_df = train_test_split(
+            DF, train_size=0.9, random_state=None, stratify=DF["deltaGmin_cat"], 
+        )
+    else: 
+        train_df = DF[~DF["deltaGmin_cat"].isin([exclude_category])]
+        test_df = DF[DF["deltaGmin_cat"].isin([exclude_category])]
     train_prompts = create_single_property_inverse_polymer_prompts(
         train_df,
         "deltaGmin_cat",
@@ -82,10 +88,17 @@ def get_inverse_point():
         "completions": t_dependend_completions,
         "metrics": t_dependend_metrics,
         "optimal_metrics": optimal_metrics,
+        "num_train_points": train_size,
+        "num_test_points": test_size,
     }
 
     save_pickle(f"{OUTDIR}/{filename_base}_results.pkl", results)
 
 
+@click.command()
+@click.option("--exclude_category", default=None, type=str)
+def main(exclude_category):
+    get_inverse_point(exclude_category)
+
 if __name__ == "__main__":
-    get_inverse_point()
+    main()

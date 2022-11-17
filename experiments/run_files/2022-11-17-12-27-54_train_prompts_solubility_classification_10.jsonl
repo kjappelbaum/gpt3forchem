@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of [Al+3].CCCC[O-].CCCC[O-].CCCC[O-]###","completion":"large@@@","repr":"[Al+3].CCCC[O-].CCCC[O-].CCCC[O-]","smiles":"[Al+3].CCCC[O-].CCCC[O-].CCCC[O-]"}
+{"prompt":"What is the solubility of CCCCOC(=O)c1ccccc1N###","completion":"small@@@","repr":"CCCCOC(=O)c1ccccc1N","smiles":"CCCCOC(=O)c1ccccc1N"}
+{"prompt":"What is the solubility of OCC1OC(OC2=CC=CC=C2)C(O)C(O)C1O###","completion":"large@@@","repr":"OCC1OC(OC2=CC=CC=C2)C(O)C(O)C1O","smiles":"OCC1OC(OC2=CC=CC=C2)C(O)C(O)C1O"}
+{"prompt":"What is the solubility of ClC1=CC=C(OC2=CC(=C(Cl)C=C2Cl)Cl)C=C1###","completion":"very small@@@","repr":"ClC1=CC=C(OC2=CC(=C(Cl)C=C2Cl)Cl)C=C1","smiles":"ClC1=CC=C(OC2=CC(=C(Cl)C=C2Cl)Cl)C=C1"}
+{"prompt":"What is the solubility of CC(=O)C(N=Nc1ccc(cc1Cl)c2ccc(N=NC(C(C)=O)C(=O)Nc3ccccc3)c(Cl)c2)C(=O)Nc4ccccc4###","completion":"very small@@@","repr":"CC(=O)C(N=Nc1ccc(cc1Cl)c2ccc(N=NC(C(C)=O)C(=O)Nc3ccccc3)c(Cl)c2)C(=O)Nc4ccccc4","smiles":"CC(=O)C(N=Nc1ccc(cc1Cl)c2ccc(N=NC(C(C)=O)C(=O)Nc3ccccc3)c(Cl)c2)C(=O)Nc4ccccc4"}
+{"prompt":"What is the solubility of [Na+].CCCCC(CC)CCCCCc1ccc(cc1)[S]([O-])(=O)=O###","completion":"very large@@@","repr":"[Na+].CCCCC(CC)CCCCCc1ccc(cc1)[S]([O-])(=O)=O","smiles":"[Na+].CCCCC(CC)CCCCCc1ccc(cc1)[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of CCCCCCCCCC(=O)N(C)C###","completion":"medium@@@","repr":"CCCCCCCCCC(=O)N(C)C","smiles":"CCCCCCCCCC(=O)N(C)C"}
+{"prompt":"What is the solubility of [Na+].[Na+].[O-][S](=O)(=O)OO[S]([O-])(=O)=O###","completion":"very large@@@","repr":"[Na+].[Na+].[O-][S](=O)(=O)OO[S]([O-])(=O)=O","smiles":"[Na+].[Na+].[O-][S](=O)(=O)OO[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of CC1(C)[C@@H]2CC[C@]1(C)[C@H](O)C2###","completion":"medium@@@","repr":"CC1(C)[C@@H]2CC[C@]1(C)[C@H](O)C2","smiles":"CC1(C)[C@@H]2CC[C@]1(C)[C@H](O)C2"}
+{"prompt":"What is the solubility of Fc1ccc(cc1)N2C(=O)C(=C(Cl)C2=O)Cl###","completion":"small@@@","repr":"Fc1ccc(cc1)N2C(=O)C(=C(Cl)C2=O)Cl","smiles":"Fc1ccc(cc1)N2C(=O)C(=C(Cl)C2=O)Cl"}

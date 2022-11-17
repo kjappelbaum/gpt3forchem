@@ -25,6 +25,7 @@ from rdkit.Chem import AllChem, Descriptors, MolFromSmiles, MolToSmiles
 from sklearn.metrics import accuracy_score, f1_score, mean_squared_error
 from sklearn.model_selection import KFold
 from sklearn.preprocessing import LabelEncoder, StandardScaler
+from sklearn.decomposition import PCA
 from wandb.xgboost import WandbCallback
 from xgboost import XGBClassifier, XGBRegressor
 from tabpfn.scripts.transformer_prediction_interface import TabPFNClassifier
