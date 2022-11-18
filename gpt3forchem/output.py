@@ -669,7 +669,7 @@ def get_inverse_polymer_metrics(completion_texts, df_test, df_train, bins, max_n
             except Exception as e:
                 logger.exception(f'Error in get_inverse_polymer_metrics {e}')
 
-    features_frame = pd.DataFrame(features)
+    features_frame = pd.concat(features)
     kldiv = PolymerKLDivBenchmark(train_features, min((len(train_features), len(features_frame))))
     kldiv_score = kldiv.score(features_frame)
     valid_smiles_fraction = len(generated_sequences) / len(completion_texts)

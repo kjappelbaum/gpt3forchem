@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of 2-Methylpropane###","completion":"medium@@@","repr":"2-Methylpropane","smiles":"CC(C)C"}
+{"prompt":"What is the solubility of propan-2-ylcyclohexane###","completion":"very small@@@","repr":"propan-2-ylcyclohexane","smiles":"CC(C)C1CCCCC1"}
+{"prompt":"What is the solubility of 2-Methylphenol###","completion":"very large@@@","repr":"2-Methylphenol","smiles":"Cc1ccccc1O"}
+{"prompt":"What is the solubility of N,N-Dimethyldodecanamide###","completion":"small@@@","repr":"N,N-Dimethyldodecanamide","smiles":"CCCCCCCCCCCC(=O)N(C)C"}
+{"prompt":"What is the solubility of methyl 3-sulfanylpropanoate###","completion":"very large@@@","repr":"methyl 3-sulfanylpropanoate","smiles":"COC(=O)CCS"}
+{"prompt":"What is the solubility of 2,3-Dichlorophenol###","completion":"large@@@","repr":"2,3-Dichlorophenol","smiles":"Oc1cccc(Cl)c1Cl"}
+{"prompt":"What is the solubility of 11-Aminoundecanoic acid###","completion":"medium@@@","repr":"11-Aminoundecanoic acid","smiles":"NCCCCCCCCCCC(O)=O"}
+{"prompt":"What is the solubility of 1-chloro-2-(2-chloroethylsulfonyl)ethane###","completion":"large@@@","repr":"1-chloro-2-(2-chloroethylsulfonyl)ethane","smiles":"ClCC[S](=O)(=O)CCCl"}
+{"prompt":"What is the solubility of 2-bromo-N-[4-chloro-2-(2-fluorobenzoyl)phenyl]acetamide###","completion":"very small@@@","repr":"2-bromo-N-[4-chloro-2-(2-fluorobenzoyl)phenyl]acetamide","smiles":"Fc1ccccc1C(=O)c2cc(Cl)ccc2NC(=O)CBr"}
+{"prompt":"What is the solubility of methane; sulfuric acid###","completion":"small@@@","repr":"methane; sulfuric acid","smiles":"C.O[S](O)(=O)=O"}

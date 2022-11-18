@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, N, N?###","completion":"medium@@@","smiles":"CN(C)C1=CC=C(\/N=N\/C2=CC=C(N(CC)CC)C=C2)C=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, C#N, C#N, N?###","completion":"large@@@","smiles":"CCN(CC)C(C=C1)=CC=C1\/N=N\/C2=C(C#N)C=C(C#N)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2[nH]cnc2c1, c1ccc2ncccc2c1, N=N, O?###","completion":"medium@@@","smiles":"OC%42=C%43N=CC=CC%43=C(\/N=N\/C%44=NC%45=CC=CC=C%45N%44)C=C%42"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N?###","completion":"very small@@@","smiles":"CC1=CC(\/N=N\/C2=CC=CC=C2)=CC=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, C=O, N=N?###","completion":"very small@@@","smiles":"CC(C1=CC=C(\/N=N\/C2=CC=CC=C2)C=C1)=O"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, C#N, N=N, N?###","completion":"small@@@","smiles":"CN(CCC#N)C(C=C%17)=CC=C%17\/N=N\/C%18=CC=CC=C%18"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, C#N, N=N, N, O, O?###","completion":"small@@@","smiles":"CC(C=C(N(CCC#N)CCO)C=C1)=C1\/N=N\/C2=CC(OC)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2ncccc2c1, c1ccccc1, c1cscn1, N=N, Br, O?###","completion":"medium@@@","smiles":"OC%22=C%23N=CC=CC%23=C(\/N=N\/C%24=NC(C%25=CC=C(Br)C=C%25)=CS%24)C=C%22"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2scnc2c1, O=[N+][O-], c1ccccc1, N=N, O?###","completion":"small@@@","smiles":"COC(C=C4)=CC=C4N=NC5=NC6=CC=C([N+]([O-])=O)C=C6S5"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1cn[nH]c1, c1ccccc1, N=N?###","completion":"very small@@@","smiles":"CC(C=C1)=CC=C1N=NC2=NNC=C2"}

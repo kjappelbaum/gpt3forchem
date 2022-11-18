@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccccc1, c1ccccc1, N=N, N, O?###","completion":"medium@@@","smiles":"[H]N(CCO)C(C=C5)=CC=C5\/N=N\/C6=CC=C([N+]([O-])=O)C=C6"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N?###","completion":"very small@@@","smiles":"CC1=CC(C)=CC(C)=C1\/N=N\/C2=C(C)C=C(C)C=C2C"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2ncccc2c1, c1ccccc1, O=CO, N=N, O?###","completion":"large@@@","smiles":"OC%20=C(N=CC=C%21)C%21=C(\/N=N\/C%22=CC=C(C(O)=O)C=C%22)C=C%20"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccncc1, N=N?###","completion":"very small@@@","smiles":"C1(\/N=N\/C2=CC=CC=C2)=CC=CN=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, NC=O, N=N, C#N, N?###","completion":"small@@@","smiles":"O=C(C)NC1=CC=C(\/N=N\/C2=CC=C(NCCC#N)C=C2)C=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccccc1, c1ccccc1, N=N, N?###","completion":"medium@@@","smiles":"CN(C)C(C=C1)=CC=C1\/N=N\/C2=CC=CC=C2[N+]([O-])=O"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1cn[nH]c1, c1ccccc1, N=N?###","completion":"very small@@@","smiles":"CC1=C(C(C)=NN1)\/N=N\/C2=CC=C(C)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2ncccc2c1, c1ccccc1, N=N, C=O, O?###","completion":"small@@@","smiles":"OC%26=C(N=CC=C%27)C%27=C(\/N=N\/C%28=CC=C(C(C)=O)C=C%28)C=C%26"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, C#N, N=N, N, O?###","completion":"small@@@","smiles":"CC(C=C(N(CCC#N)CCO)C=C1)=C1\/N=N\/C2=CC=C(C)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2ncccc2c1, c1cscn1, N=N, O?###","completion":"medium@@@","smiles":"OC1=C2N=CC=CC2=C(\/N=N\/C3=NC=CS3)C=C1"}

@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of 2,2',3,4,5,5'-hexachlorobiphenyl###","completion":"very small@@@","repr":"2,2',3,4,5,5'-hexachlorobiphenyl","smiles":"Clc1ccc(Cl)c(c1)c2cc(Cl)c(Cl)c(Cl)c2Cl"}
+{"prompt":"What is the solubility of trilithium(1+) ion hexafluoroalumanetriuide###","completion":"medium@@@","repr":"trilithium(1+) ion hexafluoroalumanetriuide","smiles":"[Li+].[Li+].[Li+].[F-].[F-].[F-].[F-].[F-].[F-].[Al+3]"}
+{"prompt":"What is the solubility of acetamide, n-(4-fluoro-2-methylphenyl)-###","completion":"large@@@","repr":"acetamide, n-(4-fluoro-2-methylphenyl)-","smiles":"CC(=O)Nc1ccc(F)cc1C"}
+{"prompt":"What is the solubility of glybuthiazole###","completion":"small@@@","repr":"glybuthiazole","smiles":"CC(C)(C)c1sc(N[S](=O)(=O)c2ccc(N)cc2)nn1"}
+{"prompt":"What is the solubility of cloethocarb###","completion":"medium@@@","repr":"cloethocarb","smiles":"CNC(=O)Oc1ccccc1OC(CCl)OC"}
+{"prompt":"What is the solubility of piperophos###","completion":"small@@@","repr":"piperophos","smiles":"CCCO[P](=S)(OCCC)SCC(=O)N1CCCCC1C"}
+{"prompt":"What is the solubility of 2-hydroxypyridine###","completion":"very large@@@","repr":"2-hydroxypyridine","smiles":"O=C1NC=CC=C1"}
+{"prompt":"What is the solubility of bis(propan-2-yl)amine###","completion":"very large@@@","repr":"bis(propan-2-yl)amine","smiles":"CC(C)NC(C)C"}
+{"prompt":"What is the solubility of disodium 5-({4-[(2-bromoacryloyl)amino]-2-sulfonatophenyl}diazenyl)-4-hydroxy-6-(methylamino)naphthalene-2-sulfonate###","completion":"large@@@","repr":"disodium 5-({4-[(2-bromoacryloyl)amino]-2-sulfonatophenyl}diazenyl)-4-hydroxy-6-(methylamino)naphthalene-2-sulfonate","smiles":"[Na+].[Na+].CN=C1C=CC2=CC(=CC(=O)C2=C1NNc3ccc(NC(=O)C(Br)=C)cc3[S]([O-])(=O)=O)[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of oxotin###","completion":"very small@@@","repr":"oxotin","smiles":"O=[Sn]"}

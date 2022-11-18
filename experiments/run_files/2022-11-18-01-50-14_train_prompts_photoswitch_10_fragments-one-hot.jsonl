@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments 8, 33, 32, 24, 14, 14?###","completion":"large@@@","smiles":"OCCNC(C=C1)=CC=C1\/N=N\/C2=CC=C([N+]([O-])=O)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 31, 24, 20, 2, 14?###","completion":"medium@@@","smiles":"CSc1nnc(s1)N=Nc1c(c2ccccc2)n(c2c1cccc2)C"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 34, 34, 24, 14, 14?###","completion":"very small@@@","smiles":"FC1=CC=C(\/N=N\/C2=CC=C(F)C=C2)C=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 33, 24, 14, 14?###","completion":"small@@@","smiles":"CC1=C(\/N=N\/C2=CC=C(N(C)C)C=C2C)C=CC(C)=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 24, 14, 14?###","completion":"small@@@","smiles":"CC1=C(\/N=N\/C2=CC=C(C)C=C2C)C=CC(C)=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 6, 31, 24, 14?###","completion":"small@@@","smiles":"[H]C%25=CC=C(N=C(N=NC%26=CC=C(SC)C=C%26)S%27)C%27=C%25"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 8, 33, 26, 24, 14, 14?###","completion":"medium@@@","smiles":"[H]N(CCC#N)C(C=C7)=CC=C7\/N=N\/C8=CC=C([N+]([O-])=O)C=C8"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 8, 24, 18, 14?###","completion":"very small@@@","smiles":"CC1=NOC(C)=C1\/N=N\/C2=CC=C([N+]([O-])=O)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 34, 33, 32, 26, 24, 14, 14?###","completion":"medium@@@","smiles":"CC(C=C(N(CCC#N)CCO)C=C1)=C1\/N=N\/C2=CC(F)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 8, 24, 18, 14?###","completion":"very small@@@","smiles":"CC1=NOC(C)=C1\/N=N\/C2=C([N+]([O-])=O)C=CC=C2"}

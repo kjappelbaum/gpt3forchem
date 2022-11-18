@@ -13,11 +13,11 @@ DF = get_polymer_data()
 bins = get_bin_ranges(DF, "deltaGmin", 5)
 OUTDIR = "results/20221117_polymer_inverse"
 make_if_not_exists(OUTDIR)
-TEMPERATURES = [0]#, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
+TEMPERATURES = [0, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
 
 
 def get_inverse_point(exclude_category=None):
-
+    print(f"Excluding category {exclude_category}")
     if exclude_category is None:
         train_df, test_df = train_test_split(
             DF, train_size=0.9, random_state=None, stratify=DF["deltaGmin_cat"], 
@@ -68,7 +68,7 @@ def get_inverse_point(exclude_category=None):
         ]
 
         prediction_metrics = get_inverse_polymer_metrics(
-            predictions, test_prompts, train_prompts, bins, max_num_train_sequences=2500
+            predictions, test_prompts, train_prompts, bins, max_num_train_sequences=2000
         )
         t_dependend_metrics[temperature] = prediction_metrics
         t_dependend_predictions[temperature] = predictions
@@ -77,7 +77,7 @@ def get_inverse_point(exclude_category=None):
     true = [prompt.split("@")[0] for prompt in test_prompts["completion"]]
 
     optimal_metrics = get_inverse_polymer_metrics(
-        true, test_prompts, train_prompts, bins, max_num_train_sequences=2500
+        true, test_prompts, train_prompts, bins, max_num_train_sequences=2000
     )
 
     results = {
@@ -90,6 +90,7 @@ def get_inverse_point(exclude_category=None):
         "optimal_metrics": optimal_metrics,
         "num_train_points": train_size,
         "num_test_points": test_size,
+        "exclude_category": exclude_category,
     }
 
     save_pickle(f"{OUTDIR}/{filename_base}_results.pkl", results)
@@ -98,7 +99,8 @@ def get_inverse_point(exclude_category=None):
 @click.command()
 @click.option("--exclude_category", default=None, type=str)
 def main(exclude_category):
-    get_inverse_point(exclude_category)
+    for _ in range(10):
+        get_inverse_point(exclude_category=exclude_category)
 
 if __name__ == "__main__":
     main()

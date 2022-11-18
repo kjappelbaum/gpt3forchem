@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 24, 14, 14?###","completion":"very small@@@","smiles":"FC1=C(F)C(F)=C(F)C(F)=C1\/N=N\/C2=C(F)C(F)=C(F)C(F)=C2F"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 33, 32, 32, 26, 24, 14, 14?###","completion":"small@@@","smiles":"CC(C=C(N(CCC#N)CCO)C=C1)=C1\/N=N\/C2=CC(C(O)C)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 24, 18, 14?###","completion":"very small@@@","smiles":"CC1=NOC(C)=C1\/N=N\/C2=CC=C(C)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 8, 33, 32, 24, 14, 14?###","completion":"large@@@","smiles":"[H]C1=CC([N+]([O-])=O)=CC([H])=C1\/N=N\/C2=CC(OC)=C(C=C2)N(CC)CC"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 31, 24, 20, 2, 14?###","completion":"medium@@@","smiles":"CSc1nnc(s1)N=Nc1c(c2ccccc2)n(c2c1cccc2)C"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 8, 33, 24, 14, 14?###","completion":"medium@@@","smiles":"CN(C)C(C=C1)=CC=C1\/N=N\/C2=CC=C([N+]([O-])=O)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 33, 32, 26, 24, 14, 14?###","completion":"small@@@","smiles":"OCCN(CCC#N)C(C=C%13)=CC=C%13\/N=N\/C%14=CC=CC=C%14"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 33, 32, 26, 24, 14, 14?###","completion":"small@@@","smiles":"CC(O)C1=CC(\/N=N\/C2=CC=C(NCCC#N)C=C2)=CC=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 34, 34, 24, 14, 14?###","completion":"very small@@@","smiles":"FC1=CC=C(\/N=N\/C2=CC=C(F)C=C2)C=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 4, 32, 30, 24, 19, 14?###","completion":"medium@@@","smiles":"OC%22=C%23N=CC=CC%23=C(\/N=N\/C%24=NC(C%25=CC=C(Br)C=C%25)=CS%24)C=C%22"}

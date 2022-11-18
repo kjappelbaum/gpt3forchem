@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1cnoc1, N=N, F?###","completion":"very small@@@","smiles":"CC1=NOC(C)=C1\/N=N\/C2=C(F)C=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, C#N, N=N, N, O, O?###","completion":"small@@@","smiles":"CC(C=C(N(CCC#N)CCO)C=C1)=C1\/N=N\/C2=CC(C(O)C)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccccc1, c1ccccc1, N=N, Cl, O, N?###","completion":"large@@@","smiles":"[H]C3=CC([N+]([O-])=O)=CC(Cl)=C3\/N=N\/C4=CC([H])=C(C=C4OC)N(CC)CC"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccccc1, c1ccccc1, N=N, O, N, O?###","completion":"medium@@@","smiles":"OCCN(CCO)C(C=C%11)=CC=C%11\/N=N\/C%12=CC=C([N+]([O-])=O)C=C%12"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2[nH]ccc2c1, c1ccccc1, c1nncs1, N=N, S?###","completion":"medium@@@","smiles":"CSc1nnc(s1)N=Nc1c([nH]c2c1cccc2)c1ccccc1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1cn[nH]c1, c1ccccc1, N=N, O?###","completion":"small@@@","smiles":"CC1=C(C(C)=NN1)\/N=N\/C2=C(OC)C=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1cn[nH]c1, c1ccccc1, N=N, O?###","completion":"very small@@@","smiles":"CC1=C(C(C)=NN1)\/N=N\/C2=CC(OC)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccccc1, c1ccccc1, C#N, C#N, N=N, N?###","completion":"medium@@@","smiles":"CC1=CC(N(CCC#N)CCC#N)=CC=C1\/N=N\/C2=CC=C([N+]([O-])=O)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2ncccc2c1, c1ccccc1, N=N, O, O?###","completion":"small@@@","smiles":"OC%14=C(N=CC=C%15)C%15=C(\/N=N\/C%16=CC=C(OCC)C=C%16)C=C%14"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, Br, Br?###","completion":"very small@@@","smiles":"BrC1=CC=CC(\/N=N\/C2=CC=CC(Br)=C2)=C1"}

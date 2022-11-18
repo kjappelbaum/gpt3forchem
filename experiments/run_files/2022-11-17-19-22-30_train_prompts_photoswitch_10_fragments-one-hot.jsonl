@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments 35, 35, 28, 14, 14, 12, 12?###","completion":"small@@@","smiles":"OC1=C([N+]([O-])=O)C=C([N+]([O-])=O)C=C1\/N=N\/C2=C(O)C=CC(C)=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 31, 31, 31, 28, 20, 14?###","completion":"very small@@@","smiles":"CC1=NOC(C)=C1\/N=N\/C2=CC(C(F)(F)F)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 9, 35, 28, 14?###","completion":"small@@@","smiles":"COC(C=C1)=CC=C1N=NC2=NNC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 35, 35, 32, 32, 28, 14, 14?###","completion":"medium@@@","smiles":"CCN(CC)C(C=C%30)=CC=C%30\/N=N\/C%31=CC=C(N%32CCOCC%32)C(OC)=C%31"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 32, 28, 26, 14, 14?###","completion":"medium@@@","smiles":"CCN(CC)C(C=C1)=CC=C1\/N=N\/C2=C(C#N)C=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 35, 32, 29, 28, 26, 14, 14?###","completion":"medium@@@","smiles":"CC(C=C(N(CCC#N)CCO)C=C1)=C1\/N=N\/C2=CC=CC(Br)=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 29, 29, 29, 29, 29, 29, 28, 14, 14?###","completion":"very small@@@","smiles":"BrC1=CC(Br)=CC(Br)=C1\/N=N\/C2=C(Br)C=C(Br)C=C2Br"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 31, 31, 28, 22, 22, 14, 14?###","completion":"very small@@@","smiles":"FC1=CC(C(OCC)=O)=CC(F)=C1\/N=N\/C2=CC=C(C(OCC)=O)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 35, 3, 28, 21, 19, 14, 12?###","completion":"large@@@","smiles":"OC7=C8N=CC=CC8=C(\/N=N\/C9=NC=C(S(=O)(C%10=CC=C([N+]([O-])=O)C=C%10)=O)S9)C=C7"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments 35, 35, 32, 28, 26, 14, 14?###","completion":"small@@@","smiles":"CC(C=C(N(CCC#N)CCO)C=C1)=C1\/N=N\/C2=CC(OC)=CC=C2"}

@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of CC(=C)C(=O)OCc1ccccc1###","completion":"medium@@@","repr":"CC(=C)C(=O)OCc1ccccc1","smiles":"CC(=C)C(=O)OCc1ccccc1"}
+{"prompt":"What is the solubility of [Na+].Nc1ccc(N\\N=C\\2C=Cc3c(cccc3[S]([O-])(=O)=O)C2=O)cc1###","completion":"large@@@","repr":"[Na+].Nc1ccc(N\\N=C\\2C=Cc3c(cccc3[S]([O-])(=O)=O)C2=O)cc1","smiles":"[Na+].Nc1ccc(N\\N=C\\2C=Cc3c(cccc3[S]([O-])(=O)=O)C2=O)cc1"}
+{"prompt":"What is the solubility of [Br-].CC[n+]1c2cc(N)ccc2c3ccc(N)cc3c1c4ccccc4###","completion":"large@@@","repr":"[Br-].CC[n+]1c2cc(N)ccc2c3ccc(N)cc3c1c4ccccc4","smiles":"[Br-].CC[n+]1c2cc(N)ccc2c3ccc(N)cc3c1c4ccccc4"}
+{"prompt":"What is the solubility of CCCCOC(=O)C1(O)c2ccccc2c3ccccc13###","completion":"small@@@","repr":"CCCCOC(=O)C1(O)c2ccccc2c3ccccc13","smiles":"CCCCOC(=O)C1(O)c2ccccc2c3ccccc13"}
+{"prompt":"What is the solubility of CC(COC(C)=O)OC(C)=O###","completion":"very large@@@","repr":"CC(COC(C)=O)OC(C)=O","smiles":"CC(COC(C)=O)OC(C)=O"}
+{"prompt":"What is the solubility of CCCCCCCCCCCCCCCC(=O)O[C@@H]1C[C@H](N(C1)C(=O)CCCCCCCCCCCCCCC)C(O)=O###","completion":"very small@@@","repr":"CCCCCCCCCCCCCCCC(=O)O[C@@H]1C[C@H](N(C1)C(=O)CCCCCCCCCCCCCCC)C(O)=O","smiles":"CCCCCCCCCCCCCCCC(=O)O[C@@H]1C[C@H](N(C1)C(=O)CCCCCCCCCCCCCCC)C(O)=O"}
+{"prompt":"What is the solubility of CCCCCC[P](=O)(OCC)OCC###","completion":"medium@@@","repr":"CCCCCC[P](=O)(OCC)OCC","smiles":"CCCCCC[P](=O)(OCC)OCC"}
+{"prompt":"What is the solubility of COC1=CC=C(N[S](=O)(=O)C2=CC=C(C=C2)[N+]([O-])=O)C=C1###","completion":"small@@@","repr":"COC1=CC=C(N[S](=O)(=O)C2=CC=C(C=C2)[N+]([O-])=O)C=C1","smiles":"COC1=CC=C(N[S](=O)(=O)C2=CC=C(C=C2)[N+]([O-])=O)C=C1"}
+{"prompt":"What is the solubility of CSCCC(N)C(O)=O###","completion":"very large@@@","repr":"CSCCC(N)C(O)=O","smiles":"CSCCC(N)C(O)=O"}
+{"prompt":"What is the solubility of [O-][N+](=O)c1cc(OC(=O)Oc2cc(c(Cl)cc2Cl)[N+]([O-])=O)c(Cl)cc1Cl###","completion":"very small@@@","repr":"[O-][N+](=O)c1cc(OC(=O)Oc2cc(c(Cl)cc2Cl)[N+]([O-])=O)c(Cl)cc1Cl","smiles":"[O-][N+](=O)c1cc(OC(=O)Oc2cc(c(Cl)cc2Cl)[N+]([O-])=O)c(Cl)cc1Cl"}

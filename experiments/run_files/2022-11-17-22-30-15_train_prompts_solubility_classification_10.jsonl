@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of 2-Methylpent-2-enal\n(E)-2-methylpent-2-enal###","completion":"large@@@","repr":"2-Methylpent-2-enal\n(E)-2-methylpent-2-enal","smiles":"CC\\C=C(\/C)C=O"}
+{"prompt":"What is the solubility of Methyl 4-methylbenzoate###","completion":"medium@@@","repr":"Methyl 4-methylbenzoate","smiles":"COC(=O)c1ccc(C)cc1"}
+{"prompt":"What is the solubility of 1-tert-Butyl-4-methylbenzene###","completion":"small@@@","repr":"1-tert-Butyl-4-methylbenzene","smiles":"Cc1ccc(cc1)C(C)(C)C"}
+{"prompt":"What is the solubility of butyl 4-hydroxy-3-iodobenzoate###","completion":"small@@@","repr":"butyl 4-hydroxy-3-iodobenzoate","smiles":"CCCCOC(=O)c1ccc(O)c(I)c1"}
+{"prompt":"What is the solubility of (2-nitrophenyl) acetate###","completion":"medium@@@","repr":"(2-nitrophenyl) acetate","smiles":"CC(=O)Oc1ccccc1[N+]([O-])=O"}
+{"prompt":"What is the solubility of 2-decyltetradecan-1-ol###","completion":"very small@@@","repr":"2-decyltetradecan-1-ol","smiles":"CCCCCCCCCCCCC(CO)CCCCCCCCCC"}
+{"prompt":"What is the solubility of 2-[2-(2-butanoyloxyethoxy)ethoxy]ethyl butanoate###","completion":"large@@@","repr":"2-[2-(2-butanoyloxyethoxy)ethoxy]ethyl butanoate","smiles":"CCCC(=O)OCCOCCOCCOC(=O)CCC"}
+{"prompt":"What is the solubility of 1,4-di(phenyl)benzene###","completion":"very small@@@","repr":"1,4-di(phenyl)benzene","smiles":"c1ccc(cc1)c2ccc(cc2)c3ccccc3"}
+{"prompt":"What is the solubility of 1-(2,5-diaminophenyl)ethanol sulfate###","completion":"very large@@@","repr":"1-(2,5-diaminophenyl)ethanol sulfate","smiles":"CC(O)c1cc(N)ccc1N.[O-][S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of 2-(prop-2-enoxymethyl)oxirane###","completion":"very large@@@","repr":"2-(prop-2-enoxymethyl)oxirane","smiles":"C=CCOCC1CO1"}

@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2[nH]ccc2c1, c1ccccc1, c1nncs1, N=N?###","completion":"medium@@@","smiles":"Cn1c(c2ccccc2)c(c2c1cccc2)N=Nc1nncs1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, Br?###","completion":"very small@@@","smiles":"BrC1=CC=C(\/N=N\/C2=CC=CC=C2)C=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccncc1, c1ccccc1, c1ccccc1, O=CO, C=N, N=N, O?###","completion":"small@@@","smiles":"Oc1c(\/C=N\/c2cc(C(OCC)=O)ccn2)cc(\/N=N\/c3ccc([N+]([O-])=O)cc3)cc1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], O=[N+][O-], c1ccccc1, c1ccccc1, N=N, Br, O, N?###","completion":"large@@@","smiles":"BrC9=CC([N+]([O-])=O)=CC([N+]([O-])=O)=C9\/N=N\/C%10=CC(OC)=C(C=C%10)N(CC)CC"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccccc1, c1ccccc1, N=N, N?###","completion":"medium@@@","smiles":"CN(C)C(C=C1)=CC=C1\/N=N\/C2=CC=C([N+]([O-])=O)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, C#N, N=N, Cl, N, O?###","completion":"medium@@@","smiles":"CC(C=C(N(CCC#N)CCO)C=C1)=C1\/N=N\/C2=CC=CC(Cl)=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, NC=O, N=N, C#N, N?###","completion":"small@@@","smiles":"O=C(C)NC1=CC=C(\/N=N\/C2=CC=C(NCCC#N)C=C2)C=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, C#N, N=N, N, O?###","completion":"small@@@","smiles":"CC(C=C(N(CCC#N)CCO)C=C1)=C1\/N=N\/C2=CC(C)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, O=CO, N=N, F, F?###","completion":"very small@@@","smiles":"FC1=CC(C(OCC)=O)=CC(F)=C1\/N=N\/C2=CC=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccncc1, N=N, I?###","completion":"very small@@@","smiles":"IC1=C(\/N=N\/C2=CC=CC=C2)C=NC=C1"}

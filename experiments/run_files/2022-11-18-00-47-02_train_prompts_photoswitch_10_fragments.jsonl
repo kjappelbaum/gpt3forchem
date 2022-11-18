@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1cnoc1, N=N, O?###","completion":"very small@@@","smiles":"CC1=NOC(C)=C1\/N=N\/C2=CC(O)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, C#N, F, N?###","completion":"small@@@","smiles":"FC1=CC=CC=C1\/N=N\/C2=CC=C(NCCC#N)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccccc1, c1ccccc1, C#N, N=N, N?###","completion":"medium@@@","smiles":"CCN(CCC#N)C(C=C%21C)=CC=C%21\/N=N\/C%22=CC=C([N+]([O-])=O)C=C%22"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, F, F?###","completion":"very small@@@","smiles":"FC1=CC=CC(F)=C1\/N=N\/C2=CC=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, N, N?###","completion":"medium@@@","smiles":"CN(C)C(C=C1)=CC=C1\/N=N\/C2=CC=C(N(C)C)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2ncccc2c1, c1ccccc1, c1cscn1, N=N, Cl, O?###","completion":"medium@@@","smiles":"OC%18=C%19N=CC=CC%19=C(\/N=N\/C%20=NC(C%21=CC=C(Cl)C=C%21)=CS%20)C=C%18"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1cnoc1, N=N, Cl, Cl?###","completion":"very small@@@","smiles":"CC1=C(\/N=N\/C2=C(Cl)C=CC=C2Cl)C(C)=NO1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, C#N, Cl, N?###","completion":"small@@@","smiles":"ClC1=CC(\/N=N\/C2=CC=C(NCCC#N)C=C2)=CC=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], O=[N+][O-], c1ccccc1, c1ccccc1, N=N, Br, O, N?###","completion":"large@@@","smiles":"BrC9=CC([N+]([O-])=O)=CC([N+]([O-])=O)=C9\/N=N\/C%10=CC(OC)=C(C=C%10)N(CC)CC"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2scnc2c1, O=[N+][O-], c1ccccc1, N=N, I?###","completion":"small@@@","smiles":"IC(C=C%19)=CC=C%19N=NC%20=NC%21=CC=C([N+]([O-])=O)C=C%21S%20"}

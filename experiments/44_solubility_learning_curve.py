@@ -14,6 +14,9 @@ from tabpfn.scripts.transformer_prediction_interface import TabPFNClassifier
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 
+
+MAX_TEST_SIZE = 500
+
 def run_tabpfn_baseline(train_data, test_data):
     X_train, y_train = train_data[_SOLUBILITY_FEATURES], train_data['Solubility_cat']
     X_test, y_test = test_data[_SOLUBILITY_FEATURES], test_data['Solubility_cat']
@@ -69,7 +72,8 @@ REPEATS = 10
 def learning_curve_point(num_train_points, outdir, representation='smiles', random_state=42):
     data = get_solubility_data()
     train_data, test_data = train_test_split(data, train_size=num_train_points, test_size=MAX_TEST_SIZE, random_state=random_state, stratify=data['Solubility_cat'])
-
+    test_data = test_data.reset_index(drop=True)
+    test_data = test_data.iloc[:MAX_TEST_SIZE]
     baseline_cm, baseline_y_eval = run_tabpfn_baseline(train_data, test_data)
     modelname, predictions, completions, true, cm = train_test_gpts(train_data, test_data, representation, regression=False)
 

@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2ncccc2c1, O=[N+][O-], c1ccccc1, N=N, O?###","completion":"medium@@@","smiles":"OC%32=C(N=CC=C%33)C%33=C(\/N=N\/C%34=CC=C([N+]([O-])=O)C=C%34)C=C%32"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1cnoc1, N=N, Cl, Cl?###","completion":"very small@@@","smiles":"CC1=C(\/N=N\/C2=C(Cl)C=CC=C2Cl)C(C)=NO1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, F?###","completion":"very small@@@","smiles":"FC1=CC=C(\/N=N\/C2=CC=CC=C2)C=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1cc[nH]c1, c1ccccc1, N=N?###","completion":"small@@@","smiles":"CC(N(C)C(C)=C1C)=C1\/N=N\/C2=CC=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccccc1, c1ccccc1, N=N, O, O?###","completion":"medium@@@","smiles":"OC1=C(\/N=N\/C2=CC=C([N+]([O-])=O)C=C2)C=CC(O)=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2scnc2c1, O=[N+][O-], c1ccccc1, N=N, F?###","completion":"small@@@","smiles":"FC(C=C%16)=CC=C%16N=NC%17=NC%18=CC=C([N+]([O-])=O)C=C%18S%17"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, F, F, F, F, F, F?###","completion":"very small@@@","smiles":"FC1=CC(F)=CC(F)=C1\/N=N\/C(C(F)=C2)=C(F)C=C2F"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2[nH]ccc2c1, c1nncs1, N=N?###","completion":"medium@@@","smiles":"CCc1nnc(s1)N=Nc1c2ccccc2n(c1C)C"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1cc[nH]c1, c1ccccc1, N=N?###","completion":"small@@@","smiles":"CC(N(C)C(C)=C1)=C1\/N=N\/C2=CC=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, C#N, C#N, N?###","completion":"large@@@","smiles":"CCN(CC)C(C=C1)=CC=C1\/N=N\/C2=C(C#N)C=CC(C#N)=C2"}

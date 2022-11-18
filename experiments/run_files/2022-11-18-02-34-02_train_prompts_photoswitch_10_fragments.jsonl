@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], O=[N+][O-], c1ccccc1, c1ccccc1, N=N, Br, O, N?###","completion":"large@@@","smiles":"BrC9=CC([N+]([O-])=O)=CC([N+]([O-])=O)=C9\/N=N\/C%10=CC(OC)=C(C=C%10)N(CC)CC"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, C#N, N=N, N, F, F, F?###","completion":"medium@@@","smiles":"N#CCCNC(C=C1)=CC=C1\/N=N\/C2=CC=C(C(F)(F)F)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, C#N, N?###","completion":"medium@@@","smiles":"CCN(CC)C(C=C1)=CC=C1\/N=N\/C2=C(C#N)C=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, C#N, N=N, N?###","completion":"small@@@","smiles":"CC9=CC(NCCC#N)=CC=C9\/N=N\/C%10=CC=CC=C%10"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2[nH]ccc2c1, c1nncs1, N=N?###","completion":"medium@@@","smiles":"Cn1c(C)c(c2c1cccc2)N=Nc1nncs1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2ncccc2c1, c1ccccc1, N=N, O, O?###","completion":"small@@@","smiles":"OC%14=C(N=CC=C%15)C%15=C(\/N=N\/C%16=CC=C(OCC)C=C%16)C=C%14"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, Br?###","completion":"very small@@@","smiles":"BrC1=CC=CC=C1\/N=N\/C2=CC=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1cn[nH]c1, c1cn[nH]c1, N=N?###","completion":"very small@@@","smiles":"C1(\/N=N\/C2=CC=NN2)=CC=NN1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1cnoc1, N=N, F, F, F?###","completion":"very small@@@","smiles":"CC1=NOC(C)=C1\/N=N\/C2=CC=C(C(F)(F)F)C=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccncc1, c1ccccc1, c1ccccc1, O=CO, C=N, N=N, O?###","completion":"small@@@","smiles":"Oc1c(\/C=N\/c2cc(C(OCC)=O)ccn2)cc(\/N=N\/c3ccc([N+]([O-])=O)cc3)cc1"}

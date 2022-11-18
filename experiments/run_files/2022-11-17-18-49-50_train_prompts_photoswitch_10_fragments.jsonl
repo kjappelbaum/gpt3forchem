@@ -1,0 +1,10 @@
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1cnoc1, N=N, Cl?###","completion":"very small@@@","smiles":"CC1=NOC(C)=C1\/N=N\/C2=CC(Cl)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1cn[nH]c1, c1ccccc1, N=N, Br?###","completion":"very small@@@","smiles":"CC1=C(C(C)=NN1)\/N=N\/C2=CC(Br)=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], O=[N+][O-], c1ccccc1, c1ccccc1, N=N, O, O?###","completion":"small@@@","smiles":"OC1=C([N+]([O-])=O)C=C([N+]([O-])=O)C=C1\/N=N\/C2=C(O)C=CC(C)=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1cnoc1, N=N, F?###","completion":"very small@@@","smiles":"CC1=NOC(C)=C1\/N=N\/C2=C(F)C=CC=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2ncccc2c1, c1ccccc1, O=CO, N=N, O?###","completion":"small@@@","smiles":"OC%23=C(N=CC=C%24)C%24=C(\/N=N\/C%25=CC=CC=C%25C(O)=O)C=C%23"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, C#N, C#N, N?###","completion":"large@@@","smiles":"CCN(CC)C(C=C1)=CC=C1\/N=N\/C2=C(C#N)C=CC(C#N)=C2"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments O=[N+][O-], c1ccccc1, c1ccccc1, N=N, N?###","completion":"medium@@@","smiles":"NC1=CC=C(\/N=N\/C2=CC=C([N+]([O-])=O)C=C2)C=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, N, N?###","completion":"medium@@@","smiles":"NC1=CC=C(\/N=N\/C2=CC=C(N(C)C)C=C2)C=C1"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccc2[nH]ccc2c1, c1nc[nH]n1, c1ccccc1, N=N, S?###","completion":"small@@@","smiles":"Sc1[nH]nc(n1)N=Nc1c(c2ccccc2)n(c2c1cccc2)C"}
+{"prompt":"What is the transition wavelength of a molecule with following fragments c1ccccc1, c1ccccc1, N=N, Cl, N?###","completion":"medium@@@","smiles":"ClC(C=C1)=CC=C1\/N=N\/C2=CC=C(N(C)C)C=C2"}

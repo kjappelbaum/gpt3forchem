@@ -307,7 +307,7 @@ FRAGMENT_PROMPT_TEMPlATE = "What is the transition wavelength of a molecule with
 def generate_fragment_prompt(data: pd.DataFrame, target: str, regression: bool) -> pd.DataFrame:
     prompts = []
     completions = []
-
+    smiles = []
     for i, row in data.iterrows():
         fragments = EFGs.mol2frag(Chem.MolFromSmiles(row["SMILES"]))[0]
 
@@ -321,8 +321,8 @@ def generate_fragment_prompt(data: pd.DataFrame, target: str, regression: bool) 
         completion = COMPLETION_TEMPLATE_photoswitch_.format(value)
         prompts.append(prompt)
         completions.append(completion)
-
-    prompts = pd.DataFrame({"prompt": prompts, "completion": completions})
+        smiles.append(row["SMILES"])
+    prompts = pd.DataFrame({"prompt": prompts, "completion": completions, "smiles": smiles})
 
     return prompts
 
@@ -330,11 +330,12 @@ def generate_fragment_prompt(data: pd.DataFrame, target: str, regression: bool) 
 def generate_one_hot_encoded_fragment_prompt(data: pd.DataFrame, target: str, regression: bool, one_hot_mapper: Dict[str, str]) -> pd.DataFrame:
     prompts = []
     completions = []
+    smiles = []
 
     for i, row in data.iterrows():
         fragments = EFGs.mol2frag(Chem.MolFromSmiles(row["SMILES"]))[0]
 
-        fragment_string = ", ".join(sorted([one_hot_mapper[f] for f in fragments], reverse=True))
+        fragment_string = ", ".join(sorted([str(one_hot_mapper[f]) for f in fragments], reverse=True))
 
         prompt = FRAGMENT_PROMPT_TEMPlATE.format(fragment_string)
         if regression: 
@@ -344,8 +345,9 @@ def generate_one_hot_encoded_fragment_prompt(data: pd.DataFrame, target: str, re
         completion = COMPLETION_TEMPLATE_photoswitch_.format(value)
         prompts.append(prompt)
         completions.append(completion)
+        smiles.append(row["SMILES"])
 
-    prompts = pd.DataFrame({"prompt": prompts, "completion": completions})
+    prompts = pd.DataFrame({"prompt": prompts, "completion": completions, "smiles": smiles})
 
     return prompts
 

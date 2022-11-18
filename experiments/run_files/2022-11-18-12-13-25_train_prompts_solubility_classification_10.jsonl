@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of benzyl 2-methylprop-2-enoate###","completion":"medium@@@","repr":"benzyl 2-methylprop-2-enoate","smiles":"CC(=C)C(=O)OCc1ccccc1"}
+{"prompt":"What is the solubility of sodium 6-[(E)-2-(4-aminophenyl)diazen-1-yl]-5-hydroxynaphthalene-1-sulfonate###","completion":"large@@@","repr":"sodium 6-[(E)-2-(4-aminophenyl)diazen-1-yl]-5-hydroxynaphthalene-1-sulfonate","smiles":"[Na+].Nc1ccc(N\\N=C\\2C=Cc3c(cccc3[S]([O-])(=O)=O)C2=O)cc1"}
+{"prompt":"What is the solubility of homidium bromide [ban:inn]###","completion":"large@@@","repr":"homidium bromide [ban:inn]","smiles":"[Br-].CC[n+]1c2cc(N)ccc2c3ccc(N)cc3c1c4ccccc4"}
+{"prompt":"What is the solubility of flurenol-butyl###","completion":"small@@@","repr":"flurenol-butyl","smiles":"CCCCOC(=O)C1(O)c2ccccc2c3ccccc13"}
+{"prompt":"What is the solubility of 1,2-propylene glycol diacetate###","completion":"very large@@@","repr":"1,2-propylene glycol diacetate","smiles":"CC(COC(C)=O)OC(C)=O"}
+{"prompt":"What is the solubility of trans-1-(1-oxohexadecyl)-4-[(1-oxohexadecyl)oxy]-L-proline###","completion":"very small@@@","repr":"trans-1-(1-oxohexadecyl)-4-[(1-oxohexadecyl)oxy]-L-proline","smiles":"CCCCCCCCCCCCCCCC(=O)O[C@@H]1C[C@H](N(C1)C(=O)CCCCCCCCCCCCCCC)C(O)=O"}
+{"prompt":"What is the solubility of phosphonic acid, hexyl-, diethyl ester###","completion":"medium@@@","repr":"phosphonic acid, hexyl-, diethyl ester","smiles":"CCCCCC[P](=O)(OCC)OCC"}
+{"prompt":"What is the solubility of 4-nitro-n-(4-methoxyphenyl)benzenesulfonamide;  1-(4-nitrophenylsulfonamido)-4-methoxybenzene###","completion":"small@@@","repr":"4-nitro-n-(4-methoxyphenyl)benzenesulfonamide;  1-(4-nitrophenylsulfonamido)-4-methoxybenzene","smiles":"COC1=CC=C(N[S](=O)(=O)C2=CC=C(C=C2)[N+]([O-])=O)C=C1"}
+{"prompt":"What is the solubility of dl-methionine###","completion":"very large@@@","repr":"dl-methionine","smiles":"CSCCC(N)C(O)=O"}
+{"prompt":"What is the solubility of bis(2,4-dichloro-5-nitrophenyl) carbonate###","completion":"very small@@@","repr":"bis(2,4-dichloro-5-nitrophenyl) carbonate","smiles":"[O-][N+](=O)c1cc(OC(=O)Oc2cc(c(Cl)cc2Cl)[N+]([O-])=O)c(Cl)cc1Cl"}
