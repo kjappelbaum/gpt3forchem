@@ -124,13 +124,14 @@ def learning_curve_point(representation, train_set_size):
     return results
 
 REPRESENTATIONS = [
-    'selfies',
-    'fragments',
-    'fragments-one-hot',
-    'selfies-one-hot',
+    # 'selfies',
+    # 'fragments',
+    # 'fragments-one-hot',
+    # 'selfies-one-hot',
     'pad-3',
-    'pad-4'
+    'pad-4',
     'pad-5',
+    'pad-6',
 ]
 
 NUM_REPS = 10

@@ -43,6 +43,7 @@ from loguru import logger
 import fcd
 import pkgutil
 import tempfile
+from pycm import ConfusionMatrix
 
 # %% ../notebooks/04_output.ipynb 4
 _DEFAULT_AGGREGATIONS =  [
@@ -643,6 +644,7 @@ def get_inverse_polymer_metrics(completion_texts, df_test, df_train, bins, max_n
     composition_mismatches = []
     features = []
     generated_sequences = []
+    predictions = []
     train_sequences = [polymer_string2performance(seq)["monomer_squence"] for seq in df_train["completion"]]
     train_features = featurize_many_polymers([polymer_string2performance(seq)["smiles"] for seq in df_train["completion"]])
     print(f"Using {len(train_sequences)} training sequences")
@@ -654,7 +656,7 @@ def get_inverse_polymer_metrics(completion_texts, df_test, df_train, bins, max_n
                 bin = bin if numerically_encoded else encode_categorical_value(bin)
                 loss = get_continuos_binned_distance(completion_data["prediction"][0], bin, bins)
                 losses.append(loss)
-
+                predictions.append(completion_data["prediction"][0])
                 mm = composition_mismatch(composition, completion_data["composition"])
  
                 distances = string_distances(
@@ -684,6 +686,8 @@ def get_inverse_polymer_metrics(completion_texts, df_test, df_train, bins, max_n
         "unique_smiles_fraction": unique_smiles_fraction,
         "novel_smiles_fraction": novel_smiles_fraction,
         'generated_sequences': generated_sequences,
+        "train_sequences": train_sequences,
+        "predictions": predictions,
     }
 
 
