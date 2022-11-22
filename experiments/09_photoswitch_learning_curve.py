@@ -13,7 +13,7 @@ from gpt3forchem.helpers import make_if_not_exists
 TRAIN_SIZES_NAMES = [10, 40, 60, 70]
 TRAIN_SIZES_SMILES = [10, 50, 100, 200, 300, 350]
 
-REPRESENTATIONS = ["SMILES", "selfies", "name"]
+REPRESENTATIONS = ["inchi"]#["SMILES", "selfies", "name"]
 
 REPEATS = 10
 DF = get_photoswitch_data()

@@ -26,7 +26,7 @@ TRAIN_SIZES_SMILES = [10, 50, 100, 200, 300, 350]
 REPEATS = 10
 MODEL_TYPES = ["ada"]
 PREFIXES = [""]  # "I'm an expert polymer chemist "]
-REPRESENTATIONS = ["SMILES", "selfies", "name"]
+REPRESENTATIONS = ["inchi", "SMILES", "selfies", "name"]
 OUTDIR = "results/20220915_photoswitch_regression"
 make_if_not_exists(OUTDIR)
 
