@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of CCCCCCCC[P](O)(O)=O###","completion":"medium@@@","repr":"CCCCCCCC[P](O)(O)=O","smiles":"CCCCCCCC[P](O)(O)=O"}
+{"prompt":"What is the solubility of CCCC[Sn](Cl)(Cl)CCCC###","completion":"small@@@","repr":"CCCC[Sn](Cl)(Cl)CCCC","smiles":"CCCC[Sn](Cl)(Cl)CCCC"}
+{"prompt":"What is the solubility of CCCCN(CCO)CCCC###","completion":"large@@@","repr":"CCCCN(CCO)CCCC","smiles":"CCCCN(CCO)CCCC"}
+{"prompt":"What is the solubility of COCCOCCOCCO###","completion":"very large@@@","repr":"COCCOCCOCCO","smiles":"COCCOCCOCCO"}
+{"prompt":"What is the solubility of C1Cc2ccccc2C1###","completion":"medium@@@","repr":"C1Cc2ccccc2C1","smiles":"C1Cc2ccccc2C1"}
+{"prompt":"What is the solubility of CC(C)(C)c1cc(CN2C(=O)N(Cc3cc(c(O)c(c3)C(C)(C)C)C(C)(C)C)C(=O)N(Cc4cc(c(O)c(c4)C(C)(C)C)C(C)(C)C)C2=O)cc(c1O)C(C)(C)C###","completion":"very small@@@","repr":"CC(C)(C)c1cc(CN2C(=O)N(Cc3cc(c(O)c(c3)C(C)(C)C)C(C)(C)C)C(=O)N(Cc4cc(c(O)c(c4)C(C)(C)C)C(C)(C)C)C2=O)cc(c1O)C(C)(C)C","smiles":"CC(C)(C)c1cc(CN2C(=O)N(Cc3cc(c(O)c(c3)C(C)(C)C)C(C)(C)C)C(=O)N(Cc4cc(c(O)c(c4)C(C)(C)C)C(C)(C)C)C2=O)cc(c1O)C(C)(C)C"}
+{"prompt":"What is the solubility of Oc1ccccc1C(=O)OC2CCCCC2###","completion":"small@@@","repr":"Oc1ccccc1C(=O)OC2CCCCC2","smiles":"Oc1ccccc1C(=O)OC2CCCCC2"}
+{"prompt":"What is the solubility of CC(=O)OC1=CC2=C(NC(=O)C2)C=C1###","completion":"large@@@","repr":"CC(=O)OC1=CC2=C(NC(=O)C2)C=C1","smiles":"CC(=O)OC1=CC2=C(NC(=O)C2)C=C1"}
+{"prompt":"What is the solubility of [Na+].[Na+].COc1cc(c(C)cc1N\\N=C2\\C(=O)C=Cc3cc(ccc23)[S]([O-])(=O)=O)[S]([O-])(=O)=O###","completion":"very large@@@","repr":"[Na+].[Na+].COc1cc(c(C)cc1N\\N=C2\\C(=O)C=Cc3cc(ccc23)[S]([O-])(=O)=O)[S]([O-])(=O)=O","smiles":"[Na+].[Na+].COc1cc(c(C)cc1N\\N=C2\\C(=O)C=Cc3cc(ccc23)[S]([O-])(=O)=O)[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of [Zn++].CCCCC(CC)CO[P]([S-])(=S)OCC(CC)CCCC.CCCCC(CC)CO[P]([S-])(=S)OCC(CC)CCCC###","completion":"very small@@@","repr":"[Zn++].CCCCC(CC)CO[P]([S-])(=S)OCC(CC)CCCC.CCCCC(CC)CO[P]([S-])(=S)OCC(CC)CCCC","smiles":"[Zn++].CCCCC(CC)CO[P]([S-])(=S)OCC(CC)CCCC.CCCCC(CC)CO[P]([S-])(=S)OCC(CC)CCCC"}

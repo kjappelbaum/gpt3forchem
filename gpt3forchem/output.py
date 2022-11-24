@@ -44,6 +44,7 @@ import fcd
 import pkgutil
 import tempfile
 from pycm import ConfusionMatrix
+import selfies as sf
 
 # %% ../notebooks/04_output.ipynb 4
 _DEFAULT_AGGREGATIONS =  [
@@ -70,14 +71,14 @@ class KLDivBenchmark:
     https://github.com/BenevolentAI/guacamol/blob/8247bbd5e927fbc3d328865d12cf83cb7019e2d6/guacamol/distribution_learning_benchmark.py
     """
 
-    def __init__(self,  training_set: List[str], number_samples: int) -> None:
+    def __init__(self,  training_set: List[str], sample_size: int) -> None:
         """
         Args:
             number_samples: number of samples to generate from the model
-            training_set: molecules from the training set
+            sample_size: molecules from the training set
         """
-        self.number_samples = number_samples
-        self.training_set_molecules = canonicalize_list(get_random_subset(training_set, self.number_samples, seed=42),
+        self.sample_size = sample_size
+        self.training_set_molecules = canonicalize_list(get_random_subset(training_set, self.sample_size, seed=42),
                                                         include_stereocenters=False)
         self.pc_descriptor_subset = [
             'BertzCT',
@@ -96,7 +97,7 @@ class KLDivBenchmark:
         """
         Assess a distribution-matching generator model.
         """
-        if len(molecules) != self.number_samples:
+        if len(molecules) != self.sample_size:
             logger.warning('The model could not generate enough unique molecules. The score will be penalized.')
 
         # canonicalize_list in order to remove stereo information (also removes duplicates and invalid molecules, but there shouldn't be any)
@@ -745,7 +746,7 @@ def get_expected_wavelengths(prompt):
 
 # %% ../notebooks/04_output.ipynb 70
 def test_inverse_photoswitch(
-    prompt_frame, model, train_smiles, temperature, max_tokens: int = 80
+    prompt_frame, model, train_smiles, temperature, max_tokens: int = 80, representation: str = "smiles"
 ):
     completions = query_gpt3(
         model, prompt_frame, max_tokens=max_tokens, temperature=temperature
@@ -756,6 +757,16 @@ def test_inverse_photoswitch(
             for i in range(len(completions["choices"]))
         ]
     )
+
+    if representation == 'selfies':
+        tmp = predictions 
+        predictions = []
+        for p in tmp:
+            try:
+                predictions.append(sf.decoder(p))
+            except:
+                predictions.append(p)
+        predictions = np.array(predictions)
 
     valid_smiles = [is_valid_smiles(smiles) for smiles in predictions]
 
@@ -777,6 +788,20 @@ def test_inverse_photoswitch(
     has_expected_n_pi_star = np.array(
         [n_pi_star is not None for n_pi_star in expected_n_pi_star]
     )
+
+    num_samples = min(sum(valid_smiles), len(train_smiles))
+
+    try:
+        frechet_benchmark = FrechetBenchmark(train_smiles, sample_size=num_samples)
+        frechet_score = frechet_benchmark.score(predictions[valid_smiles])
+    except Exception:
+        frechet_score = np.nan
+
+    try:
+        kl_div_benchmark = KLDivBenchmark(train_smiles, sample_size=num_samples)
+        kl_div_score = kl_div_benchmark.score(predictions[valid_smiles])
+    except Exception:
+        kl_div_score = np.nan
 
     try:
         predicted_pi_pi_star, predicted_n_pi_star = predict_photoswitch(
@@ -855,6 +880,9 @@ def test_inverse_photoswitch(
         },
         "predictions": predictions,
         "valid_smiles": valid_smiles,
+        "kl_divergence": kl_div_score,
+        "unique_smiles": len(set(np.array(predictions)[valid_smiles])) / sum(valid_smiles),
+        "frechet_chemnet": frechet_score,
         "smiles_in_train": smiles_in_train,
         "predicted_pi_pi_star": predicted_pi_pi_star,
         "predicted_n_pi_star": predicted_n_pi_star,

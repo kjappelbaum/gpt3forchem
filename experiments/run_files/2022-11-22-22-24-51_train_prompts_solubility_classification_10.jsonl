@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of 2-hydroxy-5-nitrobenzoic acid###","completion":"medium@@@","repr":"2-hydroxy-5-nitrobenzoic acid","smiles":"OC(=O)c1cc(ccc1O)[N+]([O-])=O"}
+{"prompt":"What is the solubility of pentoxifylline###","completion":"very large@@@","repr":"pentoxifylline","smiles":"Cn1cnc2N(C)C(=O)N(CCCCC(C)=O)C(=O)c12"}
+{"prompt":"What is the solubility of bromofenoxim###","completion":"very small@@@","repr":"bromofenoxim","smiles":"[O-][N+](=O)c1ccc(ONC=C2C=C(Br)C(=O)C(=C2)Br)c(c1)[N+]([O-])=O"}
+{"prompt":"What is the solubility of zinc dihydroxide###","completion":"medium@@@","repr":"zinc dihydroxide","smiles":"[OH-].[OH-].[Zn++]"}
+{"prompt":"What is the solubility of 2-(2-methylbutan-2-yl)cyclohexyl acetate###","completion":"small@@@","repr":"2-(2-methylbutan-2-yl)cyclohexyl acetate","smiles":"CCC(C)(C)C1CCCCC1OC(C)=O"}
+{"prompt":"What is the solubility of oxyfluorfen###","completion":"very small@@@","repr":"oxyfluorfen","smiles":"CCOc1cc(Oc2ccc(cc2Cl)C(F)(F)F)ccc1[N+]([O-])=O"}
+{"prompt":"What is the solubility of 3,4,5-trihydroxybenzoic acid###","completion":"large@@@","repr":"3,4,5-trihydroxybenzoic acid","smiles":"OC(=O)c1cc(O)c(O)c(O)c1"}
+{"prompt":"What is the solubility of butane-2,3-diol###","completion":"very large@@@","repr":"butane-2,3-diol","smiles":"C[C@@H](O)[C@H](C)O"}
+{"prompt":"What is the solubility of (n,n-dimethyl)carbamoylmethyl  salicylate; 2-(2-hydroxybenzoyloxy)-n,n-dimethylacetamide###","completion":"large@@@","repr":"(n,n-dimethyl)carbamoylmethyl  salicylate; 2-(2-hydroxybenzoyloxy)-n,n-dimethylacetamide","smiles":"CN(C)C(=O)COC(=O)C1=C(O)C=CC=C1"}
+{"prompt":"What is the solubility of dibromopyranthrene-8,16-dione###","completion":"small@@@","repr":"dibromopyranthrene-8,16-dione","smiles":"Brc1ccc2c3cc4ccc5C(=O)c6ccccc6c7cc8ccc(C(=O)c2c1Br)c3c8c4c57"}

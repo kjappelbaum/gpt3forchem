@@ -1,0 +1,500 @@
+{"prompt":"What is the solubility of 2-amino-1-naphthalenesulfonic acid; tobias acid###","completion":"large@@@","repr":"2-amino-1-naphthalenesulfonic acid; tobias acid","smiles":"NC1=C(C2=CC=CC=C2C=C1)[S](O)(=O)=O"}
+{"prompt":"What is the solubility of Butene, homopolymer (products derived from either\/or But-1-ene\/But-2-ene)###","completion":"small@@@","repr":"Butene, homopolymer (products derived from either\/or But-1-ene\/But-2-ene)","smiles":"CCC=C.C\\C=C\\C"}
+{"prompt":"What is the solubility of deoxycorticosterone  acetate###","completion":"very small@@@","repr":"deoxycorticosterone  acetate","smiles":"CC(=O)OCC(=O)C1CCC2C3CCC4=CC(=O)CCC4(C)C3CCC12C"}
+{"prompt":"What is the solubility of 2-Hydroxy-N,N-dimethylpropanamide###","completion":"very large@@@","repr":"2-Hydroxy-N,N-dimethylpropanamide","smiles":"CC(O)C(=O)N(C)C"}
+{"prompt":"What is the solubility of thiophenol###","completion":"medium@@@","repr":"thiophenol","smiles":"Sc1ccccc1"}
+{"prompt":"What is the solubility of ethane, 2-chloro-1,1,1-trinitro-###","completion":"very large@@@","repr":"ethane, 2-chloro-1,1,1-trinitro-","smiles":"[O-][N+](=O)C(CCl)([N+]([O-])=O)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 1,1,5-trimethylhept-6-en-1-yl acetate###","completion":"small@@@","repr":"1,1,5-trimethylhept-6-en-1-yl acetate","smiles":"CC(CCCC(C)(C)OC(C)=O)C=C"}
+{"prompt":"What is the solubility of m-nitrobenzyl alcohol###","completion":"medium@@@","repr":"m-nitrobenzyl alcohol","smiles":"OCc1cccc(c1)[N+]([O-])=O"}
+{"prompt":"What is the solubility of (2R,3R)-2,3-dihydroxybutanedioic acid###","completion":"very large@@@","repr":"(2R,3R)-2,3-dihydroxybutanedioic acid","smiles":"OC(C(O)C(O)=O)C(O)=O"}
+{"prompt":"What is the solubility of lithium(1+) ion acetate###","completion":"very large@@@","repr":"lithium(1+) ion acetate","smiles":"[Li+].CC([O-])=O"}
+{"prompt":"What is the solubility of tris(6-methylheptyl)amine###","completion":"small@@@","repr":"tris(6-methylheptyl)amine","smiles":"CC(C)CCCCCN(CCCCCC(C)C)CCCCCC(C)C"}
+{"prompt":"What is the solubility of 3-methylthiophene###","completion":"medium@@@","repr":"3-methylthiophene","smiles":"Cc1cscc1"}
+{"prompt":"What is the solubility of chlorotrinitromethane###","completion":"large@@@","repr":"chlorotrinitromethane","smiles":"[O-][N+](=O)C(Cl)([N+]([O-])=O)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 2-tert-butyl-4-[1-(5-tert-butyl-4-hydroxy-2-methylphenyl)butyl]-5-methylphenol###","completion":"very small@@@","repr":"2-tert-butyl-4-[1-(5-tert-butyl-4-hydroxy-2-methylphenyl)butyl]-5-methylphenol","smiles":"CCCC(c1cc(c(O)cc1C)C(C)(C)C)c2cc(c(O)cc2C)C(C)(C)C"}
+{"prompt":"What is the solubility of 1,1-dimethylpropyl hydroperoxide###","completion":"very large@@@","repr":"1,1-dimethylpropyl hydroperoxide","smiles":"CCC(C)(C)OO"}
+{"prompt":"What is the solubility of edifenphos###","completion":"small@@@","repr":"edifenphos","smiles":"CCO[P](=O)(Sc1ccccc1)Sc2ccccc2"}
+{"prompt":"What is the solubility of tetramethrin###","completion":"very small@@@","repr":"tetramethrin","smiles":"CC(C)=C[C@@H]1[C@@H](C(=O)OCN2C(=O)C3=C(CCCC3)C2=O)C1(C)C"}
+{"prompt":"What is the solubility of 2-ethylhexyl 2-{[dibutyl({2-[(2-ethylhexyl)oxy]-2-oxoethyl}sulfanyl)stannyl]sulfanyl}acetate###","completion":"very small@@@","repr":"2-ethylhexyl 2-{[dibutyl({2-[(2-ethylhexyl)oxy]-2-oxoethyl}sulfanyl)stannyl]sulfanyl}acetate","smiles":"CCCCC(CC)COC(=O)CS[Sn](CCCC)(CCCC)SCC(=O)OCC(CC)CCCC"}
+{"prompt":"What is the solubility of 5'-isobutanoyl-idoxuridine; 5'-isobutanoyl-5-iodo-2'-deoxyuridine; 5'-isobutanoyl-idu###","completion":"medium@@@","repr":"5'-isobutanoyl-idoxuridine; 5'-isobutanoyl-5-iodo-2'-deoxyuridine; 5'-isobutanoyl-idu","smiles":"CC(C)C(=O)OCC1OC(CC1O)N2C=C(I)C(=O)NC2=O"}
+{"prompt":"What is the solubility of 2-ethylhexyl acetate###","completion":"small@@@","repr":"2-ethylhexyl acetate","smiles":"CCCCC(CC)COC(C)=O"}
+{"prompt":"What is the solubility of 3,4-xylidine###","completion":"large@@@","repr":"3,4-xylidine","smiles":"Cc1ccc(N)cc1C"}
+{"prompt":"What is the solubility of prednisolone acetate###","completion":"small@@@","repr":"prednisolone acetate","smiles":"CC(=O)OCC(=O)[C@@]1(O)CC[C@H]2[C@@H]3CCC4=CC(=O)C=C[C@]4(C)[C@H]3[C@@H](O)C[C@]12C"}
+{"prompt":"What is the solubility of pyraflufen-ethyl###","completion":"very small@@@","repr":"pyraflufen-ethyl","smiles":"CCOC(=O)COc1cc(c(F)cc1Cl)c2nn(C)c(OC(F)F)c2Cl"}
+{"prompt":"What is the solubility of 2H,4H,4aH,5H,9bH-indeno[1,2-d][1,3]dioxine###","completion":"large@@@","repr":"2H,4H,4aH,5H,9bH-indeno[1,2-d][1,3]dioxine","smiles":"C1OCC2Cc3ccccc3C2O1"}
+{"prompt":"What is the solubility of 2,4-dihydro-1H-3,1-benzoxazine-2,4-dione###","completion":"medium@@@","repr":"2,4-dihydro-1H-3,1-benzoxazine-2,4-dione","smiles":"O=C1Nc2ccccc2C(=O)O1"}
+{"prompt":"What is the solubility of famoxadone###","completion":"very small@@@","repr":"famoxadone","smiles":"CC1(OC(=O)N(Nc2ccccc2)C1=O)c3ccc(Oc4ccccc4)cc3"}
+{"prompt":"What is the solubility of 1-methyl-2,4-dinitrobenzene; 2-methyl-1,3-dinitrobenzene###","completion":"medium@@@","repr":"1-methyl-2,4-dinitrobenzene; 2-methyl-1,3-dinitrobenzene","smiles":"Cc1ccc(cc1[N+]([O-])=O)[N+]([O-])=O"}
+{"prompt":"What is the solubility of dimethamrtryne###","completion":"small@@@","repr":"dimethamrtryne","smiles":"CCNc1nc(NC(C)C(C)C)nc(SC)n1"}
+{"prompt":"What is the solubility of 1-ethylpyrrolidin-2-one###","completion":"very large@@@","repr":"1-ethylpyrrolidin-2-one","smiles":"CCN1CCCC1=O"}
+{"prompt":"What is the solubility of undecanoic acid###","completion":"small@@@","repr":"undecanoic acid","smiles":"CCCCCCCCCCC(O)=O"}
+{"prompt":"What is the solubility of digitoxin###","completion":"very small@@@","repr":"digitoxin","smiles":"C[C@H]1O[C@H](C[C@H](O)[C@@H]1O)O[C@H]2[C@@H](O)C[C@@H](O[C@@H]2C)O[C@H]3[C@@H](O)C[C@@H](O[C@@H]3C)O[C@H]4CC[C@@]5(C)[C@H](CC[C@@H]6[C@@H]5CC[C@]7(C)[C@H](CC[C@]67O)C8=CC(=O)OC8)C4"}
+{"prompt":"What is the solubility of hexadecyl acetate###","completion":"very small@@@","repr":"hexadecyl acetate","smiles":"CCCCCCCCCCCCCCCCOC(C)=O"}
+{"prompt":"What is the solubility of ursodeoxycholic acid###","completion":"small@@@","repr":"ursodeoxycholic acid","smiles":"C[C@H](CCC(O)=O)[C@H]1CC[C@H]2[C@@H]3[C@@H](O)C[C@@H]4C[C@H](O)CC[C@]4(C)[C@H]3CC[C@]12C"}
+{"prompt":"What is the solubility of 4-[3-[(3-methylbutylamino)methyl]benzoyl]thiophene-2-sulfonamide###","completion":"large@@@","repr":"4-[3-[(3-methylbutylamino)methyl]benzoyl]thiophene-2-sulfonamide","smiles":"CC(C)CCNCC1=CC=CC(C(=O)C2=CSC(S(N)(=O)=O)=C2)=C1"}
+{"prompt":"What is the solubility of 3-amino-4-methylbenzamide###","completion":"very large@@@","repr":"3-amino-4-methylbenzamide","smiles":"Cc1ccc(cc1N)C(N)=O"}
+{"prompt":"What is the solubility of tripropylene glycol methyl ether###","completion":"very large@@@","repr":"tripropylene glycol methyl ether","smiles":"COCC(C)OCC(C)OCC(C)O"}
+{"prompt":"What is the solubility of 4-toluenesulfonic acid hydrazide###","completion":"large@@@","repr":"4-toluenesulfonic acid hydrazide","smiles":"CC1=CC=C(C=C1)[S](=O)(=O)NN"}
+{"prompt":"What is the solubility of 3-pyridinecarboxamide, n-undecyl-###","completion":"medium@@@","repr":"3-pyridinecarboxamide, n-undecyl-","smiles":"CCCCCCCCCCCNC(=O)c1cccnc1"}
+{"prompt":"What is the solubility of ethane, 1,2-diiodo-###","completion":"small@@@","repr":"ethane, 1,2-diiodo-","smiles":"ICCI"}
+{"prompt":"What is the solubility of 3-nitroaniline###","completion":"medium@@@","repr":"3-nitroaniline","smiles":"Nc1cccc(c1)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 4-methoxyfuro[3,2-g]chromen-7-one###","completion":"small@@@","repr":"4-methoxyfuro[3,2-g]chromen-7-one","smiles":"COC1=C2C=COC2=CC2=C1C=CC(=O)O2"}
+{"prompt":"What is the solubility of disodium 5-({4-[(2-bromoacryloyl)amino]-2-sulfonatophenyl}diazenyl)-4-hydroxy-6-(methylamino)naphthalene-2-sulfonate###","completion":"large@@@","repr":"disodium 5-({4-[(2-bromoacryloyl)amino]-2-sulfonatophenyl}diazenyl)-4-hydroxy-6-(methylamino)naphthalene-2-sulfonate","smiles":"[Na+].[Na+].CN=C1C=CC2=CC(=CC(=O)C2=C1NNc3ccc(NC(=O)C(Br)=C)cc3[S]([O-])(=O)=O)[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of 2,4'-dichlorodiphenyl ether###","completion":"very small@@@","repr":"2,4'-dichlorodiphenyl ether","smiles":"Clc1ccc(Oc2ccccc2Cl)cc1"}
+{"prompt":"What is the solubility of zinc bis(O,O-diisooctyl) bis(dithiophosphate)###","completion":"small@@@","repr":"zinc bis(O,O-diisooctyl) bis(dithiophosphate)","smiles":"[Zn++].CC(C)CCCCCO[P]([S-])(=S)OCCCCCC(C)C.CC(C)CCCCCO[P]([S-])(=S)OCCCCCC(C)C"}
+{"prompt":"What is the solubility of 2-(3-hydroxyphenyl)sulfonylphenol###","completion":"medium@@@","repr":"2-(3-hydroxyphenyl)sulfonylphenol","smiles":"O=S(=O)(C1=CC(O)=CC=C1)C1=C(O)C=CC=C1"}
+{"prompt":"What is the solubility of pentanoic acid, 2-methyl-###","completion":"large@@@","repr":"pentanoic acid, 2-methyl-","smiles":"CCCC(C)C(O)=O"}
+{"prompt":"What is the solubility of 5-[(n,n-dimethylaminosulfonyl)imido]-4-methyl-2-aminosulfonyl-1,3,4-thiadiazoline###","completion":"medium@@@","repr":"5-[(n,n-dimethylaminosulfonyl)imido]-4-methyl-2-aminosulfonyl-1,3,4-thiadiazoline","smiles":"CN(C)[S](=O)(=O)N=C1SC(=NN1C)[S](N)(=O)=O"}
+{"prompt":"What is the solubility of hydrogen telluride###","completion":"very small@@@","repr":"hydrogen telluride","smiles":"[Te]"}
+{"prompt":"What is the solubility of 2-fluorobenzoic  acid###","completion":"large@@@","repr":"2-fluorobenzoic  acid","smiles":"OC(=O)C1=C(F)C=CC=C1"}
+{"prompt":"What is the solubility of methyl 3,5-dihydroxy-4-methoxybenzoate###","completion":"large@@@","repr":"methyl 3,5-dihydroxy-4-methoxybenzoate","smiles":"COC(=O)C1=CC(O)=C(OC)C(O)=C1"}
+{"prompt":"What is the solubility of bis(3-aminopropyl)(dodecyl)amine###","completion":"very large@@@","repr":"bis(3-aminopropyl)(dodecyl)amine","smiles":"CCCCCCCCCCCCN(CCCN)CCCN"}
+{"prompt":"What is the solubility of acetamide, n-acetyl-2-(benzoyloxy)-n-methyl-###","completion":"medium@@@","repr":"acetamide, n-acetyl-2-(benzoyloxy)-n-methyl-","smiles":"CN(C(C)=O)C(=O)COC(=O)c1ccccc1"}
+{"prompt":"What is the solubility of clofazimine###","completion":"very small@@@","repr":"clofazimine","smiles":"CC(C)N=C1C=C2N(C3=CC=C(Cl)C=C3)C4=C(C=CC=C4)N=C2C=C1NC5=CC=C(Cl)C=C5"}
+{"prompt":"What is the solubility of zinc(2+) ion didodecanoate###","completion":"very small@@@","repr":"zinc(2+) ion didodecanoate","smiles":"[Zn++].CCCCCCCCCCCC([O-])=O.CCCCCCCCCCCC([O-])=O"}
+{"prompt":"What is the solubility of benzylhydrazine dihydrochloride###","completion":"large@@@","repr":"benzylhydrazine dihydrochloride","smiles":"[H+].[H+].[Cl-].[Cl-].NNCc1ccccc1"}
+{"prompt":"What is the solubility of 2-isopropoxyethyl acetate###","completion":"very large@@@","repr":"2-isopropoxyethyl acetate","smiles":"CC(C)OCCOC(C)=O"}
+{"prompt":"What is the solubility of medrogestone###","completion":"very small@@@","repr":"medrogestone","smiles":"CC(=O)C1(C)CCC2C3C=C(C)C4=CC(=O)CCC4(C)C3CCC12C"}
+{"prompt":"What is the solubility of eriodictyol###","completion":"small@@@","repr":"eriodictyol","smiles":"Oc1cc(O)c2C(=O)C[C@H](Oc2c1)c3ccc(O)c(O)c3"}
+{"prompt":"What is the solubility of quinalphos###","completion":"small@@@","repr":"quinalphos","smiles":"CCO[P](=S)(OCC)Oc1cnc2ccccc2n1"}
+{"prompt":"What is the solubility of decamethylcyclopentasiloxane###","completion":"very small@@@","repr":"decamethylcyclopentasiloxane","smiles":"C[Si]1(C)O[Si](C)(C)O[Si](C)(C)O[Si](C)(C)O[Si](C)(C)O1"}
+{"prompt":"What is the solubility of 2-(phenyl-(phenylmethylsulfanylcarbothioyl)amino)acetic acid###","completion":"small@@@","repr":"2-(phenyl-(phenylmethylsulfanylcarbothioyl)amino)acetic acid","smiles":"O=C(O)CN(C(=S)SCC1=CC=CC=C1)C1=CC=CC=C1"}
+{"prompt":"What is the solubility of hydroxyazanium chloride###","completion":"very large@@@","repr":"hydroxyazanium chloride","smiles":"[H+].[Cl-].NO"}
+{"prompt":"What is the solubility of triammonium hexachlororhodate###","completion":"very large@@@","repr":"triammonium hexachlororhodate","smiles":"[NH4+].[NH4+].[NH4+].[Cl-].[Cl-].[Cl-].[Cl-].[Cl-].[Cl-].[Rh+3]"}
+{"prompt":"What is the solubility of 3,4-dichlorodiphenyl ether###","completion":"small@@@","repr":"3,4-dichlorodiphenyl ether","smiles":"Clc1ccc(Oc2ccccc2)cc1Cl"}
+{"prompt":"What is the solubility of 1-[(2-hydroxypropyl)amino]propan-2-ol###","completion":"very large@@@","repr":"1-[(2-hydroxypropyl)amino]propan-2-ol","smiles":"CC(O)CNCC(C)O"}
+{"prompt":"What is the solubility of 5-ethyl-5-propylbarbituric  acid###","completion":"large@@@","repr":"5-ethyl-5-propylbarbituric  acid","smiles":"CCCC1(CC)C(=O)NC(=O)NC1=O"}
+{"prompt":"What is the solubility of benzene, 1,2-dichloro-3-methoxy-###","completion":"small@@@","repr":"benzene, 1,2-dichloro-3-methoxy-","smiles":"COc1cccc(Cl)c1Cl"}
+{"prompt":"What is the solubility of l-valine, n-glycyl-###","completion":"very large@@@","repr":"l-valine, n-glycyl-","smiles":"CC(C)C(NC(=O)CN)C(O)=O"}
+{"prompt":"What is the solubility of O-(4-bromo-2-chlorophenyl) O-ethyl S-propyl thiophosphate###","completion":"small@@@","repr":"O-(4-bromo-2-chlorophenyl) O-ethyl S-propyl thiophosphate","smiles":"CCCS[P](=O)(OCC)Oc1ccc(Br)cc1Cl"}
+{"prompt":"What is the solubility of 7-methylpteridine###","completion":"very large@@@","repr":"7-methylpteridine","smiles":"CC1=NC2=C(C=NC=N2)N=C1"}
+{"prompt":"What is the solubility of Cinchonidine###","completion":"medium@@@","repr":"Cinchonidine","smiles":"OC(c(c(c(nc1)ccc2)c2)c1)C(N(CCC3C4C=C)C4)C3"}
+{"prompt":"What is the solubility of 2,2',4,5,6'-pentachlorodiphenyl  ether###","completion":"very small@@@","repr":"2,2',4,5,6'-pentachlorodiphenyl  ether","smiles":"ClC1=CC=CC(=C1OC2=C(Cl)C=C(Cl)C(=C2)Cl)Cl"}
+{"prompt":"What is the solubility of 1h-indole, 2,3-dihydro-###","completion":"large@@@","repr":"1h-indole, 2,3-dihydro-","smiles":"C1Cc2ccccc2N1"}
+{"prompt":"What is the solubility of pentyl 2-(6-methoxynaphthalen-2-yl)propanoate###","completion":"very small@@@","repr":"pentyl 2-(6-methoxynaphthalen-2-yl)propanoate","smiles":"CCCCCOC(=O)C(C)C1=CC2=CC=C(OC)C=C2C=C1"}
+{"prompt":"What is the solubility of 2-(heptan-3-yl)-1,3-dioxolane###","completion":"small@@@","repr":"2-(heptan-3-yl)-1,3-dioxolane","smiles":"CCCCC(CC)C1OCCO1"}
+{"prompt":"What is the solubility of trixylyl phosphate###","completion":"very small@@@","repr":"trixylyl phosphate","smiles":"Cc1cc(C)cc(O[P](=O)(Oc2cc(C)cc(C)c2)Oc3cc(C)cc(C)c3)c1"}
+{"prompt":"What is the solubility of Cobalt molybdate###","completion":"medium@@@","repr":"Cobalt molybdate","smiles":"[Co++].[O-][Mo]([O-])(=O)=O"}
+{"prompt":"What is the solubility of bis(tetrakis(hydroxymethyl)phosphanium) sulfate###","completion":"very large@@@","repr":"bis(tetrakis(hydroxymethyl)phosphanium) sulfate","smiles":"OC[P+](CO)(CO)CO.OC[P+](CO)(CO)CO.[O-][S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of tiocarbazil###","completion":"very small@@@","repr":"tiocarbazil","smiles":"CCC(C)N(C(C)CC)C(=O)SCc1ccccc1"}
+{"prompt":"What is the solubility of pyruvic acid###","completion":"very large@@@","repr":"pyruvic acid","smiles":"CC(=O)C(O)=O"}
+{"prompt":"What is the solubility of 2,4-hexadienoic acid;  sorbic  acid###","completion":"large@@@","repr":"2,4-hexadienoic acid;  sorbic  acid","smiles":"C\\C=C\\C=C\\C(O)=O"}
+{"prompt":"What is the solubility of dipropalin###","completion":"medium@@@","repr":"dipropalin","smiles":"CCCN(CCC)c1c(cc(C)cc1[N+]([O-])=O)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 3-hydroxy-13-methyl-7,8,9,11,12,14,15,16-octahydro-6H-cyclopenta[a]phenanthren-17-one###","completion":"very small@@@","repr":"3-hydroxy-13-methyl-7,8,9,11,12,14,15,16-octahydro-6H-cyclopenta[a]phenanthren-17-one","smiles":"CC12CCC3C4=C(C=C(O)C=C4)CCC3C1CCC2=O"}
+{"prompt":"What is the solubility of dodecyl 2-methylprop-2-enoate###","completion":"very small@@@","repr":"dodecyl 2-methylprop-2-enoate","smiles":"CCCCCCCCCCCCOC(=O)C(C)=C"}
+{"prompt":"What is the solubility of tetraethylplumbane###","completion":"very small@@@","repr":"tetraethylplumbane","smiles":"CC[Pb](CC)(CC)CC"}
+{"prompt":"What is the solubility of isobutanoyloxymethyl nalidixate;  nalidixic acid isobutanoyloxymethyl ester###","completion":"medium@@@","repr":"isobutanoyloxymethyl nalidixate;  nalidixic acid isobutanoyloxymethyl ester","smiles":"CCN1C=C(C(=O)OCOC(=O)C(C)C)C(=O)C2=C1N=C(C)C=C2"}
+{"prompt":"What is the solubility of Aldadiene###","completion":"small@@@","repr":"Aldadiene","smiles":"CC12CCC(=O)C=C1C=CC3C2CCC4(C)C3CCC45CCC(=O)O5"}
+{"prompt":"What is the solubility of nitrazepam###","completion":"small@@@","repr":"nitrazepam","smiles":"[O-][N+](=O)C1=CC=C2NC(=O)CN=C(C3=CC=CC=C3)C2=C1"}
+{"prompt":"What is the solubility of n-methyl o-(3-isopropylphenyl)carbamate###","completion":"small@@@","repr":"n-methyl o-(3-isopropylphenyl)carbamate","smiles":"CNC(=O)Oc1cccc(c1)C(C)C"}
+{"prompt":"What is the solubility of hexanediamide, n,n'-bis(2-hydroxyethyl)-###","completion":"very large@@@","repr":"hexanediamide, n,n'-bis(2-hydroxyethyl)-","smiles":"OCCNC(=O)CCCCC(=O)NCCO"}
+{"prompt":"What is the solubility of n-butanoyl-n'-isonicotinoylhydrazine###","completion":"very large@@@","repr":"n-butanoyl-n'-isonicotinoylhydrazine","smiles":"CCCC(=O)NNC(=O)C1=CC=NC=C1"}
+{"prompt":"What is the solubility of (2E)-3,7-dimethylocta-2,6-dien-1-ol###","completion":"medium@@@","repr":"(2E)-3,7-dimethylocta-2,6-dien-1-ol","smiles":"CC(C)=CCC\\C(C)=C\\CO"}
+{"prompt":"What is the solubility of pefurazoate###","completion":"medium@@@","repr":"pefurazoate","smiles":"CCC(N(Cc1occc1)C(=O)n2ccnc2)C(=O)OCCCC=C"}
+{"prompt":"What is the solubility of cis-platin###","completion":"medium@@@","repr":"cis-platin","smiles":"N.N.[Cl-].[Cl-].[Pt++]"}
+{"prompt":"What is the solubility of 2-bromonaphthalene###","completion":"small@@@","repr":"2-bromonaphthalene","smiles":"Brc1ccc2ccccc2c1"}
+{"prompt":"What is the solubility of 4-[(morpholin-4-ylcarbonothioyl)sulfanyl]morpholine###","completion":"small@@@","repr":"4-[(morpholin-4-ylcarbonothioyl)sulfanyl]morpholine","smiles":"S=C(SN1CCOCC1)N2CCOCC2"}
+{"prompt":"What is the solubility of 5-fluoro-1-(oxolan-2-yl)pyrimidine-2,4-dione###","completion":"large@@@","repr":"5-fluoro-1-(oxolan-2-yl)pyrimidine-2,4-dione","smiles":"O=C1NC(=O)N(C2CCCO2)C=C1F"}
+{"prompt":"What is the solubility of dibucaine###","completion":"small@@@","repr":"dibucaine","smiles":"CCCCOc2cc(C(=O)NCCN(CC)CC)c1ccccc1n2"}
+{"prompt":"What is the solubility of propanoic acid, 3-hydroxy-2-methyl-, 2,3,3a,4,5,###","completion":"medium@@@","repr":"propanoic acid, 3-hydroxy-2-methyl-, 2,3,3a,4,5,","smiles":"CC(CO)C(=O)O[C@H]1CC(=C\/CCC(=C\/[C@H]2OC(=O)C(=C)[C@H]12)\/CO)\/C"}
+{"prompt":"What is the solubility of beta-alanine###","completion":"very large@@@","repr":"beta-alanine","smiles":"NCCC(O)=O"}
+{"prompt":"What is the solubility of 2',3,4,4',5-pentachlorobiphenyl###","completion":"very small@@@","repr":"2',3,4,4',5-pentachlorobiphenyl","smiles":"ClC1=CC(=C(C=C1)C2=CC(=C(Cl)C(=C2)Cl)Cl)Cl"}
+{"prompt":"What is the solubility of (2R)-2-(2-chlorophenyl)-2-hydroxyacetic acid###","completion":"very large@@@","repr":"(2R)-2-(2-chlorophenyl)-2-hydroxyacetic acid","smiles":"O[C@@H](C(O)=O)c1ccccc1Cl"}
+{"prompt":"What is the solubility of 2,4-dichloro-1-nitrobenzene###","completion":"medium@@@","repr":"2,4-dichloro-1-nitrobenzene","smiles":"[O-][N+](=O)c1ccc(Cl)cc1Cl"}
+{"prompt":"What is the solubility of phenylacetic_acid###","completion":"large@@@","repr":"phenylacetic_acid","smiles":"O=C(O)Cc(cccc1)c1"}
+{"prompt":"What is the solubility of L-histidine monohydrochloride###","completion":"very large@@@","repr":"L-histidine monohydrochloride","smiles":"[Cl-].N[C@@H](Cc1[nH]cnc1)C(O)=O.[H+]"}
+{"prompt":"What is the solubility of 2-methyl-2-hexanol###","completion":"large@@@","repr":"2-methyl-2-hexanol","smiles":"CCCCC(C)(C)O"}
+{"prompt":"What is the solubility of pyrethrin ii###","completion":"small@@@","repr":"pyrethrin ii","smiles":"COC(=O)C(\/C)=C\/[C@@H]1[C@@H](C(=O)O[C@H]2CC(=O)C(=C2C)C\\C=C\/C=C)C1(C)C"}
+{"prompt":"What is the solubility of dimethyl glyoxime###","completion":"medium@@@","repr":"dimethyl glyoxime","smiles":"C\\C(NO)=C(\/C)N=O"}
+{"prompt":"What is the solubility of 2-ethylnitrobenzene###","completion":"medium@@@","repr":"2-ethylnitrobenzene","smiles":"CCc1ccccc1[N+]([O-])=O"}
+{"prompt":"What is the solubility of 2-methoxyethyl mercuric chloride###","completion":"very large@@@","repr":"2-methoxyethyl mercuric chloride","smiles":"[Cl-].COCC[Hg+]"}
+{"prompt":"What is the solubility of butanedioic acid, 2,2'-thiobis-###","completion":"very large@@@","repr":"butanedioic acid, 2,2'-thiobis-","smiles":"OC(=O)CC(SC(CC(O)=O)C(O)=O)C(O)=O"}
+{"prompt":"What is the solubility of hydrazine###","completion":"very large@@@","repr":"hydrazine","smiles":"NN"}
+{"prompt":"What is the solubility of (5-ethyl-1,3-dioxan-5-yl)methyl prop-2-enoate###","completion":"large@@@","repr":"(5-ethyl-1,3-dioxan-5-yl)methyl prop-2-enoate","smiles":"CCC1(COCOC1)COC(=O)C=C"}
+{"prompt":"What is the solubility of trifluoroacetamide###","completion":"large@@@","repr":"trifluoroacetamide","smiles":"NC(=O)C(F)(F)F"}
+{"prompt":"What is the solubility of (6R)-3-methyl-6-(propan-2-yl)cyclohex-2-en-1-one###","completion":"large@@@","repr":"(6R)-3-methyl-6-(propan-2-yl)cyclohex-2-en-1-one","smiles":"CC(C)[C@H]1CCC(=CC1=O)C"}
+{"prompt":"What is the solubility of 1-tert-butyl-4-vinylbenzene###","completion":"small@@@","repr":"1-tert-butyl-4-vinylbenzene","smiles":"CC(C)(C)c1ccc(C=C)cc1"}
+{"prompt":"What is the solubility of 2-bromo-2-methylpropane###","completion":"medium@@@","repr":"2-bromo-2-methylpropane","smiles":"CC(C)(C)Br"}
+{"prompt":"What is the solubility of 2,4,5-trimethylaniline###","completion":"large@@@","repr":"2,4,5-trimethylaniline","smiles":"Cc1cc(C)c(N)cc1C"}
+{"prompt":"What is the solubility of isopropyl (1-(4-nitro)phenylsulfonyl) cyclohexan###","completion":"very small@@@","repr":"isopropyl (1-(4-nitro)phenylsulfonyl) cyclohexan","smiles":"CC(C)OC(=O)C1(CCCCC1)[S](=O)(=O)c2ccc(cc2)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 2-methylacridin-9-amine###","completion":"medium@@@","repr":"2-methylacridin-9-amine","smiles":"CC1=CC2=C(N)C3=C(C=CC=C3)N=C2C=C1"}
+{"prompt":"What is the solubility of 4-(4-hydroxyphenyl)sulfonylfuran-2-sulfonamide###","completion":"medium@@@","repr":"4-(4-hydroxyphenyl)sulfonylfuran-2-sulfonamide","smiles":"NS(=O)(=O)C1=CC(S(=O)(=O)C2=CC=C(O)C=C2)=CO1"}
+{"prompt":"What is the solubility of glycidylaldehyde###","completion":"very large@@@","repr":"glycidylaldehyde","smiles":"O=CC1CO1"}
+{"prompt":"What is the solubility of metsulfuron-methyl###","completion":"large@@@","repr":"metsulfuron-methyl","smiles":"COC(=O)c1ccccc1[S](=O)(=O)NC(=O)Nc2nc(C)nc(OC)n2"}
+{"prompt":"What is the solubility of glyphosate isopropylamine salt###","completion":"very large@@@","repr":"glyphosate isopropylamine salt","smiles":"CC(C)N.OC(=O)CNC[P](O)(O)=O"}
+{"prompt":"What is the solubility of dithiane-3,6-dicarboxylic acid###","completion":"large@@@","repr":"dithiane-3,6-dicarboxylic acid","smiles":"O=C(O)C1CCC(C(=O)O)SS1"}
+{"prompt":"What is the solubility of 1,2-xylene###","completion":"medium@@@","repr":"1,2-xylene","smiles":"Cc1ccccc1C"}
+{"prompt":"What is the solubility of benzaldehyde, 4-ethoxy-3-methoxy-###","completion":"medium@@@","repr":"benzaldehyde, 4-ethoxy-3-methoxy-","smiles":"CCOc1ccc(C=O)cc1OC"}
+{"prompt":"What is the solubility of propanil###","completion":"medium@@@","repr":"propanil","smiles":"CCC(=O)Nc1ccc(Cl)c(Cl)c1"}
+{"prompt":"What is the solubility of 3-[[2-[2-(3,4-dimethoxyphenyl)ethylamino]-2-oxoethyl]amino]-N-methylbenzamide###","completion":"large@@@","repr":"3-[[2-[2-(3,4-dimethoxyphenyl)ethylamino]-2-oxoethyl]amino]-N-methylbenzamide","smiles":"CNC(=O)C1=CC=CC(NCC(=O)NCCC2=CC(OC)=C(OC)C=C2)=C1"}
+{"prompt":"What is the solubility of acetamide, 2-(benzoyloxy)-n-methyl-###","completion":"large@@@","repr":"acetamide, 2-(benzoyloxy)-n-methyl-","smiles":"CNC(=O)COC(=O)c1ccccc1"}
+{"prompt":"What is the solubility of 2,6-di-tert-butyl-4-[(dimethylamino)methyl]phenol###","completion":"medium@@@","repr":"2,6-di-tert-butyl-4-[(dimethylamino)methyl]phenol","smiles":"CN(C)Cc1cc(c(O)c(c1)C(C)(C)C)C(C)(C)C"}
+{"prompt":"What is the solubility of nonan-1-ol###","completion":"medium@@@","repr":"nonan-1-ol","smiles":"CCCCCCCCCO"}
+{"prompt":"What is the solubility of sodium 2-amino-4-nitrophenol benzene-1,3-diol 2-amino-4-nitro-6-sulfobenzen-1-olate iron sodium hydride###","completion":"large@@@","repr":"sodium 2-amino-4-nitrophenol benzene-1,3-diol 2-amino-4-nitro-6-sulfobenzen-1-olate iron sodium hydride","smiles":"[Na].[Na+].[Fe].Nc1cc(ccc1O)[N+]([O-])=O.Nc2cc(cc(c2O)[S]([O-])(=O)=O)[N+]([O-])=O.Oc3cccc(O)c3"}
+{"prompt":"What is the solubility of Lindane###","completion":"small@@@","repr":"Lindane","smiles":"ClC1C(Cl)C(Cl)C(Cl)C(Cl)C1Cl"}
+{"prompt":"What is the solubility of 1,3,5,8-tetrachloronaphthalene###","completion":"very small@@@","repr":"1,3,5,8-tetrachloronaphthalene","smiles":"ClC1=CC2=C(C(=CC=C2Cl)Cl)C(=C1)Cl"}
+{"prompt":"What is the solubility of [(1S,2S,3S,5R)-2,6,6-trimethylbicyclo[3.1.1]heptan-3-yl]methanamine###","completion":"medium@@@","repr":"[(1S,2S,3S,5R)-2,6,6-trimethylbicyclo[3.1.1]heptan-3-yl]methanamine","smiles":"C[C@@H]1[C@@H](CN)C[C@H]2C[C@@H]1C2(C)C"}
+{"prompt":"What is the solubility of 1-octanesulfonamide, n-(octylsulfonyl)-###","completion":"small@@@","repr":"1-octanesulfonamide, n-(octylsulfonyl)-","smiles":"CCCCCCCC[S](=O)(=O)N[S](=O)(=O)CCCCCCCC"}
+{"prompt":"What is the solubility of 2,4,6-trimethylphenol###","completion":"medium@@@","repr":"2,4,6-trimethylphenol","smiles":"Cc1cc(C)c(O)c(C)c1"}
+{"prompt":"What is the solubility of Carbetamide###","completion":"large@@@","repr":"Carbetamide","smiles":"CCNC(=O)C(C)OC(=O)Nc1ccccc1"}
+{"prompt":"What is the solubility of 6-({bis[(5-carboxypentyl)amino]-1,3,5-triazin-2-yl}amino)hexanoic acid###","completion":"medium@@@","repr":"6-({bis[(5-carboxypentyl)amino]-1,3,5-triazin-2-yl}amino)hexanoic acid","smiles":"OC(=O)CCCCCNc1nc(NCCCCCC(O)=O)nc(NCCCCCC(O)=O)n1"}
+{"prompt":"What is the solubility of leucopterin###","completion":"very small@@@","repr":"leucopterin","smiles":"NC1=NC(=O)C2=C(N1)NC(=O)C(=O)N2"}
+{"prompt":"What is the solubility of 6-methylbenzo(a)pyrene###","completion":"very small@@@","repr":"6-methylbenzo(a)pyrene","smiles":"Cc1c2ccccc2c3ccc4cccc5ccc1c3c45"}
+{"prompt":"What is the solubility of triazoxide;  7-chloro-3-(1h-imidazol-1-yl)-1,2,4-benzotriazine 1-oxide###","completion":"small@@@","repr":"triazoxide;  7-chloro-3-(1h-imidazol-1-yl)-1,2,4-benzotriazine 1-oxide","smiles":"[O-][N+]1=NC(=NC2=C1C=C(Cl)C=C2)[N]3C=CN=C3"}
+{"prompt":"What is the solubility of 1,2-hydrazinecarbothioamide###","completion":"large@@@","repr":"1,2-hydrazinecarbothioamide","smiles":"NC(=S)NNC(N)=S"}
+{"prompt":"What is the solubility of 1-(1-aziridinyl)-2,4-dinitrobenzene###","completion":"medium@@@","repr":"1-(1-aziridinyl)-2,4-dinitrobenzene","smiles":"[O-][N+](=O)C1=CC=C(N2CC2)C(=C1)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 2,3',4',5-tetrachlorobiphenyl###","completion":"very small@@@","repr":"2,3',4',5-tetrachlorobiphenyl","smiles":"Clc1ccccc1c2cc(Cl)c(Cl)c(Cl)c2"}
+{"prompt":"What is the solubility of 1-(4-methoxyphenyl)-4-(4-nitrophenyl)piperazine###","completion":"very small@@@","repr":"1-(4-methoxyphenyl)-4-(4-nitrophenyl)piperazine","smiles":"COc1ccc(cc1)N2CCN(CC2)c3ccc(cc3)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 1,2-ethanediamine, n-(2-aminoethyl)-n'- 2-###","completion":"very large@@@","repr":"1,2-ethanediamine, n-(2-aminoethyl)-n'- 2-","smiles":"NCCNCCNCCNCCN"}
+{"prompt":"What is the solubility of 2-propanol, 1-chloro-, phosphate (3:1)###","completion":"medium@@@","repr":"2-propanol, 1-chloro-, phosphate (3:1)","smiles":"CC(CCl)O[P](=O)(OC(C)CCl)OC(C)CCl"}
+{"prompt":"What is the solubility of ethanamine, n,2-dichloro-n-(2-chloroethyl)-###","completion":"large@@@","repr":"ethanamine, n,2-dichloro-n-(2-chloroethyl)-","smiles":"ClCCN(Cl)CCCl"}
+{"prompt":"What is the solubility of sodium 3-[[4-amino-9,10-dihydro-3-[2-(2-methoxyethoxy)ethoxy]-9,10-dioxo-1-anthryl]amino]-2,4,6-trimethylbenzenesulphonate###","completion":"very large@@@","repr":"sodium 3-[[4-amino-9,10-dihydro-3-[2-(2-methoxyethoxy)ethoxy]-9,10-dioxo-1-anthryl]amino]-2,4,6-trimethylbenzenesulphonate","smiles":"[Na+].COCCOCCOc1cc(Nc2c(C)cc(C)c(c2C)[S]([O-])(=O)=O)c3C(=O)c4ccccc4C(=O)c3c1N"}
+{"prompt":"What is the solubility of pentan-1-ol###","completion":"very large@@@","repr":"pentan-1-ol","smiles":"CCCCCO"}
+{"prompt":"What is the solubility of decylsulfanylmethanimidamide###","completion":"medium@@@","repr":"decylsulfanylmethanimidamide","smiles":"CCCCCCCCCCSC(=N)N"}
+{"prompt":"What is the solubility of barium dinitrate###","completion":"very large@@@","repr":"barium dinitrate","smiles":"[Ba++].[O-][N+]([O-])=O.[O-][N+]([O-])=O"}
+{"prompt":"What is the solubility of acetamide, 2,2-dichloro-n-phenyl-###","completion":"small@@@","repr":"acetamide, 2,2-dichloro-n-phenyl-","smiles":"ClC(Cl)C(=O)Nc1ccccc1"}
+{"prompt":"What is the solubility of 2,5-dimethylpyrano[5,6-f][1]benzoxol-7-one###","completion":"very small@@@","repr":"2,5-dimethylpyrano[5,6-f][1]benzoxol-7-one","smiles":"CC1=CC2=CC3=C(C=C2O1)OC(=O)C=C3C"}
+{"prompt":"What is the solubility of 3,4,5-trihydroxybenzoic acid###","completion":"large@@@","repr":"3,4,5-trihydroxybenzoic acid","smiles":"OC(=O)c1cc(O)c(O)c(O)c1"}
+{"prompt":"What is the solubility of manganese###","completion":"very small@@@","repr":"manganese","smiles":"[Mn]"}
+{"prompt":"What is the solubility of flamprop-m-isopropyl###","completion":"small@@@","repr":"flamprop-m-isopropyl","smiles":"CC(C)OC(=O)[C@@H](C)N(C(=O)c1ccccc1)c2ccc(F)c(Cl)c2"}
+{"prompt":"What is the solubility of 3-hydroxy-4-[(E)-2-(2-methyl-4-nitrophenyl)diazen-1-yl]-N-(2-methylphenyl)naphthalene-2-carboxamide###","completion":"very small@@@","repr":"3-hydroxy-4-[(E)-2-(2-methyl-4-nitrophenyl)diazen-1-yl]-N-(2-methylphenyl)naphthalene-2-carboxamide","smiles":"Cc1ccccc1NC(=O)C2=Cc3ccccc3C(=N\/Nc4ccc(cc4C)[N+]([O-])=O)\/C2=O"}
+{"prompt":"What is the solubility of N,N'-bis(3,5,5-trimethylhexyl)ethane-1,2-diamine###","completion":"medium@@@","repr":"N,N'-bis(3,5,5-trimethylhexyl)ethane-1,2-diamine","smiles":"CC(CCNCCNCCC(C)CC(C)(C)C)CC(C)(C)C"}
+{"prompt":"What is the solubility of midazolam###","completion":"small@@@","repr":"midazolam","smiles":"CC1=NC=C2CN=C(C3=C(F)C=CC=C3)C4=C(C=CC(=C4)Cl)[N]12"}
+{"prompt":"What is the solubility of 1H-Pyrazole-3-carboxylic acid, 4,5-dihydro-5-oxo-1-(4-sulfophenyl)-4-[(4-sulfophenyl)azo]-, reaction products with guanidine hydrochloride N,N'-bis(mixed Ph, tolyl and xylyl) derivs.###","completion":"very small@@@","repr":"1H-Pyrazole-3-carboxylic acid, 4,5-dihydro-5-oxo-1-(4-sulfophenyl)-4-[(4-sulfophenyl)azo]-, reaction products with guanidine hydrochloride N,N'-bis(mixed Ph, tolyl and xylyl) derivs.","smiles":"[H+].[Cl-].NC(N)=N.OC(=O)C1=NN(c2ccc(cc2)[S](O)(=O)=O)C(=O)C1N=Nc3ccc(cc3)[S](O)(=O)=O"}
+{"prompt":"What is the solubility of triethoxy(octyl)silane###","completion":"very small@@@","repr":"triethoxy(octyl)silane","smiles":"CCCCCCCC[Si](OCC)(OCC)OCC"}
+{"prompt":"What is the solubility of 1-(1-butoxypropan-2-yloxy)propan-2-ol###","completion":"very large@@@","repr":"1-(1-butoxypropan-2-yloxy)propan-2-ol","smiles":"CCCCOCC(C)OCC(C)O"}
+{"prompt":"What is the solubility of octyl 2-acetyloxypropanoate###","completion":"small@@@","repr":"octyl 2-acetyloxypropanoate","smiles":"CCCCCCCCOC(=O)C(C)OC(C)=O"}
+{"prompt":"What is the solubility of 2-(2H-1,2,3-benzotriazol-2-yl)-4,6-bis(2-phenylpropan-2-yl)phenol###","completion":"very small@@@","repr":"2-(2H-1,2,3-benzotriazol-2-yl)-4,6-bis(2-phenylpropan-2-yl)phenol","smiles":"CC(C)(c1ccccc1)c2cc(n3nc4ccccc4n3)c(O)c(c2)C(C)(C)c5ccccc5"}
+{"prompt":"What is the solubility of 4-methylaniline###","completion":"large@@@","repr":"4-methylaniline","smiles":"Cc1ccc(N)cc1"}
+{"prompt":"What is the solubility of 2-[(4-methyl-2-nitrophenyl)amino]ethan-1-ol###","completion":"medium@@@","repr":"2-[(4-methyl-2-nitrophenyl)amino]ethan-1-ol","smiles":"Cc1ccc(NCCO)c(c1)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 1,1,1,3,3,3-hexafluoropropan-2-ol###","completion":"very large@@@","repr":"1,1,1,3,3,3-hexafluoropropan-2-ol","smiles":"OC(C(F)(F)F)C(F)(F)F"}
+{"prompt":"What is the solubility of butallylonal;  5-(2-bromoallyl)-5-sec-butylbarbituric  acid###","completion":"medium@@@","repr":"butallylonal;  5-(2-bromoallyl)-5-sec-butylbarbituric  acid","smiles":"CCC(C)C1(CC(Br)=C)C(=O)NC(=O)NC1=O"}
+{"prompt":"What is the solubility of o,p'-ddd###","completion":"very small@@@","repr":"o,p'-ddd","smiles":"ClC(Cl)C(c1ccc(Cl)cc1)c2ccccc2Cl"}
+{"prompt":"What is the solubility of ethanone, 1-(4-hydroxyphenyl)-2-phenyl-###","completion":"large@@@","repr":"ethanone, 1-(4-hydroxyphenyl)-2-phenyl-","smiles":"Oc1ccc(cc1)C(=O)Cc2ccccc2"}
+{"prompt":"What is the solubility of 1,5-dimethyl-1-vinylhex-4-en-1-yl formate###","completion":"small@@@","repr":"1,5-dimethyl-1-vinylhex-4-en-1-yl formate","smiles":"CC(C)=CCCC(C)(OC=O)C=C"}
+{"prompt":"What is the solubility of 2-chloro-1-methyl-4-nitrobenzene###","completion":"small@@@","repr":"2-chloro-1-methyl-4-nitrobenzene","smiles":"Cc1ccc(cc1Cl)[N+]([O-])=O"}
+{"prompt":"What is the solubility of triamcinolone  diacetate###","completion":"small@@@","repr":"triamcinolone  diacetate","smiles":"CC(=O)OCC(=O)C1(O)C(CC2C3CCC4=CC(=O)C=CC4(C)C3(F)C(O)CC12C)OC(C)=O"}
+{"prompt":"What is the solubility of 2-cf3-4,5-dichlorobenzimidazole###","completion":"small@@@","repr":"2-cf3-4,5-dichlorobenzimidazole","smiles":"FC(F)(F)c1[nH]c2ccc(Cl)c(Cl)c2n1"}
+{"prompt":"What is the solubility of homatropine###","completion":"large@@@","repr":"homatropine","smiles":"CN1C2CCC1CC(C2)OC(=O)C(O)c3ccccc3"}
+{"prompt":"What is the solubility of isopropenyl acetate###","completion":"very large@@@","repr":"isopropenyl acetate","smiles":"CC(=C)OC(C)=O"}
+{"prompt":"What is the solubility of 5-methyl-3a,4,7,7a-tetrahydro-2-benzofuran-1,3-dione###","completion":"large@@@","repr":"5-methyl-3a,4,7,7a-tetrahydro-2-benzofuran-1,3-dione","smiles":"CC1=CCC2C(C1)C(=O)OC2=O"}
+{"prompt":"What is the solubility of 2h-1-benzopyran-2-one, 4-bromo-###","completion":"large@@@","repr":"2h-1-benzopyran-2-one, 4-bromo-","smiles":"BrC1=CC(=O)Oc2ccccc12"}
+{"prompt":"What is the solubility of 1,4-dichloronaphthalene###","completion":"very small@@@","repr":"1,4-dichloronaphthalene","smiles":"Clc1ccc(Cl)c2ccccc12"}
+{"prompt":"What is the solubility of 2-hydroxyacetic acid###","completion":"very large@@@","repr":"2-hydroxyacetic acid","smiles":"OCC(O)=O"}
+{"prompt":"What is the solubility of 4-aminonaphthalene-1,2-dione###","completion":"small@@@","repr":"4-aminonaphthalene-1,2-dione","smiles":"NC1=CC(=O)C(=O)C2=C1C=CC=C2"}
+{"prompt":"What is the solubility of 2,4,6-trichloro-3-methylphenol###","completion":"small@@@","repr":"2,4,6-trichloro-3-methylphenol","smiles":"Cc1c(Cl)cc(Cl)c(O)c1Cl"}
+{"prompt":"What is the solubility of benzoic acid, 2- bis(4-hydroxyphenyl)methyl -###","completion":"small@@@","repr":"benzoic acid, 2- bis(4-hydroxyphenyl)methyl -","smiles":"Oc1ccc(cc1)C(c2ccc(O)cc2)c3ccccc3C(O)=O"}
+{"prompt":"What is the solubility of 2,4,5-trichloroaniline###","completion":"small@@@","repr":"2,4,5-trichloroaniline","smiles":"Nc1cc(Cl)c(Cl)cc1Cl"}
+{"prompt":"What is the solubility of sodium 2-[(4-hydroxy-9,10-dioxo-9,10-dihydroanthracen-1-yl)amino]-5-methylbenzene-1-sulfonate###","completion":"medium@@@","repr":"sodium 2-[(4-hydroxy-9,10-dioxo-9,10-dihydroanthracen-1-yl)amino]-5-methylbenzene-1-sulfonate","smiles":"[Na+].Cc1ccc(Nc2ccc(O)c3C(=O)c4ccccc4C(=O)c23)c(c1)[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of N,N-dimethyldecan-1-amine###","completion":"small@@@","repr":"N,N-dimethyldecan-1-amine","smiles":"CCCCCCCCCCN(C)C"}
+{"prompt":"What is the solubility of methoxymethane###","completion":"very large@@@","repr":"methoxymethane","smiles":"COC"}
+{"prompt":"What is the solubility of 2-hydroxypropane-1,2,3-tricarboxylic acid###","completion":"very large@@@","repr":"2-hydroxypropane-1,2,3-tricarboxylic acid","smiles":"OC(=O)CC(O)(CC(O)=O)C(O)=O"}
+{"prompt":"What is the solubility of 3-methyl-4-nitrophenol###","completion":"medium@@@","repr":"3-methyl-4-nitrophenol","smiles":"Cc1cc(O)ccc1[N+]([O-])=O"}
+{"prompt":"What is the solubility of hydrogen sulfide###","completion":"very small@@@","repr":"hydrogen sulfide","smiles":"S"}
+{"prompt":"What is the solubility of 7-(pivaloyloxymethyl)theophylline (viii)###","completion":"medium@@@","repr":"7-(pivaloyloxymethyl)theophylline (viii)","smiles":"CN1C(=O)N(C)C2=C([N](COC(=O)C(C)(C)C)C=N2)C1=O"}
+{"prompt":"What is the solubility of butanoic acid, 1,2-ethanediylbis(oxy-2,1-ethaned###","completion":"large@@@","repr":"butanoic acid, 1,2-ethanediylbis(oxy-2,1-ethaned","smiles":"CCCC(=O)OCCOCCOCCOC(=O)CCC"}
+{"prompt":"What is the solubility of beta-eucaine###","completion":"large@@@","repr":"beta-eucaine","smiles":"CC1CC(CC(C)(C)N1)OC(=O)c2ccccc2"}
+{"prompt":"What is the solubility of 2,2'-oxydiethanamine###","completion":"very large@@@","repr":"2,2'-oxydiethanamine","smiles":"NCCOCCN"}
+{"prompt":"What is the solubility of 2-bromo-N-[4-chloro-2-(2-chlorobenzoyl)phenyl]acetamide###","completion":"very small@@@","repr":"2-bromo-N-[4-chloro-2-(2-chlorobenzoyl)phenyl]acetamide","smiles":"Clc1ccc(NC(=O)CBr)c(c1)C(=O)c2ccccc2Cl"}
+{"prompt":"What is the solubility of 2-amino-3-[3-(2-amino-3-hydroxy-3-oxopropyl)sulfanylpropylsulfanyl]propanoic acid###","completion":"medium@@@","repr":"2-amino-3-[3-(2-amino-3-hydroxy-3-oxopropyl)sulfanylpropylsulfanyl]propanoic acid","smiles":"NC(CSCCCSCC(N)C(=O)O)C(=O)O"}
+{"prompt":"What is the solubility of Methyl 4-dimethylaminobenzoate###","completion":"medium@@@","repr":"Methyl 4-dimethylaminobenzoate","smiles":"COC(=O)C1=CC=C(N(C)C)C=C1"}
+{"prompt":"What is the solubility of aldicarb sulfoxide###","completion":"large@@@","repr":"aldicarb sulfoxide","smiles":"CNC(=O)O\\N=C\\C(C)(C)[S](C)=O"}
+{"prompt":"What is the solubility of barbituric acid, 5-ipr###","completion":"large@@@","repr":"barbituric acid, 5-ipr","smiles":"CC(C)C1C(=O)NC(=O)NC1=O"}
+{"prompt":"What is the solubility of 2(3h)-furanone, 5-methyl-###","completion":"very large@@@","repr":"2(3h)-furanone, 5-methyl-","smiles":"CC1=CCC(=O)O1"}
+{"prompt":"What is the solubility of trisodium 2-({2-[bis(carboxylatomethyl)amino]ethyl}(2-hydroxyethyl)amino)acetate###","completion":"very large@@@","repr":"trisodium 2-({2-[bis(carboxylatomethyl)amino]ethyl}(2-hydroxyethyl)amino)acetate","smiles":"[Na+].[Na+].[Na+].OCCN(CCN(CC([O-])=O)CC([O-])=O)CC([O-])=O"}
+{"prompt":"What is the solubility of 1-chloro-4-(4-chlorobenzenesulfonyl)benzene###","completion":"very small@@@","repr":"1-chloro-4-(4-chlorobenzenesulfonyl)benzene","smiles":"Clc1ccc(cc1)[S](=O)(=O)c2ccc(Cl)cc2"}
+{"prompt":"What is the solubility of acetic acid, (2-bromo-4,6-dimethylphenoxy)-###","completion":"small@@@","repr":"acetic acid, (2-bromo-4,6-dimethylphenoxy)-","smiles":"Cc1cc(C)c(OCC(O)=O)c(Br)c1"}
+{"prompt":"What is the solubility of 2-ethylhexanoic acid, zirconium salt###","completion":"very small@@@","repr":"2-ethylhexanoic acid, zirconium salt","smiles":"[Zr++].CCCCC(CC)C([O-])=O.CCCCC(CC)C([O-])=O"}
+{"prompt":"What is the solubility of sodium 4-[[4-[(4-hydroxy-2-methylphenyl)azo]phenyl]amino]-3-nitrobenzenesulphonate###","completion":"medium@@@","repr":"sodium 4-[[4-[(4-hydroxy-2-methylphenyl)azo]phenyl]amino]-3-nitrobenzenesulphonate","smiles":"[Na+].CC\/1=CC(=O)C=CC1=N\/Nc2ccc(Nc3ccc(cc3[N+]([O-])=O)[S]([O-])(=O)=O)cc2"}
+{"prompt":"What is the solubility of 5-(4-acetylaminobenzenesulfonamido)-1,3,4-thiadiazole-2-sulfonamide###","completion":"large@@@","repr":"5-(4-acetylaminobenzenesulfonamido)-1,3,4-thiadiazole-2-sulfonamide","smiles":"CC(=O)NC1=CC=C(C=C1)[S](=O)(=O)NC2=NN=C(S2)[S](N)(=O)=O"}
+{"prompt":"What is the solubility of 3-oxobutanamide###","completion":"very large@@@","repr":"3-oxobutanamide","smiles":"CC(=O)CC(N)=O"}
+{"prompt":"What is the solubility of 12-methylbenz(a)anthracene###","completion":"very small@@@","repr":"12-methylbenz(a)anthracene","smiles":"Cc1c2ccccc2cc3ccc4ccccc4c13"}
+{"prompt":"What is the solubility of n-(ethylaminomethyl)benzamide###","completion":"very large@@@","repr":"n-(ethylaminomethyl)benzamide","smiles":"CCNCNC(=O)c1ccccc1"}
+{"prompt":"What is the solubility of a-bromobutyric acid###","completion":"very large@@@","repr":"a-bromobutyric acid","smiles":"CCC(Br)C(O)=O"}
+{"prompt":"What is the solubility of butoxycarboxim###","completion":"very large@@@","repr":"butoxycarboxim","smiles":"CNC(=O)O\\N=C(\/C)C(C)[S](C)(=O)=O"}
+{"prompt":"What is the solubility of triphenylene###","completion":"very small@@@","repr":"triphenylene","smiles":"c1ccc2c(c1)c3ccccc3c4ccccc24"}
+{"prompt":"What is the solubility of 3-chloro-4-methylaniline###","completion":"large@@@","repr":"3-chloro-4-methylaniline","smiles":"Cc1ccc(N)cc1Cl"}
+{"prompt":"What is the solubility of ethylene oxide###","completion":"very large@@@","repr":"ethylene oxide","smiles":"C1CO1"}
+{"prompt":"What is the solubility of prop-2-en-1-yl heptanoate###","completion":"small@@@","repr":"prop-2-en-1-yl heptanoate","smiles":"CCCCCCC(=O)OCC=C"}
+{"prompt":"What is the solubility of pentane, 2-chloro-###","completion":"medium@@@","repr":"pentane, 2-chloro-","smiles":"CCCC(C)Cl"}
+{"prompt":"What is the solubility of strontium 4-[(4-chloro-5-methyl-2-sulphonatophenyl)azo]-3-hydroxy-2-naphthoate (1:1)###","completion":"small@@@","repr":"strontium 4-[(4-chloro-5-methyl-2-sulphonatophenyl)azo]-3-hydroxy-2-naphthoate (1:1)","smiles":"[Sr++].Cc1cc(N\\N=C\/2C(=O)C(=Cc3ccccc23)C([O-])=O)c(cc1Cl)[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of pent-1-ene###","completion":"medium@@@","repr":"pent-1-ene","smiles":"CCCC=C"}
+{"prompt":"What is the solubility of sodium 4-(propan-2-yl)benzene-1-sulfonate###","completion":"very large@@@","repr":"sodium 4-(propan-2-yl)benzene-1-sulfonate","smiles":"[Na+].CC(C)c1ccc(cc1)[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of 6-(carbamoylamino)hexanoic acid###","completion":"medium@@@","repr":"6-(carbamoylamino)hexanoic acid","smiles":"NC(=O)NCCCCCC(=O)O"}
+{"prompt":"What is the solubility of arsenic acid###","completion":"very large@@@","repr":"arsenic acid","smiles":"O[As](O)(O)=O"}
+{"prompt":"What is the solubility of dl-leucine, n-formyl-###","completion":"very large@@@","repr":"dl-leucine, n-formyl-","smiles":"CC(C)CC(NC=O)C(O)=O"}
+{"prompt":"What is the solubility of 1,3-benzodioxole-5-methanol, 6-nitro-###","completion":"medium@@@","repr":"1,3-benzodioxole-5-methanol, 6-nitro-","smiles":"OCc1c2OCOc2ccc1[N+]([O-])=O"}
+{"prompt":"What is the solubility of a-glucose-1-phosphate###","completion":"very large@@@","repr":"a-glucose-1-phosphate","smiles":"OCC1OC(O[P](O)(O)=O)C(O)C(O)C1O"}
+{"prompt":"What is the solubility of 1,1'-biphenyl, 2,3,3',5,6-pentachloro-###","completion":"very small@@@","repr":"1,1'-biphenyl, 2,3,3',5,6-pentachloro-","smiles":"Clc1cccc(c1)c2c(Cl)c(Cl)cc(Cl)c2Cl"}
+{"prompt":"What is the solubility of 1-chloro-2-nitrobenzene###","completion":"medium@@@","repr":"1-chloro-2-nitrobenzene","smiles":"[O-][N+](=O)c1ccccc1Cl"}
+{"prompt":"What is the solubility of 3,5-dimethylphenol###","completion":"large@@@","repr":"3,5-dimethylphenol","smiles":"Cc1cc(C)cc(O)c1"}
+{"prompt":"What is the solubility of undec-10-enal###","completion":"small@@@","repr":"undec-10-enal","smiles":"C=CCCCCCCCCC=O"}
+{"prompt":"What is the solubility of 2-ethylhexyl 2-{[({2-[(2-ethylhexyl)oxy]-2-oxoethyl}sulfanyl)dimethylstannyl]sulfanyl}acetate###","completion":"small@@@","repr":"2-ethylhexyl 2-{[({2-[(2-ethylhexyl)oxy]-2-oxoethyl}sulfanyl)dimethylstannyl]sulfanyl}acetate","smiles":"CCCCC(CC)COC(=O)CS[Sn](C)(C)SCC(=O)OCC(CC)CCCC"}
+{"prompt":"What is the solubility of cartap###","completion":"very large@@@","repr":"cartap","smiles":"CN(C)C(CSC(N)=O)CSC(N)=O"}
+{"prompt":"What is the solubility of sodium 1,4-bis(cyclohexyloxy)-1,4-dioxobutane-2-sulfonate###","completion":"very large@@@","repr":"sodium 1,4-bis(cyclohexyloxy)-1,4-dioxobutane-2-sulfonate","smiles":"[Na+].[O-][S](=O)(=O)C(CC(=O)OC1CCCCC1)C(=O)OC2CCCCC2"}
+{"prompt":"What is the solubility of 1-ethenylazepan-2-one###","completion":"very large@@@","repr":"1-ethenylazepan-2-one","smiles":"C=CN1CCCCCC1=O"}
+{"prompt":"What is the solubility of 1,6-bis(2-ethylhexyl) hexanedioate###","completion":"very small@@@","repr":"1,6-bis(2-ethylhexyl) hexanedioate","smiles":"CCCCC(CC)COC(=O)CCCCC(=O)OCC(CC)CCCC"}
+{"prompt":"What is the solubility of 1,3-dioxolane, 2-ethyl-###","completion":"very large@@@","repr":"1,3-dioxolane, 2-ethyl-","smiles":"CCC1OCCO1"}
+{"prompt":"What is the solubility of perphenazine###","completion":"small@@@","repr":"perphenazine","smiles":"OCCN1CCN(CCCN2c3ccccc3Sc4ccc(Cl)cc24)CC1"}
+{"prompt":"What is the solubility of tetryl###","completion":"small@@@","repr":"tetryl","smiles":"CN(c1c(cc(cc1[N+]([O-])=O)[N+]([O-])=O)[N+]([O-])=O)[N+]([O-])=O"}
+{"prompt":"What is the solubility of disilver(1+) sulfate###","completion":"large@@@","repr":"disilver(1+) sulfate","smiles":"[Ag+].[Ag+].O[S](O)(=O)=O"}
+{"prompt":"What is the solubility of me (1-(4-bromo)phenylsulfonyl) cyclopentane carb###","completion":"small@@@","repr":"me (1-(4-bromo)phenylsulfonyl) cyclopentane carb","smiles":"COC(=O)C1(CCCC1)[S](=O)(=O)c2ccc(Br)cc2"}
+{"prompt":"What is the solubility of resorufin###","completion":"large@@@","repr":"resorufin","smiles":"Oc1ccc2N=C3C=CC(=O)C=C3Oc2c1"}
+{"prompt":"What is the solubility of disperse red 1###","completion":"very small@@@","repr":"disperse red 1","smiles":"CCN(CCO)c1ccc(cc1)N=Nc2ccc(cc2)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 7-(3-amino-2-methylazetidin-1-yl)-8-chloro-1-cyclopropyl-6-fluoro-4-oxoquinoline-3-carboxylic acid###","completion":"small@@@","repr":"7-(3-amino-2-methylazetidin-1-yl)-8-chloro-1-cyclopropyl-6-fluoro-4-oxoquinoline-3-carboxylic acid","smiles":"CC1C(N)CN1C1=C(Cl)C2=C(C=C1F)C(=O)C(C(=O)O)=CN2C1CC1"}
+{"prompt":"What is the solubility of propylparaben;  propyl 4-hydroxybenzoate###","completion":"medium@@@","repr":"propylparaben;  propyl 4-hydroxybenzoate","smiles":"CCCOC(=O)C1=CC=C(O)C=C1"}
+{"prompt":"What is the solubility of 3-heptanol, 5-methyl-###","completion":"large@@@","repr":"3-heptanol, 5-methyl-","smiles":"CCC(C)CC(O)CC"}
+{"prompt":"What is the solubility of isopropyl  2,2-diethylmalonurate###","completion":"medium@@@","repr":"isopropyl  2,2-diethylmalonurate","smiles":"CCC(CC)(C(=O)NC(N)=O)C(=O)OC(C)C"}
+{"prompt":"What is the solubility of tri-sec-butanolamine###","completion":"very large@@@","repr":"tri-sec-butanolamine","smiles":"CCC(O)CN(CC(O)CC)CC(O)CC"}
+{"prompt":"What is the solubility of baclofen;  4-amino-3-(4-chlorophenyl)butanoic acid###","completion":"large@@@","repr":"baclofen;  4-amino-3-(4-chlorophenyl)butanoic acid","smiles":"NCC(CC(O)=O)C1=CC=C(Cl)C=C1"}
+{"prompt":"What is the solubility of oxacyclohexadecan-2-one###","completion":"very small@@@","repr":"oxacyclohexadecan-2-one","smiles":"O=C1CCCCCCCCCCCCCCO1"}
+{"prompt":"What is the solubility of diethyl 3-methyl-5-pyrazolyl phosphate###","completion":"medium@@@","repr":"diethyl 3-methyl-5-pyrazolyl phosphate","smiles":"CCO[P](=O)(OCC)Oc1cc(C)[nH]n1"}
+{"prompt":"What is the solubility of 7-(3-amino-2,3-dimethylazetidin-1-yl)-1-cyclopropyl-6-fluoro-4-oxoquinoline-3-carboxylic acid###","completion":"very small@@@","repr":"7-(3-amino-2,3-dimethylazetidin-1-yl)-1-cyclopropyl-6-fluoro-4-oxoquinoline-3-carboxylic acid","smiles":"CC1N(C2=CC3=C(C=C2F)C(=O)C(C(=O)O)=CN3C2CC2)CC1(C)N"}
+{"prompt":"What is the solubility of prodiamine###","completion":"very small@@@","repr":"prodiamine","smiles":"CCCN(CCC)C1=C(C(=C(C=C1[N+]([O-])=O)C(F)(F)F)N)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 2-methylbutanoic acid###","completion":"very large@@@","repr":"2-methylbutanoic acid","smiles":"CCC(C)C(O)=O"}
+{"prompt":"What is the solubility of propanamide, n,n'-1,2-ethanediylbis-###","completion":"very large@@@","repr":"propanamide, n,n'-1,2-ethanediylbis-","smiles":"CCC(=O)NCCNC(=O)CC"}
+{"prompt":"What is the solubility of 1,3-benzenedicarboxylic acid, 2-methoxy-###","completion":"medium@@@","repr":"1,3-benzenedicarboxylic acid, 2-methoxy-","smiles":"COc1c(cccc1C(O)=O)C(O)=O"}
+{"prompt":"What is the solubility of 1,2-propylene glycol diacetate###","completion":"very large@@@","repr":"1,2-propylene glycol diacetate","smiles":"CC(COC(C)=O)OC(C)=O"}
+{"prompt":"What is the solubility of 2-ethyl-1,3-hexandiol###","completion":"very large@@@","repr":"2-ethyl-1,3-hexandiol","smiles":"CCCC(O)C(CC)CO"}
+{"prompt":"What is the solubility of 2,6-di-tert-butyl-4-[(3,5-di-tert-butyl-4-hydroxyphenyl)methyl]phenol###","completion":"very small@@@","repr":"2,6-di-tert-butyl-4-[(3,5-di-tert-butyl-4-hydroxyphenyl)methyl]phenol","smiles":"CC(C)(C)c1cc(Cc2cc(c(O)c(c2)C(C)(C)C)C(C)(C)C)cc(c1O)C(C)(C)C"}
+{"prompt":"What is the solubility of 2-amino-3-(1H-indol-3-yl)propanoic acid###","completion":"large@@@","repr":"2-amino-3-(1H-indol-3-yl)propanoic acid","smiles":"NC(CC1=CNC2=C1C=CC=C2)C(=O)O"}
+{"prompt":"What is the solubility of thiamylal###","completion":"small@@@","repr":"thiamylal","smiles":"CCCC(C)C1(CC=C)C(=O)NC(=S)NC1=O"}
+{"prompt":"What is the solubility of beta,beta-carotene###","completion":"very small@@@","repr":"beta,beta-carotene","smiles":"CC1=C(\\C=C\\C(C)=C\\C=C\\C(C)=C\\C=C\\C=C(C)\\C=C\\C=C(C)\\C=C\\C2=C(C)CCCC2(C)C)C(C)(C)CCC1"}
+{"prompt":"What is the solubility of 2-(acetyloxy)ethyl acetate###","completion":"very large@@@","repr":"2-(acetyloxy)ethyl acetate","smiles":"CC(=O)OCCOC(C)=O"}
+{"prompt":"What is the solubility of n,n-diethylformamide###","completion":"very large@@@","repr":"n,n-diethylformamide","smiles":"CCN(CC)C=O"}
+{"prompt":"What is the solubility of 6-ethoxy-2,2,4-trimethyl-1,2-dihydroquinoline###","completion":"small@@@","repr":"6-ethoxy-2,2,4-trimethyl-1,2-dihydroquinoline","smiles":"CCOc1ccc2NC(C)(C)C=C(C)c2c1"}
+{"prompt":"What is the solubility of zinc bis(diethyldithiocarbamate)###","completion":"very small@@@","repr":"zinc bis(diethyldithiocarbamate)","smiles":"[Zn++].CCN(CC)C([S-])=S.CCN(CC)C([S-])=S"}
+{"prompt":"What is the solubility of 4(1h)-quinolinone, 1-methyl-###","completion":"large@@@","repr":"4(1h)-quinolinone, 1-methyl-","smiles":"CN1C=CC(=O)c2ccccc12"}
+{"prompt":"What is the solubility of 1,2-dimethyl benzene-1,2-dicarboxylate###","completion":"large@@@","repr":"1,2-dimethyl benzene-1,2-dicarboxylate","smiles":"COC(=O)c1ccccc1C(=O)OC"}
+{"prompt":"What is the solubility of 2-Propanol###","completion":"very large@@@","repr":"2-Propanol","smiles":"CC(C)O"}
+{"prompt":"What is the solubility of methyl n-butyl ether###","completion":"large@@@","repr":"methyl n-butyl ether","smiles":"CCCCOC"}
+{"prompt":"What is the solubility of methyl 3-sulfanylpropanoate###","completion":"very large@@@","repr":"methyl 3-sulfanylpropanoate","smiles":"COC(=O)CCS"}
+{"prompt":"What is the solubility of fluoromethane###","completion":"very large@@@","repr":"fluoromethane","smiles":"CF"}
+{"prompt":"What is the solubility of potassium nonafluorobutane-1-sulfonate###","completion":"large@@@","repr":"potassium nonafluorobutane-1-sulfonate","smiles":"[K+].[O-][S](=O)(=O)C(F)(F)C(F)(F)C(F)(F)C(F)(F)F"}
+{"prompt":"What is the solubility of 1,4-dioxaspiro[4.5]decan-2-ylmethyl carbamate###","completion":"large@@@","repr":"1,4-dioxaspiro[4.5]decan-2-ylmethyl carbamate","smiles":"NC(=O)OCC1COC2(CCCCC2)O1"}
+{"prompt":"What is the solubility of 1,1,1,2-tetrafluoroethane###","completion":"medium@@@","repr":"1,1,1,2-tetrafluoroethane","smiles":"FCC(F)(F)F"}
+{"prompt":"What is the solubility of di(phenyl)-piperidin-4-ylmethanol###","completion":"large@@@","repr":"di(phenyl)-piperidin-4-ylmethanol","smiles":"OC(C1=CC=CC=C1)(C1=CC=CC=C1)C1CCNCC1"}
+{"prompt":"What is the solubility of disodium bicyclo[3.3.1]tetraboroxane-3,7-bis(olate)###","completion":"large@@@","repr":"disodium bicyclo[3.3.1]tetraboroxane-3,7-bis(olate)","smiles":"O.O.O.O.O.O.O.O.O.O.[Na+].[Na+].[O-]B(OB=O)OB([O-])OB=O"}
+{"prompt":"What is the solubility of acetamide, n- 4- (2-pyridinylamino)sulfonyl phen###","completion":"small@@@","repr":"acetamide, n- 4- (2-pyridinylamino)sulfonyl phen","smiles":"CC(=O)Nc1ccc(cc1)[S](=O)(=O)Nc2ccccn2"}
+{"prompt":"What is the solubility of Propane  ###","completion":"medium@@@","repr":"Propane  ","smiles":"CCC"}
+{"prompt":"What is the solubility of Testosterone###","completion":"small@@@","repr":"Testosterone","smiles":"CC12CCC3C(CCC4=CC(=O)CCC34C)C2CCC1O"}
+{"prompt":"What is the solubility of 7-chloro-3,4-dihydro-1H-1,4-benzodiazepine-2,5-dione###","completion":"medium@@@","repr":"7-chloro-3,4-dihydro-1H-1,4-benzodiazepine-2,5-dione","smiles":"O=C1CNC(=O)C2=C(C=CC(Cl)=C2)N1"}
+{"prompt":"What is the solubility of 2-propenoic acid, 3-(2-ethoxyphenyl)-, (e)-###","completion":"small@@@","repr":"2-propenoic acid, 3-(2-ethoxyphenyl)-, (e)-","smiles":"CCOc1ccccc1\\C=C\\C([O-])=O"}
+{"prompt":"What is the solubility of 2-propyloxirane###","completion":"very large@@@","repr":"2-propyloxirane","smiles":"CCCC1CO1"}
+{"prompt":"What is the solubility of 2,3,3',4,4'-pentachloro-1,1'-biphenyl###","completion":"very small@@@","repr":"2,3,3',4,4'-pentachloro-1,1'-biphenyl","smiles":"Clc1ccc(cc1Cl)c2ccc(Cl)c(Cl)c2Cl"}
+{"prompt":"What is the solubility of 2-amino-3-[4-(2-amino-3-hydroxy-3-oxopropyl)sulfanylbutylsulfanyl]propanoic acid###","completion":"small@@@","repr":"2-amino-3-[4-(2-amino-3-hydroxy-3-oxopropyl)sulfanylbutylsulfanyl]propanoic acid","smiles":"NC(CSCCCCSCC(N)C(=O)O)C(=O)O"}
+{"prompt":"What is the solubility of methyl(naphthalen-1-ylmethyl)amine###","completion":"large@@@","repr":"methyl(naphthalen-1-ylmethyl)amine","smiles":"CNCc1cccc2ccccc12"}
+{"prompt":"What is the solubility of nandrolone###","completion":"large@@@","repr":"nandrolone","smiles":"C[C@]12CC[C@H]3[C@@H](CCC4=CC(=O)CC[C@H]34)[C@@H]1CC[C@@H]2O"}
+{"prompt":"What is the solubility of 2,8-dichlorodibenzofuran###","completion":"very small@@@","repr":"2,8-dichlorodibenzofuran","smiles":"Clc1ccc2oc3ccc(Cl)cc3c2c1"}
+{"prompt":"What is the solubility of 1h-imidazole, 2-(2-methylpropyl)-###","completion":"large@@@","repr":"1h-imidazole, 2-(2-methylpropyl)-","smiles":"CC(C)Cc1[nH]ccn1"}
+{"prompt":"What is the solubility of cycloheptatriene###","completion":"medium@@@","repr":"cycloheptatriene","smiles":"C1C=CC=CC=C1"}
+{"prompt":"What is the solubility of 2-NITRO-9H-FLUORENE###","completion":"small@@@","repr":"2-NITRO-9H-FLUORENE","smiles":"C1C2=CC=CC=C2C3=C1C=C(C=C3)[N+](=O)[O-]"}
+{"prompt":"What is the solubility of 1,1'-(2,3-dimethylbutane-2,3-diyl)dibenzene###","completion":"very small@@@","repr":"1,1'-(2,3-dimethylbutane-2,3-diyl)dibenzene","smiles":"CC(C)(c1ccccc1)C(C)(C)c2ccccc2"}
+{"prompt":"What is the solubility of 1-(6-tert-butyl-1,1-dimethyl-2,3-dihydro-1H-inden-4-yl)ethan-1-one###","completion":"very small@@@","repr":"1-(6-tert-butyl-1,1-dimethyl-2,3-dihydro-1H-inden-4-yl)ethan-1-one","smiles":"CC(=O)c1cc(cc2c1CCC2(C)C)C(C)(C)C"}
+{"prompt":"What is the solubility of acetamide, n-(4-fluoro-2-methylphenyl)-###","completion":"large@@@","repr":"acetamide, n-(4-fluoro-2-methylphenyl)-","smiles":"CC(=O)Nc1ccc(F)cc1C"}
+{"prompt":"What is the solubility of Fluocortolone###","completion":"small@@@","repr":"Fluocortolone","smiles":"C[C@@H]1C[C@H]2[C@@H]3C[C@H](F)C4=CC(=O)C=C[C@]4(C)[C@H]3[C@@H](O)C[C@]2(C)[C@H]1C(=O)CO"}
+{"prompt":"What is the solubility of 4-aminobenzamide###","completion":"large@@@","repr":"4-aminobenzamide","smiles":"NC(=O)c1ccc(N)cc1"}
+{"prompt":"What is the solubility of tetraoctylstannane###","completion":"very small@@@","repr":"tetraoctylstannane","smiles":"CCCCCCCC[Sn](CCCCCCCC)(CCCCCCCC)CCCCCCCC"}
+{"prompt":"What is the solubility of phosphocreatine, sodium salt###","completion":"very large@@@","repr":"phosphocreatine, sodium salt","smiles":"[Na+].[Na+].CN(CC(O)=O)C(N)=N[P]([O-])([O-])=O"}
+{"prompt":"What is the solubility of 2-(4-methylpiperazin-1-yl)ethyl 2-(6-methoxynaphthalen-2-yl)propanoate###","completion":"large@@@","repr":"2-(4-methylpiperazin-1-yl)ethyl 2-(6-methoxynaphthalen-2-yl)propanoate","smiles":"COC1=CC2=CC=C(C(C)C(=O)OCCN3CCN(C)CC3)C=C2C=C1"}
+{"prompt":"What is the solubility of 2-hydroxy-4-methylbenzoic acid###","completion":"large@@@","repr":"2-hydroxy-4-methylbenzoic acid","smiles":"Cc1ccc(C(O)=O)c(O)c1"}
+{"prompt":"What is the solubility of ammonium carbamate###","completion":"very large@@@","repr":"ammonium carbamate","smiles":"[NH4+].O.NC([O-])=O"}
+{"prompt":"What is the solubility of 2-[4-(2-methylpropyl)phenyl]propanoic acid###","completion":"small@@@","repr":"2-[4-(2-methylpropyl)phenyl]propanoic acid","smiles":"CC(C)Cc1ccc(cc1)C(C)C(O)=O"}
+{"prompt":"What is the solubility of Butyl 4-aminobenzoate###","completion":"medium@@@","repr":"Butyl 4-aminobenzoate","smiles":"CCCCOC(=O)C1=CC=C(N)C=C1"}
+{"prompt":"What is the solubility of 4-[(4-amino-2-chloro-3,5-diethylphenyl)methyl]-3-chloro-2,6-diethylaniline###","completion":"very small@@@","repr":"4-[(4-amino-2-chloro-3,5-diethylphenyl)methyl]-3-chloro-2,6-diethylaniline","smiles":"CCc1cc(Cc2cc(CC)c(N)c(CC)c2Cl)c(Cl)c(CC)c1N"}
+{"prompt":"What is the solubility of ethyl thiabendazole-1-carboxylate; 1-ethoxycarbonylthiabendazole; 1-ethoxycarbonyl-2-(4-thiazolyl)benzimidazole###","completion":"medium@@@","repr":"ethyl thiabendazole-1-carboxylate; 1-ethoxycarbonylthiabendazole; 1-ethoxycarbonyl-2-(4-thiazolyl)benzimidazole","smiles":"CCOC(=O)[N]1C2=C(C=CC=C2)N=C1C3=CSC=N3"}
+{"prompt":"What is the solubility of Sorbitol###","completion":"very large@@@","repr":"Sorbitol","smiles":"OCC(O)C(O)C(O)C(O)CO"}
+{"prompt":"What is the solubility of bromofenoxim###","completion":"very small@@@","repr":"bromofenoxim","smiles":"[O-][N+](=O)c1ccc(ONC=C2C=C(Br)C(=O)C(=C2)Br)c(c1)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 1-bromooctane###","completion":"very small@@@","repr":"1-bromooctane","smiles":"CCCCCCCCBr"}
+{"prompt":"What is the solubility of 4-iodobenzoic acid###","completion":"small@@@","repr":"4-iodobenzoic acid","smiles":"OC(=O)c1ccc(I)cc1"}
+{"prompt":"What is the solubility of hafnium###","completion":"very small@@@","repr":"hafnium","smiles":"[Hf]"}
+{"prompt":"What is the solubility of 2-methylbenaimidazole###","completion":"large@@@","repr":"2-methylbenaimidazole","smiles":"Cc1[nH]c2ccccc2n1"}
+{"prompt":"What is the solubility of 3-heptanone###","completion":"large@@@","repr":"3-heptanone","smiles":"CCCCC(=O)CC"}
+{"prompt":"What is the solubility of 4-(4-methylsulfonylphenyl)-3-phenyl-5H-furan-2-one###","completion":"small@@@","repr":"4-(4-methylsulfonylphenyl)-3-phenyl-5H-furan-2-one","smiles":"CS(=O)(=O)C1=CC=C(C2=C(C3=CC=CC=C3)C(=O)OC2)C=C1"}
+{"prompt":"What is the solubility of sodium 2-[(2-aminoethyl)amino]ethanesulfonate###","completion":"very large@@@","repr":"sodium 2-[(2-aminoethyl)amino]ethanesulfonate","smiles":"[Na+].NCCNCC[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of 2-[9-(1-{[3-(3-tert-butyl-4-hydroxy-5-methylphenyl)propanoyl]oxy}-2-methylpropan-2-yl)-2,4,8,10-tetraoxaspiro[5.5]undecan-3-yl]-2-methylpropyl 3-(3-tert-butyl-4-hydroxy-5-methylphenyl)propanoate###","completion":"very small@@@","repr":"2-[9-(1-{[3-(3-tert-butyl-4-hydroxy-5-methylphenyl)propanoyl]oxy}-2-methylpropan-2-yl)-2,4,8,10-tetraoxaspiro[5.5]undecan-3-yl]-2-methylpropyl 3-(3-tert-butyl-4-hydroxy-5-methylphenyl)propanoate","smiles":"Cc1cc(CCC(=O)OCC(C)(C)[CH]2OC[C]3(CO2)CO[CH](OC3)C(C)(C)COC(=O)CCc4cc(C)c(O)c(c4)C(C)(C)C)cc(c1O)C(C)(C)C"}
+{"prompt":"What is the solubility of 3,5-dichlorobenzoic acid###","completion":"small@@@","repr":"3,5-dichlorobenzoic acid","smiles":"OC(=O)c1cc(Cl)cc(Cl)c1"}
+{"prompt":"What is the solubility of 1,3-dihydro-2-benzofuran-1,3-dione###","completion":"large@@@","repr":"1,3-dihydro-2-benzofuran-1,3-dione","smiles":"O=C1OC(=O)c2ccccc12"}
+{"prompt":"What is the solubility of sodium hydroxymethanesulfinate###","completion":"very large@@@","repr":"sodium hydroxymethanesulfinate","smiles":"[Na+].OC[S]([O-])=O"}
+{"prompt":"What is the solubility of 2-propenoic acid, 3-(2-furanyl)-###","completion":"large@@@","repr":"2-propenoic acid, 3-(2-furanyl)-","smiles":"OC(=O)\/C=C\/c1occc1"}
+{"prompt":"What is the solubility of aniline; formaldehyde###","completion":"medium@@@","repr":"aniline; formaldehyde","smiles":"Nc1ccccc1.C=O"}
+{"prompt":"What is the solubility of alloxantin###","completion":"medium@@@","repr":"alloxantin","smiles":"OC1(C(=O)NC(=O)NC1=O)C2(O)C(=O)NC(=O)NC2=O"}
+{"prompt":"What is the solubility of di-2-chloroethyl sulfide###","completion":"medium@@@","repr":"di-2-chloroethyl sulfide","smiles":"ClCCSCCCl"}
+{"prompt":"What is the solubility of 2',3,4,4',5'-pcb###","completion":"very small@@@","repr":"2',3,4,4',5'-pcb","smiles":"Clc1ccc(cc1Cl)c2cc(Cl)c(Cl)cc2Cl"}
+{"prompt":"What is the solubility of 2-(prop-1-en-1-yl)-2,3,3-tripropylbutanedioic acid###","completion":"small@@@","repr":"2-(prop-1-en-1-yl)-2,3,3-tripropylbutanedioic acid","smiles":"CCCC(CCC)(C(O)=O)C(CCC)(\\C=C\\C)C(O)=O"}
+{"prompt":"What is the solubility of propane-2,2-diylbis(4,1-phenyleneoxyethane-2,1-diyl) diacetate###","completion":"very small@@@","repr":"propane-2,2-diylbis(4,1-phenyleneoxyethane-2,1-diyl) diacetate","smiles":"CC(=O)OCCOc1ccc(cc1)C(C)(C)c2ccc(OCCOC(C)=O)cc2"}
+{"prompt":"What is the solubility of 5-[[4-chloro-6-[(3-sulphophenyl)amino]-1,3,5-triazin-2-yl]amino]-4-hydroxy-3-[[4-[[2-(sulphooxy)ethyl]sulphonyl]phenyl]azo]naphthalene-2,7-disulphonic acid, sodium salt###","completion":"large@@@","repr":"5-[[4-chloro-6-[(3-sulphophenyl)amino]-1,3,5-triazin-2-yl]amino]-4-hydroxy-3-[[4-[[2-(sulphooxy)ethyl]sulphonyl]phenyl]azo]naphthalene-2,7-disulphonic acid, sodium salt","smiles":"[Na+].[Na+].[Na+].[Na+].[O-][S](=O)(=O)OCC[S](=O)(=O)c1ccc(N\\N=C\/2C(=O)c3c(Nc4nc(Cl)nc(Nc5cccc(c5)[S]([O-])(=O)=O)n4)cc(cc3C=C2[S]([O-])(=O)=O)[S]([O-])(=O)=O)cc1"}
+{"prompt":"What is the solubility of 2-methylnaphthalene###","completion":"small@@@","repr":"2-methylnaphthalene","smiles":"Cc1ccc2ccccc2c1"}
+{"prompt":"What is the solubility of acetamide, 2-(benzoyloxy)-n-propyl-###","completion":"medium@@@","repr":"acetamide, 2-(benzoyloxy)-n-propyl-","smiles":"CCCNC(=O)COC(=O)c1ccccc1"}
+{"prompt":"What is the solubility of fructose###","completion":"very large@@@","repr":"fructose","smiles":"OC[C@@H](O)[C@@H](O)[C@H](O)C(=O)CO"}
+{"prompt":"What is the solubility of tantalum###","completion":"very small@@@","repr":"tantalum","smiles":"[Ta]"}
+{"prompt":"What is the solubility of bis(3-methylbutyl) phthalate###","completion":"very small@@@","repr":"bis(3-methylbutyl) phthalate","smiles":"CC(C)CCOC(=O)c1ccccc1C(=O)OCCC(C)C"}
+{"prompt":"What is the solubility of 1,4-dimethoxybenzene###","completion":"medium@@@","repr":"1,4-dimethoxybenzene","smiles":"COc1ccc(OC)cc1"}
+{"prompt":"What is the solubility of trovafloxacin###","completion":"small@@@","repr":"trovafloxacin","smiles":"NC1[C@H]2CN(C[C@@H]12)c3nc4N(C=C(C(O)=O)C(=O)c4cc3F)c5ccc(F)cc5F"}
+{"prompt":"What is the solubility of ronnel###","completion":"very small@@@","repr":"ronnel","smiles":"CO[P](=S)(OC)Oc1cc(Cl)c(Cl)cc1Cl"}
+{"prompt":"What is the solubility of methyl 2,4-dihydroxy-3,6-dimethylbenzoate###","completion":"small@@@","repr":"methyl 2,4-dihydroxy-3,6-dimethylbenzoate","smiles":"COC(=O)c1c(C)cc(O)c(C)c1O"}
+{"prompt":"What is the solubility of n-(3-aminophenyl)anthranilic  acid;  3'-aminofenamic acid###","completion":"small@@@","repr":"n-(3-aminophenyl)anthranilic  acid;  3'-aminofenamic acid","smiles":"NC1=CC=CC(=C1)NC2=CC=CC=C2C(O)=O"}
+{"prompt":"What is the solubility of trisodium; chromium(+3) cation; 4-(3-methyl-5-oxido-1-phenylpyrazol-4-yl)diazenyl-3-oxidonaphthalene-1-sulfonate###","completion":"large@@@","repr":"trisodium; chromium(+3) cation; 4-(3-methyl-5-oxido-1-phenylpyrazol-4-yl)diazenyl-3-oxidonaphthalene-1-sulfonate","smiles":"[Na+].[Na+].[Na+].[Cr+3].Cc1nn(c([O-])c1N=Nc2c([O-])cc(c3ccccc23)[S]([O-])(=O)=O)c4ccccc4.Cc5nn(c([O-])c5N=Nc6c([O-])cc(c7ccccc67)[S]([O-])(=O)=O)c8ccccc8"}
+{"prompt":"What is the solubility of 2-methylbutan-2-ol###","completion":"very large@@@","repr":"2-methylbutan-2-ol","smiles":"CCC(C)(C)O"}
+{"prompt":"What is the solubility of propan-2-ylcyclohexane###","completion":"very small@@@","repr":"propan-2-ylcyclohexane","smiles":"CC(C)C1CCCCC1"}
+{"prompt":"What is the solubility of 2-methyl-4-phenylpentan-1-ol###","completion":"medium@@@","repr":"2-methyl-4-phenylpentan-1-ol","smiles":"CC(CO)CC(C)c1ccccc1"}
+{"prompt":"What is the solubility of benzyldimethylamine###","completion":"large@@@","repr":"benzyldimethylamine","smiles":"CN(C)Cc1ccccc1"}
+{"prompt":"What is the solubility of dioctyl phthalate###","completion":"very small@@@","repr":"dioctyl phthalate","smiles":"CCCCCCCCOC(=O)c1ccccc1C(=O)OCCCCCCCC"}
+{"prompt":"What is the solubility of atropine;  hyoscyamine###","completion":"large@@@","repr":"atropine;  hyoscyamine","smiles":"CN1C2CCC1CC(C2)OC(=O)C(CO)C3=CC=CC=C3"}
+{"prompt":"What is the solubility of 5-bromo-6-(pyrrolidin-1-ylmethyl)-1H-pyrimidine-2,4-dione###","completion":"large@@@","repr":"5-bromo-6-(pyrrolidin-1-ylmethyl)-1H-pyrimidine-2,4-dione","smiles":"O=C1NC(=O)C(Br)=C(CN2CCCC2)N1"}
+{"prompt":"What is the solubility of 1,2-dibromopropane###","completion":"medium@@@","repr":"1,2-dibromopropane","smiles":"CC(Br)CBr"}
+{"prompt":"What is the solubility of 1-phenyl-2,5-dihydro-1H-pyrrole-2,5-dione###","completion":"medium@@@","repr":"1-phenyl-2,5-dihydro-1H-pyrrole-2,5-dione","smiles":"O=C1C=CC(=O)N1c2ccccc2"}
+{"prompt":"What is the solubility of N-(4-amino-2,5-diethoxyphenyl)benzamide###","completion":"medium@@@","repr":"N-(4-amino-2,5-diethoxyphenyl)benzamide","smiles":"CCOc1cc(NC(=O)c2ccccc2)c(OCC)cc1N"}
+{"prompt":"What is the solubility of methyl 2-amino-4-[(2,5-dichlorophenyl)carbamoyl]benzoate###","completion":"very small@@@","repr":"methyl 2-amino-4-[(2,5-dichlorophenyl)carbamoyl]benzoate","smiles":"COC(=O)c1ccc(NC(=O)c2cc(Cl)ccc2Cl)cc1N"}
+{"prompt":"What is the solubility of prop-1-en-2-ylbenzene###","completion":"medium@@@","repr":"prop-1-en-2-ylbenzene","smiles":"CC(=C)c1ccccc1"}
+{"prompt":"What is the solubility of equilin###","completion":"very small@@@","repr":"equilin","smiles":"CC12CCC3C(=CCC4=C3C=CC(=C4)O)C1CCC2=O"}
+{"prompt":"What is the solubility of Vinclozolin###","completion":"very small@@@","repr":"Vinclozolin","smiles":"CC1(OC(=O)N(C1=O)c2cc(Cl)cc(Cl)c2)C=C"}
+{"prompt":"What is the solubility of 2,6-dimethylmorpholine###","completion":"very large@@@","repr":"2,6-dimethylmorpholine","smiles":"O.OC(=O)CC(O)(CC(O)=O)C(O)=O"}
+{"prompt":"What is the solubility of samarium(3+) ion trinitrate###","completion":"very large@@@","repr":"samarium(3+) ion trinitrate","smiles":"[Sm+3].[O-][N+]([O-])=O.[O-][N+]([O-])=O.[O-][N+]([O-])=O"}
+{"prompt":"What is the solubility of p-hydroxybenzyl alcohol###","completion":"large@@@","repr":"p-hydroxybenzyl alcohol","smiles":"OCc1ccc(O)cc1"}
+{"prompt":"What is the solubility of 2,2,4-trimethylhexane-1,6-diamine###","completion":"very large@@@","repr":"2,2,4-trimethylhexane-1,6-diamine","smiles":"CC(CCN)CC(C)(C)CN"}
+{"prompt":"What is the solubility of 2-(2-{2-[(2-methylprop-2-enoyl)oxy]ethoxy}ethoxy)ethyl 2-methylprop-2-enoate###","completion":"large@@@","repr":"2-(2-{2-[(2-methylprop-2-enoyl)oxy]ethoxy}ethoxy)ethyl 2-methylprop-2-enoate","smiles":"CC(=C)C(=O)OCCOCCOCCOC(=O)C(C)=C"}
+{"prompt":"What is the solubility of (2,4-dichlorophenyl)acetic acid###","completion":"medium@@@","repr":"(2,4-dichlorophenyl)acetic acid","smiles":"OC(=O)Cc1ccc(Cl)cc1Cl"}
+{"prompt":"What is the solubility of thiobenzamide###","completion":"large@@@","repr":"thiobenzamide","smiles":"NC(=S)C1=CC=CC=C1"}
+{"prompt":"What is the solubility of sodium 2-sulfanylacetate###","completion":"very large@@@","repr":"sodium 2-sulfanylacetate","smiles":"[Na+].[O-]C(=O)CS"}
+{"prompt":"What is the solubility of potassium tetrafluoroboranuide###","completion":"large@@@","repr":"potassium tetrafluoroboranuide","smiles":"[K+].F[B-](F)(F)F"}
+{"prompt":"What is the solubility of 2-furancarboxaldehyde, 5-(methoxymethyl)-###","completion":"very large@@@","repr":"2-furancarboxaldehyde, 5-(methoxymethyl)-","smiles":"COCc1oc(C=O)cc1"}
+{"prompt":"What is the solubility of creatinine###","completion":"very large@@@","repr":"creatinine","smiles":"CN1CC(=O)N=C1N"}
+{"prompt":"What is the solubility of difenoconazole###","completion":"very small@@@","repr":"difenoconazole","smiles":"CC1COC(C[N]2C=NC=N2)(O1)C3=C(Cl)C=C(OC4=CC=C(Cl)C=C4)C=C3"}
+{"prompt":"What is the solubility of diisooctyl phthalate###","completion":"very small@@@","repr":"diisooctyl phthalate","smiles":"CC(C)CCCCCOC(=O)c1ccccc1C(=O)OCCCCCC(C)C"}
+{"prompt":"What is the solubility of alizarine###","completion":"medium@@@","repr":"alizarine","smiles":"Oc1ccc2C(=O)c3ccccc3C(=O)c2c1O"}
+{"prompt":"What is the solubility of N-(4-carbamoylphenyl)-4-nitrobenzamide###","completion":"very small@@@","repr":"N-(4-carbamoylphenyl)-4-nitrobenzamide","smiles":"NC(=O)c1ccc(NC(=O)c2ccc(cc2)[N+]([O-])=O)cc1"}
+{"prompt":"What is the solubility of 7-(3-amino-3-methylazetidin-1-yl)-8-chloro-1-cyclopropyl-6-fluoro-4-oxoquinoline-3-carboxylic acid###","completion":"very small@@@","repr":"7-(3-amino-3-methylazetidin-1-yl)-8-chloro-1-cyclopropyl-6-fluoro-4-oxoquinoline-3-carboxylic acid","smiles":"CC1(N)CN(C2=C(Cl)C3=C(C=C2F)C(=O)C(C(=O)O)=CN3C2CC2)C1"}
+{"prompt":"What is the solubility of 2-methyl-4-bromoacetanilide###","completion":"large@@@","repr":"2-methyl-4-bromoacetanilide","smiles":"CC(=O)Nc1ccc(Br)cc1C"}
+{"prompt":"What is the solubility of 1,2-cycloheptanedione, dioxime###","completion":"large@@@","repr":"1,2-cycloheptanedione, dioxime","smiles":"ONC1=C(CCCCC1)N=O"}
+{"prompt":"What is the solubility of oxydemeton methyl###","completion":"very large@@@","repr":"oxydemeton methyl","smiles":"CC[S](=O)CCS[P](=O)(OC)OC"}
+{"prompt":"What is the solubility of eicosane###","completion":"very small@@@","repr":"eicosane","smiles":"CCCCCCCCCCCCCCCCCCCC"}
+{"prompt":"What is the solubility of Phenol, styrenated###","completion":"small@@@","repr":"Phenol, styrenated","smiles":"Oc1ccc(C=C)cc1C=C"}
+{"prompt":"What is the solubility of m-chlorophenoxyacetic acid###","completion":"medium@@@","repr":"m-chlorophenoxyacetic acid","smiles":"OC(=O)COc1cccc(Cl)c1"}
+{"prompt":"What is the solubility of 2-amino-2-phenyl-N-(1-phenylethyl)acetamide###","completion":"large@@@","repr":"2-amino-2-phenyl-N-(1-phenylethyl)acetamide","smiles":"CC(NC(=O)C(N)C1=CC=CC=C1)C1=CC=CC=C1"}
+{"prompt":"What is the solubility of (Z)-N-(1,3-dihydroxyoctadecan-2-yl)octadec-9-enamide###","completion":"very small@@@","repr":"(Z)-N-(1,3-dihydroxyoctadecan-2-yl)octadec-9-enamide","smiles":"CCCCCCCCCCCCCCCC(O)C(CO)NC(=O)CCCCCCC\\C=C\/CCCCCCCC"}
+{"prompt":"What is the solubility of 3-methylbut-3-en-1-ol###","completion":"very large@@@","repr":"3-methylbut-3-en-1-ol","smiles":"CC(=C)CCO"}
+{"prompt":"What is the solubility of m-Aminoacetophenone###","completion":"large@@@","repr":"m-Aminoacetophenone","smiles":"c1ccc(N)cc1C(=O)C"}
+{"prompt":"What is the solubility of secnidazole###","completion":"very large@@@","repr":"secnidazole","smiles":"CC(O)C[N]1C(=NC=C1[N+]([O-])=O)C"}
+{"prompt":"What is the solubility of 4-tert-butylphenol; formaldehyde###","completion":"very small@@@","repr":"4-tert-butylphenol; formaldehyde","smiles":"CC(C)(C)c1ccc(O)cc1.C=O"}
+{"prompt":"What is the solubility of 4-(methoxycarbonyl)acetanilide;  4-acetylaminobenzoic acid methyl ester###","completion":"large@@@","repr":"4-(methoxycarbonyl)acetanilide;  4-acetylaminobenzoic acid methyl ester","smiles":"COC(=O)C1=CC=C(NC(C)=O)C=C1"}
+{"prompt":"What is the solubility of 3-hydroxy-2-(hydroxymethyl)-2-{[(9Z)-octadec-9-enoyloxy]methyl}propyl (9Z)-octadec-9-enoate###","completion":"very small@@@","repr":"3-hydroxy-2-(hydroxymethyl)-2-{[(9Z)-octadec-9-enoyloxy]methyl}propyl (9Z)-octadec-9-enoate","smiles":"CCCCCCCC\/C=C\/CCCCCCCC(=O)OCC(CO)(CO)COC(=O)CCCCCCC\\C=C\\CCCCCCCC"}
+{"prompt":"What is the solubility of 2-({3-[bis(carboxymethyl)amino]propyl}(carboxymethyl)amino)acetic acid###","completion":"large@@@","repr":"2-({3-[bis(carboxymethyl)amino]propyl}(carboxymethyl)amino)acetic acid","smiles":"OC(=O)CN(CCCN(CC(O)=O)CC(O)=O)CC(O)=O"}
+{"prompt":"What is the solubility of benzoic acid, 4-bromo-3-nitro-###","completion":"medium@@@","repr":"benzoic acid, 4-bromo-3-nitro-","smiles":"OC(=O)c1ccc(Br)c(c1)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 1-amino-2-butanol###","completion":"very large@@@","repr":"1-amino-2-butanol","smiles":"CCC(O)CN"}
+{"prompt":"What is the solubility of 2-dibenzofuransulfonic acid###","completion":"very large@@@","repr":"2-dibenzofuransulfonic acid","smiles":"[O-][S](=O)(=O)c1ccc2oc3ccccc3c2c1"}
+{"prompt":"What is the solubility of 5-amino-6-methyl-2,3-dihydro-1H-1,3-benzodiazol-2-one###","completion":"large@@@","repr":"5-amino-6-methyl-2,3-dihydro-1H-1,3-benzodiazol-2-one","smiles":"Cc1cc2NC(=O)Nc2cc1N"}
+{"prompt":"What is the solubility of undecan-1-ol###","completion":"small@@@","repr":"undecan-1-ol","smiles":"CCCCCCCCCCCO"}
+{"prompt":"What is the solubility of aluminium(3+) ion dichloride hydroxide###","completion":"very small@@@","repr":"aluminium(3+) ion dichloride hydroxide","smiles":"[Al+3].[Cl-].[Cl-].[Cl-]"}
+{"prompt":"What is the solubility of tetrachlorophthalide###","completion":"very small@@@","repr":"tetrachlorophthalide","smiles":"Clc1c(Cl)c(Cl)c2C(=O)OCc2c1Cl"}
+{"prompt":"What is the solubility of 2-chloro-2-methylbutane###","completion":"medium@@@","repr":"2-chloro-2-methylbutane","smiles":"CCC(C)(C)Cl"}
+{"prompt":"What is the solubility of 2-ethyl-1-methyl-1,2,3,4-tetrahydro-2,4a,9-triazaanthracen-10-one; ethyl-methylpyridoquinazolone###","completion":"medium@@@","repr":"2-ethyl-1-methyl-1,2,3,4-tetrahydro-2,4a,9-triazaanthracen-10-one; ethyl-methylpyridoquinazolone","smiles":"CCN1CCN2C(=O)C3=C(C=CC=C3)N=C2C1C"}
+{"prompt":"What is the solubility of phthalic acid, bis(2,2,2-trinitroethyl) ester###","completion":"small@@@","repr":"phthalic acid, bis(2,2,2-trinitroethyl) ester","smiles":"[O-][N+](=O)C(COC(=O)c1ccccc1C(=O)OCC([N+]([O-])=O)([N+]([O-])=O)[N+]([O-])=O)([N+]([O-])=O)[N+]([O-])=O"}
+{"prompt":"What is the solubility of iprobenfos###","completion":"medium@@@","repr":"iprobenfos","smiles":"CC(C)O[P](=O)(OC(C)C)SCc1ccccc1"}
+{"prompt":"What is the solubility of sodium 4-{4-[(E)-2-(3-chloro-2-hydroxy-5-nitrophenyl)diazen-1-yl]-3-methyl-5-oxo-4,5-dihydro-1H-pyrazol-1-yl}benzene-1-sulfonate###","completion":"large@@@","repr":"sodium 4-{4-[(E)-2-(3-chloro-2-hydroxy-5-nitrophenyl)diazen-1-yl]-3-methyl-5-oxo-4,5-dihydro-1H-pyrazol-1-yl}benzene-1-sulfonate","smiles":"[Na+].CC1=NN(C(=O)C1N\\N=C\\2C=C(C=C(Cl)C2=O)[N+]([O-])=O)c3ccc(cc3)[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of oxyphenbutazone###","completion":"small@@@","repr":"oxyphenbutazone","smiles":"CCCCC1C(=O)N(N(C1=O)c2ccc(O)cc2)c3ccccc3"}
+{"prompt":"What is the solubility of 1,4-pentadiene###","completion":"medium@@@","repr":"1,4-pentadiene","smiles":"C=CCC=C"}
+{"prompt":"What is the solubility of 4-[(4-chloro-2-nitrophenyl)diazenyl]-3-hydroxy-N-(2-methylphenyl)-2-naphthamide###","completion":"very small@@@","repr":"4-[(4-chloro-2-nitrophenyl)diazenyl]-3-hydroxy-N-(2-methylphenyl)-2-naphthamide","smiles":"Cc1ccccc1NC(=O)C2=Cc3ccccc3C(=N\/Nc4ccc(Cl)cc4[N+]([O-])=O)\/C2=O"}
+{"prompt":"What is the solubility of n-(3-chlorophenyl)anthranilic  acid;  3'-chlorofenamic acid###","completion":"very small@@@","repr":"n-(3-chlorophenyl)anthranilic  acid;  3'-chlorofenamic acid","smiles":"OC(=O)C1=CC=CC=C1NC2=CC(=CC=C2)Cl"}
+{"prompt":"What is the solubility of benz[a]anthracene, 5-fluoro-7-methyl-###","completion":"very small@@@","repr":"benz[a]anthracene, 5-fluoro-7-methyl-","smiles":"Cc1c2ccccc2cc3c1cc(F)c4ccccc34"}
+{"prompt":"What is the solubility of (2S,5R)-5-methyl-2-(propan-2-yl)cyclohexan-1-one###","completion":"medium@@@","repr":"(2S,5R)-5-methyl-2-(propan-2-yl)cyclohexan-1-one","smiles":"CC(C)[C@@H]1CC[C@@H](C)CC1=O"}
+{"prompt":"What is the solubility of 7-hydroxy-3,7-dimethyloctanal###","completion":"very large@@@","repr":"7-hydroxy-3,7-dimethyloctanal","smiles":"CC(CCCC(C)(C)O)CC=O"}
+{"prompt":"What is the solubility of pentanamide, n,n'-1,2-ethanediylbis-###","completion":"large@@@","repr":"pentanamide, n,n'-1,2-ethanediylbis-","smiles":"CCCCC(=O)NCCNC(=O)CCCC"}
+{"prompt":"What is the solubility of 2-[[2-amino-3-(4-hydroxyphenyl)propanoyl]amino]acetic acid###","completion":"large@@@","repr":"2-[[2-amino-3-(4-hydroxyphenyl)propanoyl]amino]acetic acid","smiles":"NC(CC1=CC=C(O)C=C1)C(=O)NCC(=O)O"}
+{"prompt":"What is the solubility of 2,3',4,4',6-pentachlorobiphenyl###","completion":"very small@@@","repr":"2,3',4,4',6-pentachlorobiphenyl","smiles":"Clc1cc(Cl)c(c(Cl)c1)c2ccc(Cl)c(Cl)c2"}
+{"prompt":"What is the solubility of 2-methyl-4-chlorophenol###","completion":"large@@@","repr":"2-methyl-4-chlorophenol","smiles":"Cc1cc(Cl)ccc1O"}
+{"prompt":"What is the solubility of 2,2-bis(hydroxymethyl)butanoic acid###","completion":"very large@@@","repr":"2,2-bis(hydroxymethyl)butanoic acid","smiles":"CCC(CO)(CO)C(O)=O"}
+{"prompt":"What is the solubility of (1r,4r)-(+)-camphor###","completion":"small@@@","repr":"(1r,4r)-(+)-camphor","smiles":"CC1(C)[C@H]2CC[C@@]1(C)C(=O)C2"}
+{"prompt":"What is the solubility of 4-[4-(propan-2-yloxy)benzenesulfonyl]phenol###","completion":"small@@@","repr":"4-[4-(propan-2-yloxy)benzenesulfonyl]phenol","smiles":"CC(C)Oc1ccc(cc1)[S](=O)(=O)c2ccc(O)cc2"}
+{"prompt":"What is the solubility of chlorflurecol methyl###","completion":"small@@@","repr":"chlorflurecol methyl","smiles":"COC(=O)C1(O)c2ccccc2c3ccc(Cl)cc13"}
+{"prompt":"What is the solubility of (E)-(carbamoylimino)urea; (Z)-(carbamoylimino)urea###","completion":"small@@@","repr":"(E)-(carbamoylimino)urea; (Z)-(carbamoylimino)urea","smiles":"NC(=O)N=NC(N)=O"}
+{"prompt":"What is the solubility of 3-ethyl-3-pentanol###","completion":"large@@@","repr":"3-ethyl-3-pentanol","smiles":"OC(CC)(CC)CC"}
+{"prompt":"What is the solubility of forchlorfenuron###","completion":"small@@@","repr":"forchlorfenuron","smiles":"Clc1cc(NC(=O)Nc2ccccc2)ccn1"}
+{"prompt":"What is the solubility of 1-chloro-4-nitrobenzene###","completion":"medium@@@","repr":"1-chloro-4-nitrobenzene","smiles":"[O-][N+](=O)c1ccc(Cl)cc1"}
+{"prompt":"What is the solubility of 2-{[2-(acetyloxy)ethyl]({4-[(E)-2-(2-chloro-4,6-dinitrophenyl)diazen-1-yl]-5-acetamido-2-methoxyphenyl})amino}ethyl acetate###","completion":"very small@@@","repr":"2-{[2-(acetyloxy)ethyl]({4-[(E)-2-(2-chloro-4,6-dinitrophenyl)diazen-1-yl]-5-acetamido-2-methoxyphenyl})amino}ethyl acetate","smiles":"COc1cc(N=Nc2c(Cl)cc(cc2[N+]([O-])=O)[N+]([O-])=O)c(NC(C)=O)cc1N(CCOC(C)=O)CCOC(C)=O"}
+{"prompt":"What is the solubility of l-leucine, n-acetyl-###","completion":"large@@@","repr":"l-leucine, n-acetyl-","smiles":"CC(C)C[C@H](NC(C)=O)C(O)=O"}
+{"prompt":"What is the solubility of biphenyl;  diphenyl###","completion":"small@@@","repr":"biphenyl;  diphenyl","smiles":"C1=CC=C(C=C1)C2=CC=CC=C2"}
+{"prompt":"What is the solubility of dodecan-1-ol###","completion":"very small@@@","repr":"dodecan-1-ol","smiles":"CCCCCCCCCCCCO"}
+{"prompt":"What is the solubility of 5-oxo-3-phenyl-hexanoic acid###","completion":"large@@@","repr":"5-oxo-3-phenyl-hexanoic acid","smiles":"CC(=O)CC(CC(O)=O)c1ccccc1"}
+{"prompt":"What is the solubility of disodium dioxomolybdenumbis(olate)###","completion":"very large@@@","repr":"disodium dioxomolybdenumbis(olate)","smiles":"[Na+].[Na+].[O-][Mo]([O-])(=O)=O"}
+{"prompt":"What is the solubility of 6-methylsalicylic acid; 2-hydroxy-6-methylbenzoic acid###","completion":"medium@@@","repr":"6-methylsalicylic acid; 2-hydroxy-6-methylbenzoic acid","smiles":"CC1=CC=CC(=C1C(O)=O)O"}
+{"prompt":"What is the solubility of 1,1,2,3,3-pentamethyl-2,3,4,5,6,7-hexahydro-1H-inden-4-one###","completion":"small@@@","repr":"1,1,2,3,3-pentamethyl-2,3,4,5,6,7-hexahydro-1H-inden-4-one","smiles":"CC1C(C)(C)C2=C(C(=O)CCC2)C1(C)C"}
+{"prompt":"What is the solubility of a-(2,2,2-trichloroethyl)styrene###","completion":"small@@@","repr":"a-(2,2,2-trichloroethyl)styrene","smiles":"ClC(Cl)(Cl)CC(=C)c1ccccc1"}
+{"prompt":"What is the solubility of methyl thiabendazole-1-carboxylate; 1-methoxycarbonylthiabendazole; 1-methoxycarbonyl-2-(4-thiazolyl)benzimidazole###","completion":"medium@@@","repr":"methyl thiabendazole-1-carboxylate; 1-methoxycarbonylthiabendazole; 1-methoxycarbonyl-2-(4-thiazolyl)benzimidazole","smiles":"COC(=O)[N]1C2=C(C=CC=C2)N=C1C3=CSC=N3"}
+{"prompt":"What is the solubility of 13-ethyl-3-methoxy-4,6,7,8,9,11,12,13,14,15,16,17-dodecahydro-1H-cyclopenta[a]phenanthren-17-ol (non-preferred name)###","completion":"small@@@","repr":"13-ethyl-3-methoxy-4,6,7,8,9,11,12,13,14,15,16,17-dodecahydro-1H-cyclopenta[a]phenanthren-17-ol (non-preferred name)","smiles":"CC[C@]12CC[C@H]3[C@@H](CCC4=C3CC=C(C4)OC)[C@@H]1CC[C@@H]2O"}
+{"prompt":"What is the solubility of 1,6-naphthyridin-8-ol###","completion":"large@@@","repr":"1,6-naphthyridin-8-ol","smiles":"Oc1cncc2cccnc12"}
+{"prompt":"What is the solubility of 2-methyl-2-[(2-methylbutan-2-yl)peroxy]butane###","completion":"small@@@","repr":"2-methyl-2-[(2-methylbutan-2-yl)peroxy]butane","smiles":"CCC(C)(C)OOC(C)(C)CC"}
+{"prompt":"What is the solubility of 2,4-pyridinedicarboxylic acid###","completion":"large@@@","repr":"2,4-pyridinedicarboxylic acid","smiles":"OC(=O)c1ccnc(c1)C(O)=O"}
+{"prompt":"What is the solubility of nifuroxime###","completion":"medium@@@","repr":"nifuroxime","smiles":"O\/N=C\/c1oc(cc1)[N+]([O-])=O"}
+{"prompt":"What is the solubility of N,N-dibutyloctadec-9-enamide###","completion":"very small@@@","repr":"N,N-dibutyloctadec-9-enamide","smiles":"CCCCCCCC\\C=C\/CCCCCCCC(=O)N(CCCC)CCCC"}
+{"prompt":"What is the solubility of 2-phenoxyethyl 2-methylpropanoate###","completion":"medium@@@","repr":"2-phenoxyethyl 2-methylpropanoate","smiles":"CC(C)C(=O)OCCOc1ccccc1"}
+{"prompt":"What is the solubility of naphthalen-1-ol###","completion":"medium@@@","repr":"naphthalen-1-ol","smiles":"Oc1cccc2ccccc12"}
+{"prompt":"What is the solubility of 2-methylpropane###","completion":"medium@@@","repr":"2-methylpropane","smiles":"CC(C)C"}
+{"prompt":"What is the solubility of (1R,2S,5R)-5-methyl-2-(propan-2-yl)cyclohexyl acetate###","completion":"small@@@","repr":"(1R,2S,5R)-5-methyl-2-(propan-2-yl)cyclohexyl acetate","smiles":"CC(C)[C@@H]1CC[C@@H](C)C[C@H]1OC(C)=O"}
+{"prompt":"What is the solubility of hydroxymethyl urea###","completion":"very large@@@","repr":"hydroxymethyl urea","smiles":"NC(=O)NCO"}
+{"prompt":"What is the solubility of 1-chloroheptane###","completion":"small@@@","repr":"1-chloroheptane","smiles":"CCCCCCCCl"}
+{"prompt":"What is the solubility of Alloxan###","completion":"large@@@","repr":"Alloxan","smiles":"O=C(NC(=O)C(=O)C1=O)N1"}
+{"prompt":"What is the solubility of methyl L-serinate hydrochloride###","completion":"very large@@@","repr":"methyl L-serinate hydrochloride","smiles":"[H+].[Cl-].COC(=O)C(N)CO"}
+{"prompt":"What is the solubility of isoflurane###","completion":"large@@@","repr":"isoflurane","smiles":"FC(F)OC(Cl)C(F)(F)F"}
+{"prompt":"What is the solubility of 2,2-dimethylhexane###","completion":"very small@@@","repr":"2,2-dimethylhexane","smiles":"CCCCC(C)(C)C"}
+{"prompt":"What is the solubility of cortisone###","completion":"medium@@@","repr":"cortisone","smiles":"CC12CCC(=O)C=C1CCC3C4CCC(O)(C(=O)CO)C4(C)CC(=O)C23"}
+{"prompt":"What is the solubility of ammonium fluoride hydrofluoride###","completion":"very large@@@","repr":"ammonium fluoride hydrofluoride","smiles":"[H+].[NH4+].[F-].[F-]"}
+{"prompt":"What is the solubility of benzenemethanol, 2,4-dichloro-, propanoate###","completion":"medium@@@","repr":"benzenemethanol, 2,4-dichloro-, propanoate","smiles":"CCC(=O)OCc1ccc(Cl)cc1Cl"}
+{"prompt":"What is the solubility of 4-ethoxycarbonylphenyl isothiocyanate;  4-isothiocyanatobenzoic acid ethyl ester###","completion":"small@@@","repr":"4-ethoxycarbonylphenyl isothiocyanate;  4-isothiocyanatobenzoic acid ethyl ester","smiles":"CCOC(=O)C1=CC=C(C=C1)N=C=S"}
+{"prompt":"What is the solubility of prometon;  2,4-bis(isopropylamino)-6-methoxy-1,3,5-triazine###","completion":"medium@@@","repr":"prometon;  2,4-bis(isopropylamino)-6-methoxy-1,3,5-triazine","smiles":"COC1=NC(=NC(=N1)NC(C)C)NC(C)C"}
+{"prompt":"What is the solubility of 3-methyl-2,4,6-trinitrophenol###","completion":"medium@@@","repr":"3-methyl-2,4,6-trinitrophenol","smiles":"Cc1c(cc(c(O)c1[N+]([O-])=O)[N+]([O-])=O)[N+]([O-])=O"}
+{"prompt":"What is the solubility of 2(1h)-pyridinone, 5-iodo-###","completion":"large@@@","repr":"2(1h)-pyridinone, 5-iodo-","smiles":"IC1=CNC(=O)C=C1"}
+{"prompt":"What is the solubility of chlorogenic acid###","completion":"large@@@","repr":"chlorogenic acid","smiles":"O[C@@H]1C[C@](O)(C[C@@H](OC(=O)\\C=C\\c2ccc(O)c(O)c2)[C@@H]1O)C(O)=O"}
+{"prompt":"What is the solubility of amidothion###","completion":"large@@@","repr":"amidothion","smiles":"COCCNC(=O)CS[P](=S)(OC)OC"}
+{"prompt":"What is the solubility of procion blue mx-r###","completion":"very large@@@","repr":"procion blue mx-r","smiles":"Nc1c(cc(Nc2ccc(c(Nc3nc(Cl)nc(Cl)n3)c2)[S](O)(=O)=O)c4C(=O)c5ccccc5C(=O)c14)[S](O)(=O)=O"}
+{"prompt":"What is the solubility of 2,2-dimethyl-1-propanol###","completion":"very large@@@","repr":"2,2-dimethyl-1-propanol","smiles":"CC(C)(C)CO"}
+{"prompt":"What is the solubility of 2,2,2-trifluoroethan-1-ol###","completion":"very large@@@","repr":"2,2,2-trifluoroethan-1-ol","smiles":"OCC(F)(F)F"}
+{"prompt":"What is the solubility of decane-1,10-diamine###","completion":"very large@@@","repr":"decane-1,10-diamine","smiles":"NCCCCCCCCCCN"}
+{"prompt":"What is the solubility of 3,5,5-trimethylhexanoic acid###","completion":"medium@@@","repr":"3,5,5-trimethylhexanoic acid","smiles":"CC(CC(O)=O)CC(C)(C)C"}
+{"prompt":"What is the solubility of 4-acetamidophenyl  propionate; acetaminophen propionate; 4-propanoyloxyacetanilide###","completion":"medium@@@","repr":"4-acetamidophenyl  propionate; acetaminophen propionate; 4-propanoyloxyacetanilide","smiles":"CCC(=O)OC1=CC=C(NC(C)=O)C=C1"}
+{"prompt":"What is the solubility of n-methyl butylcarbamate###","completion":"large@@@","repr":"n-methyl butylcarbamate","smiles":"CC(C)CCOC(N)=O"}
+{"prompt":"What is the solubility of carbamic acid, (3,4-diethoxyphenyl)-, 1-methylet###","completion":"small@@@","repr":"carbamic acid, (3,4-diethoxyphenyl)-, 1-methylet","smiles":"CCOc1ccc(NC(=O)OC(C)C)cc1OCC"}
+{"prompt":"What is the solubility of barbituric acid, 5-bromo-5-isopropyl-###","completion":"medium@@@","repr":"barbituric acid, 5-bromo-5-isopropyl-","smiles":"CC(C)C1(Br)C(=O)NC(=O)NC1=O"}
+{"prompt":"What is the solubility of 1,1'-sulfonylbis(2-chloroethane)###","completion":"large@@@","repr":"1,1'-sulfonylbis(2-chloroethane)","smiles":"ClCC[S](=O)(=O)CCCl"}
+{"prompt":"What is the solubility of flutriafol (pp450)###","completion":"small@@@","repr":"flutriafol (pp450)","smiles":"OC(Cn1cncn1)(c2ccc(F)cc2)c3ccccc3F"}
+{"prompt":"What is the solubility of 4-(4-amino-3-chlorophenyl)-2-chloroaniline dihydrochloride###","completion":"small@@@","repr":"4-(4-amino-3-chlorophenyl)-2-chloroaniline dihydrochloride","smiles":"[H+].[H+].[Cl-].[Cl-].Nc1ccc(cc1Cl)c2ccc(N)c(Cl)c2"}
+{"prompt":"What is the solubility of rosolic acid###","completion":"medium@@@","repr":"rosolic acid","smiles":"Oc1ccc(cc1)C(c2ccc(O)cc2)=C3C=CC(=O)C=C3"}
+{"prompt":"What is the solubility of 4-isothiocyanatophenol###","completion":"medium@@@","repr":"4-isothiocyanatophenol","smiles":"OC1=CC=C(C=C1)N=C=S"}
+{"prompt":"What is the solubility of p-dinitrobenzene###","completion":"small@@@","repr":"p-dinitrobenzene","smiles":"[O-][N+](=O)c1ccc(cc1)[N+]([O-])=O"}
+{"prompt":"What is the solubility of rufinamide;  1-(2,6-difluorobenzyl)-1h-1,2,3-triazole-4-carboxamide###","completion":"small@@@","repr":"rufinamide;  1-(2,6-difluorobenzyl)-1h-1,2,3-triazole-4-carboxamide","smiles":"NC(=O)C1=C[N](CC2=C(F)C=CC=C2F)N=N1"}
+{"prompt":"What is the solubility of octadec-9-enoic acid - N-(2-aminoethyl)ethane-1,2-diamine (1:1)###","completion":"small@@@","repr":"octadec-9-enoic acid - N-(2-aminoethyl)ethane-1,2-diamine (1:1)","smiles":"CCCCCCCC\\C=C\/CCCCCCCC(O)=O.NCCNCCN"}
+{"prompt":"What is the solubility of oxolan-2-ylmethyl 2-methylprop-2-enoate###","completion":"large@@@","repr":"oxolan-2-ylmethyl 2-methylprop-2-enoate","smiles":"CC(=C)C(=O)OCC1CCCO1"}
+{"prompt":"What is the solubility of Tazobactam###","completion":"large@@@","repr":"Tazobactam","smiles":"C[C@]1(Cn2ccnn2)[C@@H](N3[C@@H](CC3=O)[S]1(=O)=O)C(O)=O"}
+{"prompt":"What is the solubility of dioxoplumbane###","completion":"very small@@@","repr":"dioxoplumbane","smiles":"O=[Pb]=O"}
+{"prompt":"What is the solubility of 3-(3,5-di-tert-butyl-4-hydroxyphenyl)-N-{6-[3-(3,5-di-tert-butyl-4-hydroxyphenyl)propanamido]hexyl}propanamide###","completion":"very small@@@","repr":"3-(3,5-di-tert-butyl-4-hydroxyphenyl)-N-{6-[3-(3,5-di-tert-butyl-4-hydroxyphenyl)propanamido]hexyl}propanamide","smiles":"CC(C)(C)c1cc(CCC(=O)NCCCCCCNC(=O)CCc2cc(c(O)c(c2)C(C)(C)C)C(C)(C)C)cc(c1O)C(C)(C)C"}
+{"prompt":"What is the solubility of tetradecyl octadec-9-enoate###","completion":"very small@@@","repr":"tetradecyl octadec-9-enoate","smiles":"CCCCCCCCCCCCCCOC(=O)CCCCCCC\\C=C\/CCCCCCCC"}
+{"prompt":"What is the solubility of tetrahydropyran-2-methanol###","completion":"very large@@@","repr":"tetrahydropyran-2-methanol","smiles":"OCC1CCCCO1"}
+{"prompt":"What is the solubility of moricizine###","completion":"small@@@","repr":"moricizine","smiles":"CCOC(=O)NC1=CC2=C(SC3=C(C=CC=C3)N2C(=O)CCN4CCOCC4)C=C1"}
+{"prompt":"What is the solubility of strontium 4-[(5-chloro-4-methyl-2-sulphonatophenyl)azo]-3-hydroxy-2-naphthoate (1:1)###","completion":"very small@@@","repr":"strontium 4-[(5-chloro-4-methyl-2-sulphonatophenyl)azo]-3-hydroxy-2-naphthoate (1:1)","smiles":"[Sr++].Cc1c(Cl)cc(cc1[S](O)(=O)=O)N=Nc2c([O-])c(cc3ccccc23)C([O-])=O"}
+{"prompt":"What is the solubility of 4-[2-(4-hydroxy-3,5-dimethylphenyl)propan-2-yl]-2,6-dimethylphenol###","completion":"very small@@@","repr":"4-[2-(4-hydroxy-3,5-dimethylphenyl)propan-2-yl]-2,6-dimethylphenol","smiles":"Cc1cc(cc(C)c1O)C(C)(C)c2cc(C)c(O)c(C)c2"}
+{"prompt":"What is the solubility of 1h-pyrrole-2-carboxylic acid, 3,5-dimethyl-, eth###","completion":"medium@@@","repr":"1h-pyrrole-2-carboxylic acid, 3,5-dimethyl-, eth","smiles":"CCOC(=O)c1[nH]c(C)cc1C"}
+{"prompt":"What is the solubility of (2,4,6-trioxo-1,3,5-triazine-1,3,5(2H,4H,6H)-triyl)tri-2,1-ethanediyl triacrylate###","completion":"medium@@@","repr":"(2,4,6-trioxo-1,3,5-triazine-1,3,5(2H,4H,6H)-triyl)tri-2,1-ethanediyl triacrylate","smiles":"C=CC(=O)OCCN1C(=O)N(CCOC(=O)C=C)C(=O)N(CCOC(=O)C=C)C1=O"}
+{"prompt":"What is the solubility of 4-Methoxycarbonylbenzoic acid###","completion":"medium@@@","repr":"4-Methoxycarbonylbenzoic acid","smiles":"COC(=O)C1=CC=C(C(=O)O)C=C1"}
+{"prompt":"What is the solubility of 3-octadecyl-1-[4-({4-[(octadecylcarbamoyl)amino]phenyl}methyl)phenyl]urea###","completion":"very small@@@","repr":"3-octadecyl-1-[4-({4-[(octadecylcarbamoyl)amino]phenyl}methyl)phenyl]urea","smiles":"CCCCCCCCCCCCCCCCCCNC(=O)Nc1ccc(Cc2ccc(NC(=O)NCCCCCCCCCCCCCCCCCC)cc2)cc1"}
+{"prompt":"What is the solubility of hydrogen sulfide; manganese###","completion":"small@@@","repr":"hydrogen sulfide; manganese","smiles":"S.[Mn]"}
+{"prompt":"What is the solubility of N-(5-chloro-2,4-dimethoxyphenyl)-3-hydroxy-2-naphthamide###","completion":"very small@@@","repr":"N-(5-chloro-2,4-dimethoxyphenyl)-3-hydroxy-2-naphthamide","smiles":"COc1cc(OC)c(NC(=O)c2cc3ccccc3cc2O)cc1Cl"}
+{"prompt":"What is the solubility of calcium diformate###","completion":"very large@@@","repr":"calcium diformate","smiles":"[Ca++].[O-]C=O.[O-]C=O"}
+{"prompt":"What is the solubility of 2-methylpyrazine###","completion":"very large@@@","repr":"2-methylpyrazine","smiles":"Cc1cnccn1"}
+{"prompt":"What is the solubility of anabasine###","completion":"very large@@@","repr":"anabasine","smiles":"C1CC[C@H](NC1)c2cccnc2"}
+{"prompt":"What is the solubility of 1-<hydroxyimino-(seqtrans)>-1-phenyl-acetone###","completion":"medium@@@","repr":"1-<hydroxyimino-(seqtrans)>-1-phenyl-acetone","smiles":"CC(=O)C(=N\\O)\/c1ccccc1"}
+{"prompt":"What is the solubility of fluridone###","completion":"small@@@","repr":"fluridone","smiles":"CN1C=C(c2ccccc2)C(=O)C(=C1)c3cccc(c3)C(F)(F)F"}
+{"prompt":"What is the solubility of 2-Bromotoluene###","completion":"medium@@@","repr":"2-Bromotoluene","smiles":"Cc1ccccc1Br"}
+{"prompt":"What is the solubility of ketanserin###","completion":"small@@@","repr":"ketanserin","smiles":"Fc1ccc(cc1)C(=O)C2CCN(CC2)CCN3C(=O)Nc4ccccc4C3=O"}
+{"prompt":"What is the solubility of 1,2,3,4,5-pentabromo-6-[2-(pentabromophenyl)ethyl]benzene###","completion":"very small@@@","repr":"1,2,3,4,5-pentabromo-6-[2-(pentabromophenyl)ethyl]benzene","smiles":"Brc1c(Br)c(Br)c(CCc2c(Br)c(Br)c(Br)c(Br)c2Br)c(Br)c1Br"}
+{"prompt":"What is the solubility of prop-2-enal###","completion":"very large@@@","repr":"prop-2-enal","smiles":"C=CC=O"}
+{"prompt":"What is the solubility of 2-oxobutanedioic acid###","completion":"very large@@@","repr":"2-oxobutanedioic acid","smiles":"OC(=O)CC(=O)C(O)=O"}
+{"prompt":"What is the solubility of phosphonic acid, [[4-(2-benzothiazolyl)phenyl]me###","completion":"small@@@","repr":"phosphonic acid, [[4-(2-benzothiazolyl)phenyl]me","smiles":"CCO[P](=O)(Cc1ccc(cc1)c2sc3ccccc3n2)OCC"}
+{"prompt":"What is the solubility of 4-iodophenol###","completion":"large@@@","repr":"4-iodophenol","smiles":"OC1=CC=C(I)C=C1"}
+{"prompt":"What is the solubility of N-(5-chloro-2-methylphenyl)-3-hydroxynaphthalene-2-carboxamide###","completion":"very small@@@","repr":"N-(5-chloro-2-methylphenyl)-3-hydroxynaphthalene-2-carboxamide","smiles":"Cc1ccc(Cl)cc1NC(=O)c2cc3ccccc3cc2O"}
+{"prompt":"What is the solubility of 1,1'-biphenyl, 2,3,3',4-tetrachloro-###","completion":"very small@@@","repr":"1,1'-biphenyl, 2,3,3',4-tetrachloro-","smiles":"Clc1cccc(c1)c2ccc(Cl)c(Cl)c2Cl"}
+{"prompt":"What is the solubility of propisochlor###","completion":"small@@@","repr":"propisochlor","smiles":"CCc1cccc(C)c1N(COC(C)C)C(=O)CCl"}
+{"prompt":"What is the solubility of 4-(4-{2-[4-(4-aminophenoxy)phenyl]propan-2-yl}phenoxy)aniline###","completion":"very small@@@","repr":"4-(4-{2-[4-(4-aminophenoxy)phenyl]propan-2-yl}phenoxy)aniline","smiles":"CC(C)(c1ccc(Oc2ccc(N)cc2)cc1)c3ccc(Oc4ccc(N)cc4)cc3"}
+{"prompt":"What is the solubility of 2-{2-[(8E)-heptadec-8-en-1-yl]-4,5-dihydro-1H-imidazol-1-yl}ethan-1-ol###","completion":"small@@@","repr":"2-{2-[(8E)-heptadec-8-en-1-yl]-4,5-dihydro-1H-imidazol-1-yl}ethan-1-ol","smiles":"CCCCCCCC\\C=C\/CCCCCCCC1=NCCN1CCO"}
+{"prompt":"What is the solubility of bromogramine###","completion":"small@@@","repr":"bromogramine","smiles":"Brc1cc2c(CN(C)C)c[nH]c2cc1"}
+{"prompt":"What is the solubility of hexasodium 4-hydroxy-7-[({5-hydroxy-7-sulfonato-6-[(E)-2-{2-sulfonato-4-[(E)-2-(4-sulfonatophenyl)diazen-1-yl]phenyl}diazen-1-yl]naphthalen-2-yl}carbamoyl)amino]-3-[(E)-2-{2-sulfonato-4-[(E)-2-(4-sulfonatophenyl)diazen-1-yl]phenyl}diazen-1-yl]naphthalene-2-sulfonate###","completion":"very large@@@","repr":"hexasodium 4-hydroxy-7-[({5-hydroxy-7-sulfonato-6-[(E)-2-{2-sulfonato-4-[(E)-2-(4-sulfonatophenyl)diazen-1-yl]phenyl}diazen-1-yl]naphthalen-2-yl}carbamoyl)amino]-3-[(E)-2-{2-sulfonato-4-[(E)-2-(4-sulfonatophenyl)diazen-1-yl]phenyl}diazen-1-yl]naphthalene-2-sulfonate","smiles":"[Na+].[Na+].[Na+].[Na+].[Na+].[Na+].[O-][S](=O)(=O)c1ccc(cc1)N=Nc2ccc(N\\N=C\\3C(=O)c4ccc(NC(=O)Nc5ccc6C(=O)C(=N\/Nc7ccc(cc7[S]([O-])(=O)=O)N=Nc8ccc(cc8)[S]([O-])(=O)=O)\\C(=Cc6c5)[S]([O-])(=O)=O)cc4C=C3[S]([O-])(=O)=O)c(c2)[S]([O-])(=O)=O"}
+{"prompt":"What is the solubility of 1,1,1-tris(hydroxymethyl)propane###","completion":"very large@@@","repr":"1,1,1-tris(hydroxymethyl)propane","smiles":"CCC(CO)(CO)CO"}

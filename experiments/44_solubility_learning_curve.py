@@ -86,9 +86,10 @@ def learning_curve_point(num_train_points, outdir, representation='smiles', rand
         'completions': completions,
         'true': true,
         'cm': cm,
+        'representation': representation,
     }
     
-    outname = f"{outdir}/results_solubility_{num_train_points}.pkl"
+    outname = f"{outdir}/results_solubility_{num_train_points}_{representation}.pkl"
 
     save_pickle(outname, res)
 

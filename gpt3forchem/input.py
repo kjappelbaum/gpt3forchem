@@ -277,10 +277,10 @@ PROMPT_TEMPLATE_photoswitch_ = (
 COMPLETION_TEMPLATE_photoswitch_ = "{}@@@"
 
 
-def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
+def generate_inverse_photoswitch_prompts(data: pd.DataFrame, representation: str = 'SMILES') -> pd.DataFrame:
     prompts = []
     completions = []
-
+    smiles = []
     for i, row in data.iterrows():
         if np.isnan(row["E isomer n-pi* wavelength in nm"]):
             prompt = PROMPT_TEMPLATE_photoswitch_.format(
@@ -292,11 +292,12 @@ def generate_inverse_photoswitch_prompts(data: pd.DataFrame) -> pd.DataFrame:
                 row["E isomer n-pi* wavelength in nm"],
             )
 
-        completion = COMPLETION_TEMPLATE_photoswitch_.format(row["SMILES"])
+        completion = COMPLETION_TEMPLATE_photoswitch_.format(row[representation])
         prompts.append(prompt)
         completions.append(completion)
+        smiles.append(row["SMILES"])
 
-    prompts = pd.DataFrame({"prompt": prompts, "completion": completions})
+    prompts = pd.DataFrame({"prompt": prompts, "completion": completions, "SMILES": smiles})
 
     return prompts
 
