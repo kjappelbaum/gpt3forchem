@@ -246,5 +246,7 @@ d = { 'settings': { 'branch': 'main',
                                                                                        'gpt3forchem/output.py'),
                                     'gpt3forchem.output.predict_photoswitch': ('output.html#predict_photoswitch', 'gpt3forchem/output.py'),
                                     'gpt3forchem.output.string_distances': ('output.html#string_distances', 'gpt3forchem/output.py'),
+                                    'gpt3forchem.output.test_inverse_bandgap': ( 'output.html#test_inverse_bandgap',
+                                                                                 'gpt3forchem/output.py'),
                                     'gpt3forchem.output.test_inverse_photoswitch': ( 'output.html#test_inverse_photoswitch',
                                                                                      'gpt3forchem/output.py')}}}

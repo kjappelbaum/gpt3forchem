@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of oxozinc###","completion":"small@@@","repr":"oxozinc","smiles":"O=[Zn]"}
+{"prompt":"What is the solubility of 1,2,3,4,5-pentachloro-6-(2,4,5-trichlorophenoxy)benzene###","completion":"very small@@@","repr":"1,2,3,4,5-pentachloro-6-(2,4,5-trichlorophenoxy)benzene","smiles":"ClC1=C(Cl)C=C(OC2=C(Cl)C(=C(Cl)C(=C2Cl)Cl)Cl)C(=C1)Cl"}
+{"prompt":"What is the solubility of 2-(carbamoylamino)acetic acid###","completion":"very large@@@","repr":"2-(carbamoylamino)acetic acid","smiles":"NC(=O)NCC(O)=O"}
+{"prompt":"What is the solubility of 4,6-dimethyl-8,9,10,11-tetrahydro-[1]benzoxolo[2,3-h]chromen-2-one###","completion":"very small@@@","repr":"4,6-dimethyl-8,9,10,11-tetrahydro-[1]benzoxolo[2,3-h]chromen-2-one","smiles":"CC1=CC(=O)OC2=C1C=C(C)C1=C2C2=C(CCCC2)O1"}
+{"prompt":"What is the solubility of 2-nitrooxyethyl nitrate###","completion":"large@@@","repr":"2-nitrooxyethyl nitrate","smiles":"[O-][N+](=O)OCCO[N+]([O-])=O"}
+{"prompt":"What is the solubility of 1-Chlorobutane###","completion":"medium@@@","repr":"1-Chlorobutane","smiles":"CCCCCl"}
+{"prompt":"What is the solubility of 1-(phenoxy)propan-2-ol###","completion":"large@@@","repr":"1-(phenoxy)propan-2-ol","smiles":"CC(O)COc1ccccc1"}
+{"prompt":"What is the solubility of 3,4-dichloro-1-(4-fluorophenyl)pyrrole-2,5-dione###","completion":"small@@@","repr":"3,4-dichloro-1-(4-fluorophenyl)pyrrole-2,5-dione","smiles":"Fc1ccc(cc1)N2C(=O)C(=C(Cl)C2=O)Cl"}
+{"prompt":"What is the solubility of (2-methylcyclohexyl) acetate###","completion":"medium@@@","repr":"(2-methylcyclohexyl) acetate","smiles":"CC1CCCCC1OC(C)=O"}
+{"prompt":"What is the solubility of tetramethylazanium chloride###","completion":"very large@@@","repr":"tetramethylazanium chloride","smiles":"[Cl-].C[N+](C)(C)C"}

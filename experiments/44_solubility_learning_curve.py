@@ -14,7 +14,7 @@ from tabpfn.scripts.transformer_prediction_interface import TabPFNClassifier
 from xgboost import XGBClassifier
 from sklearn.model_selection import train_test_split
 
-
+import time
 MAX_TEST_SIZE = 500
 
 def run_tabpfn_baseline(train_data, test_data):
@@ -88,8 +88,8 @@ def learning_curve_point(num_train_points, outdir, representation='smiles', rand
         'cm': cm,
         'representation': representation,
     }
-    
-    outname = f"{outdir}/results_solubility_{num_train_points}_{representation}.pkl"
+    timestr = time.strftime("%Y%m%d-%H%M%S")
+    outname = f"{outdir}/{timestr}-results_solubility_{num_train_points}_{representation}.pkl"
 
     save_pickle(outname, res)
 

@@ -7,7 +7,7 @@ __all__ = ['aggregate_array', 'KLDivBenchmark', 'PolymerKLDivBenchmark', 'Freche
            'get_prompt_compostion', 'get_target', 'get_polymer_prompt_data', 'get_polymer_completion_composition',
            'featurize_many_polymers', 'LinearPolymerSmilesFeaturizer', 'polymer_string2performance',
            'composition_mismatch', 'get_inverse_polymer_metrics', 'get_regression_metrics', 'predict_photoswitch',
-           'get_expected_wavelengths', 'test_inverse_photoswitch']
+           'get_expected_wavelengths', 'test_inverse_photoswitch', 'test_inverse_bandgap']
 
 # %% ../notebooks/04_output.ipynb 1
 import math
@@ -768,6 +768,7 @@ def test_inverse_photoswitch(
                 predictions.append(p)
         predictions = np.array(predictions)
 
+    logger.debug(f'Loaded predictions. Example: {predictions[0]}')
     valid_smiles = [is_valid_smiles(smiles) for smiles in predictions]
 
     smiles_in_train = [
@@ -903,6 +904,91 @@ def test_inverse_photoswitch(
         "mol_similarity_metrics": mol_similarity_metrics,
         "mol_similarity_metrics_mean": mol_similarity_metrics.mean(),
         "mol_similarity_metrics_std": mol_similarity_metrics.std(),
+    }
+
+    return results
+
+
+# %% ../notebooks/04_output.ipynb 72
+def test_inverse_bandgap(
+    prompt_frame, model, train_smiles, temperature, max_tokens: int = 80, representation: str = "smiles"
+):
+    completions = query_gpt3(
+        model, prompt_frame, max_tokens=max_tokens, temperature=temperature
+    )
+    predictions = np.array(
+        [
+            extract_inverse_prediction(completions, i)
+            for i in range(len(completions["choices"]))
+        ]
+    )
+
+    expectations = [float(re.findall(r'\d+\.\d+', v)[0]) for v in prompt_frame['prompt'].values]
+
+    logger.debug(f"Got predictions, example: {predictions[0]}")
+    if representation == 'selfies':
+        tmp = predictions 
+        predictions = []
+        for p in tmp:
+            try:
+                predictions.append(sf.decoder(p))
+            except:
+                predictions.append(p)
+        predictions = np.array(predictions)
+
+    logger.debug(f'Loaded predictions. Example: {predictions[0]}')
+    valid_smiles = [is_valid_smiles(smiles) for smiles in predictions]
+
+    smiles_in_train = [
+        is_string_in_training_data(smiles, train_smiles)
+        for smiles in predictions[valid_smiles]
+    ]
+
+
+    num_samples = min(sum(valid_smiles), len(train_smiles))
+
+    logger.debug(f"Calculating Frechet ChemNet distance for {num_samples} samples")
+
+    if num_samples > 0:
+        try:
+            frechet_benchmark = FrechetBenchmark(train_smiles, sample_size=num_samples)
+            frechet_score = frechet_benchmark.score(predictions[valid_smiles])
+        except Exception:
+            frechet_score = np.nan
+
+        logger.debug(f'Computed frechet score: {frechet_score}')
+
+        try:
+            kl_div_benchmark = KLDivBenchmark(train_smiles, sample_size=num_samples)
+            kl_div_score = kl_div_benchmark.score(predictions[valid_smiles])
+        except Exception:
+            kl_div_score = np.nan
+    else:
+        frechet_score = np.nan
+        kl_div_score = np.nan
+
+    logger.debug(f'Computed KL div score: {kl_div_score}')
+
+    try: 
+        unique_smiles = len(set(np.array(predictions)[valid_smiles])) / sum(valid_smiles)
+    except ZeroDivisionError:
+        unique_smiles = 0
+    results = {
+        "meta": {
+            "temperature": temperature,
+            "max_tokens": max_tokens,
+            "model": model,
+        },
+        "predictions": predictions,
+        "valid_smiles": valid_smiles,
+        "kl_divergence": kl_div_score,
+        "unique_smiles": unique_smiles,
+        "frechet_chemnet": frechet_score,
+        "smiles_in_train": smiles_in_train,
+
+        "fractions_valid_smiles": np.mean(valid_smiles),
+        "fractions_smiles_in_train": np.mean(smiles_in_train),
+        'expectations': expectations,
     }
 
     return results

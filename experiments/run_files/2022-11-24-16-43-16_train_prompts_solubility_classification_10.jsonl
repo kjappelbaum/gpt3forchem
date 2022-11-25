@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of 1,2,4-trinonyl benzene-1,2,4-tricarboxylate###","completion":"very small@@@","repr":"1,2,4-trinonyl benzene-1,2,4-tricarboxylate","smiles":"CCCCCCCCCOC(=O)c1ccc(C(=O)OCCCCCCCCC)c(c1)C(=O)OCCCCCCCCC"}
+{"prompt":"What is the solubility of 2-iodopropane###","completion":"medium@@@","repr":"2-iodopropane","smiles":"CC(C)I"}
+{"prompt":"What is the solubility of 1h-purine, 8-(trifluoromethyl)-###","completion":"very large@@@","repr":"1h-purine, 8-(trifluoromethyl)-","smiles":"FC(F)(F)c1[nH]c2cncnc2n1"}
+{"prompt":"What is the solubility of 1,1,2,3,3-pentachloropropane###","completion":"medium@@@","repr":"1,1,2,3,3-pentachloropropane","smiles":"ClC(Cl)C(Cl)C(Cl)Cl"}
+{"prompt":"What is the solubility of niobium###","completion":"very small@@@","repr":"niobium","smiles":"[Nb]"}
+{"prompt":"What is the solubility of 4-Chlorophenyl-2-(1H-1,2,4-triazol-yl)cycloheptanol###","completion":"small@@@","repr":"4-Chlorophenyl-2-(1H-1,2,4-triazol-yl)cycloheptanol","smiles":"OC1(CCCCCC1n2cncn2)c3ccc(Cl)cc3"}
+{"prompt":"What is the solubility of 1-(n-propylcarbamoyl)-5-fluorouracil;  1-propylaminocarbonyl-5-fluorouracil###","completion":"large@@@","repr":"1-(n-propylcarbamoyl)-5-fluorouracil;  1-propylaminocarbonyl-5-fluorouracil","smiles":"CCCNC(=O)N1C=C(F)C(=O)NC1=O"}
+{"prompt":"What is the solubility of propanoic acid, 2-(acetyloxy)-, ethyl ester###","completion":"very large@@@","repr":"propanoic acid, 2-(acetyloxy)-, ethyl ester","smiles":"CCOC(=O)C(C)OC(C)=O"}
+{"prompt":"What is the solubility of diphenyl_ether###","completion":"small@@@","repr":"diphenyl_ether","smiles":"c1ccccc1Oc2ccccc2"}
+{"prompt":"What is the solubility of methyl  2-allyl-2-ethylmalonurate###","completion":"large@@@","repr":"methyl  2-allyl-2-ethylmalonurate","smiles":"CCC(CC=C)(C(=O)NC(N)=O)C(=O)OC"}

@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of O=[Zn]###","completion":"small@@@","repr":"O=[Zn]","smiles":"O=[Zn]"}
+{"prompt":"What is the solubility of ClC1=C(Cl)C=C(OC2=C(Cl)C(=C(Cl)C(=C2Cl)Cl)Cl)C(=C1)Cl###","completion":"very small@@@","repr":"ClC1=C(Cl)C=C(OC2=C(Cl)C(=C(Cl)C(=C2Cl)Cl)Cl)C(=C1)Cl","smiles":"ClC1=C(Cl)C=C(OC2=C(Cl)C(=C(Cl)C(=C2Cl)Cl)Cl)C(=C1)Cl"}
+{"prompt":"What is the solubility of NC(=O)NCC(O)=O###","completion":"very large@@@","repr":"NC(=O)NCC(O)=O","smiles":"NC(=O)NCC(O)=O"}
+{"prompt":"What is the solubility of CC1=CC(=O)OC2=C1C=C(C)C1=C2C2=C(CCCC2)O1###","completion":"very small@@@","repr":"CC1=CC(=O)OC2=C1C=C(C)C1=C2C2=C(CCCC2)O1","smiles":"CC1=CC(=O)OC2=C1C=C(C)C1=C2C2=C(CCCC2)O1"}
+{"prompt":"What is the solubility of [O-][N+](=O)OCCO[N+]([O-])=O###","completion":"large@@@","repr":"[O-][N+](=O)OCCO[N+]([O-])=O","smiles":"[O-][N+](=O)OCCO[N+]([O-])=O"}
+{"prompt":"What is the solubility of CCCCCl###","completion":"medium@@@","repr":"CCCCCl","smiles":"CCCCCl"}
+{"prompt":"What is the solubility of CC(O)COc1ccccc1###","completion":"large@@@","repr":"CC(O)COc1ccccc1","smiles":"CC(O)COc1ccccc1"}
+{"prompt":"What is the solubility of Fc1ccc(cc1)N2C(=O)C(=C(Cl)C2=O)Cl###","completion":"small@@@","repr":"Fc1ccc(cc1)N2C(=O)C(=C(Cl)C2=O)Cl","smiles":"Fc1ccc(cc1)N2C(=O)C(=C(Cl)C2=O)Cl"}
+{"prompt":"What is the solubility of CC1CCCCC1OC(C)=O###","completion":"medium@@@","repr":"CC1CCCCC1OC(C)=O","smiles":"CC1CCCCC1OC(C)=O"}
+{"prompt":"What is the solubility of [Cl-].C[N+](C)(C)C###","completion":"very large@@@","repr":"[Cl-].C[N+](C)(C)C","smiles":"[Cl-].C[N+](C)(C)C"}

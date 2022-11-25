@@ -1,0 +1,10 @@
+{"prompt":"What is the solubility of oxozinc###","completion":"small@@@","repr":"oxozinc","smiles":"O=[Zn]"}
+{"prompt":"What is the solubility of 2,2',3,4,4',5,5',6-octachlorodiphenyl  ether###","completion":"very small@@@","repr":"2,2',3,4,4',5,5',6-octachlorodiphenyl  ether","smiles":"ClC1=C(Cl)C=C(OC2=C(Cl)C(=C(Cl)C(=C2Cl)Cl)Cl)C(=C1)Cl"}
+{"prompt":"What is the solubility of n-(aminocarbonyl)glycine###","completion":"very large@@@","repr":"n-(aminocarbonyl)glycine","smiles":"NC(=O)NCC(O)=O"}
+{"prompt":"What is the solubility of 4,6-dimethyl-8,9,10,11-tetrahydro-[1]benzoxolo[2,3-h]chromen-2-one###","completion":"very small@@@","repr":"4,6-dimethyl-8,9,10,11-tetrahydro-[1]benzoxolo[2,3-h]chromen-2-one","smiles":"CC1=CC(=O)OC2=C1C=C(C)C1=C2C2=C(CCCC2)O1"}
+{"prompt":"What is the solubility of ethylene glycol dinitrate###","completion":"large@@@","repr":"ethylene glycol dinitrate","smiles":"[O-][N+](=O)OCCO[N+]([O-])=O"}
+{"prompt":"What is the solubility of 1-chlorobutane###","completion":"medium@@@","repr":"1-chlorobutane","smiles":"CCCCCl"}
+{"prompt":"What is the solubility of 1-phenoxypropan-2-ol###","completion":"large@@@","repr":"1-phenoxypropan-2-ol","smiles":"CC(O)COc1ccccc1"}
+{"prompt":"What is the solubility of sparticide###","completion":"small@@@","repr":"sparticide","smiles":"Fc1ccc(cc1)N2C(=O)C(=C(Cl)C2=O)Cl"}
+{"prompt":"What is the solubility of 2-methylcyclohexyl acetate###","completion":"medium@@@","repr":"2-methylcyclohexyl acetate","smiles":"CC1CCCCC1OC(C)=O"}
+{"prompt":"What is the solubility of N,N,N-trimethylmethanaminium chloride###","completion":"very large@@@","repr":"N,N,N-trimethylmethanaminium chloride","smiles":"[Cl-].C[N+](C)(C)C"}
