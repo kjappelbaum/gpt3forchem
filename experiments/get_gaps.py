@@ -25,7 +25,7 @@ def all_gaps_in_dir(dir, outfile: Optional[Union[str, Path]] = None):
     files = glob(os.path.join(dir, "*", "xtb.out"))
     gaps = get_homo_lumo_gaps(files)
     if outfile is None:
-        outfile = os.path.join(f"{Path(dir).stem}_gaps.txt")
+        outfile = os.path.join(f"{str(dir)}_gaps.txt")
     
     with open(outfile, "w") as f:
         for key, value in gaps.items():
