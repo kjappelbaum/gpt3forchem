@@ -95,7 +95,7 @@ def decode_categorical_value(value, decoding_dict=_DEFAULT_DECODING_DICT):
 
 
 # %% ../notebooks/03_input.ipynb 9
-ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE = "what is the {property} of {text}###"
+ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE = "what is the {property} of {text}?###"
 ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE = " {value}@@@"
 
 

@@ -5,30 +5,30 @@ __all__ = ['tokenizer', 'get_num_token_dist', 'get_token_counts', 'get_selfies_t
            'selfies_to_one_hot', 'selfies_to_padded_selfies', 'get_fragment_one_hot_mapping',
            'get_representation_length_dist', 'HashableDataFrame', 'picp', 'multiclass_vote_to_probabilities',
            'multiclass_brier_score', 'expected_calibration_error', 'only_mode', 'augmented_classification_scores',
-           'make_if_not_exists', 'mean_confidence_interval', 'get_else_nan', 'get_bin_ranges']
+           'make_if_not_exists', 'mean_confidence_interval', 'get_else_nan', 'get_bin_ranges',
+           'compute_morgan_fingerprints', 'compute_fragprints']
 
 # %% ../notebooks/06_helpers.ipynb 2
 import os
+import re
 from collections import Counter, defaultdict
 from functools import lru_cache
 from hashlib import sha256
-from typing import Callable, Iterable, Optional, List, Any
+from typing import Any, Callable, Iterable, List, Optional
 
+import EFGs
 import numpy as np
 import pandas as pd
+import scipy.stats
+import selfies as sf
 from pandas.util import hash_pandas_object
 from pycm import ConfusionMatrix
+from rdkit import Chem
+from rdkit.Chem import AllChem, Descriptors, MolFromSmiles, MolToSmiles
 from scipy.stats import mode
+from transformers import GPT2Tokenizer
 
 from .input import encode_categorical_value
-import selfies as sf
-import re
-import numpy as np
-import scipy.stats
-from rdkit import Chem
-
-from transformers import GPT2Tokenizer
-import EFGs
 
 # %% ../notebooks/06_helpers.ipynb 3
 tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
@@ -510,3 +510,35 @@ def get_bin_ranges(df, column, num_bins=5):
     _, ranges = pd.cut(df[column], num_bins, retbins=True)
     bins = {i: (ranges[i], ranges[i + 1]) for i in range(len(ranges) - 1)}
     return bins
+
+# %% ../notebooks/06_helpers.ipynb 48
+def compute_morgan_fingerprints(
+    smiles_list: Iterable[str],  # list of SMILEs
+    n_bits: int = 2048,  # number of bits in the fingerprint
+) -> np.ndarray:
+    rdkit_mols = [MolFromSmiles(smiles) for smiles in smiles_list]
+    rdkit_smiles = [MolToSmiles(mol, isomericSmiles=False) for mol in rdkit_mols]
+    rdkit_mols = [MolFromSmiles(smiles) for smiles in rdkit_smiles]
+    X = [
+        AllChem.GetMorganFingerprintAsBitVect(mol, 3, nBits=n_bits)
+        for mol in rdkit_mols
+    ]
+    X = np.asarray(X)
+    return X
+
+
+def compute_fragprints(smiles_list: Iterable[str]) -> np.ndarray:  # list of SMILEs
+    X = compute_morgan_fingerprints(smiles_list)
+
+    fragments = {d[0]: d[1] for d in Descriptors.descList[115:]}
+    X1 = np.zeros((len(smiles_list), len(fragments)))
+    for i in range(len(smiles_list)):
+        mol = MolFromSmiles(smiles_list[i])
+        try:
+            features = [fragments[d](mol) for d in fragments]
+        except:
+            raise Exception("molecule {}".format(i) + " is not canonicalised")
+        X1[i, :] = features
+
+    X = np.concatenate((X, X1), axis=1)
+    return X

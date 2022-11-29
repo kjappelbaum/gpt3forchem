@@ -11,14 +11,28 @@ __all__ = ['aggregate_array', 'KLDivBenchmark', 'PolymerKLDivBenchmark', 'Freche
 
 # %% ../notebooks/04_output.ipynb 1
 import math
+import os
+import pkgutil
 import re
+import tempfile
 from collections import Counter, defaultdict
 from typing import Iterable, List, Optional, Tuple
-import os
+
+import fcd
 import joblib
 import numpy as np
 import pandas as pd
+import selfies as sf
+from guacamol.utils.chemistry import (calculate_internal_pairwise_similarities,
+                                      calculate_pc_descriptors,
+                                      canonicalize_list, continuous_kldiv,
+                                      discrete_kldiv, is_valid)
+from guacamol.utils.data import get_random_subset
+from guacamol.utils.sampling_helpers import (sample_unique_molecules,
+                                             sample_valid_molecules)
+from loguru import logger
 from nbdev.showdoc import *
+from pycm import ConfusionMatrix
 from rdkit import Chem, DataStructs
 from rdkit.Chem.Fingerprints import FingerprintMols
 from sklearn.metrics import (max_error, mean_absolute_error,
@@ -26,25 +40,12 @@ from sklearn.metrics import (max_error, mean_absolute_error,
 from strsimpy.levenshtein import Levenshtein
 from strsimpy.longest_common_subsequence import LongestCommonSubsequence
 from strsimpy.normalized_levenshtein import NormalizedLevenshtein
+from tqdm import tqdm
 
 from .api_wrappers import extract_inverse_prediction, query_gpt3
-from .baselines import compute_fragprints
+from .helpers import compute_fragprints
 from .data import POLYMER_FEATURES
 from .input import encode_categorical_value
-from guacamol.utils.data import get_random_subset
-from guacamol.utils.sampling_helpers import sample_valid_molecules, sample_unique_molecules
-
-from guacamol.utils.chemistry import canonicalize_list, is_valid, calculate_pc_descriptors, continuous_kldiv, \
-    discrete_kldiv, calculate_internal_pairwise_similarities
-
-    
-from tqdm import tqdm
-from loguru import logger
-import fcd
-import pkgutil
-import tempfile
-from pycm import ConfusionMatrix
-import selfies as sf
 
 # %% ../notebooks/04_output.ipynb 4
 _DEFAULT_AGGREGATIONS =  [
@@ -705,6 +706,7 @@ def get_regression_metrics(
             "max_error": max_error(y_true, y_pred),
             "mean_absolute_error": mean_absolute_error(y_true, y_pred),
             "mean_squared_error": mean_squared_error(y_true, y_pred),
+            "rmse": mean_squared_error(y_true, y_pred, squared=False),
         }
     except Exception:
         return {
@@ -712,6 +714,7 @@ def get_regression_metrics(
             "max_error": np.nan,
             "mean_absolute_error": np.nan,
             "mean_squared_error": np.nan,
+            "rmse": np.nan,
         }
 
 

@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['POLYMER_FEATURES', 'gas_features', 'discretize', 'get_polymer_data', 'get_photoswitch_data', 'get_mof_data',
            'preprocess_mof_data', 'get_core_mof_data', 'get_opv_data', 'get_mof_yield_data', 'get_uspto_yield_data',
-           'get_solubility_data', 'get_bandgap_data']
+           'get_solubility_data', 'get_bandgap_data', 'get_esol_data', 'get_freesolv_data', 'get_lipophilicity_data']
 
 # %% ../notebooks/00_data.ipynb 2
 import os
@@ -239,4 +239,22 @@ def get_solubility_data(datadir="../data"):  # path to folder with data files
 def get_bandgap_data(datadir="../data"):  # path to folder with data files
     """Load the bandgap dataset."""
     df = pd.read_csv(os.path.join(datadir, "bandgap_data.csv"))
+    return HashableDataFrame(df)    
+
+# %% ../notebooks/00_data.ipynb 67
+def get_esol_data(datadir="../data"):  # path to folder with data files
+    """Load the ESOL dataset."""
+    df = pd.read_csv(os.path.join(datadir, "esol.csv"))
+    return HashableDataFrame(df)    
+
+# %% ../notebooks/00_data.ipynb 69
+def get_freesolv_data(datadir="../data"):  # path to folder with data files
+    """Load the FreeSolv dataset."""
+    df = pd.read_csv(os.path.join(datadir, "free_solv.csv"))
+    return HashableDataFrame(df)    
+
+# %% ../notebooks/00_data.ipynb 71
+def get_lipophilicity_data(datadir="../data"):  # path to folder with data files
+    """Load the lipophilicity dataset."""
+    df = pd.read_csv(os.path.join(datadir, "lipophilicity.csv"))
     return HashableDataFrame(df)    
