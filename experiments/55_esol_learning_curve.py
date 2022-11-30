@@ -12,9 +12,9 @@ from gpt3forchem.helpers import make_if_not_exists
 TRAIN_SIZES = [10, 50, 500]
 N_REPEATS = 10
 MAX_TEST_SIZE = 200
-REPRESENTATIONS = ['smiles', 'selfies', 'inchi']
+REPRESENTATIONS = ['smiles', 'selfies', 'inchi', 'iupac_name']
 
-OUTDIR = "results/20221129_esol"
+OUTDIR = "results/20221130_esol"
 make_if_not_exists(OUTDIR)
 
 def train_test_esol(train_size, representation, random_state=None):
@@ -23,8 +23,8 @@ def train_test_esol(train_size, representation, random_state=None):
     model_config = BEST_GAUCHE_MODEL_CONFIG['esol']
     baseline = train_test_gauche(train_size, MAX_TEST_SIZE, 'ESOL', '../data/ESOL.csv', model_config['featurizer'], model_config['model'], regression=False, random_state=random_state)
 
-    train_prompts = create_single_property_forward_prompts(train, 'y_cat', {'y_cat': 'solubility'}, representation_col=representation, encode_value=False)
-    test_prompts = create_single_property_forward_prompts(test, 'y_cat', {'y_cat': 'solubility'}, representation_col=representation, encode_value=False)
+    train_prompts = create_single_property_forward_prompts(train, 'y_cat', {'y_cat': 'solubility'}, representation_col=representation, encode_value=True)
+    test_prompts = create_single_property_forward_prompts(test, 'y_cat', {'y_cat': 'solubility'}, representation_col=representation, encode_value=True)
 
     filename_base = time.strftime("%Y-%m-%d-%H-%M-%S", time.localtime())
     train_filename = f"run_files/{filename_base}_train_prompts_esol_{representation}_{train_size}.jsonl"
@@ -60,7 +60,7 @@ def train_test_esol(train_size, representation, random_state=None):
         'acc': acc
     }
     print(f"Train size: {train_size}, representation {representation} | Accuracy: {acc}, Baseline accuracy: {baseline['accuracy']}")
-    save_pickle(f"run_files/{filename_base}_esol_{representation}_{train_size}.pkl", outputs)   
+    save_pickle(f"{OUTDIR}/{filename_base}_esol_{representation}_{train_size}.pkl", outputs)   
 
 
 if __name__ == "__main__":
