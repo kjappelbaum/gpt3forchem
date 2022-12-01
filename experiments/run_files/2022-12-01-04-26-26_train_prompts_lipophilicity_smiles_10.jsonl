@@ -1,0 +1,10 @@
+{"prompt":"what is the lipophilicity of O=S(=O)(Nc1cccnc1)c2ccccc2?###","completion":" 1@@@","repr":"O=S(=O)(Nc1cccnc1)c2ccccc2","this_repr":"O=S(=O)(Nc1cccnc1)c2ccccc2"}
+{"prompt":"what is the lipophilicity of CN1CCN(CC1)c2ccc(Nc3ncc(C)c(Nc4cccc(c4)S(=O)(=O)NC(C)(C)C)n3)cc2?###","completion":" 3@@@","repr":"CN1CCN(CC1)c2ccc(Nc3ncc(C)c(Nc4cccc(c4)S(=O)(=O)NC(C)(C)C)n3)cc2","this_repr":"CN1CCN(CC1)c2ccc(Nc3ncc(C)c(Nc4cccc(c4)S(=O)(=O)NC(C)(C)C)n3)cc2"}
+{"prompt":"what is the lipophilicity of CCCNC(=O)c1nnc2c(cccc2c1N)c3ccccc3?###","completion":" 4@@@","repr":"CCCNC(=O)c1nnc2c(cccc2c1N)c3ccccc3","this_repr":"CCCNC(=O)c1nnc2c(cccc2c1N)c3ccccc3"}
+{"prompt":"what is the lipophilicity of Cc1ccc(cc1)S(=O)(=O)NC(=O)N2CCC(CC2)N3CCC(CC3)Oc4ccc(Cl)cc4C?###","completion":" 2@@@","repr":"Cc1ccc(cc1)S(=O)(=O)NC(=O)N2CCC(CC2)N3CCC(CC3)Oc4ccc(Cl)cc4C","this_repr":"Cc1ccc(cc1)S(=O)(=O)NC(=O)N2CCC(CC2)N3CCC(CC3)Oc4ccc(Cl)cc4C"}
+{"prompt":"what is the lipophilicity of CN1C[C@@H](c2ccccc2)c3cccc(N)c3C1?###","completion":" 3@@@","repr":"CN1C[C@@H](c2ccccc2)c3cccc(N)c3C1","this_repr":"CN1C[C@@H](c2ccccc2)c3cccc(N)c3C1"}
+{"prompt":"what is the lipophilicity of Oc1ccc(cc1)C2=CC(=O)c3ccc(O)cc3O2?###","completion":" 3@@@","repr":"Oc1ccc(cc1)C2=CC(=O)c3ccc(O)cc3O2","this_repr":"Oc1ccc(cc1)C2=CC(=O)c3ccc(O)cc3O2"}
+{"prompt":"what is the lipophilicity of NC(=O)Cc1nc(cs1)c2ccccc2?###","completion":" 2@@@","repr":"NC(=O)Cc1nc(cs1)c2ccccc2","this_repr":"NC(=O)Cc1nc(cs1)c2ccccc2"}
+{"prompt":"what is the lipophilicity of COc1ccc2nc(NC(=O)CCc3ccc(OC)c(OC)c3)sc2c1?###","completion":" 4@@@","repr":"COc1ccc2nc(NC(=O)CCc3ccc(OC)c(OC)c3)sc2c1","this_repr":"COc1ccc2nc(NC(=O)CCc3ccc(OC)c(OC)c3)sc2c1"}
+{"prompt":"what is the lipophilicity of Cc1ccsc1CN2NC(=O)C3=C(C2=O)C(=O)c4ccc(Cl)cc4N3?###","completion":" 2@@@","repr":"Cc1ccsc1CN2NC(=O)C3=C(C2=O)C(=O)c4ccc(Cl)cc4N3","this_repr":"Cc1ccsc1CN2NC(=O)C3=C(C2=O)C(=O)c4ccc(Cl)cc4N3"}
+{"prompt":"what is the lipophilicity of Clc1ccc(O[C@H]2CCCNC2)cc1C(=O)NCC34CC5CC(CC(C5)C3)C4?###","completion":" 3@@@","repr":"Clc1ccc(O[C@H]2CCCNC2)cc1C(=O)NCC34CC5CC(CC(C5)C3)C4","this_repr":"Clc1ccc(O[C@H]2CCCNC2)cc1C(=O)NCC34CC5CC(CC(C5)C3)C4"}

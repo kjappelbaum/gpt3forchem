@@ -64,6 +64,6 @@ def train_test_freesolv(train_size, representation, random_state=None):
 
 if __name__ == "__main__":
     for i in range(N_REPEATS):
-        for representation in REPRESENTATIONS:
-            for train_size in TRAIN_SIZES:
+        for representation in REPRESENTATIONS[::-1]:
+            for train_size in TRAIN_SIZES[::-1]:
                 train_test_freesolv(train_size, representation, random_state=i)

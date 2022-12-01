@@ -8,6 +8,7 @@ from gpt3forchem.input import create_single_property_forward_prompts
 from gpt3forchem.baselines import train_test_gauche, BEST_GAUCHE_MODEL_CONFIG
 from sklearn.model_selection import train_test_split
 from gpt3forchem.helpers import make_if_not_exists
+import random
 
 TRAIN_SIZES = [10, 50, 500]
 N_REPEATS = 10
@@ -65,6 +66,6 @@ def train_test_esol(train_size, representation, random_state=None):
 
 if __name__ == "__main__":
     for i in range(N_REPEATS):
-        for representation in REPRESENTATIONS:
-            for train_size in TRAIN_SIZES:
+        for representation in REPRESENTATIONS[::-1]:
+            for train_size in TRAIN_SIZES[::-1]:
                 train_test_esol(train_size, representation, random_state=i)

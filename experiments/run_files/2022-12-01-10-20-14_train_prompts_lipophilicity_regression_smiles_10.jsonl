@@ -1,0 +1,10 @@
+{"prompt":"what is the lipophilicity of CCC(=C)C(=O)c1ccc(OCC(=O)O)c(Cl)c1Cl?###","completion":" 0.02@@@","repr":"CCC(=C)C(=O)c1ccc(OCC(=O)O)c(Cl)c1Cl","this_repr":"CCC(=C)C(=O)c1ccc(OCC(=O)O)c(Cl)c1Cl"}
+{"prompt":"what is the lipophilicity of COc1cc2ncnc(Nc3cccc(Cl)c3F)c2cc1CN(C)[C@H](C)C(=O)N?###","completion":" 3.44@@@","repr":"COc1cc2ncnc(Nc3cccc(Cl)c3F)c2cc1CN(C)[C@H](C)C(=O)N","this_repr":"COc1cc2ncnc(Nc3cccc(Cl)c3F)c2cc1CN(C)[C@H](C)C(=O)N"}
+{"prompt":"what is the lipophilicity of NC(Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)O?###","completion":" 0.97@@@","repr":"NC(Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)O","this_repr":"NC(Cc1cc(I)c(Oc2ccc(O)c(I)c2)c(I)c1)C(=O)O"}
+{"prompt":"what is the lipophilicity of Cc1ccc(NC(=O)c2cccc(c2)C(F)(F)F)cc1NC(=O)c3ccc4ncccc4c3?###","completion":" 3.87@@@","repr":"Cc1ccc(NC(=O)c2cccc(c2)C(F)(F)F)cc1NC(=O)c3ccc4ncccc4c3","this_repr":"Cc1ccc(NC(=O)c2cccc(c2)C(F)(F)F)cc1NC(=O)c3ccc4ncccc4c3"}
+{"prompt":"what is the lipophilicity of O=C1C=C(N=C2C=CC=CN12)N3CCOCC3?###","completion":" 1.0@@@","repr":"O=C1C=C(N=C2C=CC=CN12)N3CCOCC3","this_repr":"O=C1C=C(N=C2C=CC=CN12)N3CCOCC3"}
+{"prompt":"what is the lipophilicity of NC(=O)c1c(NC(=O)NCCCCN2CCCC2)snc1OCc3c(F)cc(Br)cc3F?###","completion":" 2.5@@@","repr":"NC(=O)c1c(NC(=O)NCCCCN2CCCC2)snc1OCc3c(F)cc(Br)cc3F","this_repr":"NC(=O)c1c(NC(=O)NCCCCN2CCCC2)snc1OCc3c(F)cc(Br)cc3F"}
+{"prompt":"what is the lipophilicity of CSc1ncccc1C(=O)NCC2CCCCC2?###","completion":" 2.93@@@","repr":"CSc1ncccc1C(=O)NCC2CCCCC2","this_repr":"CSc1ncccc1C(=O)NCC2CCCCC2"}
+{"prompt":"what is the lipophilicity of CCN(CC)C(C)C(=O)c1ccccc1?###","completion":" 1.18@@@","repr":"CCN(CC)C(C)C(=O)c1ccccc1","this_repr":"CCN(CC)C(C)C(=O)c1ccccc1"}
+{"prompt":"what is the lipophilicity of CC12CCC3C(CCC4=CC(=O)CCC34C)C1CCC2O?###","completion":" 3.3@@@","repr":"CC12CCC3C(CCC4=CC(=O)CCC34C)C1CCC2O","this_repr":"CC12CCC3C(CCC4=CC(=O)CCC34C)C1CCC2O"}
+{"prompt":"what is the lipophilicity of CCOC(=O)[C@H](Cc1ccc(cc1)[N+](=O)[O-])NC(=O)c2ccccc2?###","completion":" 2.79@@@","repr":"CCOC(=O)[C@H](Cc1ccc(cc1)[N+](=O)[O-])NC(=O)c2ccccc2","this_repr":"CCOC(=O)[C@H](Cc1ccc(cc1)[N+](=O)[O-])NC(=O)c2ccccc2"}
