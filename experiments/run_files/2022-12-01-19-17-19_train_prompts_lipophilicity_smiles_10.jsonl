@@ -1,0 +1,10 @@
+{"prompt":"what is the lipophilicity of Cc1cccc(NS(=O)(=O)c2cccc3nonc23)c1?###","completion":" 3@@@","repr":"Cc1cccc(NS(=O)(=O)c2cccc3nonc23)c1","this_repr":"Cc1cccc(NS(=O)(=O)c2cccc3nonc23)c1"}
+{"prompt":"what is the lipophilicity of OCC(CO)CN1C(=O)C(Cc2ccccc12)NC(=O)c3cc4cc(Cl)ccc4[nH]3?###","completion":" 4@@@","repr":"OCC(CO)CN1C(=O)C(Cc2ccccc12)NC(=O)c3cc4cc(Cl)ccc4[nH]3","this_repr":"OCC(CO)CN1C(=O)C(Cc2ccccc12)NC(=O)c3cc4cc(Cl)ccc4[nH]3"}
+{"prompt":"what is the lipophilicity of CC12CC3CC(C)(C1)CC(N)(C3)C2?###","completion":" 1@@@","repr":"CC12CC3CC(C)(C1)CC(N)(C3)C2","this_repr":"CC12CC3CC(C)(C1)CC(N)(C3)C2"}
+{"prompt":"what is the lipophilicity of ONC(=O)[C@@H](Cc1ccc2ccccc2c1)NS(=O)(=O)c3ccc4ccccc4c3?###","completion":" 3@@@","repr":"ONC(=O)[C@@H](Cc1ccc2ccccc2c1)NS(=O)(=O)c3ccc4ccccc4c3","this_repr":"ONC(=O)[C@@H](Cc1ccc2ccccc2c1)NS(=O)(=O)c3ccc4ccccc4c3"}
+{"prompt":"what is the lipophilicity of OC(=O)c1cn(Cc2ccccc2)c3ccccc13?###","completion":" 2@@@","repr":"OC(=O)c1cn(Cc2ccccc2)c3ccccc13","this_repr":"OC(=O)c1cn(Cc2ccccc2)c3ccccc13"}
+{"prompt":"what is the lipophilicity of CN1CCC(CC1)Oc2cccc3ncnc(Nc4ccc(OCc5cnccn5)c(Cl)c4)c23?###","completion":" 3@@@","repr":"CN1CCC(CC1)Oc2cccc3ncnc(Nc4ccc(OCc5cnccn5)c(Cl)c4)c23","this_repr":"CN1CCC(CC1)Oc2cccc3ncnc(Nc4ccc(OCc5cnccn5)c(Cl)c4)c23"}
+{"prompt":"what is the lipophilicity of CCCCC1(CC)C(=O)NC(=O)NC1=O?###","completion":" 2@@@","repr":"CCCCC1(CC)C(=O)NC(=O)NC1=O","this_repr":"CCCCC1(CC)C(=O)NC(=O)NC1=O"}
+{"prompt":"what is the lipophilicity of Nc1nccc2ccccc12?###","completion":" 2@@@","repr":"Nc1nccc2ccccc12","this_repr":"Nc1nccc2ccccc12"}
+{"prompt":"what is the lipophilicity of Cc1nc2ccccn2c1c3ccnc(Nc4cccc(Cl)c4)n3?###","completion":" 3@@@","repr":"Cc1nc2ccccn2c1c3ccnc(Nc4cccc(Cl)c4)n3","this_repr":"Cc1nc2ccccn2c1c3ccnc(Nc4cccc(Cl)c4)n3"}
+{"prompt":"what is the lipophilicity of CC(C)n1c2ccccc2c3c(C)c(NC(=O)N4CCOCC4)ccc13?###","completion":" 4@@@","repr":"CC(C)n1c2ccccc2c3c(C)c(NC(=O)N4CCOCC4)ccc13","this_repr":"CC(C)n1c2ccccc2c3c(C)c(NC(=O)N4CCOCC4)ccc13"}

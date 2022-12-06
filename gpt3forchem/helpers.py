@@ -6,7 +6,7 @@ __all__ = ['tokenizer', 'CACTUS', 'get_num_token_dist', 'get_token_counts', 'get
            'get_representation_length_dist', 'HashableDataFrame', 'picp', 'multiclass_vote_to_probabilities',
            'multiclass_brier_score', 'expected_calibration_error', 'only_mode', 'augmented_classification_scores',
            'make_if_not_exists', 'mean_confidence_interval', 'get_else_nan', 'get_bin_ranges',
-           'compute_morgan_fingerprints', 'compute_fragprints', 'smiles_to_iupac']
+           'compute_morgan_fingerprints', 'compute_fragprints', 'smiles_to_iupac', 'compile_table_row', 'draw_smiles']
 
 # %% ../notebooks/06_helpers.ipynb 2
 import os
@@ -25,6 +25,10 @@ from pandas.util import hash_pandas_object
 from pycm import ConfusionMatrix
 from rdkit import Chem
 from rdkit.Chem import AllChem, Descriptors, MolFromSmiles, MolToSmiles
+
+from rdkit.Contrib.SA_Score.sascorer import calculateScore as calculate_sascore
+from rdkit.Chem import Draw
+from rdkit import Chem
 from scipy.stats import mode
 from transformers import GPT2Tokenizer
 
@@ -564,3 +568,35 @@ def smiles_to_iupac(smiles):
     except Exception:
         return None
 
+
+# %% ../notebooks/06_helpers.ipynb 52
+def compile_table_row(row):
+    template =  "\\num⁍ {accuracy} \\pm {accuracy_std} ⁌ &  \\num⁍ {f1_micro} \\pm {f1_micro_std}  ⁌ & \\num⁍ {f1_macro} \\pm {f1_macro_std} ⁌\\\\"
+    row = row.round(2)
+    string = template.format(
+        accuracy=row['acc']['mean'],
+        accuracy_std=row['acc']['std'],
+        f1_micro=row['f1_micro']['mean'],
+        f1_micro_std=row['f1_micro']['std'],
+        f1_macro=row['f1_macro']['mean'],
+        f1_macro_std=row['f1_macro']['std']
+    )
+
+    return string.replace("⁍", "{").replace("⁌", "}")
+
+
+# %% ../notebooks/06_helpers.ipynb 53
+def draw_smiles(smiles, maxmol=10, molsPerRow=4, subImgSize=(300, 300)):
+    mols = []
+    sascores = []
+    for s in smiles:
+        if len(s) > 5:
+            try: 
+                mol = Chem.MolFromSmiles(s)
+                mols.append(mol)
+                sascores.append(str(np.round(calculate_sascore(mol),2)))
+            except:
+                pass
+
+    img=Draw.MolsToGridImage(mols[:maxmol], molsPerRow=molsPerRow,subImgSize=subImgSize, useSVG=True, legends=sascores[:maxmol])  
+    return img

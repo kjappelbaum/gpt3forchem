@@ -5,13 +5,16 @@ __all__ = ['ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE', 'ONE_PROPERTY_FORWARD_COMPLET
            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT', 'POLYMER_ONE_PROPERTY_INVERSE_COMPLETION_TEMPLATE_CAT',
            'POLYMER_ONE_PROPERTY_INVERSE_PROMPT_TEMPLATE_CAT_W_COMPOSITION', 'PROMPT_TEMPLATE_photoswitch_w_n_pistar',
            'PROMPT_TEMPLATE_photoswitch_', 'COMPLETION_TEMPLATE_photoswitch_', 'FRAGMENT_PROMPT_TEMPlATE',
-           'randomize_smiles', 'encode_categorical_value', 'decode_categorical_value',
-           'create_single_property_forward_prompts', 'create_single_property_forward_prompts_regression',
-           'get_polymer_composition_dict', 'create_single_property_inverse_polymer_prompts',
-           'generate_inverse_photoswitch_prompts', 'generate_fragment_prompt',
-           'generate_one_hot_encoded_fragment_prompt', 'generate_property_desc', 'create_prompts_w_gas_context',
-           'create_mof_yield_prompt', 'get_mof_yield_prompt_completions', 'create_reaction_yield_prompts',
-           'create_prompts_solubility']
+           'PROMPT_TEMPLATE_water_stability', 'COMPLETION_TEMPLATE_water_stability',
+           'COMPLETION_TEMPLATE_water_stability_conf', 'PROMPT_TEMPLATE_bandgap_inverse_w_frag',
+           'COMPLETION_TEMPLATE_bandgap_inverse_w_frag', 'randomize_smiles', 'encode_categorical_value',
+           'decode_categorical_value', 'create_single_property_forward_prompts',
+           'create_single_property_forward_prompts_regression', 'get_polymer_composition_dict',
+           'create_single_property_inverse_polymer_prompts', 'generate_inverse_photoswitch_prompts',
+           'generate_fragment_prompt', 'generate_one_hot_encoded_fragment_prompt', 'generate_property_desc',
+           'create_prompts_w_gas_context', 'create_mof_yield_prompt', 'get_mof_yield_prompt_completions',
+           'create_reaction_yield_prompts', 'create_prompts_solubility', 'generate_water_stability_prompts',
+           'generate_water_stability_prompts_confidence', 'generate_inverse_photoswitch_prompts_with_fragment']
 
 # %% ../notebooks/03_input.ipynb 1
 import random
@@ -542,3 +545,86 @@ def create_prompts_solubility(
     df = df.sample(frac=1).reset_index(drop=True)  # shuffle
 
     return pd.DataFrame(prompts)
+
+# %% ../notebooks/03_input.ipynb 85
+PROMPT_TEMPLATE_water_stability= "How is the water stability of {}"###"
+COMPLETION_TEMPLATE_water_stability = "{}@@@"
+
+
+def generate_water_stability_prompts(
+    data: pd.DataFrame
+) -> pd.DataFrame:
+    prompts = []
+    completions = []
+    for i, row in data.iterrows():
+
+        prompt = PROMPT_TEMPLATE_water_stability.format(
+            row['normalized_names']
+        )
+
+        stability = 0 if row['stability'] == 'low' else 1
+        completion = COMPLETION_TEMPLATE_water_stability.format(stability)
+        prompts.append(prompt)
+        completions.append(completion)
+
+    prompts = pd.DataFrame(
+        {"prompt": prompts, "completion": completions,}
+    )
+
+    return prompts
+
+PROMPT_TEMPLATE_water_stability= "How is the water stability of {}"###"
+COMPLETION_TEMPLATE_water_stability_conf = "{} ({} confidence)@@@"
+
+
+def generate_water_stability_prompts_confidence(
+    data: pd.DataFrame
+) -> pd.DataFrame:
+    prompts = []
+    completions = []
+    for i, row in data.iterrows():
+
+        prompt = PROMPT_TEMPLATE_water_stability.format(
+            row['normalized_names']
+        )
+
+        stability = 0 if row['stability'] == 'low' else 1
+        confidence = row['confidence']
+        completion = COMPLETION_TEMPLATE_water_stability_conf.format(stability, confidence)
+        prompts.append(prompt)
+        completions.append(completion)
+
+    prompts = pd.DataFrame(
+        {"prompt": prompts, "completion": completions,}
+    )
+
+    return prompts
+    
+
+# %% ../notebooks/03_input.ipynb 87
+PROMPT_TEMPLATE_bandgap_inverse_w_frag = "What is a molecule with a bandgap of {} eV and {} as part of the molecule###"
+COMPLETION_TEMPLATE_bandgap_inverse_w_frag = "{}@@@"
+
+
+def generate_inverse_photoswitch_prompts_with_fragment(
+    data: pd.DataFrame,  representation: str = "smiles"
+) -> pd.DataFrame:
+    prompts = []
+    completions = []
+    smiles = []
+    for i, row in data.iterrows():
+
+        prompt = PROMPT_TEMPLATE_bandgap_inverse_w_frag.format(
+            np.round(row["GFN2_HOMO_LUMO_GAP"] * 27.2114, 1), row['fragment']
+        )
+
+        completion = COMPLETION_TEMPLATE_bandgap_inverse_w_frag.format(row[representation])
+        prompts.append(prompt)
+        completions.append(completion)
+        smiles.append(row["smiles"])
+
+    prompts = pd.DataFrame(
+        {"prompt": prompts, "completion": completions, "SMILES": smiles}
+    )
+
+    return prompts

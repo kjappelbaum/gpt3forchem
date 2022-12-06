@@ -1,0 +1,10 @@
+{"prompt":"what is the lipophilicity of Oc1cc(O)c2C(=O)C=C(Oc2c1)c3ccccc3?###","completion":" 4@@@","repr":"Oc1cc(O)c2C(=O)C=C(Oc2c1)c3ccccc3","this_repr":"Oc1cc(O)c2C(=O)C=C(Oc2c1)c3ccccc3"}
+{"prompt":"what is the lipophilicity of Cc1ccc(cc1)n2c(C)cc(C(=O)NS(=O)(=O)c3ccc(C)cc3)c2C?###","completion":" 3@@@","repr":"Cc1ccc(cc1)n2c(C)cc(C(=O)NS(=O)(=O)c3ccc(C)cc3)c2C","this_repr":"Cc1ccc(cc1)n2c(C)cc(C(=O)NS(=O)(=O)c3ccc(C)cc3)c2C"}
+{"prompt":"what is the lipophilicity of Cc1c(Sc2ccc(Cl)cc2)c3cc(ccc3n1CC(=O)O)S(=O)(=O)C?###","completion":" 1@@@","repr":"Cc1c(Sc2ccc(Cl)cc2)c3cc(ccc3n1CC(=O)O)S(=O)(=O)C","this_repr":"Cc1c(Sc2ccc(Cl)cc2)c3cc(ccc3n1CC(=O)O)S(=O)(=O)C"}
+{"prompt":"what is the lipophilicity of COc1cc(ccc1Cn2cnc3ccc(NC(=O)CC4CCCC4)cc23)C(=O)NS(=O)(=O)c5ccccc5?###","completion":" 2@@@","repr":"COc1cc(ccc1Cn2cnc3ccc(NC(=O)CC4CCCC4)cc23)C(=O)NS(=O)(=O)c5ccccc5","this_repr":"COc1cc(ccc1Cn2cnc3ccc(NC(=O)CC4CCCC4)cc23)C(=O)NS(=O)(=O)c5ccccc5"}
+{"prompt":"what is the lipophilicity of Cc1nc(nc(N2CCCC2)c1Cl)c3ccccn3?###","completion":" 3@@@","repr":"Cc1nc(nc(N2CCCC2)c1Cl)c3ccccn3","this_repr":"Cc1nc(nc(N2CCCC2)c1Cl)c3ccccn3"}
+{"prompt":"what is the lipophilicity of COc1ccc(C)c(NC(=O)CC23CC4CC(CC(C4)C2)C3)c1?###","completion":" 4@@@","repr":"COc1ccc(C)c(NC(=O)CC23CC4CC(CC(C4)C2)C3)c1","this_repr":"COc1ccc(C)c(NC(=O)CC23CC4CC(CC(C4)C2)C3)c1"}
+{"prompt":"what is the lipophilicity of COc1ccc2nccc([C@@H](O)[C@@H]3C[C@H]4CCN3C[C@@H]4C=C)c2c1?###","completion":" 3@@@","repr":"COc1ccc2nccc([C@@H](O)[C@@H]3C[C@H]4CCN3C[C@@H]4C=C)c2c1","this_repr":"COc1ccc2nccc([C@@H](O)[C@@H]3C[C@H]4CCN3C[C@@H]4C=C)c2c1"}
+{"prompt":"what is the lipophilicity of C(Nc1ncnc2ccccc12)c3ccccc3?###","completion":" 3@@@","repr":"C(Nc1ncnc2ccccc12)c3ccccc3","this_repr":"C(Nc1ncnc2ccccc12)c3ccccc3"}
+{"prompt":"what is the lipophilicity of CCOc1ccc(NC(=O)C)cc1?###","completion":" 2@@@","repr":"CCOc1ccc(NC(=O)C)cc1","this_repr":"CCOc1ccc(NC(=O)C)cc1"}
+{"prompt":"what is the lipophilicity of CN1C(=O)NC(=O)C(C)(C2=CCCCC2)C1=O?###","completion":" 2@@@","repr":"CN1C(=O)NC(=O)C(C)(C2=CCCCC2)C1=O","this_repr":"CN1C(=O)NC(=O)C(C)(C2=CCCCC2)C1=O"}
