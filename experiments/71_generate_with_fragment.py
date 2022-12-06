@@ -7,8 +7,8 @@ from scipy import stats
 from gpt3forchem.helpers import make_if_not_exists
 import time 
 
-FRAGMENTS = ["C(=O)", "CO", "C#C", "Br"]
-TEMPERATURES = [0, 0.05, 0.15, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5]
+FRAGMENTS = ["Cl", "F", "C#CBr", "C#CC", "C(=O)", "C#C", "Br"] #C(=O)", "C#C", "Br", 
+TEMPERATURES = [0, 0.05, 0.15, 0.25, 0.5, 0.75, 1.0, 1.25, 1.5,]
 TRAIN_PROMPTS = pd.read_csv("run_files/2022-11-27-22-29-43500000_smiles_train.csv")
 OUTDIR = "results/20221206_generate_with_fragment"
 NUM_POINTS = 2000
