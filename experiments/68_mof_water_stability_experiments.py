@@ -87,7 +87,7 @@ def train_test(random_state=None, use_confidence=False, downsample=1.0):
 
 if __name__ == "__main__":
     for seed in range(10):
-        seed += 4452
+        seed +=  3456723456723456
         for use_confidence in [True, False]:
-            for downsample in [  0.8, 0.6, 0.3, 1.0 ]:
+            for downsample in [ 0.8, 0.3, 1.0, 0.6]:
                 outputs = train_test(seed, use_confidence, downsample)

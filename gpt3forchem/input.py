@@ -186,6 +186,7 @@ def create_single_property_forward_prompts_regression(
     target_rename_dict,  # dict to rename target property from the column name in df to the target property name in the prompt
     prompt_prefix="",  # prefix to add to the prompt, e.g. "I am an expert chemist"
     num_digit=1,
+    representation_col="string",
 ):
     prompts = []
 
@@ -201,7 +202,7 @@ def create_single_property_forward_prompts_regression(
             {
                 "prompt": prompt_prefix
                 + ONE_PROPERTY_FORWARD_PROMPT_TEMPLATE.format(
-                    property=target_name, text=row["string"]
+                    property=target_name, text=row[representation_col]
                 ),
                 "completion": ONE_PROPERTY_FORWARD_COMPLETION_TEMPLATE.format(
                     value=value
